@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Services\5wsf1dwb.frq~" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Clinique2000_Core\Clinique2000_Core.csproj" />
+    <ProjectReference Include="..\Clinique2000_DataAccess\Clinique2000_DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>
