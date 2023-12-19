@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinique2000_MVC", "Clinique2000_MVC\Clinique2000_MVC.csproj", "{EF2888CB-0154-493B-A5A2-C3987DCD9A1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinique2000_MVC", "Clinique2000_MVC\Clinique2000_MVC.csproj", "{EF2888CB-0154-493B-A5A2-C3987DCD9A1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinique2000_Core", "Clinique2000_Core\Clinique2000_Core.csproj", "{F227EB28-A6DC-4912-AB90-D33E4B986C86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinique2000_Core", "Clinique2000_Core\Clinique2000_Core.csproj", "{F227EB28-A6DC-4912-AB90-D33E4B986C86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinique2000_DataAccess", "Clinique2000_DataAccess\Clinique2000_DataAccess.csproj", "{2619A569-2968-4B44-B1CC-A30EFFF01637}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinique2000_DataAccess", "Clinique2000_DataAccess\Clinique2000_DataAccess.csproj", "{2619A569-2968-4B44-B1CC-A30EFFF01637}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinique2000_Services", "Clinique2000_Services\Clinique2000_Services.csproj", "{0C47A5F8-097C-43E6-8592-C1D0620EBEA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinique2000_Services", "Clinique2000_Services\Clinique2000_Services.csproj", "{0C47A5F8-097C-43E6-8592-C1D0620EBEA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinique2000_Utility", "Clinique2000_Utility\Clinique2000_Utility.csproj", "{0EB772BD-5638-4EB5-BD1E-AA9DA4F670D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinique2000_Utility", "Clinique2000_Utility\Clinique2000_Utility.csproj", "{0EB772BD-5638-4EB5-BD1E-AA9DA4F670D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

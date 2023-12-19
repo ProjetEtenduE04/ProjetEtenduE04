@@ -15,11 +15,11 @@ namespace Clinique2000_Core.Models
 
         public bool IsDisponible { get; set; }
 
-        public DateOnly DateEffectivite { get; set; }
+        public DateTime DateEffectivite { get; set; }
 
-        public TimeOnly HeureOuverture { get; set; }
+        public DateTime HeureOuverture { get; set; }
 
-        public TimeOnly HeureFermeture { get; set; }
+        public DateTime HeureFermeture { get; set; }
 
         public int NbMedecinsDispo { get; set; }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clinique2000_Services.IServices
 {
-    public class IListeattenteServices:IServiceBaseAsync<ListeAttente>
+    public class IListeattenteServices/*:IServiceBaseAsync<ListeAttente>*/
     {
 
     }
