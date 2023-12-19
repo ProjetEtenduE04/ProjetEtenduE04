@@ -1,7 +1,8 @@
-﻿using Clinique2000_Core;
+using Clinique2000_Core;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace Clinique2000_DataAccess.Data
     {
         // Définissez ici les DbSets pour vos entités.
         // public DbSet<Entity> TableName { get ; set ; }
+        public DbSet<ListeAttente> listeAttentes { get; set; }
+        public DbSet<PlageHoraire> PlagesHoraires{ get; set; }
 
 
         public DbSet<ListeAttente> ListeAttentes { get; set; }

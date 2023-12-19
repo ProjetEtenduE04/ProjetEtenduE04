@@ -11,7 +11,7 @@ namespace Clinique2000_Services.Services
 {
     public class Clinique2000Services : IClinique2000Services
     {
-        public IListeAttenteService listeAttente { get; private set; }
+        public IServices.IListeAttenteService listeAttente { get; private set; }
 
 
         
