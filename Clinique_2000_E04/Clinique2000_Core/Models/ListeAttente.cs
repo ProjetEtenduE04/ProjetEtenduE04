@@ -18,25 +18,25 @@ namespace Clinique2000_Core.Models
 
 
         [Display(Name = "Date d'effectivité")]
-        [Required(ErrorMessage ="Veuillez entrer une date d'effectivité pour la liste d'attente")]
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [DataType(DataType.Date)]
         public DateTime DateEffectivite { get; set; }
 
 
         [Display(Name = "Heure de fermeture")]
-        [Required(ErrorMessage = "Veuillez entrer l'heure d'ouverture de la liste d'attente")]
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [DataType(DataType.Time)]
         public DateTime HeureOuverture { get; set; }
 
 
         [Display(Name = "Heure d'ouverture")]
-        [Required(ErrorMessage = "Veuillez entrer l'heure de fermeture de la liste d'attente")]
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [DataType(DataType.Time)]
         public DateTime HeureFermeture { get; set; }
 
 
         [Display(Name = "Nombre de médecins disponibles")]
-        [Required(ErrorMessage="Veillez entrer le nombre de médecins disponibles")]
+        [Required(ErrorMessage= "Ce champ est obligatoire.")]
         public int NbMedecinsDispo { get; set; }
 
 
@@ -44,7 +44,7 @@ namespace Clinique2000_Core.Models
 
         ////proprietes de naviguation
 
-        //public List<Consultation> Consultations { get; set; }
+        public virtual List<Consultation> Consultations { get; set; }
 
         //[ForeignKey(Clinique)]
         //public int CliniqueID { get; set; }

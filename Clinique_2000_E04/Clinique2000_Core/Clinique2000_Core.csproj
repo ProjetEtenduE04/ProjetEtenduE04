@@ -7,19 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Remove="Interfaces\**" />
     <Compile Remove="ViewModels\**" />
     <EmbeddedResource Remove="Interfaces\**" />
     <EmbeddedResource Remove="ViewModels\**" />
     <None Remove="Interfaces\**" />
     <None Remove="ViewModels\**" />
-=======
     <Folder Include="Interfaces\" />
     <Folder Include="Interfaces\" />
     <Folder Include="ViewModels\" />
     <Folder Include="ViewModels\" />
->>>>>>> 6894f7d (FCT_Ajouter Model: Patient, Personne, PatientACharge)
   </ItemGroup>
 
 </Project>

@@ -31,8 +31,8 @@ namespace Clinique2000_Core.Models
 
         public string MotDePasseConfirmation { get; set; }
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
-
-        public DateTime DateDeNassance { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DateDeNaissance { get; set; }
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         public int Age { get; set; }
 
