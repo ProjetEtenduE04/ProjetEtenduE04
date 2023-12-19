@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,19 +14,37 @@ namespace Clinique2000_Core.Models
         [Key]
         public int ListeAttenteID { get; set; }
 
-        public bool IsDisponible { get; set; }
+        public bool IsOuverte { get; set; }
 
+
+        [Display(Name = "Date d'effectivité")]
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [DataType(DataType.Date)]
         public DateTime DateEffectivite { get; set; }
 
+
+        [Display(Name = "Heure de fermeture")]
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [DataType(DataType.Time)]
         public DateTime HeureOuverture { get; set; }
 
+
+        [Display(Name = "Heure d'ouverture")]
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [DataType(DataType.Time)]
         public DateTime HeureFermeture { get; set; }
 
+
+        [Display(Name = "Nombre de médecins disponibles")]
+        [Required(ErrorMessage= "Ce champ est obligatoire.")]
         public int NbMedecinsDispo { get; set; }
+
+
+
 
         ////proprietes de naviguation
 
-        //public List<Consultation> Consultations { get; set; }
+        public virtual List<Consultation> Consultations { get; set; }
 
         //[ForeignKey(Clinique)]
         //public int CliniqueID { get; set; }

@@ -13,6 +13,10 @@
     <EmbeddedResource Remove="ViewModels\**" />
     <None Remove="Interfaces\**" />
     <None Remove="ViewModels\**" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>

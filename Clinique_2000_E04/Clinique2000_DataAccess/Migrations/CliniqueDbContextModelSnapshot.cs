@@ -47,7 +47,7 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasKey("ListeAttenteID");
 
-                    b.ToTable("ListeAttentes");
+                    b.ToTable("ListeAttentes", (string)null);
                 });
 #pragma warning restore 612, 618
         }

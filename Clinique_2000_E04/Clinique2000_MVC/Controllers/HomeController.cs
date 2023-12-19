@@ -1,4 +1,4 @@
-﻿using Clinique2000_MVC.Models;
+using Clinique2000_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
