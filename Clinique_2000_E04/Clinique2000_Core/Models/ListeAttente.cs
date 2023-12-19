@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Clinique2000_Core.Models
 {
-    public class FileAttente
+    public class ListeAttente
     {
         [Key]
-        public int FileAttenteID { get; set; }
+        public int ListeAttenteID { get; set; }
 
         public bool IsDisponible { get; set; }
 
