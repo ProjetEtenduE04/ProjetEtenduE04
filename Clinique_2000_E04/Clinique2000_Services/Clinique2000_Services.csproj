@@ -11,6 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.25" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Clinique2000_Core\Clinique2000_Core.csproj" />
     <ProjectReference Include="..\Clinique2000_DataAccess\Clinique2000_DataAccess.csproj" />
   </ItemGroup>
