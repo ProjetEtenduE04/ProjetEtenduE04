@@ -14,39 +14,42 @@ namespace Clinique2000_Services.Services
     {
 
         private readonly CliniqueDbContext _context;
-
+        
         public ListeAttenteService (CliniqueDbContext context): base(context)
         {
             _context = context;
         }
 
+     
 
-
-        public async Task GenererPlagesHorairesAsync(ListeAttente listeAttente)
+        public async Task GenererPlagesHorairesAsync(ListeAttente listeAttente )
         {
+            
             DateTime heureDebut = listeAttente.DateEffectivite.Date.Add(listeAttente.HeureOuverture);
             DateTime finService = listeAttente.DateEffectivite.Date.Add(listeAttente.HeureFermeture);
-
+            PlageHoraire plageHoraire;
             while (heureDebut < finService)
             {
-                DateTime nouvelleHeureFin = heureDebut.AddMinutes(listeAttente.dureeConsultationMinutes);//ajouer la duree de consultation a classe ListeAttente    
+                DateTime nouvelleHeureFin = heureDebut.AddMinutes((double)listeAttente.Clinique.TempsMoyenConsultation);  
 
                 for (int i = 0; i < listeAttente.NbMedecinsDispo; i++)
                 {
-                    var plageHoraire = new PlageHoraire
+                    plageHoraire = new PlageHoraire
                     {
                         HeureDebut = heureDebut,
                         HeureFin = nouvelleHeureFin
                     };
-                    _context.PlagesHoraires.Add(PlageHoraire);
+                    _context.PlagesHoraires.Add(plageHoraire);
+                    listeAttente.PlagesHoraires.Add(plageHoraire);
                 }
 
                 heureDebut = nouvelleHeureFin;
             }
             await _context.SaveChangesAsync();
+            
+         
         }
 
-        
         }
         
 

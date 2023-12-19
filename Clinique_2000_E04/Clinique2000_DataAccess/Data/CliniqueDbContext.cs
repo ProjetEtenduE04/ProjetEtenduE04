@@ -14,8 +14,8 @@ namespace Clinique2000_DataAccess.Data
     {
         // Définissez ici les DbSets pour vos entités.
         // public DbSet<Entity> TableName { get ; set ; }
-        public DbSet<ListeAttente> listeAttentes { get; set; }
-        public DbSet<PlageHoraire> PlagesHoraires{ get; set; }
+        
+       
 
 
         public DbSet<ListeAttente> ListeAttentes { get; set; }
@@ -23,6 +23,8 @@ namespace Clinique2000_DataAccess.Data
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PatientACharge> PatientACharges { get; set; }
         public DbSet<Personne> Personnes { get; set; }
+        public DbSet<PlageHoraire> PlagesHoraires { get; set; }
+        public DbSet<Clinique> Cliniques { get; set; }
 
 
 

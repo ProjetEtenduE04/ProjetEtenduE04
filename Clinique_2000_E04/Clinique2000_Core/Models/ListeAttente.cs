@@ -5,13 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
 
 namespace Clinique2000_Core.Models
 {
     public class ListeAttente
     {
         [Key]
-        public int FileAttenteID { get; set; }
+        public int ListeAttenteID { get; set; }
 
         public bool IsOuverte { get; set; }
 
@@ -25,37 +27,36 @@ namespace Clinique2000_Core.Models
         [Display(Name = "Heure de fermeture")]
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [DataType(DataType.Time)]
-        public DateTime HeureOuverture { get; set; }
+        public TimeSpan HeureOuverture { get; set; }
 
 
         [Display(Name = "Heure d'ouverture")]
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [DataType(DataType.Time)]
-        public DateTime HeureFermeture { get; set; }
+        public TimeSpan HeureFermeture { get; set; }
 
 
         [Display(Name = "Nombre de médecins disponibles")]
         [Required(ErrorMessage= "Ce champ est obligatoire.")]
         public int NbMedecinsDispo { get; set; }
 
-        public DateTime DateEffectivite { get; set; }
 
-        public TimeOnly HeureOuverture { get; set; }
+        public int? dureeConsultationMinutes { get; set; }
 
-        public TimeOnly HeureFermeture { get; set; }
+        [Display(Name = "Clinique")]
+        [ForeignKey("CliniqueID")]
+        public int CliniqueID { get; set; }
 
-        public int NbMedecinsDispo { get; set; }
+        //Propiete de navigation
+        [ValidateNever]
+        public List<PlageHoraire> PlagesHoraires { get; set; }
 
-        
+        [ValidateNever]
+        public Clinique Clinique { get; set; }
 
-        ////proprietes de naviguation
 
-        //public List<Consultation> Consultations { get; set; }
-        public List<PlageHoraire> PlagesHoraires { get; set; }//ajouter une liste de plages horaires
-        //[ForeignKey(Clinique)]
-        //public int CliniqueID { get; set; }
-        //public Clinique Clinique { get; set; }
+      
 
-       
+
     }
 }

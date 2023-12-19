@@ -8,16 +8,14 @@ namespace Clinique2000_Core.Models
 {
     public class PlageHoraire
     {
+        public int PlageHoraireID { get; set; }
+
         public DateTime HeureDebut { get; set; }
         public DateTime HeureFin { get; set; }
-        
+        public int ListeAttenteID { get; set; }
 
-        public PlageHoraire(DateTime debut, DateTime fin)
-        {
-            HeureDebut = debut;
-            HeureFin = fin;
-            
-        }
+        //Propiete de navigation
+        public ListeAttente? ListeAttente { get; set; }
 
     }
 }
