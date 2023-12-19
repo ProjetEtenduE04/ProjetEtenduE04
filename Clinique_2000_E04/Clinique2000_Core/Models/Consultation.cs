@@ -5,6 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Clinique2000_Utility;
+
+using Clinique2000_Utility.Enum;
+
 
 namespace Clinique2000_Core.Models
 {
@@ -25,6 +29,9 @@ namespace Clinique2000_Core.Models
         public DateTime HeureDateDebutReele { get; set; }
 
         public DateTime HeureDateFinReele { get; set; }
+
+
+        public StatutConsultation StatutConsultation { get; set; } 
 
 
 
