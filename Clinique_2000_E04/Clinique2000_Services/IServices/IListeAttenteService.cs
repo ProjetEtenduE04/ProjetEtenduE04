@@ -7,9 +7,8 @@ using Clinique2000_Core.Models;
 
 namespace Clinique2000_Services.IServices
 {
-
     public interface IListeAttenteService:IServiceBaseAsync<ListeAttente>
     {
-
+        Task GenererPlagesHorairesAsync(ListeAttente listeAttente);
     }
 }
