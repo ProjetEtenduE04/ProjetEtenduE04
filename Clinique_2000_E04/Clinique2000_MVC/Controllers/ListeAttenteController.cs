@@ -22,8 +22,10 @@ namespace Clinique2000_MVC.Controllers
         // GET: ListeAttenteController
         public async Task<ActionResult> Index()
         {
+
             IReadOnlyList<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
             return View(listListAttente);
+
         }
 
 
