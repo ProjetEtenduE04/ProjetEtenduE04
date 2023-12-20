@@ -22,6 +22,60 @@ namespace Clinique2000_DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Clinique2000_Core.Models.Clinique", b =>
+                {
+                    b.Property<int>("CliniqueID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CliniqueID"), 1L, 1);
+
+                    b.Property<int>("TempsMoyenConsultation")
+                        .HasColumnType("int");
+
+                    b.HasKey("CliniqueID");
+
+                    b.ToTable("Cliniques");
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
+                {
+                    b.Property<int>("ConsultationID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ConsultationID"), 1L, 1);
+
+                    b.Property<DateTime>("HeureDateDebutPrevue")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HeureDateDebutReele")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HeureDateFinPrevue")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HeureDateFinReele")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ListeAttenteID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatutConsultation")
+                        .HasColumnType("int");
+
+                    b.HasKey("ConsultationID");
+
+                    b.HasIndex("ListeAttenteID");
+
+                    b.HasIndex("PatientID");
+
+                    b.ToTable("Consultations");
+                });
+
             modelBuilder.Entity("Clinique2000_Core.Models.ListeAttente", b =>
                 {
                     b.Property<int>("ListeAttenteID")
@@ -30,24 +84,228 @@ namespace Clinique2000_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ListeAttenteID"), 1L, 1);
 
+                    b.Property<int>("CliniqueID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateEffectivite")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("HeureFermeture")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("HeureFermeture")
+                        .HasColumnType("time");
 
-                    b.Property<DateTime>("HeureOuverture")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("HeureOuverture")
+                        .HasColumnType("time");
 
-                    b.Property<bool>("IsDisponible")
+                    b.Property<bool>("IsOuverte")
                         .HasColumnType("bit");
 
                     b.Property<int>("NbMedecinsDispo")
                         .HasColumnType("int");
 
+                    b.Property<int?>("dureeConsultationMinutes")
+                        .HasColumnType("int");
+
                     b.HasKey("ListeAttenteID");
 
-                    b.ToTable("ListeAttentes", (string)null);
+                    b.HasIndex("CliniqueID");
+
+                    b.ToTable("ListeAttentes");
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.Personne", b =>
+                {
+                    b.Property<int>("PersonneId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonneId"), 1L, 1);
+
+                    b.Property<string>("Courriel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Prenom")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("PersonneId");
+
+                    b.ToTable("Personne", (string)null);
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.PlageHoraire", b =>
+                {
+                    b.Property<int>("PlageHoraireID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlageHoraireID"), 1L, 1);
+
+                    b.Property<DateTime>("HeureDebut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HeureFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ListeAttenteID")
+                        .HasColumnType("int");
+
+                    b.HasKey("PlageHoraireID");
+
+                    b.HasIndex("ListeAttenteID");
+
+                    b.ToTable("PlagesHoraires");
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
+                {
+                    b.HasBaseType("Clinique2000_Core.Models.Personne");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CodePostal")
+                        .IsRequired()
+                        .HasMaxLength(225)
+                        .HasColumnType("nvarchar(225)");
+
+                    b.Property<DateTime>("DateDeNaissance")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MotDePasse")
+                        .IsRequired()
+                        .HasMaxLength(225)
+                        .HasColumnType("nvarchar(225)");
+
+                    b.Property<string>("MotDePasseConfirmation")
+                        .IsRequired()
+                        .HasMaxLength(225)
+                        .HasColumnType("nvarchar(225)");
+
+                    b.Property<string>("NAM")
+                        .IsRequired()
+                        .HasMaxLength(225)
+                        .HasColumnType("nvarchar(225)");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.ToTable("Patient", (string)null);
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.PatientACharge", b =>
+                {
+                    b.HasBaseType("Clinique2000_Core.Models.Personne");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDeNaissance")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NAM")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
+
+                    b.Property<int>("PatientAChargeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PatientPersonneId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("PatientPersonneId");
+
+                    b.ToTable("PatientACharge", (string)null);
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
+                {
+                    b.HasOne("Clinique2000_Core.Models.ListeAttente", "ListeAttente")
+                        .WithMany()
+                        .HasForeignKey("ListeAttenteID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clinique2000_Core.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ListeAttente");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.ListeAttente", b =>
+                {
+                    b.HasOne("Clinique2000_Core.Models.Clinique", "Clinique")
+                        .WithMany("ListeAttente")
+                        .HasForeignKey("CliniqueID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clinique");
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.PlageHoraire", b =>
+                {
+                    b.HasOne("Clinique2000_Core.Models.ListeAttente", "ListeAttente")
+                        .WithMany("PlagesHoraires")
+                        .HasForeignKey("ListeAttenteID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ListeAttente");
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
+                {
+                    b.HasOne("Clinique2000_Core.Models.Personne", null)
+                        .WithOne()
+                        .HasForeignKey("Clinique2000_Core.Models.Patient", "PersonneId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.PatientACharge", b =>
+                {
+                    b.HasOne("Clinique2000_Core.Models.Patient", null)
+                        .WithMany("PatientsACharge")
+                        .HasForeignKey("PatientPersonneId");
+
+                    b.HasOne("Clinique2000_Core.Models.Personne", null)
+                        .WithOne()
+                        .HasForeignKey("Clinique2000_Core.Models.PatientACharge", "PersonneId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.Clinique", b =>
+                {
+                    b.Navigation("ListeAttente");
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.ListeAttente", b =>
+                {
+                    b.Navigation("PlagesHoraires");
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
+                {
+                    b.Navigation("PatientsACharge");
                 });
 #pragma warning restore 612, 618
         }

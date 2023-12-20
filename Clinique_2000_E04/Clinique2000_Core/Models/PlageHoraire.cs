@@ -15,7 +15,7 @@ namespace Clinique2000_Core.Models
         public int ListeAttenteID { get; set; }
 
         //Propiete de navigation
-        public ListeAttente? ListeAttente { get; set; }
+        public virtual  ListeAttente? ListeAttente { get; set; }
 
     }
 }

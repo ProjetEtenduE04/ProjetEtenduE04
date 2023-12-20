@@ -49,10 +49,10 @@ namespace Clinique2000_Core.Models
 
         //Propiete de navigation
         [ValidateNever]
-        public List<PlageHoraire> PlagesHoraires { get; set; }
+        public virtual List<PlageHoraire> PlagesHoraires { get; set; }
 
         [ValidateNever]
-        public Clinique Clinique { get; set; }
+        public virtual Clinique Clinique { get; set; }
 
 
       
