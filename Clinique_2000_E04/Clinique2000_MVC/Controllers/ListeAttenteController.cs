@@ -1,85 +1,109 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Clinique2000_Core.Models;
+using Clinique2000_Services.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Clinique2000_MVC.Controllers
 {
     public class ListeAttenteController : Controller
     {
+
+        public Clinique2000Services _services { get; set; }
+
+        public ListeAttenteController(Clinique2000Services service)
+        {
+            _services = service;
+        }
+
+
+
+
         // GET: ListeAttenteController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            IReadOnlyList<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
+            return View(listListAttente);
         }
 
-        // GET: ListeAttenteController/Details/5
-        public ActionResult Details(int id)
+
+        public async Task<ActionResult> Details(int id)
         {
-
-
-            return View();
+            ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
+            return View(listeAttente);
         }
+
 
         // GET: ListeAttenteController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create(int id)
         {
-            return View();
+
+            ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
+            return View(list);
+
         }
 
         // POST: ListeAttenteController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(ListeAttente listeAttente)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
+            if (ModelState.IsValid)
+            {
+                await _services.listeAttente.CreerAsync(listeAttente);
+                RedirectToAction("Index");
+            }
+
+
+            return View(listeAttente);
+        }
+        [HttpGet]
         // GET: ListeAttenteController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> EditAsync(int id)
         {
-            return View();
+            
+             ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
+             return View(list);
+         
+      
         }
 
         // POST: ListeAttenteController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(ListeAttente listeAttente)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+               await _services.listeAttente.EditerAsync(listeAttente);
+                RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+          
+
+            return View(listeAttente);
         }
 
         // GET: ListeAttenteController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            ListeAttente list=  await _services.listeAttente.ObtenirParIdAsync(id);
+
+            return View(list);
         }
 
         // POST: ListeAttenteController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(ListeAttente listeAttente)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                await _services.listeAttente.SupprimerAsync(listeAttente.ListeAttenteID);
+
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(listeAttente);
         }
     }
 }
