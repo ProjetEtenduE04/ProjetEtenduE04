@@ -30,7 +30,7 @@ namespace Clinique2000_TestsUnitaires
                             HeureOuverture = new TimeSpan(9, 0, 0),
                             HeureFermeture = new TimeSpan(17, 0, 0),
                             NbMedecinsDispo = 5,
-                            dureeConsultationMinutes = 30,
+                            DureeConsultationMinutes = 30,
                             CliniqueID = 1
                         },
                         new ListeAttente
@@ -41,7 +41,7 @@ namespace Clinique2000_TestsUnitaires
                             HeureOuverture = new TimeSpan(8, 30, 0),
                             HeureFermeture = new TimeSpan(16, 30, 0),
                             NbMedecinsDispo = 4,
-                            dureeConsultationMinutes = 45,
+                            DureeConsultationMinutes = 45,
                             CliniqueID = 2
                         }
                     };
@@ -121,7 +121,7 @@ namespace Clinique2000_TestsUnitaires
                 HeureOuverture = new TimeSpan(9, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                dureeConsultationMinutes = 15,
+                DureeConsultationMinutes = 15,
                 CliniqueID = 101,
             };
 
@@ -138,7 +138,13 @@ namespace Clinique2000_TestsUnitaires
             Assert.Equal(listeAttenteAttendue, model);
         }
 
-
+        /// <summary>
+        /// Cette méthode de test unitaire, Details AvecIdInvalide RetourneNotFound, vise à vérifier le comportement de laction Details dans ListeAttenteController lorsquelle
+        /// reçoit un ID invalide (dans ce cas, 999). Le test sassure que si aucun objet ListeAttente ne correspond à lID fourni, laction renvoie un résultat NotFoundResult.
+        /// Pour cela, il configure un service mock (IClinique2000Services) pour retourner null lors de lappel à ObtenirParIdAsync avec nimporte quel ID, simulant ainsi une
+        /// situation où lID demandé nexiste pas dans la base de données. Le test confirme ensuite que le contrôleur se comporte comme attendu dans ce scénario.
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task Details_AvecIdInvalide_RetourneNotFound()
         {
@@ -152,7 +158,7 @@ namespace Clinique2000_TestsUnitaires
                 HeureOuverture = new TimeSpan(9, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                dureeConsultationMinutes = 15,
+                DureeConsultationMinutes = 15,
                 CliniqueID = 101,
             };
 
@@ -161,11 +167,162 @@ namespace Clinique2000_TestsUnitaires
             var controller = new ListeAttenteController(mockService.Object);
 
             // Act
-            var result = await controller.Details(999); // Utiliser un ID qui n'existe probablement pas
+            var result = await controller.Details(999);
 
             // Assert
             Assert.IsType<NotFoundResult>(result);
         }
+
+
+        // Ce test vérifie que l'action EditAsync renvoie une vue contenant l'objet ListeAttente correct lorsque l'ID fourni est valide.
+        [Fact]
+        public async Task EditAsync_AvecIdValide_RetourneVueAvecListeAttente()
+        {
+            // Arrange
+            var mockService = new Mock<IClinique2000Services>();
+            var listeAttenteTest = new ListeAttente
+            {
+                ListeAttenteID = 1,
+                IsOuverte = true,
+                DateEffectivite = new DateTime(2023, 1, 1),
+                HeureOuverture = new TimeSpan(9, 0, 0),
+                HeureFermeture = new TimeSpan(17, 0, 0),
+                NbMedecinsDispo = 5,
+                DureeConsultationMinutes = 30,
+            };
+            mockService.Setup(s => s.listeAttente.ObtenirParIdAsync(1)).ReturnsAsync(listeAttenteTest);
+
+            var controller = new ListeAttenteController(mockService.Object);
+
+            // Act
+            var result = await controller.EditAsync(1);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsType<ListeAttente>(viewResult.Model);
+            Assert.Equal(listeAttenteTest, model);
+        }
+
+
+        // Ce test vérifie que lorsque le modèle est valide, l'action Edit effectue la mise à jour et redirige vers l'action Index.
+        [Fact]
+        public async Task Edit_Post_AvecModeleValide_RedirigeVersIndex()
+        {
+            // Arrange
+            var mockService = new Mock<IClinique2000Services>();
+            var listeAttente = new ListeAttente
+            {
+                ListeAttenteID = 1,
+                IsOuverte = true,
+                DateEffectivite = new DateTime(2023, 1, 1),
+                HeureOuverture = new TimeSpan(9, 0, 0),
+                HeureFermeture = new TimeSpan(17, 0, 0),
+                NbMedecinsDispo = 5,
+                DureeConsultationMinutes = 30,
+               
+            };
+            mockService.Setup(s => s.listeAttente.EditerAsync(listeAttente)).Returns(Task.CompletedTask);
+
+            var controller = new ListeAttenteController(mockService.Object);
+            controller.ModelState.Clear();
+
+            // Act
+            var result = await controller.Edit(listeAttente);
+
+            // Assert
+            var redirectResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", redirectResult.ActionName);
+        }
+
+
+        // Ce test vérifie que si le modèle n'est pas valide, l'action Edit retourne la même vue avec le modèle fourni.
+        [Fact]
+        public async Task Edit_Post_AvecModeleInvalide_RetourneMemeVue()
+        {
+            // Arrange
+            var mockService = new Mock<IClinique2000Services>();
+            var listeAttente = new ListeAttente();
+
+            var controller = new ListeAttenteController(mockService.Object);
+            controller.ModelState.AddModelError("Error", "Erreur de modèle"); // Rendre le ModelState invalide
+
+            // Act
+            var result = await controller.Edit(listeAttente);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(listeAttente, viewResult.Model);
+        }
+
+
+        //Ce test vérifie que l'action Create (GET) renvoie la vue par défaut pour créer une nouvelle entrée.
+        [Fact]
+        public async Task Create_Get_RetourneVueParDefaut()
+        {
+
+            // Arrange
+            var mockService = new Mock<IClinique2000Services>();
+            var controller = new ListeAttenteController(mockService.Object);
+
+            // Act
+            var result = await controller.Create();
+
+            // Assert
+            Assert.IsType<ViewResult>(result);
+            var viewResult = result as ViewResult;
+            Assert.Null(viewResult.Model); // Confirme que la vue est retournée sans modèle
+        }
+
+
+        ///// <summary>
+        ///// Vérifie que la méthode POST de l'action "Create" du contrôleur "ListeAttenteController"
+        ///// renvoie une redirection vers l'action "Index" lorsque le modèle est valide, et confirme
+        ///// que le nombre d'éléments ListeAttente dans la base de données a augmenté.
+        ///// </summary>
+        //[Fact]
+        //public async Task Create_Post_ReturnsRedirectToIndexWhenModelIsValid()
+        //{
+        //    // Arrange
+        //    var mockService = new Mock<IClinique2000Services>();
+        //    var controller = new ListeAttenteController(mockService.Object);
+
+        //    var validListeAttente = new ListeAttente
+        //    {
+        //        ListeAttenteID = 1,
+        //        IsOuverte = true,
+        //        DateEffectivite = DateTime.Now,
+        //        HeureOuverture = new TimeSpan(9, 0, 0),
+        //        HeureFermeture = new TimeSpan(17, 0, 0),
+        //        NbMedecinsDispo = 5,
+        //        DureeConsultationMinutes = 30,
+        //        CliniqueID = 1,
+        //    };
+
+        //    controller.ModelState.Clear();
+
+        //    var expectedListeAttente = new ListeAttente
+        //    {
+        //        ListeAttenteID = 2,
+        //        IsOuverte = true,
+        //        DateEffectivite = DateTime.Now,
+        //        HeureOuverture = new TimeSpan(9, 0, 0),
+        //        HeureFermeture = new TimeSpan(17, 0, 0),
+        //        NbMedecinsDispo = 5,
+        //        DureeConsultationMinutes = 30,
+        //        CliniqueID = 1,
+        //    };
+
+        //    mockService.Setup(s => s.listeAttente.CreerAsync(It.IsAny<ListeAttente>()))
+        //        .ReturnsAsync(expectedListeAttente);
+
+        //    // Act
+        //    var result = await controller.Create(validListeAttente);
+
+        //    // Assert
+        //    var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+        //    Assert.Equal("Index", redirectToActionResult.ActionName);
+        //}
+
 
 
     }

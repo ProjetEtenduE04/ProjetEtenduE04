@@ -32,31 +32,28 @@ namespace Clinique2000_MVC.Controllers
 
         public async Task<ActionResult> Details(int id)
         {
-           
 
+            
             ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
 
 
-            if (listeAttente!=null && id != null)
+            if (listeAttente != null)
             {
                 return View(listeAttente);
             }
-            else
-            {
-                return NotFound();
-            }
+          
+            return NotFound();
+            
 
-           
+
         }
 
 
         // GET: ListeAttenteController/Create
-        public async Task<ActionResult> Create(int id)
+        [HttpGet]
+        public async Task<ActionResult> Create()
         {
-
-            ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
-            return View(list);
-
+            return View();
         }
 
         // POST: ListeAttenteController/Create
@@ -71,9 +68,11 @@ namespace Clinique2000_MVC.Controllers
                 RedirectToAction("Index");
             }
 
-
             return View(listeAttente);
         }
+
+
+
         [HttpGet]
         // GET: ListeAttenteController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
@@ -93,16 +92,17 @@ namespace Clinique2000_MVC.Controllers
             if (ModelState.IsValid)
             {
                await _services.listeAttente.EditerAsync(listeAttente);
-                RedirectToAction("Index");
+               return RedirectToAction("Index");
             }
           
-
             return View(listeAttente);
         }
 
         // GET: ListeAttenteController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
+
+            
             ListeAttente list=  await _services.listeAttente.ObtenirParIdAsync(id);
 
             return View(list);
@@ -111,12 +111,12 @@ namespace Clinique2000_MVC.Controllers
         // POST: ListeAttenteController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(ListeAttente listeAttente)
+        public async Task<ActionResult> Delete(ListeAttente listeAttente  /*List<Constultation> consultations*/)
         {
             if (ModelState.IsValid)
             {
                 await _services.listeAttente.SupprimerAsync(listeAttente.ListeAttenteID);
-
+                return RedirectToAction("Index");
             }
 
             return View(listeAttente);
