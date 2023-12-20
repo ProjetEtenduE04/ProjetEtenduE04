@@ -1,4 +1,5 @@
 ﻿using Clinique2000_Core.Models;
+using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,9 @@ namespace Clinique2000_MVC.Controllers
     public class ListeAttenteController : Controller
     {
 
-        public Clinique2000Services _services { get; set; }
+        public IClinique2000Services _services { get; set; }
 
-        public ListeAttenteController(Clinique2000Services service)
+        public ListeAttenteController(IClinique2000Services service)
         {
             _services = service;
         }
@@ -31,8 +32,21 @@ namespace Clinique2000_MVC.Controllers
 
         public async Task<ActionResult> Details(int id)
         {
+           
+
             ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
-            return View(listeAttente);
+
+
+            if (listeAttente!=null && id != null)
+            {
+                return View(listeAttente);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+           
         }
 
 

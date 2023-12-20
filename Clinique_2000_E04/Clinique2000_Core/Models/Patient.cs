@@ -34,7 +34,7 @@ namespace Clinique2000_Core.Models
         [DataType(DataType.Date)]
         public DateTime DateDeNaissance { get; set; }
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        public int Age { get; set; }
+        public int Age { get; set; } 
 
         public virtual List<PatientACharge>? PatientsACharge { get; set; }
     }
