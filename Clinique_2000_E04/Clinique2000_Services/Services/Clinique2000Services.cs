@@ -13,8 +13,5 @@ namespace Clinique2000_Services.Services
     {
         public IServices.IListeAttenteService listeAttente { get; private set; }
 
-
-        
-
     }
 }

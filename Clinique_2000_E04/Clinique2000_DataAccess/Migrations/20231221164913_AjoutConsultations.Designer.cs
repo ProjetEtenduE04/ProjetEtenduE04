@@ -4,6 +4,7 @@ using Clinique2000_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    partial class CliniqueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231221164913_AjoutConsultations")]
+    partial class AjoutConsultations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,20 +51,19 @@ namespace Clinique2000_DataAccess.Migrations
                     b.Property<DateTime>("HeureDateDebutPrevue")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("HeureDateDebutReele")
+                    b.Property<DateTime>("HeureDateDebutReele")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("HeureDateFinPrevue")
-                        .IsRequired()
+                    b.Property<DateTime>("HeureDateFinPrevue")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("HeureDateFinReele")
+                    b.Property<DateTime>("HeureDateFinReele")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PatientID")
+                    b.Property<int>("ListeAttenteID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlageHoraireID")
+                    b.Property<int>("PatientID")
                         .HasColumnType("int");
 
                     b.Property<int>("StatutConsultation")
@@ -70,9 +71,9 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasKey("ConsultationID");
 
-                    b.HasIndex("PatientID");
+                    b.HasIndex("ListeAttenteID");
 
-                    b.HasIndex("PlageHoraireID");
+                    b.HasIndex("PatientID");
 
                     b.ToTable("Consultations");
                 });
@@ -233,19 +234,21 @@ namespace Clinique2000_DataAccess.Migrations
 
             modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
                 {
-                    b.HasOne("Clinique2000_Core.Models.Patient", "Patient")
+                    b.HasOne("Clinique2000_Core.Models.ListeAttente", "ListeAttente")
                         .WithMany()
-                        .HasForeignKey("PatientID");
-
-                    b.HasOne("Clinique2000_Core.Models.PlageHoraire", "PlageHorarie")
-                        .WithMany("Consultations")
-                        .HasForeignKey("PlageHoraireID")
+                        .HasForeignKey("ListeAttenteID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Patient");
+                    b.HasOne("Clinique2000_Core.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("PlageHorarie");
+                    b.Navigation("ListeAttente");
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.ListeAttente", b =>
@@ -300,11 +303,6 @@ namespace Clinique2000_DataAccess.Migrations
             modelBuilder.Entity("Clinique2000_Core.Models.ListeAttente", b =>
                 {
                     b.Navigation("PlagesHoraires");
-                });
-
-            modelBuilder.Entity("Clinique2000_Core.Models.PlageHoraire", b =>
-                {
-                    b.Navigation("Consultations");
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>

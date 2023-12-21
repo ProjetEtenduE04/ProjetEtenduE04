@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Clinique2000_Core.Models;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Clinique2000_Utility;
 
 using Clinique2000_Utility.Enum;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 
 namespace Clinique2000_Core.Models
@@ -23,15 +25,15 @@ namespace Clinique2000_Core.Models
 
         [Display(Name = "Date et heure de fin prévue ")]
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        public DateTime HeureDateFinPrevue { get; set; }
+        public DateTime? HeureDateFinPrevue { get; set; }
 
 
-        public DateTime HeureDateDebutReele { get; set; }
+        public DateTime? HeureDateDebutReele { get; set; }
 
-        public DateTime HeureDateFinReele { get; set; }
+        public DateTime? HeureDateFinReele { get; set; }
 
 
-        public StatutConsultation StatutConsultation { get; set; } 
+        public StatutConsultation StatutConsultation { get; set; }
 
 
 
@@ -39,15 +41,15 @@ namespace Clinique2000_Core.Models
 
 
         //proprietes de navigation
-        [ForeignKey("ListAttente")]
-        public int ListeAttenteID { get; set; }
+        [ValidateNever]
+        [ForeignKey("PlageHoraire")]
+        public int PlageHoraireID { get; set; }
+        public virtual PlageHoraire  PlageHorarie { get; set; }
 
-        public virtual ListeAttente ListeAttente { get; set; }
-
-
+        [ValidateNever]
         [ForeignKey("Patient")]
-        public int PatientID { get; set; }
-        public virtual Patient Patient { get; set; }
+        public int? PatientID { get; set; }
+        public virtual Patient? Patient { get; set; }
 
 
         //FK MEDECINID

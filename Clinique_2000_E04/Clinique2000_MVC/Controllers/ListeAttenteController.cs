@@ -36,12 +36,19 @@ namespace Clinique2000_MVC.Controllers
         }
 
 
-        // GET: ListeAttenteController/Create
-        public async Task<ActionResult> Create(int id)
-        {
+        //// GET: ListeAttenteController/Create
+        //public async Task<ActionResult> Create(int id)
+        //{
 
-            ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
-            return View(list);
+        //    ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
+        //    return View(list);
+
+        //}
+
+        // GET: ListeAttenteController/Create
+        public IActionResult Create()
+        {
+            return View();
 
         }
 
@@ -53,7 +60,7 @@ namespace Clinique2000_MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                await _services.listeAttente.CreerAsync(listeAttente);
+                await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
                 RedirectToAction("Index");
             }
 

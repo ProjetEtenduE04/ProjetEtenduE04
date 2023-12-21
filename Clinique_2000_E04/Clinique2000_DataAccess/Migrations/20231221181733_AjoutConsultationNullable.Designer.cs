@@ -4,6 +4,7 @@ using Clinique2000_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    partial class CliniqueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231221181733_AjoutConsultationNullable")]
+    partial class AjoutConsultationNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,6 +62,7 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("PatientID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("PlageHoraireID")
@@ -235,7 +238,9 @@ namespace Clinique2000_DataAccess.Migrations
                 {
                     b.HasOne("Clinique2000_Core.Models.Patient", "Patient")
                         .WithMany()
-                        .HasForeignKey("PatientID");
+                        .HasForeignKey("PatientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Clinique2000_Core.Models.PlageHoraire", "PlageHorarie")
                         .WithMany("Consultations")
