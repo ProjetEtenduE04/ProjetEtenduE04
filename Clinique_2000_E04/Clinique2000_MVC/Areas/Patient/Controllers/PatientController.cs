@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Clinique2000_Core.Models;
 using Clinique2000_Services.Services;
+using System.Security.Claims;
 
 namespace Clinique2000_MVC.Areas.Patient.Controllers
 {
@@ -21,6 +22,8 @@ namespace Clinique2000_MVC.Areas.Patient.Controllers
         public IActionResult Index()
         {
             //return View(); 
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+
             return View("~/Areas/Patient/Views/Patient/Index.cshtml");
         }
 
