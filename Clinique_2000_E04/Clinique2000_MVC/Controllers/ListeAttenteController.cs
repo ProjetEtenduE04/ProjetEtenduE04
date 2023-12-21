@@ -3,6 +3,7 @@ using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.ContentModel;
 using System.Collections.Generic;
 
 namespace Clinique2000_MVC.Controllers
@@ -59,13 +60,12 @@ namespace Clinique2000_MVC.Controllers
         // POST: ListeAttenteController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(ListeAttente listeAttente)
+        public async Task<IActionResult> Create(ListeAttente listeAttente)
         {
-
             if (ModelState.IsValid)
             {
                 await _services.listeAttente.CreerAsync(listeAttente);
-                RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
 
             return View(listeAttente);
@@ -99,13 +99,17 @@ namespace Clinique2000_MVC.Controllers
         }
 
         // GET: ListeAttenteController/Delete/5
+        [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
+            if (id >= 0)
+            {
+                ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
+                return View(list);
+            }
 
-            
-            ListeAttente list=  await _services.listeAttente.ObtenirParIdAsync(id);
-
-            return View(list);
+            return NotFound();
+         
         }
 
         // POST: ListeAttenteController/Delete/5
@@ -121,5 +125,15 @@ namespace Clinique2000_MVC.Controllers
 
             return View(listeAttente);
         }
+
+
+
+
+
     }
+
+
+
+
+
 }

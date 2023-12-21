@@ -2,7 +2,9 @@ using Clinique2000_Core.Models;
 using Clinique2000_MVC.Controllers;
 using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Moq;
+using System;
 using Xunit;
 
 namespace Clinique2000_TestsUnitaires
@@ -274,55 +276,149 @@ namespace Clinique2000_TestsUnitaires
         }
 
 
-        ///// <summary>
-        ///// Vérifie que la méthode POST de l'action "Create" du contrôleur "ListeAttenteController"
-        ///// renvoie une redirection vers l'action "Index" lorsque le modèle est valide, et confirme
-        ///// que le nombre d'éléments ListeAttente dans la base de données a augmenté.
-        ///// </summary>
-        //[Fact]
-        //public async Task Create_Post_ReturnsRedirectToIndexWhenModelIsValid()
-        //{
-        //    // Arrange
-        //    var mockService = new Mock<IClinique2000Services>();
-        //    var controller = new ListeAttenteController(mockService.Object);
+        /// <summary>
+        ///Ce test unitaire vérifie que laction Create du contrôleur ListeAttenteController réagit correctement lorsqu'un
+        ///modèle de ListeAttente valide est soumis.Il s'assure que, dans ce cas, l'action renvoie une redirection vers l'action
+        ///Index. Cela garantit que l'ajout d'une liste d'attente valide conduit à une redirection vers la page principale de la 
+        ///liste d'attente, conformément au comportement attendu.
+        /// </summary>
+        [Fact]
+        public async Task Create_Post_RetourneViewIndexLorsqueModelstateValide()
+        {
+            // Arrange
+            var mockService = new Mock<IClinique2000Services>();
+            var controller = new ListeAttenteController(mockService.Object);
 
-        //    var validListeAttente = new ListeAttente
-        //    {
-        //        ListeAttenteID = 1,
-        //        IsOuverte = true,
-        //        DateEffectivite = DateTime.Now,
-        //        HeureOuverture = new TimeSpan(9, 0, 0),
-        //        HeureFermeture = new TimeSpan(17, 0, 0),
-        //        NbMedecinsDispo = 5,
-        //        DureeConsultationMinutes = 30,
-        //        CliniqueID = 1,
-        //    };
+            var validListeAttente = new ListeAttente
+            {
+                ListeAttenteID = 1,
+                IsOuverte = true,
+                DateEffectivite = DateTime.Now,
+                HeureOuverture = new TimeSpan(9, 0, 0),
+                HeureFermeture = new TimeSpan(17, 0, 0),
+                NbMedecinsDispo = 5,
+                DureeConsultationMinutes = 30,
+                CliniqueID = 1,
+            };
 
-        //    controller.ModelState.Clear();
+            // Configurez le service pour retourner un résultat de réussite (peut être simulé)
+            mockService.Setup(s => s.listeAttente.CreerAsync(It.IsAny<ListeAttente>()));
 
-        //    var expectedListeAttente = new ListeAttente
-        //    {
-        //        ListeAttenteID = 2,
-        //        IsOuverte = true,
-        //        DateEffectivite = DateTime.Now,
-        //        HeureOuverture = new TimeSpan(9, 0, 0),
-        //        HeureFermeture = new TimeSpan(17, 0, 0),
-        //        NbMedecinsDispo = 5,
-        //        DureeConsultationMinutes = 30,
-        //        CliniqueID = 1,
-        //    };
 
-        //    mockService.Setup(s => s.listeAttente.CreerAsync(It.IsAny<ListeAttente>()))
-        //        .ReturnsAsync(expectedListeAttente);
+            controller.ModelState.Clear();
 
-        //    // Act
-        //    var result = await controller.Create(validListeAttente);
+            // Act
+            var result = await controller.Create(validListeAttente);
 
-        //    // Assert
-        //    var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-        //    Assert.Equal("Index", redirectToActionResult.ActionName);
-        //}
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+        }
 
+
+        // Test : Vérifie si l'action GET Delete renvoie la vue et le modèle corrects lorsque un ID valide est fourni
+        [Fact]
+        public async Task Delete_Get_IdValide_RetourneVueEtModel()
+        {
+
+            // Arrange
+            var validId = 1;
+            var expectedModel = new ListeAttente
+            {
+                ListeAttenteID = 1,
+                IsOuverte = true,
+                DateEffectivite = DateTime.Now,
+                HeureOuverture = new TimeSpan(9, 0, 0),
+                HeureFermeture = new TimeSpan(17, 0, 0),
+                NbMedecinsDispo = 5,
+                DureeConsultationMinutes = 30,
+                CliniqueID = 1,
+            };
+            var mockService = new Mock<IClinique2000Services>();
+            var controller = new ListeAttenteController(mockService.Object);
+
+            mockService.Setup(s => s.listeAttente.ObtenirParIdAsync(validId)).ReturnsAsync(expectedModel);
+
+            // Act
+            var result = await controller.Delete(validId);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsType<ListeAttente>(viewResult.Model);
+            Assert.Equal(expectedModel, model);
+
+        }
+
+
+
+        // Test : Vérifie que l'action GET Delete renvoie un résultat NotFound lorsque un ID invalide est fourni
+        [Fact]
+        public async Task Delete_Get_IdInvalide_RetourneNotFound()
+        {
+            // Arrange
+            var invalidId = -1;
+            var mockService = new Mock<IClinique2000Services>();
+            var controller = new ListeAttenteController(mockService.Object);
+            mockService.Setup(s => s.listeAttente.ObtenirParIdAsync(invalidId)).ReturnsAsync((ListeAttente)null);
+
+            // Act
+            var result = await controller.Delete(invalidId);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+
+        [Fact]
+        public async Task Suppression_Post_ReduitNombreListeAttenteEtRedirigeAindex_SiModelStateValide()
+        {
+            // Arrange
+            List<ListeAttente> listeListeattente = new List<ListeAttente>();
+            var listeAttente1 = new ListeAttente {ListeAttenteID=1, };
+            var listeattente2= new ListeAttente { ListeAttenteID=2, };
+
+            listeListeattente.Add(listeAttente1);
+            listeListeattente.Add(listeattente2);
+
+
+            var mockService = new Mock<IClinique2000Services>();
+            var controller = new ListeAttenteController(mockService.Object);
+            mockService.Setup(s => s.listeAttente.SupprimerAsync(It.IsAny<int>())).Returns(Task.CompletedTask);
+            controller.ModelState.Clear();
+
+            // Act
+            var result = await controller.Delete(listeAttente1);
+
+            // Assert
+            mockService.Verify(s => s.listeAttente.SupprimerAsync(It.IsAny<int>()), Times.Once); // Vérifie que SupprimerAsync a été appelé une fois
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+            Assert.Equal(listeListeattente.Count, 2);
+        }
+
+
+        /// <summary>
+        /// Ce test vérifie que lorsqu'un ModelState invalide est détecté dans l'action POST Delete de ListeAttenteController,
+        /// la méthode renvoie à l'utilisateur la vue "Delete" accompagnée du modèle ListeAttente initial. Ce comportement assure
+        /// que l'utilisateur reçoit un feedback approprié en cas d'erreur de validation lors de la tentative de suppression d'une
+        /// entrée de la liste d'attente.
+        /// </summary>
+        [Fact]
+        public async Task Suppression_Post_RetourneVueDelete_SiModelStateInvalide()
+        {
+            // Arrange
+            var listeAttente = new ListeAttente { ListeAttenteID=-1 };
+            var mockService = new Mock<IClinique2000Services>();
+            var controller = new ListeAttenteController(mockService.Object);
+            controller.ModelState.AddModelError("Error", "Error message");
+
+            // Act
+            var result = await controller.Delete(listeAttente);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(listeAttente, viewResult.Model);
+        }
 
 
     }

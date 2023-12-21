@@ -15,7 +15,7 @@ namespace Clinique2000_Core.Models
         [Key]
         public int ListeAttenteID { get; set; }
 
-        public bool IsOuverte { get; set; }
+        public bool IsOuverte { get; set; } = false;
 
 
         [Display(Name = "Date d'effectivité")]
@@ -43,16 +43,22 @@ namespace Clinique2000_Core.Models
 
         public int? DureeConsultationMinutes { get; set; }
 
+
+
+        //Propiete de navigation
+
         [Display(Name = "Clinique")]
         [ForeignKey("CliniqueID")]
         public int CliniqueID { get; set; }
 
-        //Propiete de navigation
-        [ValidateNever]
-        public List<PlageHoraire> PlagesHoraires { get; set; }
 
         [ValidateNever]
         public Clinique Clinique { get; set; }
+
+        [ValidateNever]
+        public List<PlageHoraire> PlagesHoraires { get; set; }
+
+       
 
 
       
