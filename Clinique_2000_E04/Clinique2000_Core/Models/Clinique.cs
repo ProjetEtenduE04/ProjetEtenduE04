@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,5 +17,8 @@ namespace Clinique2000_Core.Models
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         
         public  int TempsMoyenConsultation { get; set; }
+
+        [ValidateNever]
+        public virtual List<ListeAttente>? ListeAttente { get; set; }
     }
 }

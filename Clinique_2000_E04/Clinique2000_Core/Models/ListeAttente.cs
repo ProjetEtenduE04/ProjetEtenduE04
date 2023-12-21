@@ -43,16 +43,18 @@ namespace Clinique2000_Core.Models
 
         public int? dureeConsultationMinutes { get; set; }
 
+        [ValidateNever]
         [Display(Name = "Clinique")]
         [ForeignKey("CliniqueID")]
         public int CliniqueID { get; set; }
+        public virtual Clinique Clinique { get; set; }
 
         //Propiete de navigation
         [ValidateNever]
-        public List<PlageHoraire> PlagesHoraires { get; set; }
+        public virtual List<PlageHoraire> PlagesHoraires { get; set; }
 
-        [ValidateNever]
-        public Clinique Clinique { get; set; }
+        
+        
 
 
       
