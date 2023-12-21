@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,7 +25,7 @@ namespace Clinique2000_Core.Models
 
         [Display(Name = "Date et heure de fin prévue ")]
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        public DateTime? HeureDateFinPrevue { get; set; }
+        public DateTime HeureDateFinPrevue { get; set; }                                  //
 
 
         public DateTime? HeureDateDebutReele { get; set; }
@@ -33,11 +33,7 @@ namespace Clinique2000_Core.Models
         public DateTime? HeureDateFinReele { get; set; }
 
 
-        public StatutConsultation StatutConsultation { get; set; }
-
-
-
-
+        public StatutConsultation StatutConsultation { get; set; } = StatutConsultation.DisponiblePourReservation; 
 
 
         //proprietes de navigation
