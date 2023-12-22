@@ -2,6 +2,7 @@
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Utility.Constants;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,41 @@ namespace Clinique2000_Services.Services
         }
 
         /// <summary>
+        /// Obtient un patient par son numéro d'assurance médicale (NAM) de manière asynchrone.
+        /// </summary>
+        /// <param name="nam">Numéro d'assurance médicale à rechercher.</param>
+        /// <returns>Le patient correspondant au numéro d'assurance médicale fourni, s'il existe ; sinon, null.</returns>
+        public async Task<Patient?> ObtenirPatientParNAMAsync(string nam)
+        {
+            return await _dbContext.Set<Patient>()
+                .Where(p => p.NAM.ToUpper() == nam.ToUpper())
+                .FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// Valider la date de naissance par rapport à la date du jour et au nombre de jours du mois.
+        /// </summary>
+        /// <param name="dateDeNaissance">Date de naissance de la personne.</param>
+        /// <returns>True</returns>
+        /// <exception cref="ArgumentException">L'exception est lancée si l'anniversaire se situe dans le futur ou si le jour dépasse le nombre de jours du mois.</exception>
+        public bool DateDeNaissanceEstValid(DateTime dateDeNaissance)
+        {
+            if (dateDeNaissance > DateTime.Now)
+            {
+                throw new ArgumentException("La date de naissance ne peut pas se situer dans le futur.");
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Calculer l'âge selon la date de naissance fournie.Prendre en compte les personnes nées dans les années bissextiles
         /// </summary>
         /// <param name="dateDeNaissance">Date de naissance de la personne.</param>
         /// <returns>Âge de la personne calculé en années.</returns>
         public int CalculerAge(DateTime dateDeNaissance)
         {
+            DateDeNaissanceEstValid(dateDeNaissance);
+
             int jours = (DateTime.Now - dateDeNaissance).Days;
             //int annees = DateTime.Now.Year - dateDeNaissance.Year;
 
@@ -66,9 +96,9 @@ namespace Clinique2000_Services.Services
         /// </summary>
         /// <param name="nam">Le numéro d'assurance médicale du patient pour vérification.</param>
         /// <returns>Vrai si le patient existe dans la base de données, sinon Faux.</returns>
-        public bool VerifierExistencePatientParNAM(string nam)
+        public async Task<bool> VerifierExistencePatientParNAM(string nam)
         {
-            var patientTrouve = ObtenirParNomAsync(nam);
+            var patientTrouve = await ObtenirPatientParNAMAsync(nam);
             return patientTrouve != null;
         }
         

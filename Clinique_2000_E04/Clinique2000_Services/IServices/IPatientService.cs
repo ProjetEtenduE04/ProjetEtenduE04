@@ -10,9 +10,11 @@ namespace Clinique2000_Services.IServices
 {
     public interface IPatientService: IServiceBaseAsync<Patient>
     {
+        Task<Patient?> ObtenirPatientParNAMAsync(string nam);
+        bool DateDeNaissanceEstValid(DateTime dateDeNaissance);
         int CalculerAge(DateTime dateDeNaissance);
         bool EstMajeurAge(int age);
         bool EstMajeurDateDeNaissance(DateTime dateDeNaissance);
-        bool VerifierExistencePatientParNAM(string nam);
+        Task<bool> VerifierExistencePatientParNAM(string nam);
     }
 }

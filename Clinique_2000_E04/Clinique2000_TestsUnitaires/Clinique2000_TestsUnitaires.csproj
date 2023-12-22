@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Clinique2000_Core\Clinique2000_Core.csproj" />
     <ProjectReference Include="..\Clinique2000_DataAccess\Clinique2000_DataAccess.csproj" />
     <ProjectReference Include="..\Clinique2000_MVC\Clinique2000_MVC.csproj" />
     <ProjectReference Include="..\Clinique2000_Services\Clinique2000_Services.csproj" />
