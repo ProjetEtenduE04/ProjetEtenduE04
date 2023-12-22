@@ -15,6 +15,8 @@ builder.Services.AddDbContext<CliniqueDbContext>(options =>
 });
 #region Servivces
 builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBaseAsync<>));
+builder.Services.AddScoped<IClinique2000Services, Clinique2000Services>();
+
 #endregion
 
 var app = builder.Build();
@@ -36,6 +38,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

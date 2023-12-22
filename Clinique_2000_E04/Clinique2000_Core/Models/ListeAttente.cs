@@ -46,10 +46,13 @@ namespace Clinique2000_Core.Models
 
 
         //Propiete de navigation
-
+   
         [Display(Name = "Clinique")]
+        [ValidateNever]
         [ForeignKey("CliniqueID")]
         public int CliniqueID { get; set; }
+
+        [ValidateNever]
         public virtual Clinique Clinique { get; set; }
 
 
