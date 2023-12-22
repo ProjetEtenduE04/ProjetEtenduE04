@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.ContentModel;
 using System.Collections.Generic;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace Clinique2000_MVC.Controllers
 {
@@ -73,13 +74,34 @@ namespace Clinique2000_MVC.Controllers
 
             return View(listeAttente);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AjouterPlagesHoraires(int listeAttenteID)
+        {
+            ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(listeAttenteID);
+            if (listeAttente == null)
+            {
+
+                return NotFound();
+            }
+
+            await _services.listeAttente.GenererPlagesHorairesAsync(listeAttente);
+            return View(listeAttente);
+        }
         [HttpGet]
         // GET: ListeAttenteController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
             
              ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
-             return View(list);
+            if (list == null)
+            {
+
+                return NotFound();
+            }
+
+            return View(list);
          
       
         }

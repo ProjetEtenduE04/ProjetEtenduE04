@@ -28,7 +28,7 @@ namespace Clinique2000_Services.Services
 
             if (VerifierSiListeAttenteExisteMemeJourClinique(listeAttente.DateEffectivite, listeAttente.CliniqueID))
             {
-                throw new ValidationException("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.");
+                throw new ValidationException("Il existe dï¿½jï¿½ une liste d'attente dans la meme clinique pour la meme  date.");
             }
 
             await CreerAsync(listeAttente);
@@ -39,7 +39,7 @@ namespace Clinique2000_Services.Services
         {
             if (_context.ListeAttentes.Any(l => l.DateEffectivite == dateEffectivite && l.CliniqueID == cliniqueId))
             {
-                throw new ValidationException("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.");
+                throw new ValidationException("Il existe dï¿½jï¿½ une liste d'attente dans la meme clinique pour la meme  date.");
             }
             return false;
         }
@@ -63,7 +63,7 @@ namespace Clinique2000_Services.Services
         {
             return _context.ListeAttentes.Any(l => l.DateEffectivite == listeAttente.DateEffectivite && l.CliniqueID == listeAttente.CliniqueID)
                         ? true
-                        : throw new ValidationException("Il faut créer une liste d'attente avant");
+                        : throw new ValidationException("Il faut crï¿½er une liste d'attente avant");
         }
 
         public bool VerifierSiNbMedecinsDisponibles(ListeAttente listeAttente)
@@ -77,7 +77,7 @@ namespace Clinique2000_Services.Services
         {
             return listeAttente.HeureOuverture < listeAttente.HeureFermeture
                      ? true
-                     : throw new ValidationException("L'heure d'ouverture doit etre inférieure à l'heure de fermeture.");
+                     : throw new ValidationException("L'heure d'ouverture doit etre infï¿½rieure ï¿½ l'heure de fermeture.");
 
         }
         public bool VerifierSiDateEffectiviteValide(ListeAttente listeAttente)
@@ -85,7 +85,7 @@ namespace Clinique2000_Services.Services
 
             return listeAttente.DateEffectivite >= DateTime.Now.Date
                    ? true
-                   : throw new ValidationException("La date d'effectivité n'est pas valide. Elle doit être postérieure à la date actuelle.");
+                   : throw new ValidationException("La date d'effectivitï¿½ n'est pas valide. Elle doit ï¿½tre postï¿½rieure ï¿½ la date actuelle.");
 
 
         }

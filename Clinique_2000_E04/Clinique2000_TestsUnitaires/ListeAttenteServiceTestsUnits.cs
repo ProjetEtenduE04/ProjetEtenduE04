@@ -99,6 +99,22 @@ namespace Clinique2000_TestsUnitaires
             // Assert
             Assert.Equal("On doit avoir au moins un medecin disponible.", exception.Message);
         }
+        [Fact]
+        public async Task GenererPlagesHorairesAsync_MedecinsDisponiblesCorrect()
+        {
+            IListeAttenteService service = new ListeAttenteService(dbTest);
+            var listeAttente = dbTest.ListeAttentes.FirstOrDefault(l => l.ListeAttenteID == 2);
+
+            if (listeAttente == null)
+            {
+                throw new InvalidOperationException("ListeAttente not found.");
+            }
+            // Act
+            var exception = Assert.Throws<ValidationException>(() => service.VerifierSiNbMedecinsDisponibles(listeAttente));
+
+            // Assert
+            Assert.Equal("On doit avoir au moins un medecin disponible.", exception.Message);
+        }
 
         [Fact]
         public async Task GenererPlagesHorairesAsync_ListeDejaExistanteDansLaBD()
