@@ -1,5 +1,11 @@
-﻿@{
+﻿
+
+@using System.Security.Claims
+
+@{
     ViewData["Title"] = "Home Page";
+    var isAuthenticated = Context.User.Identity.IsAuthenticated;
+    var userEmail = isAuthenticated ? Context.User.FindFirst(ClaimTypes.Email)?.Value : null;
 }
 
 <div class="text-center">
@@ -7,13 +13,18 @@
     <p class="p1">Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-
-<a asp-controller="Patient" asp-action="Index" class="btn btn-primary form-control">Log in</a>
-
-@if (Context.User.Identity.IsAuthenticated)
+@if (isAuthenticated)
 {
     <br />
     <h3>Welcome @User.Identity.Name</h3>
+    @if (!string.IsNullOrEmpty(userEmail))
+    {
+        <p>Email: @userEmail</p>
+    }
     <br />
-    <a asp-controller="Patient" asp-action="Logout">Logout</a>
+    <a asp-controller="Patient" asp-action="Logout" class="btn btn-primary form-control">Logout</a>
+}
+else
+{
+    <a asp-controller="Patient" asp-action="Index" class="btn btn-primary form-control">Log in</a>
 }
