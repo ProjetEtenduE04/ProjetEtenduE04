@@ -1,26 +1,40 @@
 ﻿
 
-<form action="/ListeAttente/Create" method="post">
-    <label for="isOuverte">Ouverte :</label>
-    <input type="checkbox" id="isOuverte" name="IsOuverte"><br>
 
-    <label for="dateEffectivite">Date d'effectivité :</label>
-    <input type="date" id="dateEffectivite" name="DateEffectivite"><br>
+@{
+    Layout = "_Layout";
+}
 
-    <label for="heureOuverture">Heure d'ouverture :</label>
-    <input type="time" id="heureOuverture" name="HeureOuverture"><br>
+<form href="Clinique/ListeAttente/Create2" class="m-4">
+    <div class="form-group mb-3">
+        <label for="isOuverte" class="form-label">Est Ouverte :</label>
+        <input type="checkbox" id="isOuverte" name="IsOuverte" class="form-check-input">
+    </div>
 
-    <label for="heureFermeture">Heure de fermeture :</label>
-    <input type="time" id="heureFermeture" name="HeureFermeture"><br>
+    <div class="form-group mb-3">
+        <label for="dateEffectivite" class="form-label">Date d'effectivité :</label>
+        <input type="date" id="dateEffectivite" name="DateEffectivite" class="form-control form-control-lg">
+    </div>
 
-    <label for="nbMedecinsDispo">Nombre de médecins disponibles :</label>
-    <input type="number" id="nbMedecinsDispo" name="NbMedecinsDispo"><br>
+    <div class="form-group mb-3">
+        <label for="heureOuverture" class="form-label">Heure d'ouverture :</label>
+        <input type="time" id="heureOuverture" name="HeureOuverture" class="form-control form-control-lg">
+    </div>
 
-    <label for="dureeConsultation">Durée de la consultation (minutes) :</label>
-    <input type="number" id="dureeConsultation" name="DureeConsultationMinutes"><br>
+    <div class="form-group mb-3">
+        <label for="heureFermeture" class="form-label">Heure de fermeture :</label>
+        <input type="time" id="heureFermeture" name="HeureFermeture" class="form-control form-control-lg">
+    </div>
 
-    <label for="cliniqueId">ID de la clinique :</label>
-    <input type="number" id="cliniqueId" name="CliniqueID"><br>
+    <div class="form-group mb-3">
+        <label for="nbMedecinsDispo" class="form-label">Nombre de médecins disponibles :</label>
+        <input type="number" id="nbMedecinsDispo" name="NbMedecinsDispo" class="form-control form-control-lg">
+    </div>
 
-    <input type="submit" value="Créer">
+    <div class="form-group mb-3">
+        <label for="dureeConsultation" class="form-label">Durée de la consultation (minutes) :</label>
+        <input type="number" id="dureeConsultation" name="DureeConsultationMinutes" class="form-control form-control-lg">
+    </div>
+
+    <button @*type="submit"*@ class="btn btn-primary btn-lg">Créer</button>
 </form>

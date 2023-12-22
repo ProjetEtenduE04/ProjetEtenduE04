@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace Clinique2000_MVC.Controllers
+namespace Clinique2000_MVC.Areas.Clinique.Controllers
 {
+    [Area("Clinique")]
     public class ListeAttenteController : Controller
     {
 
@@ -23,7 +24,6 @@ namespace Clinique2000_MVC.Controllers
         // GET: ListeAttenteController
         public async Task<ActionResult> Index()
         {
-
             IReadOnlyList<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
             return View(listListAttente);
 
@@ -38,37 +38,28 @@ namespace Clinique2000_MVC.Controllers
                 return View(listeAttente);
             }
             return NotFound();
-               
+
         }
 
 
-        //// GET: ListeAttenteController/Create
-        //public async Task<ActionResult> Create(int id)
-        //{
-
-        //    ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
-        //    return View(list);
-
-        //}
-
-        // GET: ListeAttenteController/Create
-
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
-
         }
 
         // POST: ListeAttenteController/Create
-        [HttpPost]
+    
         [ValidateAntiForgeryToken]
+        //[Route("Clinique/listeattente/create2/post")]
+        [HttpPost]
         public async Task<ActionResult> Create(ListeAttente listeAttente)
         {
 
             if (ModelState.IsValid)
             {
                 await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
-               return  RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
 
 
@@ -78,11 +69,11 @@ namespace Clinique2000_MVC.Controllers
         // GET: ListeAttenteController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
-            
-             ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
-             return View(list);
-         
-      
+
+            ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
+            return View(list);
+
+
         }
 
         // POST: ListeAttenteController/Edit/5
@@ -92,8 +83,8 @@ namespace Clinique2000_MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-               await _services.listeAttente.EditerAsync(listeAttente);
-               return RedirectToAction("Index");
+                await _services.listeAttente.EditerAsync(listeAttente);
+                return RedirectToAction("Index");
             }
 
             return View(listeAttente);
@@ -108,7 +99,7 @@ namespace Clinique2000_MVC.Controllers
                 return View(list);
             }
             return NotFound();
-        
+
         }
 
         // POST: ListeAttenteController/Delete/5
