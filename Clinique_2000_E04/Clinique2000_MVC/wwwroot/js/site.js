@@ -2,3 +2,5 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+var today = new Date().toISOString().split('T')[0];
+document.getElementById("DateDeNaissance").setAttribute("max", today);

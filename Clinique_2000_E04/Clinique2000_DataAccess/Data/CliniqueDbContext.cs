@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.InMemory;
 
 namespace Clinique2000_DataAccess.Data
 {
@@ -12,20 +13,27 @@ namespace Clinique2000_DataAccess.Data
     {
         // Définissez ici les DbSets pour vos entités.
         // public DbSet<Entity> TableName { get ; set ; }
+
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PatientACharge> PatientACharges { get; set; }
-         public  DbSet<Personne> Personnes { get; set; }
+        public DbSet<Personne> Personnes { get; set; }
+
         public CliniqueDbContext(DbContextOptions<CliniqueDbContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseInMemoryDatabase("scaffolding");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CliniqueDbContext).Assembly);
+           base.OnModelCreating(modelBuilder);
+
+           modelBuilder.ApplyConfigurationsFromAssembly(typeof(CliniqueDbContext).Assembly);
            modelBuilder.Entity<Personne>().ToTable("Personne");
            modelBuilder.Entity<Patient>().ToTable("Patient");
            modelBuilder.Entity<PatientACharge>().ToTable("PatientACharge");
