@@ -5,11 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 
 namespace Clinique2000_Core.Models
 {
+    [Area("Clinique")]
     public class ListeAttente
     {
         [Key]

@@ -49,10 +49,9 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         }
 
         // POST: ListeAttenteController/Create
-    
-        [ValidateAntiForgeryToken]
-        //[Route("Clinique/listeattente/create2/post")]
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ListeAttente listeAttente)
         {
 
@@ -65,6 +64,7 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
 
             return View(listeAttente);
         }
+
         [HttpGet]
         // GET: ListeAttenteController/Edit/5
         public async Task<ActionResult> EditAsync(int id)

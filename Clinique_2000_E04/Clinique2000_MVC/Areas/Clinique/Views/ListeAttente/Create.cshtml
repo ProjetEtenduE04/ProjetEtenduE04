@@ -1,13 +1,12 @@
 ﻿
-
-
 @{
     Layout = "_Layout";
 }
 
-<form href="Clinique/ListeAttente/Create2" class="m-4">
+<form asp-area="Clinique" asp-controller="ListeAttente" asp-action="Create" method="post" class="m-4">
+    @Html.AntiForgeryToken()
     <div class="form-group mb-3">
-        <label for="isOuverte" class="form-label">Est Ouverte :</label>
+        <label for="isOuverte" class="form-label">Ouvrir après création :</label>
         <input type="checkbox" id="isOuverte" name="IsOuverte" class="form-check-input">
     </div>
 
@@ -36,5 +35,5 @@
         <input type="number" id="dureeConsultation" name="DureeConsultationMinutes" class="form-control form-control-lg">
     </div>
 
-    <button @*type="submit"*@ class="btn btn-primary btn-lg">Créer</button>
+    <button type="submit" class="btn btn-primary btn-lg">Créer</button>
 </form>
