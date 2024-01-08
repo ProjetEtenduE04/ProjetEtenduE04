@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinique2000_Services", "Cl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinique2000_Utility", "Clinique2000_Utility\Clinique2000_Utility.csproj", "{0EB772BD-5638-4EB5-BD1E-AA9DA4F670D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinique2000_TestsUnitaires", "Clinique2000_TestsUnitaires\Clinique2000_TestsUnitaires.csproj", "{D52BE599-3315-4FCA-A4C0-EE6C559F2B44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinique2000_TestsUnitaires", "Clinique2000_TestsUnitaires\Clinique2000_TestsUnitaires.csproj", "{D52BE599-3315-4FCA-A4C0-EE6C559F2B44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

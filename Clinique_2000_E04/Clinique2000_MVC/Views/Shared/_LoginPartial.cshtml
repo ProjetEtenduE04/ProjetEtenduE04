@@ -1,0 +1,30 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Home Page";
+    var isAuthenticated = Context.User.Identity.IsAuthenticated;
+    var userEmail = isAuthenticated ? Context.User.FindFirst(ClaimTypes.Email)?.Value : null;
+    var userName = User.Identity.Name;
+}
+
+@if (isAuthenticated)
+{
+    <li class="nav-item mx-3">
+        <div class="p1 welcome"> <span class="text-light">Welcome : </span>@userName</div>
+    </li>
+    <li class="nav-item mx-3">
+        <a asp-area="Patients" asp-controller="Home" asp-action="Logout" class="p1 pb-0">
+                <i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i>
+                OUT
+        </a>
+    </li>
+}
+else
+{
+    <li class="nav-item mx-3">
+        <a class="p1" id="login" asp-area="Patients" asp-controller="Home" asp-action="Login">
+            IN
+            <i class="fa-solid fa-right-to-bracket"></i>
+        </a>
+    </li>
+}
