@@ -16,7 +16,7 @@ builder.Services.AddDbContext<CliniqueDbContext>(options =>
 #region Servivces
 builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBaseAsync<>));
 builder.Services.AddScoped<IClinique2000Services, Clinique2000Services>();
-builder.Services.AddScoped<IListeAttenteService,ListeAttenteService>();
+builder.Services.AddScoped<IListeAttenteService, ListeAttenteService>();
 #endregion
 
 var app = builder.Build();
