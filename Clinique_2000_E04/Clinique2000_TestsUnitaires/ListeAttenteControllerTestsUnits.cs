@@ -1,4 +1,5 @@
 using Clinique2000_Core.Models;
+using Clinique2000_MVC.Areas.Clinique.Controllers;
 using Clinique2000_MVC.Controllers;
 using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Mvc;
@@ -154,7 +155,7 @@ namespace Clinique2000_TestsUnitaires
             var mockService = new Mock<IClinique2000Services>();
             var listeAttenteAttendue = new ListeAttente
             {
-                ListeAttenteID = int.MaxValue,
+                ListeAttenteID = -1,
                 IsOuverte = true,
                 DateEffectivite = new DateTime(2023, 4, 10),
                 HeureOuverture = new TimeSpan(9, 0, 0),
@@ -169,7 +170,7 @@ namespace Clinique2000_TestsUnitaires
             var controller = new ListeAttenteController(mockService.Object);
 
             // Act
-            var result = await controller.Details(999);
+            var result = await controller.Details(listeAttenteAttendue.ListeAttenteID);
 
             // Assert
             Assert.IsType<NotFoundResult>(result);
@@ -265,9 +266,9 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var mockService = new Mock<IClinique2000Services>();
             var controller = new ListeAttenteController(mockService.Object);
-
+            ListeAttente listeAttente1 = new ListeAttente { ListeAttenteID=1,};
             // Act
-            var result = await controller.Create();
+            var result =  controller.Create();
 
             // Assert
             Assert.IsType<ViewResult>(result);
