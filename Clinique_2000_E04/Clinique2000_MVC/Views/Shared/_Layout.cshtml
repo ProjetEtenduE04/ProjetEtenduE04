@@ -24,13 +24,18 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav ms-5 align-items-baseline flex-grow-1 footer-links white-link">
                         <li class="nav-item mx-3">
-                            <a class="p1" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="p1" asp-area="Patients" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="p1" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="p1" asp-area="Patients" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="p1" asp-area="" asp-controller="Home" asp-action="Create">CreateTest</a>
+                            <a class="p1" asp-area="Patients" asp-controller="Patients" asp-action="Create">CreateTest</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav align-items-baseline footer-links white-link">
+                        <li>
+                            <partial name="_LoginPartial" />
                         </li>
                     </ul>
                 </div>
@@ -48,7 +53,7 @@
             &copy; 2023 - Clinique2000_MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>*@
-    <footer class="container-fluid mt-5 ">
+    <footer class="container-fluid mt-5 footer">
         <div class="container ">
             <div class="row">
                 <div>
@@ -57,7 +62,7 @@
             </div>
             <div class="row align-items-center">
                 <div class="col-12 col-md-5 text-center text-md-start">
-                    <a asp-controller="Home" asp-action="Index"><img src="~/Images/Logo/Logo_footer.svg" alt="logo footer" class="img-fluid"></a>
+                    <a asp-area="Patient" asp-controller="Home" asp-action="Index"><img src="~/Images/Logo/Logo_footer.svg" alt="logo footer" class="img-fluid"></a>
                 </div>
                 <div class="col-12 col-md-7 text-center text-md-end mt-3 m-md-0">
                     <nav>

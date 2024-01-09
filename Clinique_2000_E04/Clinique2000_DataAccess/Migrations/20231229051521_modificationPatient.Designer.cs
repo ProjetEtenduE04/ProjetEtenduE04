@@ -4,6 +4,7 @@ using Clinique2000_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    partial class CliniqueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231229051521_modificationPatient")]
+    partial class modificationPatient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,9 +69,6 @@ namespace Clinique2000_DataAccess.Migrations
                     b.Property<DateTime>("DateDeNaissance")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("GoogleNameIdentifier")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("MotDePasse")
                         .IsRequired()
                         .HasMaxLength(225)
@@ -84,6 +83,9 @@ namespace Clinique2000_DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
 
                     b.ToTable("Patient", (string)null);
                 });

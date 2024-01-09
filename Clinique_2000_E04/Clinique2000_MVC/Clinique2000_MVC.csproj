@@ -36,8 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Patient\Data\" />
-    <Folder Include="Areas\Patient\Models\" />
+    <Folder Include="Areas\Patients\Data\" />
+    <Folder Include="Areas\Patients\Models\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

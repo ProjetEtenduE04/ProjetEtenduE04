@@ -1,6 +1,4 @@
-﻿
-
-@using System.Security.Claims
+﻿@using System.Security.Claims
 
 @{
     ViewData["Title"] = "Home Page";
@@ -22,9 +20,10 @@
         <p>Email: @userEmail</p>
     }
     <br />
-    <a asp-controller="Patients" asp-action="Logout" class="btn btn-primary form-control">Logout</a>
+    <a asp-controller="Home" asp-action="Logout" class="btn btn-primary form-control">Logout</a>
 }
 else
 {
-    <a asp-controller="Patients" asp-action="Index" class="btn btn-primary form-control">Log in</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary form-control">Log in</a>
 }
+

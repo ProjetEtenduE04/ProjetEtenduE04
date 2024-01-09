@@ -3,11 +3,6 @@ using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Utility.Constants;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinique2000_Services.Services
 {
@@ -27,8 +22,28 @@ namespace Clinique2000_Services.Services
         /// <returns>Le patient correspondant au numéro d'assurance médicale fourni, s'il existe ; sinon, null.</returns>
         public async Task<Patient?> ObtenirPatientParNAMAsync(string nam)
         {
+            if (nam == null)
+            {
+                return null;
+            }
             return await _dbContext.Set<Patient>()
                 .Where(p => p.NAM.ToUpper() == nam.ToUpper())
+                .FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// Obtenir un patient de manière asynchrone par courrier électronique
+        /// </summary>
+        /// <param name="courriel">courrier électronique</param>
+        /// <returns>Le patient correspond à l'adresse électronique fournie, s'il existe, sinon null.</returns>
+        public async Task<Patient?> ObtenirPatientParEmailAsync(string courriel)
+        {
+            if (courriel == null)
+            {
+                return null;
+            }
+            return await _dbContext.Set<Patient>()
+                .Where(p => p.Courriel.ToUpper() == courriel.ToUpper())
                 .FirstOrDefaultAsync();
         }
 
@@ -59,12 +74,10 @@ namespace Clinique2000_Services.Services
             int jours = (DateTime.Now - dateDeNaissance).Days;
             //int annees = DateTime.Now.Year - dateDeNaissance.Year;
 
-            bool estAnneeCouranteBissextile = DateTime.IsLeapYear(DateTime.Now.Year);
-            bool estAnneeNaissanceBissextile = DateTime.IsLeapYear(dateDeNaissance.Year);
+            //bool estAnneeCouranteBissextile = DateTime.IsLeapYear(DateTime.Now.Year);
+            //bool estAnneeNaissanceBissextile = DateTime.IsLeapYear(dateDeNaissance.Year);
 
-            double diviseur = (estAnneeCouranteBissextile || estAnneeNaissanceBissextile) ? 366.0 : 365.0;
-
-            int age = (int)(jours / diviseur);
+            int age = (int)((DateTime.Now - dateDeNaissance).TotalDays / 365.242199);
 
             return age;
         }
@@ -74,9 +87,9 @@ namespace Clinique2000_Services.Services
         /// </summary>
         /// <param name="age">Âge à vérifier.</param>
         /// <returns>Vrai si l'âge est supérieur ou égal à l'âge de la majorité ; sinon Faux.</returns>
-        public bool EstMajeurAge(int age) 
+        public bool EstMajeurAge(int age)
         {
-            return age >= AppConstants.AgeMajorite; ; 
+            return age >= AppConstants.AgeMajorite; ;
         }
 
         /// <summary>
@@ -84,7 +97,7 @@ namespace Clinique2000_Services.Services
         /// </summary>
         /// <param name="dateDeNaissance">Date de naissance de la personne.</param>
         /// <returns>Vrai si l'âge est supérieur ou égal à l'âge de la majorité ; sinon Faux.</returns>
-        public bool EstMajeurDateDeNaissance (DateTime dateDeNaissance)
+        public bool EstMajeurDateDeNaissance(DateTime dateDeNaissance)
         {
             int age = CalculerAge(dateDeNaissance);
 
@@ -101,6 +114,49 @@ namespace Clinique2000_Services.Services
             var patientTrouve = await ObtenirPatientParNAMAsync(nam);
             return patientTrouve != null;
         }
-        
+
+        /// <summary>
+        /// Vérifier si un patient existe dans la base de données avec l'adresse électronique donnée.
+        /// </summary>
+        /// <param name="curriel">Courriel du patient authentifié pour vérification.</param>
+        /// <returns>Vrai si le patient existe dans la base de données, sinon Faux.</returns>
+        public async Task<bool> VerifierExistencePatientParEmailAsync(string curriel)
+        {
+            var patientTrouve = await ObtenirPatientParEmailAsync(curriel);
+            return patientTrouve != null;
+        }
+
+        public async Task<Patient> EnregistrerPatient(Patient patient)
+        {
+
+            if (await VerifierExistencePatientParEmailAsync(patient.Courriel))
+            {
+                throw new Exception("Cet email est déjà enregistré.");
+            }
+            if (await VerifierExistencePatientParNAM(patient.NAM))
+            {
+                throw new Exception("Ce numéro d'assurance médicale est déjà enregistré.");
+            }
+            if (!DateDeNaissanceEstValid(patient.DateDeNaissance))
+            {
+                throw new ArgumentException("La date de naissance n'est pas valide.");
+            }
+            int age = CalculerAge(patient.DateDeNaissance);
+            if (!EstMajeurAge(age))
+            {
+                throw new Exception("Vous devez être majeur pour vous inscrire.");
+            }
+            patient.Age = age;
+            return await CreerAsync(patient);
+        }
+
+        //            public async Task<T> CreerAsync(T entity)
+        //{
+        //    await _dbContext.Set<T>().AddAsync(entity);
+        //    await _dbContext.SaveChangesAsync();
+
+        //    return entity;
+
+        //}
     }
 }

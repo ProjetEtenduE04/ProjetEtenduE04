@@ -1,14 +1,9 @@
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Oauth2.v2;
-using Google.Apis.Oauth2.v2.Data;
-using Google.Apis.Services;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,13 +31,14 @@ builder.Services.AddHttpContextAccessor();
 
 //DbContext
 builder.Services.AddDbContext<CliniqueDbContext>(options =>
-{ 
+{
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     options.UseLazyLoadingProxies();
 });
 #region Servivces
 builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBaseAsync<>));
 builder.Services.AddScoped<IAuthenGoogleService, AuthenGoogleService>();
+builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
 #endregion
 
 var app = builder.Build();
@@ -67,13 +63,13 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Patients}/{controller=Home}/{action=Index}/{id?}");
 
 
-app.MapAreaControllerRoute(
-    name: "default",
-    areaName: "Configuration",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//app.MapAreaControllerRoute(
+//    name: "PatientArea",
+//    areaName: "Patient",
+//    pattern: "Patient/{controller=Home}/{action=Index}/{id?}");
 
 
 app.Run();

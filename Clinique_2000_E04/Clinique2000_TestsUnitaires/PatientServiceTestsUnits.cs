@@ -1,18 +1,9 @@
-﻿using Clinique2000_DataAccess.Data;
-using Microsoft.EntityFrameworkCore;
-using Xunit;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.InMemory;
-using Clinique2000_Core.Models;
-using Microsoft.AspNetCore.Routing;
-using Clinique2000_Services.Services;
+﻿using Clinique2000_Core.Models;
+using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
-using Clinique2000_Utility.Constants;
+using Clinique2000_Services.Services;
+using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace Clinique2000_TestsUnitaires
 {
@@ -35,7 +26,7 @@ namespace Clinique2000_TestsUnitaires
                     context.Patients.AddRange(
                          new Patient()
                          {
-                             PatientId = 1,
+                             GoogleNameIdentifier = "113445586041543787326",
                              Nom = "Smith",
                              Prenom = "Jhon",
                              Courriel = "smith@gmail.com",
@@ -272,22 +263,249 @@ namespace Clinique2000_TestsUnitaires
         {
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("VerifierExistencePatientParNAM_ReturnPatient")))
             {
+                // Arrange
                 IPatientService service = new PatientService(dbTest);
                 var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
                 var namPatientFaux = "xxxx12345674";
-                var result1 =  await service.VerifierExistencePatientParNAM(patientAChercher.NAM);
-                var result2 =  await service.VerifierExistencePatientParNAM(namPatientFaux);
+                // Act
+                var trueResult = await service.VerifierExistencePatientParNAM(patientAChercher.NAM);
+                var falseResult = await service.VerifierExistencePatientParNAM(namPatientFaux);
 
-            
-                Assert.IsType<bool>(result1);
-                Assert.NotNull(result1);
-                Assert.True(result1);
+                // Assert
+                Assert.IsType<bool>(trueResult);
+                Assert.NotNull(trueResult);
+                Assert.True(trueResult);
 
-                Assert.IsType<bool>(result2);
-                Assert.NotNull(result2);
-                Assert.False(result2);
+                Assert.IsType<bool>(falseResult);
+                Assert.NotNull(falseResult);
+                Assert.False(falseResult);
             }
         }
+        /// <summary>
+        /// Vérifie si un patient existe dans la base de données par son adresse e-mail.
+        /// </summary>
+        /// <returns>
+        /// Renvoie vrai (True) si le patient existe avec l'adresse e-mail fournie, sinon renvoie faux (False).
+        /// </returns>
+        [Fact]
+        public async Task VerifierExistencePatientParEmailAsync_ReturnTrueOrFalse()
+        {
+            using (var dbTest = new CliniqueDbContext(SetUpInMemory("VerifierExistencePatientParEmailAsync_ReturnTrueOrFalse")))
+            {
+                // Arrange
+                IPatientService service = new PatientService(dbTest);
+                var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
+                var courrielPatientFaux = "mine@eth.com";
+                // Act
+                var trueResult = await service.VerifierExistencePatientParEmailAsync(patientAChercher.Courriel);
+                var falseResult = await service.VerifierExistencePatientParEmailAsync(courrielPatientFaux);
+
+                // Assert
+                Assert.IsType<bool>(trueResult);
+                Assert.NotNull(trueResult);
+                Assert.True(trueResult);
+
+                Assert.IsType<bool>(falseResult);
+                Assert.NotNull(falseResult);
+                Assert.False(falseResult);
+            }
+        }
+
+        /// <summary>
+        /// Teste la méthode ObtenirPatientParNAMAsync pour vérifier si elle retourne un patient existant en fonction du numéro d'assurance médicale (NAM).
+        /// </summary>
+        /// <returns>
+        /// Si un patient existe avec le NAM fourni, la méthode devrait retourner le patient correspondant ; sinon, elle doit retourner null.
+        /// </returns>
+        [Fact]
+        public async Task ObtenirPatientParNAMAsync_ReturnPatientIfExists()
+        {
+            using (var dbTest = new CliniqueDbContext(SetUpInMemory("ObtenirPatientParNAMAsync_ReturnPatientIfExists")))
+            {
+                // Arrange
+                IPatientService service = new PatientService(dbTest);
+                var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
+
+                var namPatientFaux = "xxxx12345674";
+
+                // Act
+                var trueResult = await service.ObtenirPatientParNAMAsync(patientAChercher.NAM);
+                var falseResult = await service.ObtenirPatientParNAMAsync(namPatientFaux);
+                // Assert
+                Assert.NotNull(trueResult);
+                Assert.IsType<Patient>(trueResult);
+                Assert.Equal(patientAChercher, trueResult);
+
+                Assert.Null(falseResult);
+            }
+        }
+
+        /// <summary>
+        /// Teste la méthode ObtenirPatientParEmailAsync pour vérifier si elle retourne un patient existant en fonction de l'adresse e-mail.
+        /// </summary>
+        /// <returns>
+        /// Si un patient existe avec l'adresse e-mail fournie, la méthode devrait retourner le patient correspondant ; sinon, elle doit retourner null.
+        /// </returns>
+        [Fact]
+        public async Task ObtenirPatientParEmailAsync_ReturnPatientIfExists()
+        {
+            using (var dbTest = new CliniqueDbContext(SetUpInMemory("ObtenirPatientParEmailAsync_ReturnPatientIfExists")))
+            {
+                // Arrange
+                IPatientService service = new PatientService(dbTest);
+                var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
+
+                var courrielPatientFaux = "mine@eth.com";
+
+                // Act
+                var trueResult = await service.ObtenirPatientParEmailAsync(patientAChercher.Courriel);
+                var falseResult = await service.ObtenirPatientParNAMAsync(courrielPatientFaux);
+                // Assert
+                Assert.NotNull(trueResult);
+                Assert.IsType<Patient>(trueResult);
+                Assert.Equal(patientAChercher, trueResult);
+
+                Assert.Null(falseResult);
+            }
+        }
+
+        /// <summary>
+        /// este la fonctionnalité d'enregistrement d'un patient lorsqu'il existe déjà un utilisateur avec la même adresse électronique.
+        /// </summary>
+        /// <returns>Lance une exception si l'on essaie d'enregistrer un patient avec un courriel existant.</returns>
+        [Fact]
+        public async Task EnregistrerPatient_CourrielExist_ThrowsException()
+        {
+            // Arrange
+            using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_WhenEmailExists_ThrowsException")))
+            {
+                // Arrange
+                IPatientService service = new PatientService(dbTest);
+                var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
+
+                var courrielExistent = patientInscris.Courriel;
+
+                var patientAEnregistrer = new Patient { Courriel = courrielExistent };
+
+                // Act & Assert
+                await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientAEnregistrer));
+            }
+        }
+
+        /// <summary>
+        /// Test d'enregistrement des patients, avec un NAM déjà enregistré dans BD
+        /// </summary>
+        /// <returns>Une exception est lancée au cas où il existerait déjà dans le bd</returns>
+        [Fact]
+        public async Task EnregistrerPatient_NAMExist_ThrowsException()
+        {
+            // Arrange
+
+            using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_NAMExist_ThrowsException")))
+            {
+                IPatientService service = new PatientService(dbTest);
+                var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
+
+                var namExistent = patientInscris.NAM;
+                var nouveauCourriel = "test@test.test";
+
+                var patientAEnregistrer = new Patient { NAM = namExistent , Courriel= nouveauCourriel };
+
+                // Act & Assert
+                await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientInscris));
+            }
+        }
+
+        /// <summary>
+        /// Tester le cas de l'enregistrement d'un patient avec une date invalide (dans le futur)
+        /// </summary>
+        /// <returns>Renvoie une exception si la date n'est pas valide</returns>
+        [Fact]
+        public async Task EnregistrerPatient_DateDeNaissanceInvalide_ThrowsArgumentException()
+        {
+            // Arrange
+
+            using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_DateDeNaissanceInvalide_ThrowsArgumentEception")))
+            {
+                IPatientService service = new PatientService(dbTest);
+                var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
+
+                var nouveauNAM = "ABCD12345678";
+                var nouveauCourriel = "test@test.test";
+                var dateDeNaissanceInvalide = new DateTime(2099,01,01);
+
+                var patientAEnregistrer = new Patient { 
+                    NAM = nouveauNAM, 
+                    Courriel = nouveauCourriel,
+                    DateDeNaissance=dateDeNaissanceInvalide
+                };
+
+                // Act & Assert
+                await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientInscris));
+            }
+        }
+
+        /// <summary>
+        /// Cas test d'enregistrement du patient mineur
+        /// </summary>
+        /// <returns>Lancer une exception si l'utilisateur est mineur</returns>
+        [Fact]
+        public async Task EnregistrerPatient_EstMineur_ThrowsException()
+        {
+            // Arrange
+
+            using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_EstMineur_ThrowsException")))
+            {
+                IPatientService service = new PatientService(dbTest);
+                var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
+
+                var nouveauNAM = "ABCD12345678";
+                var nouveauCourriel = "test@test.test";
+                var dateDeNaissanceInvalide = DateTime.Now;
+
+                var patientAEnregistrer = new Patient
+                {
+                    NAM = nouveauNAM,
+                    Courriel = nouveauCourriel,
+                    DateDeNaissance = dateDeNaissanceInvalide
+                };
+
+                // Act & Assert
+                await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientInscris));
+            }
+        }
+
+        /// <summary>
+        /// Teste l'enregistrement correct d'un patient lorsque toutes les conditions sont remplies.
+        /// </summary>
+        /// <returns>Retourner le patient sans lancer d'exceptions</returns>
+        [Fact]
+        public async Task EnregistrerPatient_CorrectRegistration_NoExceptionThrown()
+        {
+            // Arrange
+            using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_CorrectRegistration_NoExceptionThrown")))
+            {
+                IPatientService service = new PatientService(dbTest);
+                var patientAEnregistrer = new Patient
+                {
+                    Nom = "TEST",
+                    Prenom = "TEST",
+                    CodePostal = "K3K 3K3",
+                    Courriel = "test@test.test",
+                    NAM = "ABCD12345678",
+                    DateDeNaissance = new DateTime(1990, 1, 1),
+                    MotDePasse = "password123!",
+                    MotDePasseConfirmation = "password123!"
+                };
+
+                // Act
+                var createdPatient = await service.EnregistrerPatient(patientAEnregistrer);
+
+                //Assert
+                Assert.NotNull(createdPatient);
+            }
+        }
+
     }
 }
 

@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using Clinique2000_Utility.CustomAttributesValidation;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
-using Clinique2000_Core;
-using Clinique2000_Utility.CustomAttributesValidation;
-
 
 namespace Clinique2000_Core.Models
 {
-
     [MetadataType(typeof(Patient))]
     public partial class PatientMeta
     {
@@ -14,8 +11,9 @@ namespace Clinique2000_Core.Models
 
     public class Patient : Personne
     {
-        
-        public int PatientId { get; set; }
+
+        //public Guid PatientId { get; set; }
+        public string? GoogleNameIdentifier { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [RegularExpression(@"^[A-Z]{4}\d{8}$", ErrorMessage = "Le format NAM n'est pas valide.(Ex:ABCD12345678)")]
@@ -29,17 +27,17 @@ namespace Clinique2000_Core.Models
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [MaxLength(225, ErrorMessage = "Ce champ ne peut pas dépasser 8 caractères.")]
-        [RegularExpression(@"^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,225}$", ErrorMessage = "Ce champ doit contenir au moins une lettre, un chiffre et doit avoir entre 8 et 225 caractères.")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\p{L}\d])(?!.*\s).{8,225}$", ErrorMessage = "Ce champ doit contenir au moins une lettre, un chiffre et doit avoir entre 8 et 225 caractères.")]
         public string MotDePasse { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [MaxLength(225, ErrorMessage = "Ce champ ne peut pas dépasser  caractères.")]
-        [RegularExpression(@"^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,225}$", ErrorMessage = "Ce champ doit contenir au moins une lettre, un chiffre et doit avoir entre 8 et 225 caractères.")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\p{L}\d])(?!.*\s).{8,225}$", ErrorMessage = "Ce champ doit contenir au moins une lettre, un chiffre et doit avoir entre 8 et 225 caractères.")]
         public string MotDePasseConfirmation { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         [ValiderDateDeNaissance(ErrorMessage = "{0} field validation failed.")]
         public DateTime DateDeNaissance { get; set; }
 
@@ -50,4 +48,3 @@ namespace Clinique2000_Core.Models
         public virtual List<PatientACharge>? PatientsACharge { get; set; }
     }
 }
-

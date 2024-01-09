@@ -1,11 +1,6 @@
 ﻿using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinique2000_Services.Services
 {
@@ -49,7 +44,7 @@ namespace Clinique2000_Services.Services
             {
                 _dbContext.Entry(entity).State = EntityState.Modified;
             }
-                
+
             await _dbContext.SaveChangesAsync();
         }
 
