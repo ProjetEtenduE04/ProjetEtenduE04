@@ -31,8 +31,14 @@ namespace Clinique2000_Services.Services
                 throw new ValidationException("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.");
             }
 
+            if (!VerifierSiDateEffectiviteValide(listeAttente) || !VerifierSiHeureOuvertureValide(listeAttente) )
+            {
+                throw new ValidationException("La liste n'est pas valide");
+            }
+            else { 
             await CreerAsync(listeAttente);
             return listeAttente;
+            }
         }
 
         public bool VerifierSiListeAttenteExisteMemeJourClinique(DateTime dateEffectivite, int cliniqueId)
@@ -46,9 +52,8 @@ namespace Clinique2000_Services.Services
 
         public bool ListeAttenteIsValid(ListeAttente listeAttente)
         {
-            if (!VerifierSiDateEffectiviteValide(listeAttente) ||
-                !VerifierSiHeureOuvertureValide(listeAttente) ||
-                !VerifierSiListeAttenteEstCree(listeAttente) ||
+           
+                if (!VerifierSiListeAttenteEstCree(listeAttente) ||
                 !VerifierSiNbMedecinsDisponibles(listeAttente))
             {
                 return false;
@@ -121,7 +126,7 @@ namespace Clinique2000_Services.Services
                     {
                         HeureDateDebutPrevue = heureDebut,
                         HeureDateFinPrevue = nouvelleHeureFin,
-                        StatutConsultation = StatutConsultation.EnAttente,
+                        StatutConsultation = StatutConsultation.DisponiblePourReservation,
                         PlageHoraireID = plageHoraire.PlageHoraireID,
                         PatientID = null,
 
