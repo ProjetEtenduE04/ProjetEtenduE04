@@ -67,6 +67,8 @@ namespace Clinique2000_MVC.Controllers
                 await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
                 RedirectToAction("Index");
             }
+            return View(listeAttente);
+        }
 
         [HttpGet]
         // GET: ListeAttenteController/Edit/5
