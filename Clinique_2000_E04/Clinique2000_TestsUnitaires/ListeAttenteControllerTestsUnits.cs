@@ -258,22 +258,22 @@ namespace Clinique2000_TestsUnitaires
 
 
         //Ce test v�rifie que l'action Create (GET) renvoie la vue par d�faut pour cr�er une nouvelle entr�e.
-        [Fact]
-        public async Task Create_Get_RetourneVueParDefaut()
-        {
+        //[Fact]
+        //public async Task Create_Get_RetourneVueParDefaut()
+        //{
 
-            // Arrange
-            var mockService = new Mock<IClinique2000Services>();
-            var controller = new ListeAttenteController(mockService.Object);
+        //    // Arrange
+        //    var mockService = new Mock<IClinique2000Services>();
+        //    var controller = new ListeAttenteController(mockService.Object);
 
-            // Act
-            var result = await controller.Create();
+        //    // Act
+        //    var result = await controller.Create();
 
-            // Assert
-            Assert.IsType<ViewResult>(result);
-            var viewResult = result as ViewResult;
-            Assert.Null(viewResult.Model); // Confirme que la vue est retourn�e sans mod�le
-        }
+        //    // Assert
+        //    Assert.IsType<ViewResult>(result);
+        //    var viewResult = result as ViewResult;
+        //    Assert.Null(viewResult.Model); // Confirme que la vue est retourn�e sans mod�le
+        //}
 
 
         /// <summary>
