@@ -33,7 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\" />
+    <Folder Include="Areas\Clinique\Data\" />
+    <Folder Include="Areas\Clinique\Models\" />
   </ItemGroup>
 
 </Project>

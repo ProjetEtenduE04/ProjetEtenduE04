@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+
+<form asp-area="Clinique" asp-controller="ListeAttente" asp-action="Create" method="post" class="m-4">
+    @Html.AntiForgeryToken()
+    <div class="form-group mb-3">
+        <label for="isOuverte" class="form-label">Ouvrir après création :</label>
+        <input type="checkbox" id="isOuverte" name="IsOuverte" class="form-check-input">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="dateEffectivite" class="form-label">Date d'effectivité :</label>
+        <input type="date" id="dateEffectivite" name="DateEffectivite" class="form-control form-control-lg">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="heureOuverture" class="form-label">Heure d'ouverture :</label>
+        <input type="time" id="heureOuverture" name="HeureOuverture" class="form-control form-control-lg">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="heureFermeture" class="form-label">Heure de fermeture :</label>
+        <input type="time" id="heureFermeture" name="HeureFermeture" class="form-control form-control-lg">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="nbMedecinsDispo" class="form-label">Nombre de médecins disponibles :</label>
+        <input type="number" id="nbMedecinsDispo" name="NbMedecinsDispo" class="form-control form-control-lg">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="CliniqueID" class="form-label">ID de votre clinique :</label>
+        <input type="number" id="CliniqueID" name="CliniqueID" class="form-control form-control-lg">
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg">Créer</button>
+    <button class="btn-reinitialiser" type="reset">Réinitialiser</button>
+</form>
