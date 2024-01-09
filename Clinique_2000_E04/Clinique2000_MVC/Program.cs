@@ -10,8 +10,8 @@ builder.Services.AddControllersWithViews();
 //DbContext
 builder.Services.AddDbContext<CliniqueDbContext>(options =>
 { 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.UseLazyLoadingProxies();
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")).UseLazyLoadingProxies();
+  
 });
 #region Servivces
 builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBaseAsync<>));
