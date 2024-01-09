@@ -22,6 +22,10 @@ namespace Clinique2000_Services.Services
         /// <returns>Le patient correspondant au numéro d'assurance médicale fourni, s'il existe ; sinon, null.</returns>
         public async Task<Patient?> ObtenirPatientParNAMAsync(string nam)
         {
+            if (nam == null)
+            {
+                return null;
+            }
             return await _dbContext.Set<Patient>()
                 .Where(p => p.NAM.ToUpper() == nam.ToUpper())
                 .FirstOrDefaultAsync();
@@ -34,6 +38,10 @@ namespace Clinique2000_Services.Services
         /// <returns>Le patient correspond à l'adresse électronique fournie, s'il existe, sinon null.</returns>
         public async Task<Patient?> ObtenirPatientParEmailAsync(string courriel)
         {
+            if (courriel == null)
+            {
+                return null;
+            }
             return await _dbContext.Set<Patient>()
                 .Where(p => p.Courriel.ToUpper() == courriel.ToUpper())
                 .FirstOrDefaultAsync();
