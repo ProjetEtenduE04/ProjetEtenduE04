@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Clinique2000_Core.Models.ListeAttente>
+
+@{
+    // ViewData["Title"] = "ListeAttenteDetails";
+}
+
+<h2>Index</h2>
+
+@foreach (var liste in Model)
+{
+    <div>
+        <h4>ListeAttente</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DateEffectivite)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => liste.DateEffectivite)
+            </dd>
+
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = liste.ListeAttenteID }) |
+        @Html.ActionLink("Details", "Details", new { id = liste.ListeAttenteID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = liste.ListeAttenteID })
+    </p>
+}

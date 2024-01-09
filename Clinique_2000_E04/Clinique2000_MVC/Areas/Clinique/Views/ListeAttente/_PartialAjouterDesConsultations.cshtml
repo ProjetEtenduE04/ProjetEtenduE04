@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Clinique2000_Core.Models.Consultation>
+
+<div class="container ps-0">
+    @* <h2>Plages Horaires</h2> *@
+    <table class="table mb-0 pb-0">
+        <thead>
+            <tr>
+               @*  <th>Data</th> *@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var consultation in Model)
+            {
+                <tr id="tableinterne" class="pb-0 mb-0">
+                    <td class="ps-0 mb-0">
+                        <div>@consultation.ConsultationID</div>
+                        <div>Medecin:</div>
+                        <div>Patient:</div>
+                    </td>
+                
+                 @*    <td>
+                        <a asp-controller="ListeAttente" asp-action="ModifierPlageHoraire" asp-route-id="@consultation.ConsultationID" class="btn btn-primary">Modifier</a>
+                        <a asp-controller="ListeAttente" asp-action="SupprimerPlageHoraire" asp-route-id="@consultation.ConsultationID" class="btn btn-danger">Supprimer</a>
+                    </td> *@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
