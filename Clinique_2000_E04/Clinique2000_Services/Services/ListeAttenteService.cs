@@ -9,6 +9,8 @@ using Clinique2000_Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Clinique2000_Utility.Enum;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using MessagePack.Formatters;
 
 namespace Clinique2000_Services.Services
 {
@@ -139,6 +141,78 @@ namespace Clinique2000_Services.Services
             await _context.SaveChangesAsync();
 
         }
+
+
+
+
+        //Consultation Logic
+
+
+        /// <summary>
+        /// Cette methode recupere un patient specifique par son ID
+        /// </summary>
+        /// <param name="PatientID"></param>
+        /// <returns> Patient specifique et ses infos </returns>
+        public async Task<Patient> RecupererInfosPatient(int PatientID)
+        {
+            Patient patient = await _context.Patients.Where(x => x.PatientId == PatientID).FirstOrDefaultAsync();
+            if (patient == null)
+            {
+                throw new ArgumentNullException(nameof(patient));
+            }
+            return patient;
+        }
+
+
+
+        /// <summary>
+        /// Cette methode s'occupe de créer une consultation
+        /// </summary>
+        /// <param name="patient"></param>
+        /// <param name="plagehoraire"></param>
+        /// <returns></returns>
+        public async Task ReserverConsultation(Patient patient, PlageHoraire plagehoraire)
+        {
+            var consultation = new Consultation();
+
+            if (PeutReserver(patient))    //On verifie ici que le patient n'a pas deja une consultation en attente.
+            {
+                //on cree la consultation
+                consultation.StatutConsultation = StatutConsultation.EnAttente;
+                consultation.Patient = patient;
+                consultation.HeureDateDebutPrevue = plagehoraire.Consultations.Where(x => x.Patient == patient).First().HeureDateDebutPrevue;
+                consultation.HeureDateFinPrevue = plagehoraire.Consultations.Where(x => x.Patient == patient).First().HeureDateFinPrevue;
+                consultation.HeureDateDebutReele = null;
+                consultation.HeureDateFinReele = null;
+
+                _context.Consultations.Add(consultation);
+                _context.SaveChanges();
+            }
+            throw new ValidationException("Une consultation est deja en attente. Veuillez annuller celle-ci afin d'en demander une nouvelle.");
+
+
+        }
+
+        /// <summary>
+        /// Cette methode verifie si le patient a deja une demande de consultation en attente
+        /// </summary>
+        /// <param name="patient"></param>
+        /// <returns> Si deja consultation en attente, retourne false, sinon, retourne true </returns>
+        public bool PeutReserver(Patient patient)
+        {
+            if(patient.Consultation != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
+
+
+
+
 
     }
 }

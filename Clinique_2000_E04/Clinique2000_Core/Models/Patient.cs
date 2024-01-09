@@ -37,6 +37,11 @@ namespace Clinique2000_Core.Models
         public int Age { get; set; } 
 
         public virtual List<PatientACharge>? PatientsACharge { get; set; }
+
+        [ForeignKey("Consultation")]
+        public int ConsultationId { get; set; }
+
+        public Consultation? consultation { get; set; }
     }
 
 }
