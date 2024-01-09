@@ -27,7 +27,8 @@
                 <p>Nombre de médecins disponibles: <div id="nb-medecins-dispo">@Model.NbMedecinsDispo</div></p>
                 <form class="my-3" asp-action="AjouterDesPlagesHorairesl" asp-controller="ListeAttente" method="post">
                     <input type="hidden" name="id" value="@Model.ListeAttenteID" />
-                    <input type="submit" value="Generar Plages Horaires" class="btn btn-success" />
+                    <input type="submit" value="Generar Plages Horaires" class="btn btn-success" 
+                    @(Model.PlagesHoraires.Count>0 ? "disabled" : "")/>
                 </form>
             </div>
             
@@ -36,17 +37,12 @@
         
     </div>
      
-  
  
 
 
-
     <div class="liste-attente-info mb-0 ">
-       @*  <p>Date d'effectivité: <span id="date-effectivite">@Model.DateEffectivite.ToString("yyyy-MM-dd")</span></p>
-        <p>Heure de fermeture: <span id="heure-fermeture">@Model.HeureFermeture.ToString("hh\\:mm")</span></p>
-        <p>Heure d'ouverture: <span id="heure-ouverture">@Model.HeureOuverture.ToString("hh\\:mm")</span></p>
       
-        <p>Nombre de médecins disponibles: <span id="nb-medecins-dispo">@Model.NbMedecinsDispo</span></p> *@
+       
      
 
         <div>

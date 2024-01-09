@@ -58,9 +58,6 @@ namespace Clinique2000_Core.Models
         public virtual Clinique Clinique { get; set; }
 
 
-        
-        
-
         [ValidateNever]
         public virtual List<PlageHoraire> PlagesHoraires { get; set; }
 
