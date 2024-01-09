@@ -9,7 +9,7 @@ namespace Clinique2000_Services.IServices
 {
     public interface IListeAttenteService:IServiceBaseAsync<ListeAttente>
     {
-        Task GenererPlagesHorairesAsync(ListeAttente listeAttente);
+        Task GenererPlagesHorairesAsync(int ID);
         Task<ListeAttente> CreerListeAttenteAsync(ListeAttente listeAttente);
         bool ListeAttenteIsValid(ListeAttente listeAttente);
         bool VerifierSiListeAttenteExisteMemeJourClinique(DateTime dateEffectivite, int cliniqueId);

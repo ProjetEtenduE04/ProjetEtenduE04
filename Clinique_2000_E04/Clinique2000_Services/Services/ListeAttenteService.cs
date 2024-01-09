@@ -16,19 +16,20 @@ namespace Clinique2000_Services.Services
     {
 
         private readonly CliniqueDbContext _context;
-        
-        public ListeAttenteService (CliniqueDbContext context): base(context)
+
+        public ListeAttenteService(CliniqueDbContext context) : base(context)
         {
             _context = context;
         }
-        
+
         public async Task<ListeAttente> CreerListeAttenteAsync(ListeAttente listeAttente)
         {
-           if( listeAttente.DateEffectivite== null)
-                listeAttente.DateEffectivite=DateTime.Now.Date;
+
 
             if (VerifierSiListeAttenteExisteMemeJourClinique(listeAttente.DateEffectivite, listeAttente.CliniqueID))
-           
+            {
+                throw new ValidationException("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.");
+            }
 
             await CreerAsync(listeAttente);
             return listeAttente;
@@ -36,11 +37,11 @@ namespace Clinique2000_Services.Services
 
         public bool VerifierSiListeAttenteExisteMemeJourClinique(DateTime dateEffectivite, int cliniqueId)
         {
-            if(_context.ListeAttentes.Any(l => l.DateEffectivite == dateEffectivite && l.CliniqueID == cliniqueId))
+            if (_context.ListeAttentes.Any(l => l.DateEffectivite == dateEffectivite && l.CliniqueID == cliniqueId))
             {
                 throw new ValidationException("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.");
             }
-            return true;
+            return false;
         }
 
         public bool ListeAttenteIsValid(ListeAttente listeAttente)
@@ -53,7 +54,7 @@ namespace Clinique2000_Services.Services
                 return false;
             }
 
-            
+
             return true;
         }
 
@@ -65,18 +66,18 @@ namespace Clinique2000_Services.Services
                         : throw new ValidationException("Il faut créer une liste d'attente avant");
         }
 
-        public  bool VerifierSiNbMedecinsDisponibles(ListeAttente listeAttente)
+        public bool VerifierSiNbMedecinsDisponibles(ListeAttente listeAttente)
         {
             return listeAttente.NbMedecinsDispo >= 1
                     ? true
                     : throw new ValidationException("On doit avoir au moins un medecin disponible.");
         }
 
-        public bool VerifierSiHeureOuvertureValide( ListeAttente listeAttente)
+        public bool VerifierSiHeureOuvertureValide(ListeAttente listeAttente)
         {
-                return listeAttente.HeureOuverture < listeAttente.HeureFermeture
-                         ? true
-                         : throw new ValidationException("L'heure d'ouverture doit etre inférieure à l'heure de fermeture.");
+            return listeAttente.HeureOuverture < listeAttente.HeureFermeture
+                     ? true
+                     : throw new ValidationException("L'heure d'ouverture doit etre inférieure à l'heure de fermeture.");
 
         }
         public bool VerifierSiDateEffectiviteValide(ListeAttente listeAttente)
@@ -89,56 +90,50 @@ namespace Clinique2000_Services.Services
 
         }
 
-        public async Task GenererPlagesHorairesAsync(ListeAttente listeAttente )
+        public async Task GenererPlagesHorairesAsync(int ID)
         {
-            if(!ListeAttenteIsValid(listeAttente))
+            var listeAttente = await _context.ListeAttentes.FindAsync(ID);
+            if (!ListeAttenteIsValid(listeAttente))
             {
                 throw new Exception("Liste d'attente invalide");
             }
-            
+
             DateTime heureDebut = listeAttente.DateEffectivite.Date.Add(listeAttente.HeureOuverture);
             DateTime finService = listeAttente.DateEffectivite.Date.Add(listeAttente.HeureFermeture);
             PlageHoraire plageHoraire;
-            Consultation consultation;
+            //Consultation consultation;
             while (heureDebut < finService)
             {
-                DateTime nouvelleHeureFin = heureDebut.AddMinutes((double)listeAttente.Clinique.TempsMoyenConsultation);  
+                DateTime nouvelleHeureFin = heureDebut.AddMinutes((double)listeAttente.Clinique.TempsMoyenConsultation);
                 plageHoraire = new PlageHoraire
                 {
                     HeureDebut = heureDebut,
                     HeureFin = nouvelleHeureFin,
                     ListeAttente= listeAttente
-                    
-                   
+
                 };
+                _context.PlagesHoraires.Add(plageHoraire);
+                await _context.SaveChangesAsync();
 
                 for (int i = 0; i < listeAttente.NbMedecinsDispo; i++)
                 {
-                    consultation = new Consultation
+                    Consultation consultation = new Consultation
                     {
                         HeureDateDebutPrevue = heureDebut,
                         HeureDateFinPrevue = nouvelleHeureFin,
                         StatutConsultation = StatutConsultation.EnAttente,
                         PlageHoraireID = plageHoraire.PlageHoraireID,
-                        PatientID= null,
-                        
+                        PatientID = null,
+
                     };
                     _context.Consultations.Add(consultation);
 
                 }
-                _context.PlagesHoraires.Add(plageHoraire);
-
-
                 heureDebut = nouvelleHeureFin;
             }
             await _context.SaveChangesAsync();
-            
-         
+
         }
 
-
-
-
-
-    }   
+    }
 }
