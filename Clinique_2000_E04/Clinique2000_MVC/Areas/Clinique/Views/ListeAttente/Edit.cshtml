@@ -1,0 +1,52 @@
+﻿@model ListeAttente
+@{
+    Layout = "_Layout";
+}
+
+<form asp-area="Clinique" asp-controller="ListeAttente" asp-action="Edit" method="post" enctype="multipart/form-data" class="m-4">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="ListeAttenteID">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group mb-3">
+        <label asp-for="IsOuverte" class="form-label">Garder ouverte suite a la modification :</label>
+        <input asp-for="IsOuverte" type="checkbox" class="form-check-input">
+        <span asp-validation-for="IsOuverte" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="DateEffectivite" class="form-label">Date d'effectivité :</label>
+        <input asp-for="DateEffectivite" type="date" class="form-control form-control-lg">
+        <span asp-validation-for="DateEffectivite" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HeureOuverture" class="form-label">Heure d'ouverture :</label>
+        <input asp-for="HeureOuverture" type="time" class="form-control form-control-lg">
+        <span asp-validation-for="HeureOuverture" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HeureFermeture" class="form-label">Heure de fermeture :</label>
+        <input asp-for="HeureFermeture" type="time" class="form-control form-control-lg">
+        <span asp-validation-for="HeureFermeture" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="NbMedecinsDispo" class="form-label">Nombre de médecins disponibles :</label>
+        <input asp-for="NbMedecinsDispo" type="number" class="form-control form-control-lg">
+        <span asp-validation-for="NbMedecinsDispo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="CliniqueID" class="form-label">ID de votre clinique :</label>
+        <input asp-for="CliniqueID" type="number" class="form-control form-control-lg">
+        <span asp-validation-for="CliniqueID" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg">Modifier</button>
+    <button type="reset" class="btn btn-secondary btn-lg">Réinitialiser</button>
+</form>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

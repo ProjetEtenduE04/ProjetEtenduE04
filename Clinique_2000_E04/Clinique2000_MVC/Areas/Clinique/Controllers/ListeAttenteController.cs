@@ -5,6 +5,7 @@ using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Clinique2000_MVC.Areas.Clinique.Controllers
 {
@@ -55,21 +56,29 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ListeAttente listeAttente)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
+                    return RedirectToAction("Index");
+                }
             }
+            catch(ValidationException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+         
 
 
-            return View(listeAttente);
+            return View("create", listeAttente);
         }
+
 
 
         [HttpGet]
         // GET: ListeAttenteController/Edit/5
-        public async Task<ActionResult> EditAsync(int id)
+        public async Task<ActionResult> Edit(int id)
         {
 
             ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
@@ -83,11 +92,20 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ListeAttente listeAttente)
         {
-            if (ModelState.IsValid)
+
+            try
             {
-                await _services.listeAttente.EditerAsync(listeAttente);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await _services.listeAttente.ModifierListeAttenteAsync(listeAttente);
+                    return RedirectToAction("Index");
+                }
             }
+            catch(ValidationException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+       
 
             return View(listeAttente);
         }
@@ -117,5 +135,49 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
 
             return View(listeAttente);
         }
+
+
+
+
+
+
+
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AjouterDesPlagesHorairesl(int ID)
+        {
+            var model = await _services.listeAttente.ObtenirParIdAsync(ID);
+            if (model != null)
+            {
+                await _services.listeAttente.GenererPlagesHorairesAsync(ID);
+
+                model = await _services.listeAttente.ObtenirParIdAsync(ID);
+
+                return View("Details", model);
+
+            }
+            return NotFound();
+        }
+
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ReserverConsultation(Patient patient, Consultation consultation)
+        {
+            _services.listeAttente.ReserverConsultation(consultation, patient);
+            return RedirectToAction("Details", consultation);
+        }
+
+
+
+
+
+
+
     }
 }

@@ -23,6 +23,8 @@ namespace Clinique2000_Core.Models
         [Display(Name = "Date d'effectivité")]
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [DataType(DataType.Date)]
+        [MyDate(ErrorMessage = "Date invalide")]
+
         public DateTime DateEffectivite { get; set; }
 
 
@@ -39,7 +41,8 @@ namespace Clinique2000_Core.Models
 
 
         [Display(Name = "Nombre de médecins disponibles")]
-        [Required(ErrorMessage= "Ce champ est obligatoire.")]
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [Range(minimum:1, maximum:int.MaxValue,ErrorMessage ="Veuillez entrer un nombre de medecins valide.")]
         public int NbMedecinsDispo { get; set; }
 
 
@@ -55,11 +58,11 @@ namespace Clinique2000_Core.Models
         public int CliniqueID { get; set; }
 
         [ValidateNever]
-        public virtual Clinique Clinique { get; set; }
+        public virtual Clinique? Clinique { get; set; }
 
 
         [ValidateNever]
-        public virtual List<PlageHoraire> PlagesHoraires { get; set; }
+        public virtual List<PlageHoraire>? PlagesHoraires { get; set; }
 
        
 
@@ -67,5 +70,19 @@ namespace Clinique2000_Core.Models
       
 
 
+
     }
+
+    public class MyDateAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)// Return a boolean value: true == IsValid, false != IsValid
+        {
+            DateTime d = Convert.ToDateTime(value);
+            return d.AddDays(1) >= DateTime.Now; //Dates Greater than or equal to today are valid (true)
+
+        }
+    }
+
+
+
 }
