@@ -44,6 +44,7 @@ namespace Clinique2000_DataAccess.Data
             modelBuilder.Entity<Personne>().ToTable("Personne");
             modelBuilder.Entity<Patient>().ToTable("Patient");
             modelBuilder.Entity<PatientACharge>().ToTable("PatientACharge");
+            modelBuilder.GenerateData();
 
         }
 

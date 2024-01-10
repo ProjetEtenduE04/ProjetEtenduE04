@@ -74,7 +74,7 @@ namespace Clinique2000_TestsUnitaires
                 throw new InvalidOperationException("ListeAttente not found.");
             }
             // Act
-            await service.GenererPlagesHorairesAsync(listeAttente);
+            await service.GenererPlagesHorairesAsync(listeAttente.ListeAttenteID);
 
             // Assert
             var consultations = dbTest.PlagesHoraires.Count();
