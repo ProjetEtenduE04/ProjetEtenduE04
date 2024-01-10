@@ -1,0 +1,70 @@
+﻿@model ListeAttente
+
+
+<div>
+    <h4>ListeAttente</h4>
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsOuverte)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsOuverte)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ListeAttenteID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ListeAttenteID)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateEffectivite)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateEffectivite)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureOuverture)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HeureOuverture)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureFermeture)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HeureFermeture)
+        </dd>
+
+
+  
+    </dl>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="ListeAttenteID" />
+        <input type="hidden" asp-for="DateEffectivite" />
+        <input type="hidden" asp-for="HeureOuverture" />
+        <input type="hidden" asp-for="HeureFermeture" />
+        <input type="hidden" asp-for="IsOuverte" />
+        <input type="hidden" asp-for="NbMedecinsDispo" />
+        <input type="hidden" asp-for="DureeConsultationMinutes" />
+        <input type="hidden" asp-for="CliniqueID" />
+        <input type="hidden" asp-for="ListeAttenteID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Cancel</a>
+    </form>
+</div>

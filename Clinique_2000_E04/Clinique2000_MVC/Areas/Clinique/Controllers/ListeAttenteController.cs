@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinique2000_MVC.Areas.Clinique.Controllers
 {
@@ -110,17 +111,17 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
             return View(listeAttente);
         }
 
+
+
+        [HttpGet]
         // GET: ListeAttenteController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            if (id >= 0)
-            {
-                ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
-                return View(list);
-            }
-            return NotFound();
-
+           ListeAttente listeattente= _services.listeAttente.ObtenirParIdAsync(id).Result;
+            return View("Delete", listeattente);
         }
+
+
 
         // POST: ListeAttenteController/Delete/5
         [HttpPost]
@@ -129,8 +130,25 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _services.listeAttente.SupprimerAsync(listeAttente.ListeAttenteID);
-                return RedirectToAction("Index");
+                try
+                {
+                    if (!_services.listeAttente.PeutSupprimmer(listeAttente))
+                    {
+                        ModelState.AddModelError("", "Cette liste d'attente ne peut etre supprimee.");
+                        return View(listeAttente);
+                    }
+                    else
+                    {
+                        await _services.listeAttente.SupprimmerListeAttente(listeAttente);
+                        return RedirectToAction("index");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception details as needed
+                    ModelState.AddModelError("", "Une erreur s'est produite lors de la suppression : " + ex.Message);
+                    return View(listeAttente);
+                }
             }
 
             return View(listeAttente);
