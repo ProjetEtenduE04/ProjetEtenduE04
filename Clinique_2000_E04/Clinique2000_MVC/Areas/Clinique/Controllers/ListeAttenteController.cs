@@ -117,8 +117,13 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         // GET: ListeAttenteController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-           ListeAttente listeattente= _services.listeAttente.ObtenirParIdAsync(id).Result;
-            return View("Delete", listeattente);
+            if (id >= 0)
+            {
+                ListeAttente listeattente = _services.listeAttente.ObtenirParIdAsync(id).Result;
+                return View("Delete", listeattente);
+            }
+            return NotFound();
+         
         }
 
 

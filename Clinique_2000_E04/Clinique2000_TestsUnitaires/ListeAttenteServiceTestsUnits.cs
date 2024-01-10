@@ -74,7 +74,7 @@ namespace Clinique2000_TestsUnitaires
                 throw new InvalidOperationException("ListeAttente not found.");
             }
             // Act
-            await service.GenererPlagesHorairesAsync(listeAttente);
+            await service.GenererPlagesHorairesAsync(listeAttente.ListeAttenteID);
 
             // Assert
             var consultations = dbTest.PlagesHoraires.Count();
@@ -149,9 +149,99 @@ namespace Clinique2000_TestsUnitaires
             ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiDateEffectiviteValide(listeAttente));
 
             // Assert
-            Assert.Equal("La date d'effectivité n'est pas valide. Elle doit être postérieure à la date actuelle.", exception.Message);
+            Assert.Equal("La date d'effectivite n'est pas valide. Elle doit etre posterieure a la date actuelle.", exception.Message);
         }
+
+
+
+        [Fact]
+        public async Task SupprimmerListeAttente_SupprimeListeAttenteDeLaBD()
+        {
+            // Arrange
+            IListeAttenteService service = new ListeAttenteService(dbTest);
+            var listeAttente = new ListeAttente { ListeAttenteID = 2847, IsOuverte = false };
+            dbTest.ListeAttentes.Add(listeAttente);
+            await dbTest.SaveChangesAsync();
+
+            // Act
+            await service.SupprimmerListeAttente(listeAttente);
+
+            // Assert
+            var existsPostDelete = await dbTest.ListeAttentes.AnyAsync(l => l.ListeAttenteID == 2847);
+            Assert.False(existsPostDelete, "ListeAttente should be removed from the database.");
+        }
+
+
+        [Fact]
+        public async Task ModifierListeAttenteAsync_LanceException_QuandDoubleExiste()
+        {
+            // Arrange
+            var service = new ListeAttenteService(dbTest);
+            var originalListeAttente = new ListeAttente {  DateEffectivite = DateTime.Today, CliniqueID = 1 };
+            var modifiedListeAttente = new ListeAttente {  DateEffectivite = DateTime.Today, CliniqueID = 1 }; // Same date and clinic as original
+
+            // Add the original ListeAttente to the in-memory database
+            dbTest.ListeAttentes.Add(originalListeAttente);
+            await dbTest.SaveChangesAsync();
+
+            // Act & Assert
+            var exception = await Assert.ThrowsAsync<ValidationException>(
+                () => service.ModifierListeAttenteAsync(modifiedListeAttente));
+
+            Assert.Equal("Il existe deja une liste d'attente dans la meme clinique pour la meme date.", exception.Message);
+        }
+
+        [Fact]
+        public async Task ModifierListeAttenteAsync_LanceException_QuandDateHeureInvalide()
+        {
+            // Arrange
+            var service = new ListeAttenteService(dbTest);
+            var invalidListeAttente = new ListeAttente
+            {
+               
+                DateEffectivite = DateTime.Today.AddDays(-1), // Invalid 
+                HeureOuverture = TimeSpan.FromHours(10),
+                HeureFermeture = TimeSpan.FromHours(9), // Invalid 
+                NbMedecinsDispo = 2,
+                CliniqueID = 1
+            };
+
+            // Act & Assert
+            var exception = await Assert.ThrowsAsync<ValidationException>(
+                () => service.ModifierListeAttenteAsync(invalidListeAttente));
+
+            Assert.Contains("La date d'effectivite n'est pas valide. Elle doit etre posterieure a la date actuelle.", exception.Message);
+        }
+
+
+        [Fact]
+        public async Task ModifierListeAttenteAsync_Succeeds_WhenValid()
+        {
+            // Arrange
+            var service = new ListeAttenteService(dbTest);
+            var listeAttente = new ListeAttente
+            {
+                ListeAttenteID = 1,
+                DateEffectivite = DateTime.Today.AddDays(2), 
+                HeureOuverture = TimeSpan.FromHours(8),
+                HeureFermeture = TimeSpan.FromHours(10),
+                NbMedecinsDispo = 2,
+                CliniqueID = 1
+            };
+
+            // Act
+            await service.ModifierListeAttenteAsync(listeAttente);
+
+            // Assert
+            var updatedListeAttente = await dbTest.ListeAttentes.FindAsync(1);
+            Assert.NotNull(updatedListeAttente);
+            Assert.Equal(DateTime.Today.AddDays(2), updatedListeAttente.DateEffectivite);
+        }
+
     }
+
+
+
 
 
 }

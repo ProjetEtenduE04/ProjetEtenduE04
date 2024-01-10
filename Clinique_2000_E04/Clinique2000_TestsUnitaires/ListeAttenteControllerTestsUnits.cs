@@ -198,7 +198,7 @@ namespace Clinique2000_TestsUnitaires
             var controller = new ListeAttenteController(mockService.Object);
 
             // Act
-            var result = await controller.EditAsync(1);
+            var result = await controller.Edit(1);
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -369,32 +369,32 @@ namespace Clinique2000_TestsUnitaires
             Assert.IsType<NotFoundResult>(result);
         }
 
-
+        /// <summary>
+        /// CETTE METHODE VERIFIE LA REDIRECTION DE LA METHODE . VERIFIE QUE LA METHODE RETOURNE A LA VUE INDEX LORS D'UN SUCCES
+        /// </summary>
+        /// <returns></returns>
         [Fact]
-        public async Task Suppression_Post_ReduitNombreListeAttenteEtRedirigeAindex_SiModelStateValide()
+        public async Task DeletePost_RedirectsToIndex_WhenSuccessful()
         {
             // Arrange
-            List<ListeAttente> listeListeattente = new List<ListeAttente>();
-            var listeAttente1 = new ListeAttente {ListeAttenteID=1, };
-            var listeattente2= new ListeAttente { ListeAttenteID=2, };
+            var mockServices = new Mock<IClinique2000Services>();
+            var mockListeAttenteService = new Mock<IListeAttenteService>();
+            mockServices.Setup(s => s.listeAttente).Returns(mockListeAttenteService.Object);
 
-            listeListeattente.Add(listeAttente1);
-            listeListeattente.Add(listeattente2);
+            var controller = new ListeAttenteController(mockServices.Object);
+            var listeAttenteToDelete = new ListeAttente { ListeAttenteID = 1 };
 
-
-            var mockService = new Mock<IClinique2000Services>();
-            var controller = new ListeAttenteController(mockService.Object);
-            mockService.Setup(s => s.listeAttente.SupprimerAsync(It.IsAny<int>())).Returns(Task.CompletedTask);
-            controller.ModelState.Clear();
+            mockListeAttenteService.Setup(s => s.PeutSupprimmer(It.IsAny<ListeAttente>())).Returns(true);
+            mockListeAttenteService.Setup(s => s.SupprimmerListeAttente(It.IsAny<ListeAttente>()))
+                                   .Returns(Task.CompletedTask);
 
             // Act
-            var result = await controller.Delete(listeAttente1);
+            var result = await controller.Delete(listeAttenteToDelete);
 
             // Assert
-            mockService.Verify(s => s.listeAttente.SupprimerAsync(It.IsAny<int>()), Times.Once); // V�rifie que SupprimerAsync a �t� appel� une fois
+            mockListeAttenteService.Verify(s => s.SupprimmerListeAttente(listeAttenteToDelete), Times.Once);
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectToActionResult.ActionName);
-            Assert.Equal(listeListeattente.Count, 2);
+            Assert.Equal("index", redirectToActionResult.ActionName); 
         }
 
 
