@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -37,6 +37,11 @@ namespace Clinique2000_Core.Models
         public int Age { get; set; } 
 
         public virtual List<PatientACharge>? PatientsACharge { get; set; }
+
+        [ForeignKey("Consultation")]
+        public int ConsultationId { get; set; }
+
+        public virtual Consultation? consultation { get; set; }
     }
 
 }

@@ -1,40 +1,63 @@
-﻿
+﻿@model ListeAttente;
 @{
     Layout = "_Layout";
 }
 
-<form asp-area="Clinique" asp-controller="ListeAttente" asp-action="Create" method="post" class="m-4">
+<form asp-area="Clinique" enctype="multipart/form-data" asp-controller="ListeAttente" asp-action="Create" method="post" class="m-4">
     @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group mb-3">
-        <label for="isOuverte" class="form-label">Ouvrir après création :</label>
-        <input type="checkbox" id="isOuverte" name="IsOuverte" class="form-check-input">
+        <label asp-for="IsOuverte" class="form-label">Ouvrir après création :</label>
+        <input type="checkbox" asp-for="IsOuverte" class="form-check-input">
+        <span asp-validation-for="IsOuverte" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label for="dateEffectivite" class="form-label">Date d'effectivité :</label>
-        <input type="date" id="dateEffectivite" name="DateEffectivite" class="form-control form-control-lg">
+        <label asp-for="DateEffectivite" class="form-label">Date d'effectivité :</label>
+        <input type="date" asp-for="DateEffectivite" class="form-control form-control-lg">
+        <span asp-validation-for="DateEffectivite" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label for="heureOuverture" class="form-label">Heure d'ouverture :</label>
-        <input type="time" id="heureOuverture" name="HeureOuverture" class="form-control form-control-lg">
+        <label asp-for="HeureOuverture" class="form-label">Heure d'ouverture :</label>
+        <input type="time" asp-for="HeureOuverture" class="form-control form-control-lg">
+        <span asp-validation-for="HeureOuverture" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label for="heureFermeture" class="form-label">Heure de fermeture :</label>
-        <input type="time" id="heureFermeture" name="HeureFermeture" class="form-control form-control-lg">
+        <label asp-for="HeureFermeture" class="form-label">Heure de fermeture :</label>
+        <input type="time" asp-for="HeureFermeture" class="form-control form-control-lg">
+        <span asp-validation-for="HeureFermeture" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label for="nbMedecinsDispo" class="form-label">Nombre de médecins disponibles :</label>
-        <input type="number" id="nbMedecinsDispo" name="NbMedecinsDispo" class="form-control form-control-lg">
+        <label asp-for="NbMedecinsDispo" class="form-label">Nombre de médecins disponibles :</label>
+        <input type="number" asp-for="NbMedecinsDispo" class="form-control form-control-lg">
+        <span asp-validation-for="NbMedecinsDispo" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label for="CliniqueID" class="form-label">ID de votre clinique :</label>
-        <input type="number" id="CliniqueID" name="CliniqueID" class="form-control form-control-lg">
+        <label asp-for="CliniqueID" class="form-label">ID de votre clinique :</label>
+        <input type="number" asp-for="CliniqueID" class="form-control form-control-lg">
+        <span asp-validation-for="CliniqueID" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary btn-lg">Créer</button>
-    <button class="btn-reinitialiser" type="reset">Réinitialiser</button>
+    <button type="reset" class="btn btn-secondary btn-lg">Réinitialiser</button>
 </form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

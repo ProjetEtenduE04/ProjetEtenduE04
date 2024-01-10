@@ -28,7 +28,7 @@ namespace Clinique2000_Services.Services
 
             if (VerifierSiListeAttenteExisteMemeJourClinique(listeAttente.DateEffectivite, listeAttente.CliniqueID))
             {
-                throw new ValidationException("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.");
+                throw new ValidationException("Il existe dï¿½jï¿½ une liste d'attente dans la meme clinique pour la meme  date.");
             }
 
             if (!VerifierSiDateEffectiviteValide(listeAttente) || !VerifierSiHeureOuvertureValide(listeAttente) )
@@ -41,11 +41,34 @@ namespace Clinique2000_Services.Services
             }
         }
 
+
+        public async Task<ListeAttente> ModifierListeAttenteAsync(ListeAttente listeAttente)
+        {
+
+
+            if (VerifierSiListeAttenteExisteMemeJourClinique(listeAttente.DateEffectivite, listeAttente.CliniqueID))
+            {
+                throw new ValidationException("Il existe dï¿½jï¿½ une liste d'attente dans la meme clinique pour la meme  date.");
+            }
+
+            if (!VerifierSiDateEffectiviteValide(listeAttente) || !VerifierSiHeureOuvertureValide(listeAttente))
+            {
+                throw new ValidationException("La liste n'est pas valide");
+            }
+            else
+            {
+                await EditerAsync(listeAttente);
+                return listeAttente;
+            }
+        }
+
+
+
         public bool VerifierSiListeAttenteExisteMemeJourClinique(DateTime dateEffectivite, int cliniqueId)
         {
             if (_context.ListeAttentes.Any(l => l.DateEffectivite == dateEffectivite && l.CliniqueID == cliniqueId))
             {
-                throw new ValidationException("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.");
+                throw new ValidationException("Il existe dï¿½jï¿½ une liste d'attente dans la meme clinique pour la meme  date.");
             }
             return false;
         }
@@ -64,11 +87,15 @@ namespace Clinique2000_Services.Services
         }
 
 
+
+
+
+
         public bool VerifierSiListeAttenteEstCree(ListeAttente listeAttente)
         {
             return _context.ListeAttentes.Any(l => l.DateEffectivite == listeAttente.DateEffectivite && l.CliniqueID == listeAttente.CliniqueID)
                         ? true
-                        : throw new ValidationException("Il faut créer une liste d'attente avant");
+                        : throw new ValidationException("Il faut crï¿½er une liste d'attente avant");
         }
 
         public bool VerifierSiNbMedecinsDisponibles(ListeAttente listeAttente)
@@ -82,7 +109,7 @@ namespace Clinique2000_Services.Services
         {
             return listeAttente.HeureOuverture < listeAttente.HeureFermeture
                      ? true
-                     : throw new ValidationException("L'heure d'ouverture doit etre inférieure à l'heure de fermeture.");
+                     : throw new ValidationException("L'heure d'ouverture doit etre infï¿½rieure ï¿½ l'heure de fermeture.");
 
         }
         public bool VerifierSiDateEffectiviteValide(ListeAttente listeAttente)
@@ -90,7 +117,7 @@ namespace Clinique2000_Services.Services
 
             return listeAttente.DateEffectivite >= DateTime.Now.Date
                    ? true
-                   : throw new ValidationException("La date d'effectivité n'est pas valide. Elle doit être postérieure à la date actuelle.");
+                   : throw new ValidationException("La date d'effectivitï¿½ n'est pas valide. Elle doit ï¿½tre postï¿½rieure ï¿½ la date actuelle.");
 
 
         }
@@ -140,5 +167,102 @@ namespace Clinique2000_Services.Services
 
         }
 
+
+
+
+        //Consultation Logic
+
+
+        /// <summary>
+        /// Cette methode recupere un patient specifique par son ID
+        /// </summary>
+        /// <param name="PatientID"></param>
+        /// <returns> Patient specifique et ses infos </returns>
+        public async Task<Patient> RecupererInfosPatient(int PatientID)
+        {
+            Patient patient = await _context.Patients.Where(x => x.PatientId == PatientID).FirstOrDefaultAsync();
+            if (patient == null)
+            {
+                throw new ArgumentNullException(nameof(patient));
+            }
+            return patient;
+        }
+
+        ///// <summary>
+        ///// Cette methode s'occupe de crï¿½er une consultation
+        ///// </summary>
+        ///// <param name="patient"></param>
+        ///// <param name="plagehoraire"></param>
+        ///// <returns></returns>
+        //public async Task ReserverConsultation(Patient patient, PlageHoraire plagehoraire)
+        //{
+        //    var consultation = new Consultation();
+
+        //    if (PeutReserver(patient))    //On verifie ici que le patient n'a pas deja une consultation en attente.
+        //    {
+        //        //on cree la consultation
+        //        consultation.StatutConsultation = StatutConsultation.EnAttente;
+        //        consultation.Patient = patient;
+        //        consultation.HeureDateDebutPrevue = plagehoraire.Consultations.Where(x => x.Patient == patient).First().HeureDateDebutPrevue;
+        //        consultation.HeureDateFinPrevue = plagehoraire.Consultations.Where(x => x.Patient == patient).First().HeureDateFinPrevue;
+        //        consultation.HeureDateDebutReele = null;
+        //        consultation.HeureDateFinReele = null;
+
+        //        _context.Consultations.Add(consultation);
+        //        _context.SaveChanges();
+        //    }
+        //    throw new ValidationException("Une consultation est deja en attente. Veuillez annuller celle-ci afin d'en demander une nouvelle.");
+
+
+        //}
+
+
+
+        /// <summary>
+        /// Cette methode recoit une consultation et un patient, assigne le patient a la consultation,
+        /// change le statut de la consultation afin d'indiquer que la consultation est plus disponible et quelle a ete reservee
+        /// </summary>
+        /// <param name="consultation"></param>
+        /// <param name="patient"></param>
+        /// <returns></returns>
+        /// <exception cref="ValidationException"></exception>
+        public async Task ReserverConsultation(Consultation consultation,Patient patient/*,Medecin medecin*/)
+        {
+
+            if (PeutReserver(consultation.Patient,consultation) && consultation.StatutConsultation==StatutConsultation.DisponiblePourReservation)    //On verifie ici que le patient n'a pas deja une consultation en attente, et que la Consultation est disponible
+            {
+                //on change le statut de la consultation a EnAttente
+                consultation.StatutConsultation = StatutConsultation.EnAttente;
+                consultation.Patient = patient;
+                /*consultation.medecin= medecin*/
+                consultation.HeureDateDebutReele = null;
+                consultation.HeureDateFinReele = null;
+                _context.Update(consultation);
+                _context.SaveChanges();
+            }
+            else
+            throw new ValidationException("Une consultation est deja en attente. Veuillez annuller celle-ci afin d'en demander une nouvelle.");
+
+        }
+
+    
+
+
+
+        /// <summary>
+        /// Cette methode verifie si le patient a deja une demande de consultation en attente
+        /// </summary>
+        /// <param name="patient"></param>
+        /// <returns> Si deja consultation en attente, retourne false, sinon, retourne true </returns>
+        public bool PeutReserver(Patient patient, Consultation consultation)
+        {
+            if(patient.consultation != null && consultation.StatutConsultation == StatutConsultation.DisponiblePourReservation)
+            {
+                return true;
+            }
+            return false;
+        }
+
+     
     }
 }

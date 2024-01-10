@@ -16,9 +16,14 @@
                         <div>@consultation.ConsultationID</div>
                         <div>Medecin:</div>
                         <div>Patient:</div>
-                        <div>Salle:</div>
+              @*           <div>Salle:</div> *@
                     </td>
-                
+                <td>
+                        <input type="hidden" name="id" value="@consultation.ConsultationID" />
+                    <form method="post"> <button type="submit" class="btn btn-success" asp-area="Clinique" asp-controller="ListeAttente" asp-action="ReserverConsultation">Reserver</button>
+                        </form>
+                </td>
+
                  @*    <td>
                         <a asp-controller="ListeAttente" asp-action="ModifierPlageHoraire" asp-route-id="@consultation.ConsultationID" class="btn btn-primary">Modifier</a>
                         <a asp-controller="ListeAttente" asp-action="SupprimerPlageHoraire" asp-route-id="@consultation.ConsultationID" class="btn btn-danger">Supprimer</a>
