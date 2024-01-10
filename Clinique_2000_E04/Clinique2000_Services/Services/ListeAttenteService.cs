@@ -9,6 +9,9 @@ using Clinique2000_Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Clinique2000_Utility.Enum;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Clinique2000_Services.Services
 {
@@ -31,24 +34,22 @@ namespace Clinique2000_Services.Services
                 throw new ValidationException("Il existe d�j� une liste d'attente dans la meme clinique pour la meme  date.");
             }
 
-            if (!VerifierSiDateEffectiviteValide(listeAttente) || !VerifierSiHeureOuvertureValide(listeAttente) )
+            if (!VerifierSiDateEffectiviteValide(listeAttente) || !VerifierSiHeureOuvertureValide(listeAttente))
             {
                 throw new ValidationException("La liste n'est pas valide");
             }
-            else { 
-            await CreerAsync(listeAttente);
-            return listeAttente;
+            else {
+                await CreerAsync(listeAttente);
+                return listeAttente;
             }
         }
 
 
         public async Task<ListeAttente> ModifierListeAttenteAsync(ListeAttente listeAttente)
         {
-
-
-            if (VerifierSiListeAttenteExisteMemeJourClinique(listeAttente.DateEffectivite, listeAttente.CliniqueID))
+            if (VerifierSiListeAttenteExisteMemeJourClinique(listeAttente.DateEffectivite, listeAttente.CliniqueID, listeAttente.ListeAttenteID))
             {
-                throw new ValidationException("Il existe d�j� une liste d'attente dans la meme clinique pour la meme  date.");
+                throw new ValidationException("Il existe deja une liste d'attente dans la meme clinique pour la meme date.");
             }
 
             if (!VerifierSiDateEffectiviteValide(listeAttente) || !VerifierSiHeureOuvertureValide(listeAttente))
@@ -63,14 +64,37 @@ namespace Clinique2000_Services.Services
         }
 
 
-
-        public bool VerifierSiListeAttenteExisteMemeJourClinique(DateTime dateEffectivite, int cliniqueId)
+        public bool PeutSupprimmer(ListeAttente listeAttente)
         {
-            if (_context.ListeAttentes.Any(l => l.DateEffectivite == dateEffectivite && l.CliniqueID == cliniqueId))
+            if (listeAttente.IsOuverte == false)
+                return true;
+            else
+                return false;
+  
+        }
+
+
+
+        [HttpPost]
+        public async Task SupprimmerListeAttente(ListeAttente listeAttente)
+        {
+
+             _context.ListeAttentes.Remove(listeAttente);
+            await _context.SaveChangesAsync();
+          
+        }
+
+
+        public bool VerifierSiListeAttenteExisteMemeJourClinique(DateTime dateEffectivite, int cliniqueID, int? listeAttenteID = null)
+        {
+            var query = _context.ListeAttentes.Where(la => la.DateEffectivite == dateEffectivite && la.CliniqueID == cliniqueID);
+
+            if (listeAttenteID.HasValue)
             {
-                throw new ValidationException("Il existe d�j� une liste d'attente dans la meme clinique pour la meme  date.");
+                query = query.Where(la => la.ListeAttenteID != listeAttenteID.Value);
             }
-            return false;
+
+            return query.Any();
         }
 
         public bool ListeAttenteIsValid(ListeAttente listeAttente)
@@ -263,6 +287,6 @@ namespace Clinique2000_Services.Services
             return false;
         }
 
-     
+      
     }
 }
