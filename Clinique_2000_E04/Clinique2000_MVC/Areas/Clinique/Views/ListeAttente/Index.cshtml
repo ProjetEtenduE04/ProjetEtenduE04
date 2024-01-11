@@ -3,7 +3,12 @@
 @{
     // ViewData["Title"] = "ListeAttenteDetails";
 }
-
+ 
+<div class="container mt-5">
+    <main role="main" class="pb-3 ">
+        <div class="container-fluid">
+            <div class="row justify-content-around text-left">
+                <div class="col col-lg-10 col-xl-9">
 <h2>Index</h2>
 
 <p>
@@ -13,8 +18,8 @@
 @foreach (var liste in Model)
 {
     <div>
-        <h4>ListeAttente</h4>
-        <hr />
+       @*  <h4>ListeAttente</h4>
+        <hr /> *@
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.DateEffectivite)
@@ -33,3 +38,8 @@
         @Html.ActionLink("Delete", "Delete", new { id = liste.ListeAttenteID })
     </p>
 }
+                </div>
+            </div>
+        </div>
+</main>
+</div>

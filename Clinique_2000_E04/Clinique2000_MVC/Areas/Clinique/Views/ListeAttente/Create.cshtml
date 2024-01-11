@@ -2,6 +2,11 @@
 @{
     Layout = "_Layout";
 }
+<div class="container">
+    <main role="main" class="pb-3 ">
+        <div class="container-fluid">
+            <div class="row justify-content-around ">
+                <div class="col col-lg-10 col-xl-9">
 
 <form asp-area="Clinique" asp-controller="ListeAttente" asp-action="Create" method="post" class="m-4">
     @Html.AntiForgeryToken()
@@ -38,3 +43,8 @@
     <button type="submit" class="btn btn-primary btn-lg">Créer</button>
     <button class="btn-reinitialiser" type="reset">Réinitialiser</button>
 </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

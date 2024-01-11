@@ -36,13 +36,6 @@ namespace Clinique2000_DataAccess.Migrations
                     b.HasKey("CliniqueID");
 
                     b.ToTable("Cliniques");
-
-                    b.HasData(
-                        new
-                        {
-                            CliniqueID = 1,
-                            TempsMoyenConsultation = 30
-                        });
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
@@ -59,7 +52,8 @@ namespace Clinique2000_DataAccess.Migrations
                     b.Property<DateTime?>("HeureDateDebutReele")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("HeureDateFinPrevue")
+                    b.Property<DateTime?>("HeureDateFinPrevue")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("HeureDateFinReele")
@@ -97,9 +91,6 @@ namespace Clinique2000_DataAccess.Migrations
                     b.Property<DateTime>("DateEffectivite")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DureeConsultationMinutes")
-                        .HasColumnType("int");
-
                     b.Property<TimeSpan>("HeureFermeture")
                         .HasColumnType("time");
 
@@ -110,6 +101,9 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("NbMedecinsDispo")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("dureeConsultationMinutes")
                         .HasColumnType("int");
 
                     b.HasKey("ListeAttenteID");

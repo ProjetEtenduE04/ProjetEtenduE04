@@ -66,22 +66,6 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
             return View(listeAttente);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AjouterDesPlagesHorairesl(int ID)
-        {
-            var model = await _services.listeAttente.ObtenirParIdAsync(ID);
-            if (model != null)
-            {
-                await _services.listeAttente.GenererPlagesHorairesAsync(ID);
-
-                model = await _services.listeAttente.ObtenirParIdAsync(ID);
-
-                return View("Details", model);
-
-            }
-            return NotFound();
-        }
 
         [HttpGet]
         // GET: ListeAttenteController/Edit/5
