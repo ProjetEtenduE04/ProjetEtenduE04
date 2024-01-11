@@ -1,4 +1,4 @@
-﻿using Xunit;
+using Xunit;
 using Moq;
 using Clinique2000_Services.IServices;
 using Clinique2000_DataAccess.Data;
@@ -242,6 +242,99 @@ namespace Clinique2000_TestsUnitaires
 
 
 
+
+
+        }
+
+        [Fact]
+        public async Task GenererPlagesHorairesAsync_CreatesCorrectNumberofConsultation()
+        {
+            IListeAttenteService service = new ListeAttenteService(dbTest);
+            var listeAttente = await dbTest.ListeAttentes.FindAsync(1);
+
+            if (listeAttente == null)
+            {
+                throw new InvalidOperationException("ListeAttente not found.");
+            }
+            // Act
+            await service.GenererPlagesHorairesAsync(listeAttente.ListeAttenteID);
+
+            // Assert
+            var consultations = dbTest.PlagesHoraires.Count();
+            var expectedCount = 4;//dans 2hrs avec 2 medecins je dois ouvrir 4 plages horaires pour la Liste d'attente 1
+            Assert.Equal(expectedCount, consultations);
+        }
+
+
+        [Fact]
+        public async Task GenererPlagesHorairesAsync_NoMedecinsDisponibles()
+        {
+            IListeAttenteService service = new ListeAttenteService(dbTest);
+            var listeAttente = dbTest.ListeAttentes.FirstOrDefault(l => l.ListeAttenteID == 2);
+
+            if (listeAttente == null)
+            {
+                throw new InvalidOperationException("ListeAttente not found.");
+            }
+            // Act
+            var exception = Assert.Throws<ValidationException>(() => service.VerifierSiNbMedecinsDisponibles(listeAttente));
+
+            // Assert
+            Assert.Equal("On doit avoir au moins un medecin disponible.", exception.Message);
+        }
+
+        [Fact]
+        public async Task GenererPlagesHorairesAsync_ListeDejaExistanteDansLaBD()
+        {
+            IListeAttenteService service = new ListeAttenteService(dbTest);
+            var listeAttente = new ListeAttente { DateEffectivite = DateTime.Today, HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 1 };
+            if (listeAttente == null)
+            {
+                throw new InvalidOperationException("ListeAttente not found.");
+            }
+
+            // Act
+            ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiListeAttenteExisteMemeJourClinique(DateTime.Today, listeAttente.CliniqueID));
+
+            // Assert
+            Assert.Equal("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.", exception.Message);
+        }
+
+
+        [Fact]
+        public async Task GenererPlagesHorairesAsync_HeureOuvertureInvalide()
+        {
+            IListeAttenteService service = new ListeAttenteService(dbTest);
+            var listeAttente = new ListeAttente { DateEffectivite = DateTime.Today, HeureOuverture = TimeSpan.FromHours(10), HeureFermeture = TimeSpan.FromHours(9), NbMedecinsDispo = 2, CliniqueID = 1 };
+            if (listeAttente == null)
+            {
+                throw new InvalidOperationException("ListeAttente not found.");
+            }
+
+            // Act
+            ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiHeureOuvertureValide(listeAttente));
+
+            // Assert
+            Assert.Equal("L'heure d'ouverture doit etre inférieure à l'heure de fermeture.", exception.Message);
+        }
+
+        [Fact]
+        public async Task GenererPlagesHorairesAsync_DateEffectiviteInvalide()
+        {
+            IListeAttenteService service = new ListeAttenteService(dbTest);
+            var listeAttente = new ListeAttente { DateEffectivite = DateTime.Today.AddDays(-1), HeureOuverture = TimeSpan.FromHours(10), HeureFermeture = TimeSpan.FromHours(9), NbMedecinsDispo = 2, CliniqueID = 1 };
+            if (listeAttente == null)
+            {
+                throw new InvalidOperationException("ListeAttente not found.");
+            }
+
+            // Act
+            ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiDateEffectiviteValide(listeAttente));
+
+            // Assert
+            Assert.Equal("La date d'effectivité n'est pas valide. Elle doit être postérieure à la date actuelle.", exception.Message);
+        }
+    }
 
 
 }

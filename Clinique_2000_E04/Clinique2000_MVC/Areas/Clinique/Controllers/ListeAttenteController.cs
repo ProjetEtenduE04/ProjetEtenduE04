@@ -76,6 +76,13 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         }
 
 
+                model = await _services.listeAttente.ObtenirParIdAsync(ID);
+
+                return View("Details", model);
+
+            }
+            return NotFound();
+        }
 
         [HttpGet]
         // GET: ListeAttenteController/Edit/5

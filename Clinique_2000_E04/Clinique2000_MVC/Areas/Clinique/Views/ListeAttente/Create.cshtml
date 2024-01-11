@@ -1,7 +1,12 @@
-﻿@model ListeAttente;
+@model ListeAttente;
 @{
     Layout = "_Layout";
 }
+<div class="container">
+    <main role="main" class="pb-3 ">
+        <div class="container-fluid">
+            <div class="row justify-content-around ">
+                <div class="col col-lg-10 col-xl-9">
 
 <form asp-area="Clinique" enctype="multipart/form-data" asp-controller="ListeAttente" asp-action="Create" method="post" class="m-4">
     @Html.AntiForgeryToken()
