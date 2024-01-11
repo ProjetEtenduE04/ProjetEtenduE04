@@ -1,73 +1,69 @@
 ﻿@model ListeAttente
 
-
-<div>
-    <h4>ListeAttente</h4>
+<div class="container mt-3">
+    <h4 class="text-center mb-4">Suppression de la Liste d'Attente</h4>
     <hr />
-    <dl class="row">
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IsOuverte)
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.IsOuverte==true)
-            {
-                <p style="color:black;">Ouverte</p>
-            }
-            else
-            {
-                <p style="color:black;">Fermée</p>
-            }
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ListeAttenteID)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ListeAttenteID)
-        </dd>
+    <p class="text-center text-danger font-weight-bold mb-4">
+        Êtes-vous certain de vouloir supprimer cette liste d'attente ?
+    </p>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateEffectivite)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateEffectivite)
-        </dd>
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.IsOuverte)
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.IsOuverte)
+                    {
+                        <span class="badge bg-success">Ouverte</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Fermée</span>
+                    }
+                </dd>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.HeureOuverture)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.HeureOuverture)
-        </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ListeAttenteID)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ListeAttenteID)
+                </dd>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.HeureFermeture)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.HeureFermeture)
-        </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.DateEffectivite)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.DateEffectivite)
+                </dd>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NbMedecinsDispo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NbMedecinsDispo)
-        </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HeureOuverture)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HeureOuverture)
+                </dd>
 
-  
-    </dl>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HeureFermeture)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HeureFermeture)
+                </dd>
 
-    @if (!ViewData.ModelState.IsValid)
-    {
-        <div class="alert alert-danger">
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
-            {
-                <p>@error.ErrorMessage</p>
-            }
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.NbMedecinsDispo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NbMedecinsDispo)
+                </dd>
+            </dl>
         </div>
-    }
+    </div>
 
-    <form asp-action="Delete" method="post">
+    <form asp-action="Delete" method="post" class="mt-4 text-center">
         <input type="hidden" asp-for="ListeAttenteID" />
         <input type="hidden" asp-for="DateEffectivite" />
         <input type="hidden" asp-for="HeureOuverture" />
@@ -77,7 +73,13 @@
         <input type="hidden" asp-for="DureeConsultationMinutes" />
         <input type="hidden" asp-for="CliniqueID" />
         <input type="hidden" asp-for="ListeAttenteID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Cancel</a>
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+        <a asp-action="Index" class="btn btn-secondary">Annuler</a>
     </form>
 </div>
+
+
+
+
+
+
