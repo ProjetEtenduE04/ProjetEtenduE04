@@ -12,7 +12,6 @@
         <div class="row ps-5 ms-2 mb-2 justify-content-start align-content-center">
             <div class="col-md-3 ms-3 p-5  text-center justify-content-center align-content-center heureActuelle">
                 <p>Heure Actuelle</p>
-                <hr/>
                 <div id="watch"></div>
             </div>
         </div>
@@ -34,7 +33,7 @@
         <div class="row m-2 ps-5  justify-content-end  align-content-center">
             <form class="my-3 justify-content-end " asp-action="AjouterDesPlagesHorairesl" asp-controller="ListeAttente" method="post">
                 <input type="hidden" name="id" value="@Model.ListeAttenteID" />
-                <input type="submit" value="Generar Plages Horaires" class="btn btn-success btn-action"
+                <input type="submit" value="Generer plages horaire" class="btn btn-success btn-action"
                 @(Model.PlagesHoraires.Count > 0 ? "disabled" : "") />
             </form>
         </div>

@@ -1,45 +1,57 @@
 ﻿@model IEnumerable<Clinique2000_Core.Models.ListeAttente>
 
 @{
-    // ViewData["Title"] = "ListeAttenteDetails";
+    ViewData["Title"] = "Vos listes d'attentes";
 }
- 
+
 <div class="container mt-5">
-    <main role="main" class="pb-3 ">
+    <main role="main" class="pb-3">
         <div class="container-fluid">
-            <div class="row justify-content-around text-left">
-                <div class="col col-lg-10 col-xl-9">
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Creer une Liste d'attente", "Create")
-</p>
-
-@foreach (var liste in Model)
-{
-    <div>
-       @*  <h4>ListeAttente</h4>
-        <hr /> *@
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.DateEffectivite)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => liste.DateEffectivite)
-            </dd>
-
-
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = liste.ListeAttenteID }) |
-        @Html.ActionLink("Details", "Details", new { id = liste.ListeAttenteID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = liste.ListeAttenteID })
-    </p>
-}
+            <div style="padding-bottom:1%;" class="row justify-content-between align-items-center mb-3">
+                <div class="col">
+                    <h2>@ViewData["Title"]</h2>
+                </div>
+                <div class="col text-end">
+                    <button class="btn btn-success" onclick="location.href='@Url.Action("Create")'">Créer une Liste d'attente</button>
                 </div>
             </div>
+
+            @foreach (var liste in Model)
+            {
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Liste d'attente du @Html.DisplayFor(model => liste.DateEffectivite)
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.DateEffectivite)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => liste.DateEffectivite)
+                            </dd>
+                            <dt class="col-sm-4">
+                                État
+                            </dt>
+                            <dd class="col-sm-8">
+                                @if (liste.IsOuverte)
+                                {
+                                    @:Ouverte
+                                }
+                                else
+                                {
+                                    @:Fermée
+                                }
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="card-footer">
+                        @Html.ActionLink("Modifier", "Edit", new { id = liste.ListeAttenteID }, new { @class = "btn btn-secondary" }) |
+                        @Html.ActionLink("Détails", "Details", new { id = liste.ListeAttenteID }, new { @class = "btn btn-secondary" }) |
+                        @Html.ActionLink("Supprimer", "Delete", new { id = liste.ListeAttenteID }, new { @class = "btn btn-danger" })
+                    </div>
+                </div>
+            }
         </div>
-</main>
+    </main>
 </div>

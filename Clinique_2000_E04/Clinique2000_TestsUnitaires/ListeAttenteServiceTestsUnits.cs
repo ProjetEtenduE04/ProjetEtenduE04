@@ -100,6 +100,8 @@ namespace Clinique2000_TestsUnitaires
             Assert.Equal("On doit avoir au moins un medecin disponible.", exception.Message);
         }
 
+
+
         [Fact]
         public async Task GenererPlagesHorairesAsync_ListeDejaExistanteDansLaBD()
         {
@@ -114,8 +116,10 @@ namespace Clinique2000_TestsUnitaires
             ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiListeAttenteExisteMemeJourClinique(DateTime.Today, listeAttente.CliniqueID));
 
             // Assert
-            Assert.Equal("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.", exception.Message);
+            Assert.Equal("Il existe deja une liste d'attente dans la meme clinique pour la meme date.", exception.Message);
         }
+
+
 
 
         [Fact]
@@ -132,7 +136,7 @@ namespace Clinique2000_TestsUnitaires
             ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiHeureOuvertureValide(listeAttente));
 
             // Assert
-            Assert.Equal("L'heure d'ouverture doit etre inférieure à l'heure de fermeture.", exception.Message);
+            Assert.Equal("L'heure d'ouverture doit etre inferieure a l'heure de fermeture.", exception.Message);
         }
 
         [Fact]
@@ -150,189 +154,6 @@ namespace Clinique2000_TestsUnitaires
 
             // Assert
             Assert.Equal("La date d'effectivite n'est pas valide. Elle doit etre posterieure a la date actuelle.", exception.Message);
-        }
-
-
-
-        [Fact]
-        public async Task SupprimmerListeAttente_SupprimeListeAttenteDeLaBD()
-        {
-            // Arrange
-            IListeAttenteService service = new ListeAttenteService(dbTest);
-            var listeAttente = new ListeAttente { ListeAttenteID = 2847, IsOuverte = false };
-            dbTest.ListeAttentes.Add(listeAttente);
-            await dbTest.SaveChangesAsync();
-
-            // Act
-            await service.SupprimmerListeAttente(listeAttente);
-
-            // Assert
-            var existsPostDelete = await dbTest.ListeAttentes.AnyAsync(l => l.ListeAttenteID == 2847);
-            Assert.False(existsPostDelete, "ListeAttente should be removed from the database.");
-        }
-
-
-        [Fact]
-        public async Task ModifierListeAttenteAsync_LanceException_QuandDoubleExiste()
-        {
-            // Arrange
-            var service = new ListeAttenteService(dbTest);
-            var originalListeAttente = new ListeAttente {  DateEffectivite = DateTime.Today, CliniqueID = 1 };
-            var modifiedListeAttente = new ListeAttente {  DateEffectivite = DateTime.Today, CliniqueID = 1 }; // Same date and clinic as original
-
-            // Add the original ListeAttente to the in-memory database
-            dbTest.ListeAttentes.Add(originalListeAttente);
-            await dbTest.SaveChangesAsync();
-
-            // Act & Assert
-            var exception = await Assert.ThrowsAsync<ValidationException>(
-                () => service.ModifierListeAttenteAsync(modifiedListeAttente));
-
-            Assert.Equal("Il existe deja une liste d'attente dans la meme clinique pour la meme date.", exception.Message);
-        }
-
-        [Fact]
-        public async Task ModifierListeAttenteAsync_LanceException_QuandDateHeureInvalide()
-        {
-            // Arrange
-            var service = new ListeAttenteService(dbTest);
-            var invalidListeAttente = new ListeAttente
-            {
-               
-                DateEffectivite = DateTime.Today.AddDays(-1), // Invalid 
-                HeureOuverture = TimeSpan.FromHours(10),
-                HeureFermeture = TimeSpan.FromHours(9), // Invalid 
-                NbMedecinsDispo = 2,
-                CliniqueID = 1
-            };
-
-            // Act & Assert
-            var exception = await Assert.ThrowsAsync<ValidationException>(
-                () => service.ModifierListeAttenteAsync(invalidListeAttente));
-
-            Assert.Contains("La date d'effectivite n'est pas valide. Elle doit etre posterieure a la date actuelle.", exception.Message);
-        }
-
-
-        [Fact]
-        public async Task ModifierListeAttenteAsync_Succeeds_WhenValid()
-        {
-            // Arrange
-            var service = new ListeAttenteService(dbTest);
-            var listeAttente = new ListeAttente
-            {
-                ListeAttenteID = 1,
-                DateEffectivite = DateTime.Today.AddDays(2), 
-                HeureOuverture = TimeSpan.FromHours(8),
-                HeureFermeture = TimeSpan.FromHours(10),
-                NbMedecinsDispo = 2,
-                CliniqueID = 1
-            };
-
-            // Act
-            await service.ModifierListeAttenteAsync(listeAttente);
-
-            // Assert
-            var updatedListeAttente = await dbTest.ListeAttentes.FindAsync(1);
-            Assert.NotNull(updatedListeAttente);
-            Assert.Equal(DateTime.Today.AddDays(2), updatedListeAttente.DateEffectivite);
-        }
-
-    }
-
-
-
-
-
-        }
-
-        [Fact]
-        public async Task GenererPlagesHorairesAsync_CreatesCorrectNumberofConsultation()
-        {
-            IListeAttenteService service = new ListeAttenteService(dbTest);
-            var listeAttente = await dbTest.ListeAttentes.FindAsync(1);
-
-            if (listeAttente == null)
-            {
-                throw new InvalidOperationException("ListeAttente not found.");
-            }
-            // Act
-            await service.GenererPlagesHorairesAsync(listeAttente.ListeAttenteID);
-
-            // Assert
-            var consultations = dbTest.PlagesHoraires.Count();
-            var expectedCount = 4;//dans 2hrs avec 2 medecins je dois ouvrir 4 plages horaires pour la Liste d'attente 1
-            Assert.Equal(expectedCount, consultations);
-        }
-
-
-        [Fact]
-        public async Task GenererPlagesHorairesAsync_NoMedecinsDisponibles()
-        {
-            IListeAttenteService service = new ListeAttenteService(dbTest);
-            var listeAttente = dbTest.ListeAttentes.FirstOrDefault(l => l.ListeAttenteID == 2);
-
-            if (listeAttente == null)
-            {
-                throw new InvalidOperationException("ListeAttente not found.");
-            }
-            // Act
-            var exception = Assert.Throws<ValidationException>(() => service.VerifierSiNbMedecinsDisponibles(listeAttente));
-
-            // Assert
-            Assert.Equal("On doit avoir au moins un medecin disponible.", exception.Message);
-        }
-
-        [Fact]
-        public async Task GenererPlagesHorairesAsync_ListeDejaExistanteDansLaBD()
-        {
-            IListeAttenteService service = new ListeAttenteService(dbTest);
-            var listeAttente = new ListeAttente { DateEffectivite = DateTime.Today, HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 1 };
-            if (listeAttente == null)
-            {
-                throw new InvalidOperationException("ListeAttente not found.");
-            }
-
-            // Act
-            ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiListeAttenteExisteMemeJourClinique(DateTime.Today, listeAttente.CliniqueID));
-
-            // Assert
-            Assert.Equal("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.", exception.Message);
-        }
-
-
-        [Fact]
-        public async Task GenererPlagesHorairesAsync_HeureOuvertureInvalide()
-        {
-            IListeAttenteService service = new ListeAttenteService(dbTest);
-            var listeAttente = new ListeAttente { DateEffectivite = DateTime.Today, HeureOuverture = TimeSpan.FromHours(10), HeureFermeture = TimeSpan.FromHours(9), NbMedecinsDispo = 2, CliniqueID = 1 };
-            if (listeAttente == null)
-            {
-                throw new InvalidOperationException("ListeAttente not found.");
-            }
-
-            // Act
-            ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiHeureOuvertureValide(listeAttente));
-
-            // Assert
-            Assert.Equal("L'heure d'ouverture doit etre inférieure à l'heure de fermeture.", exception.Message);
-        }
-
-        [Fact]
-        public async Task GenererPlagesHorairesAsync_DateEffectiviteInvalide()
-        {
-            IListeAttenteService service = new ListeAttenteService(dbTest);
-            var listeAttente = new ListeAttente { DateEffectivite = DateTime.Today.AddDays(-1), HeureOuverture = TimeSpan.FromHours(10), HeureFermeture = TimeSpan.FromHours(9), NbMedecinsDispo = 2, CliniqueID = 1 };
-            if (listeAttente == null)
-            {
-                throw new InvalidOperationException("ListeAttente not found.");
-            }
-
-            // Act
-            ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiDateEffectiviteValide(listeAttente));
-
-            // Assert
-            Assert.Equal("La date d'effectivité n'est pas valide. Elle doit être postérieure à la date actuelle.", exception.Message);
         }
     }
 

@@ -31,7 +31,7 @@ namespace Clinique2000_Services.Services
 
             if (VerifierSiListeAttenteExisteMemeJourClinique(listeAttente.DateEffectivite, listeAttente.CliniqueID))
             {
-                throw new ValidationException("Il existe deja une liste d'attente dans la meme clinique pour la meme  date.");
+                throw new ValidationException("Il existe deja une liste d'attente dans la meme clinique pour la meme date.");
             }
 
             if (!VerifierSiDateEffectiviteValide(listeAttente) || !VerifierSiHeureOuvertureValide(listeAttente))
@@ -107,9 +107,14 @@ namespace Clinique2000_Services.Services
             if (listeAttenteID.HasValue)
             {
                 query = query.Where(la => la.ListeAttenteID != listeAttenteID.Value);
+                return query.Any();
             }
-
-            return query.Any();
+            else
+            {
+                return query.Any()
+             ? throw new ValidationException("Il existe deja une liste d'attente dans la meme clinique pour la meme date.")
+             : false;
+            }
         }
 
         public bool ListeAttenteIsValid(ListeAttente listeAttente)
