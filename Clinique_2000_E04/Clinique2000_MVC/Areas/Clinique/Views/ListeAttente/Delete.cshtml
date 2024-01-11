@@ -10,7 +10,14 @@
             @Html.DisplayNameFor(model => model.IsOuverte)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsOuverte)
+            @if (Model.IsOuverte==true)
+            {
+                <p style="color:black;">Ouverte</p>
+            }
+            else
+            {
+                <p style="color:black;">Fermée</p>
+            }
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ListeAttenteID)
@@ -40,6 +47,12 @@
             @Html.DisplayFor(model => model.HeureFermeture)
         </dd>
 
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NbMedecinsDispo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NbMedecinsDispo)
+        </dd>
 
   
     </dl>

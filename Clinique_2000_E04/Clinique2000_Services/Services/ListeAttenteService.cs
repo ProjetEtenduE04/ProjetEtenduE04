@@ -31,7 +31,7 @@ namespace Clinique2000_Services.Services
 
             if (VerifierSiListeAttenteExisteMemeJourClinique(listeAttente.DateEffectivite, listeAttente.CliniqueID))
             {
-                throw new ValidationException("Il existe d�j� une liste d'attente dans la meme clinique pour la meme  date.");
+                throw new ValidationException("Il existe deja une liste d'attente dans la meme clinique pour la meme date.");
             }
 
             if (!VerifierSiDateEffectiviteValide(listeAttente) || !VerifierSiHeureOuvertureValide(listeAttente))
@@ -44,7 +44,13 @@ namespace Clinique2000_Services.Services
             }
         }
 
-
+        /// <summary>
+        /// Cette methode s occupe de faire les verifications lors d'une creation de liste d'attente, puis faire la creation elle meme
+        /// si une des verifications echoue, elle renvoie une erreur de validation 
+        /// </summary>
+        /// <param name="listeAttente"></param>
+        /// <returns></returns>
+        /// <exception cref="ValidationException"></exception>
         public async Task<ListeAttente> ModifierListeAttenteAsync(ListeAttente listeAttente)
         {
             if (VerifierSiListeAttenteExisteMemeJourClinique(listeAttente.DateEffectivite, listeAttente.CliniqueID, listeAttente.ListeAttenteID))
@@ -63,7 +69,11 @@ namespace Clinique2000_Services.Services
             }
         }
 
-
+        /// <summary>
+        /// Cette methode verifie que la liste dattente passee en parametre est pas ouverte
+        /// </summary>
+        /// <param name="listeAttente"></param>
+        /// <returns></returns>
         public bool PeutSupprimmer(ListeAttente listeAttente)
         {
             if (listeAttente.IsOuverte == false)
@@ -74,7 +84,12 @@ namespace Clinique2000_Services.Services
         }
 
 
-
+        /// <summary>
+        /// Cette methode supprimme une liste d'attente de la base de donnees
+        /// et sauvegarde les changements
+        /// </summary>
+        /// <param name="listeAttente"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task SupprimmerListeAttente(ListeAttente listeAttente)
         {
@@ -92,9 +107,14 @@ namespace Clinique2000_Services.Services
             if (listeAttenteID.HasValue)
             {
                 query = query.Where(la => la.ListeAttenteID != listeAttenteID.Value);
+                return query.Any();
             }
-
-            return query.Any();
+            else
+            {
+                return query.Any()
+             ? throw new ValidationException("Il existe deja une liste d'attente dans la meme clinique pour la meme date.")
+             : false;
+            }
         }
 
         public bool ListeAttenteIsValid(ListeAttente listeAttente)
@@ -119,7 +139,7 @@ namespace Clinique2000_Services.Services
         {
             return _context.ListeAttentes.Any(l => l.DateEffectivite == listeAttente.DateEffectivite && l.CliniqueID == listeAttente.CliniqueID)
                         ? true
-                        : throw new ValidationException("Il faut cr�er une liste d'attente avant");
+                        : throw new ValidationException("Il faut creer une liste d'attente avant");
         }
 
         public bool VerifierSiNbMedecinsDisponibles(ListeAttente listeAttente)
@@ -133,7 +153,7 @@ namespace Clinique2000_Services.Services
         {
             return listeAttente.HeureOuverture < listeAttente.HeureFermeture
                      ? true
-                     : throw new ValidationException("L'heure d'ouverture doit etre inf�rieure � l'heure de fermeture.");
+                     : throw new ValidationException("L'heure d'ouverture doit etre inferieure a l'heure de fermeture.");
 
         }
         public bool VerifierSiDateEffectiviteValide(ListeAttente listeAttente)
@@ -141,7 +161,7 @@ namespace Clinique2000_Services.Services
 
             return listeAttente.DateEffectivite >= DateTime.Now.Date
                    ? true
-                   : throw new ValidationException("La date d'effectivit� n'est pas valide. Elle doit �tre post�rieure � la date actuelle.");
+                   : throw new ValidationException("La date d'effectivite n'est pas valide. Elle doit etre posterieure a la date actuelle.");
 
 
         }

@@ -1,4 +1,4 @@
-﻿using Xunit;
+using Xunit;
 using Moq;
 using Clinique2000_Services.IServices;
 using Clinique2000_DataAccess.Data;
@@ -74,7 +74,7 @@ namespace Clinique2000_TestsUnitaires
                 throw new InvalidOperationException("ListeAttente not found.");
             }
             // Act
-            await service.GenererPlagesHorairesAsync(listeAttente);
+            await service.GenererPlagesHorairesAsync(listeAttente.ListeAttenteID);
 
             // Assert
             var consultations = dbTest.PlagesHoraires.Count();
@@ -100,6 +100,8 @@ namespace Clinique2000_TestsUnitaires
             Assert.Equal("On doit avoir au moins un medecin disponible.", exception.Message);
         }
 
+
+
         [Fact]
         public async Task GenererPlagesHorairesAsync_ListeDejaExistanteDansLaBD()
         {
@@ -114,8 +116,10 @@ namespace Clinique2000_TestsUnitaires
             ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiListeAttenteExisteMemeJourClinique(DateTime.Today, listeAttente.CliniqueID));
 
             // Assert
-            Assert.Equal("Il existe déjà une liste d'attente dans la meme clinique pour la meme  date.", exception.Message);
+            Assert.Equal("Il existe deja une liste d'attente dans la meme clinique pour la meme date.", exception.Message);
         }
+
+
 
 
         [Fact]
@@ -132,7 +136,7 @@ namespace Clinique2000_TestsUnitaires
             ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiHeureOuvertureValide(listeAttente));
 
             // Assert
-            Assert.Equal("L'heure d'ouverture doit etre inférieure à l'heure de fermeture.", exception.Message);
+            Assert.Equal("L'heure d'ouverture doit etre inferieure a l'heure de fermeture.", exception.Message);
         }
 
         [Fact]
@@ -149,7 +153,7 @@ namespace Clinique2000_TestsUnitaires
             ValidationException exception = Assert.Throws<ValidationException>(() => service.VerifierSiDateEffectiviteValide(listeAttente));
 
             // Assert
-            Assert.Equal("La date d'effectivité n'est pas valide. Elle doit être postérieure à la date actuelle.", exception.Message);
+            Assert.Equal("La date d'effectivite n'est pas valide. Elle doit etre posterieure a la date actuelle.", exception.Message);
         }
     }
 
