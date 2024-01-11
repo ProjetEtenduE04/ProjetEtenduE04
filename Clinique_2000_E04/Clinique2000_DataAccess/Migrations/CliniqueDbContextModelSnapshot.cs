@@ -36,6 +36,13 @@ namespace Clinique2000_DataAccess.Migrations
                     b.HasKey("CliniqueID");
 
                     b.ToTable("Cliniques");
+
+                    b.HasData(
+                        new
+                        {
+                            CliniqueID = 1,
+                            TempsMoyenConsultation = 30
+                        });
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
@@ -52,8 +59,7 @@ namespace Clinique2000_DataAccess.Migrations
                     b.Property<DateTime?>("HeureDateDebutReele")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("HeureDateFinPrevue")
-                        .IsRequired()
+                    b.Property<DateTime>("HeureDateFinPrevue")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("HeureDateFinReele")
@@ -70,7 +76,9 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasKey("ConsultationID");
 
-                    b.HasIndex("PatientID");
+                    b.HasIndex("PatientID")
+                        .IsUnique()
+                        .HasFilter("[PatientID] IS NOT NULL");
 
                     b.HasIndex("PlageHoraireID");
 
@@ -91,6 +99,9 @@ namespace Clinique2000_DataAccess.Migrations
                     b.Property<DateTime>("DateEffectivite")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DureeConsultationMinutes")
+                        .HasColumnType("int");
+
                     b.Property<TimeSpan>("HeureFermeture")
                         .HasColumnType("time");
 
@@ -101,9 +112,6 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("NbMedecinsDispo")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("dureeConsultationMinutes")
                         .HasColumnType("int");
 
                     b.HasKey("ListeAttenteID");
@@ -181,6 +189,9 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasMaxLength(225)
                         .HasColumnType("nvarchar(225)");
 
+                    b.Property<int>("ConsultationId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateDeNaissance")
                         .HasColumnType("datetime2");
 
@@ -234,8 +245,8 @@ namespace Clinique2000_DataAccess.Migrations
             modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
                 {
                     b.HasOne("Clinique2000_Core.Models.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientID");
+                        .WithOne("consultation")
+                        .HasForeignKey("Clinique2000_Core.Models.Consultation", "PatientID");
 
                     b.HasOne("Clinique2000_Core.Models.PlageHoraire", "PlageHorarie")
                         .WithMany("Consultations")
@@ -310,6 +321,8 @@ namespace Clinique2000_DataAccess.Migrations
             modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
                 {
                     b.Navigation("PatientsACharge");
+
+                    b.Navigation("consultation");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    [Migration("20231220023723_addVirtualPropietes")]
-    partial class addVirtualPropietes
+    [Migration("20240111234518_SeedClinique")]
+    partial class SeedClinique
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,6 +38,13 @@ namespace Clinique2000_DataAccess.Migrations
                     b.HasKey("CliniqueID");
 
                     b.ToTable("Cliniques");
+
+                    b.HasData(
+                        new
+                        {
+                            CliniqueID = 1,
+                            TempsMoyenConsultation = 30
+                        });
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
@@ -51,19 +58,19 @@ namespace Clinique2000_DataAccess.Migrations
                     b.Property<DateTime>("HeureDateDebutPrevue")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("HeureDateDebutReele")
+                    b.Property<DateTime?>("HeureDateDebutReele")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("HeureDateFinPrevue")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("HeureDateFinReele")
+                    b.Property<DateTime?>("HeureDateFinReele")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ListeAttenteID")
+                    b.Property<int?>("PatientID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PatientID")
+                    b.Property<int>("PlageHoraireID")
                         .HasColumnType("int");
 
                     b.Property<int>("StatutConsultation")
@@ -71,9 +78,11 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasKey("ConsultationID");
 
-                    b.HasIndex("ListeAttenteID");
+                    b.HasIndex("PatientID")
+                        .IsUnique()
+                        .HasFilter("[PatientID] IS NOT NULL");
 
-                    b.HasIndex("PatientID");
+                    b.HasIndex("PlageHoraireID");
 
                     b.ToTable("Consultations");
                 });
@@ -92,6 +101,9 @@ namespace Clinique2000_DataAccess.Migrations
                     b.Property<DateTime>("DateEffectivite")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DureeConsultationMinutes")
+                        .HasColumnType("int");
+
                     b.Property<TimeSpan>("HeureFermeture")
                         .HasColumnType("time");
 
@@ -102,9 +114,6 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("NbMedecinsDispo")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("dureeConsultationMinutes")
                         .HasColumnType("int");
 
                     b.HasKey("ListeAttenteID");
@@ -182,6 +191,9 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasMaxLength(225)
                         .HasColumnType("nvarchar(225)");
 
+                    b.Property<int>("ConsultationId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateDeNaissance")
                         .HasColumnType("datetime2");
 
@@ -234,27 +246,25 @@ namespace Clinique2000_DataAccess.Migrations
 
             modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
                 {
-                    b.HasOne("Clinique2000_Core.Models.ListeAttente", "ListeAttente")
-                        .WithMany()
-                        .HasForeignKey("ListeAttenteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Clinique2000_Core.Models.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientID")
+                        .WithOne("consultation")
+                        .HasForeignKey("Clinique2000_Core.Models.Consultation", "PatientID");
+
+                    b.HasOne("Clinique2000_Core.Models.PlageHoraire", "PlageHorarie")
+                        .WithMany("Consultations")
+                        .HasForeignKey("PlageHoraireID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ListeAttente");
 
                     b.Navigation("Patient");
+
+                    b.Navigation("PlageHorarie");
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.ListeAttente", b =>
                 {
                     b.HasOne("Clinique2000_Core.Models.Clinique", "Clinique")
-                        .WithMany()
+                        .WithMany("ListeAttente")
                         .HasForeignKey("CliniqueID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -295,14 +305,26 @@ namespace Clinique2000_DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Clinique2000_Core.Models.Clinique", b =>
+                {
+                    b.Navigation("ListeAttente");
+                });
+
             modelBuilder.Entity("Clinique2000_Core.Models.ListeAttente", b =>
                 {
                     b.Navigation("PlagesHoraires");
                 });
 
+            modelBuilder.Entity("Clinique2000_Core.Models.PlageHoraire", b =>
+                {
+                    b.Navigation("Consultations");
+                });
+
             modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
                 {
                     b.Navigation("PatientsACharge");
+
+                    b.Navigation("consultation");
                 });
 #pragma warning restore 612, 618
         }
