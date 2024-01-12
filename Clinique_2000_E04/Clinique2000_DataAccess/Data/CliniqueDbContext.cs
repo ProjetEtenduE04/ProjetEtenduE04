@@ -1,9 +1,10 @@
 ﻿using Clinique2000_Core.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Clinique2000_DataAccess.Data
 {
-    public class CliniqueDbContext : DbContext
+    public class CliniqueDbContext : IdentityDbContext
     {
         // Définissez ici les DbSets pour vos entités.
         // public DbSet<Entity> TableName { get ; set ; }
