@@ -2,6 +2,8 @@
 @{
     Layout = "_Layout";
 }
+
+<link rel="stylesheet" href="/js/site.js">
 <div class="container">
     <main role="main" class="pb-3 ">
         <div class="container-fluid">
@@ -37,17 +39,17 @@
 
                         <div class="form-group mb-3">
                             <label asp-for="NbMedecinsDispo" class="form-label">Nombre de médecins disponibles :</label>
-                            <input type="number" asp-for="NbMedecinsDispo" class="form-control form-control-lg" placeholder="Entrez le nombre de médecins disponibles">
+                            <input type="number" asp-for="NbMedecinsDispo" class="form-control form-control-lg" min="0" placeholder="Entrez le nombre de médecins disponibles">
                             <span asp-validation-for="NbMedecinsDispo" class="text-danger"></span>
                         </div>
 
                         <div class="form-group mb-3">
                             <label asp-for="CliniqueID" class="form-label">ID de votre clinique :</label>
-                            <input type="number" asp-for="CliniqueID" class="form-control form-control-lg" placeholder="Entrez l'ID de votre clinique">
+                            <input type="number" asp-for="CliniqueID" class="form-control form-control-lg" min="0" placeholder="Entrez l'ID de votre clinique">
                             <span asp-validation-for="CliniqueID" class="text-danger"></span>
                         </div>
-
-                        <button type="submit" class="btn btn-success btn-lg">Créer</button>
+                     
+                        <button type="submit" class="btn btn-success btn-lg" >Créer</button>
                         <button type="reset" class="btn btn-secondary btn-lg">Réinitialiser</button>
                     </form>
 

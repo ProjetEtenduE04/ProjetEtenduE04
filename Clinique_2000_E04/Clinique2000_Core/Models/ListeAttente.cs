@@ -65,13 +65,19 @@ namespace Clinique2000_Core.Models
         public virtual List<PlageHoraire>? PlagesHoraires { get; set; }
 
        
-
-
-      
-
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public class MyDateAttribute : ValidationAttribute
     {
