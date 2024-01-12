@@ -63,6 +63,18 @@
         </div>
     </div>
 
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
     <form asp-action="Delete" method="post" class="mt-4 text-center">
         <input type="hidden" asp-for="ListeAttenteID" />
         <input type="hidden" asp-for="DateEffectivite" />

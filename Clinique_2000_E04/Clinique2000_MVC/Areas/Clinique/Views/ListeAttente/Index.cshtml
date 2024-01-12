@@ -7,51 +7,52 @@
 <div class="container mt-5">
     <main role="main" class="pb-3">
         <div class="container-fluid">
-            <div style="padding-bottom:1%;" class="row justify-content-between align-items-center mb-3">
+            <div style="padding-bottom:2%;" class="row justify-content-between align-items-center mb-3">
                 <div class="col">
                     <h2>@ViewData["Title"]</h2>
                 </div>
-                <div class="col text-end">
-                    <button class="btn btn-success" onclick="location.href='@Url.Action("Create")'">Créer une Liste d'attente</button>
+                <div class="col text-end" >
+                    <button class="btn btn-create"  onclick="location.href='@Url.Action("Create")'">Créer une Liste d'attente</button>
                 </div>
             </div>
 
-            @foreach (var liste in Model)
-            {
-                <div class="card mb-3">
-                    <div class="card-header">
-                        Liste d'attente du @Html.DisplayFor(model => liste.DateEffectivite)
+            <div class="row">
+                @foreach (var liste in Model.Select((value, index) => new { Value = value, Index = index }))
+                {
+                    if (liste.Index % 3 == 0 && liste.Index != 0)
+                    {
+                        @:</div><div class="row mt-3">
+                    }
+
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                Liste d'attente du @Html.DisplayFor(model => liste.Value.DateEffectivite)
+                            </div>
+                            <div class="card-body">
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.DateEffectivite)
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(model => liste.Value.DateEffectivite)
+                                </dd>
+
+                                <dt class="col-sm-4">
+                                    État
+                                </dt>
+                                <dd class="col-sm-8" style="color: @(liste.Value.IsOuverte ? "green" : "red");">
+                                    @(liste.Value.IsOuverte ? "Ouverte" : "Fermée")
+                                </dd>
+                            </div>
+                            <div class="card-footer">
+                                @Html.ActionLink("Modifier", "Edit", new { id = liste.Value.ListeAttenteID }, new { @class = "btn-secondaire btn-sm" }) |
+                                @Html.ActionLink("Détails", "Details", new { id = liste.Value.ListeAttenteID }, new { @class = "btn-secondaire btn-sm" }) |
+                                @Html.ActionLink("Supprimer", "Delete", new { id = liste.Value.ListeAttenteID }, new { @class = "btn-supprimmer btn-sm" })
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <dl class="row">
-                            <dt class="col-sm-4">
-                                @Html.DisplayNameFor(model => model.DateEffectivite)
-                            </dt>
-                            <dd class="col-sm-8">
-                                @Html.DisplayFor(model => liste.DateEffectivite)
-                            </dd>
-                            <dt class="col-sm-4">
-                                État
-                            </dt>
-                            <dd class="col-sm-8">
-                                @if (liste.IsOuverte)
-                                {
-                                    @:Ouverte
-                                }
-                                else
-                                {
-                                    @:Fermée
-                                }
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="card-footer">
-                        @Html.ActionLink("Modifier", "Edit", new { id = liste.ListeAttenteID }, new { @class = "btn btn-secondary" }) |
-                        @Html.ActionLink("Détails", "Details", new { id = liste.ListeAttenteID }, new { @class = "btn btn-secondary" }) |
-                        @Html.ActionLink("Supprimer", "Delete", new { id = liste.ListeAttenteID }, new { @class = "btn btn-danger" })
-                    </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </main>
 </div>

@@ -443,6 +443,66 @@ divider-2 {
     }
 
 
+.btn-secondaire {
+    border-radius: 20px;
+    padding: 6px 15px 6px 15px;
+    align-items: flex-start;
+    gap: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    background-color: #9FE2FF;
+    border: none;
+    cursor: pointer;
+}
+
+    .btn-secondaire:hover {
+        background-color: #95BFB8;
+        color: #115E48;
+    }
+
+    .btn-secondaire:active {
+        background-color: #1C8C6C;
+        border: 1px solid #00DEA4;
+        color: white;
+    }
+
+
+.btn-supprimmer {
+    border-radius: 20px;
+    padding: 6px 15px 6px 15px;
+    align-items: flex-start;
+    gap: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    background-color: #9FE2FF;
+    border: none;
+    cursor: pointer;
+}
+
+    .btn-supprimmer:hover {
+        background-color: #FF5151;
+        color: #115E48;
+    }
+
+    .btn-supprimmer:active {
+        background-color: #1C8C6C;
+        border: 1px solid #00DEA4;
+        color: white;
+    }
+
+
 
 
     /*Liste d attente*/

@@ -28,6 +28,7 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         public async Task<ActionResult> Index()
         {
             IReadOnlyList<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
+            listListAttente.OrderByDescending(x => x.DateEffectivite);
             return View(listListAttente);
 
         }
