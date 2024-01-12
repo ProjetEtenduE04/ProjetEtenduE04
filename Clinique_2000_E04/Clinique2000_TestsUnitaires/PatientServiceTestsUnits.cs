@@ -26,14 +26,14 @@ namespace Clinique2000_TestsUnitaires
                     context.Patients.AddRange(
                          new Patient()
                          {
-                             GoogleNameIdentifier = "113445586041543787326",
+                             //GoogleNameIdentifier = "113445586041543787326",
                              Nom = "Smith",
                              Prenom = "Jhon",
-                             Courriel = "smith@gmail.com",
+                             //Courriel = "smith@gmail.com",
                              NAM = "SMIJ12345678",
                              CodePostal = "A1A 1A1",
-                             MotDePasse = "password123!",
-                             MotDePasseConfirmation = "password123!",
+                             //MotDePasse = "password123!",
+                             //MotDePasseConfirmation = "password123!",
                              DateDeNaissance = new DateTime(2001, 05, 04),
 
                          }
@@ -287,29 +287,29 @@ namespace Clinique2000_TestsUnitaires
         /// <returns>
         /// Renvoie vrai (True) si le patient existe avec l'adresse e-mail fournie, sinon renvoie faux (False).
         /// </returns>
-        [Fact]
-        public async Task VerifierExistencePatientParEmailAsync_ReturnTrueOrFalse()
-        {
-            using (var dbTest = new CliniqueDbContext(SetUpInMemory("VerifierExistencePatientParEmailAsync_ReturnTrueOrFalse")))
-            {
-                // Arrange
-                IPatientService service = new PatientService(dbTest);
-                var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
-                var courrielPatientFaux = "mine@eth.com";
-                // Act
-                var trueResult = await service.VerifierExistencePatientParEmailAsync(patientAChercher.Courriel);
-                var falseResult = await service.VerifierExistencePatientParEmailAsync(courrielPatientFaux);
+        //[Fact]
+        //public async Task VerifierExistencePatientParEmailAsync_ReturnTrueOrFalse()
+        //{
+        //    using (var dbTest = new CliniqueDbContext(SetUpInMemory("VerifierExistencePatientParEmailAsync_ReturnTrueOrFalse")))
+        //    {
+        //        // Arrange
+        //        IPatientService service = new PatientService(dbTest);
+        //        var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
+        //        var courrielPatientFaux = "mine@eth.com";
+        //        // Act
+        //        var trueResult = await service.VerifierExistencePatientParEmailAsync(patientAChercher.Courriel);
+        //        var falseResult = await service.VerifierExistencePatientParEmailAsync(courrielPatientFaux);
 
-                // Assert
-                Assert.IsType<bool>(trueResult);
-                Assert.NotNull(trueResult);
-                Assert.True(trueResult);
+        //        // Assert
+        //        Assert.IsType<bool>(trueResult);
+        //        Assert.NotNull(trueResult);
+        //        Assert.True(trueResult);
 
-                Assert.IsType<bool>(falseResult);
-                Assert.NotNull(falseResult);
-                Assert.False(falseResult);
-            }
-        }
+        //        Assert.IsType<bool>(falseResult);
+        //        Assert.NotNull(falseResult);
+        //        Assert.False(falseResult);
+        //    }
+        //}
 
         /// <summary>
         /// Teste la méthode ObtenirPatientParNAMAsync pour vérifier si elle retourne un patient existant en fonction du numéro d'assurance médicale (NAM).
@@ -340,57 +340,57 @@ namespace Clinique2000_TestsUnitaires
             }
         }
 
-        /// <summary>
-        /// Teste la méthode ObtenirPatientParEmailAsync pour vérifier si elle retourne un patient existant en fonction de l'adresse e-mail.
-        /// </summary>
-        /// <returns>
-        /// Si un patient existe avec l'adresse e-mail fournie, la méthode devrait retourner le patient correspondant ; sinon, elle doit retourner null.
-        /// </returns>
-        [Fact]
-        public async Task ObtenirPatientParEmailAsync_ReturnPatientIfExists()
-        {
-            using (var dbTest = new CliniqueDbContext(SetUpInMemory("ObtenirPatientParEmailAsync_ReturnPatientIfExists")))
-            {
-                // Arrange
-                IPatientService service = new PatientService(dbTest);
-                var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
+        ///// <summary>
+        ///// Teste la méthode ObtenirPatientParEmailAsync pour vérifier si elle retourne un patient existant en fonction de l'adresse e-mail.
+        ///// </summary>
+        ///// <returns>
+        ///// Si un patient existe avec l'adresse e-mail fournie, la méthode devrait retourner le patient correspondant ; sinon, elle doit retourner null.
+        ///// </returns>
+        //[Fact]
+        //public async Task ObtenirPatientParEmailAsync_ReturnPatientIfExists()
+        //{
+        //    using (var dbTest = new CliniqueDbContext(SetUpInMemory("ObtenirPatientParEmailAsync_ReturnPatientIfExists")))
+        //    {
+        //        // Arrange
+        //        IPatientService service = new PatientService(dbTest);
+        //        var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
 
-                var courrielPatientFaux = "mine@eth.com";
+        //        var courrielPatientFaux = "mine@eth.com";
 
-                // Act
-                var trueResult = await service.ObtenirPatientParEmailAsync(patientAChercher.Courriel);
-                var falseResult = await service.ObtenirPatientParNAMAsync(courrielPatientFaux);
-                // Assert
-                Assert.NotNull(trueResult);
-                Assert.IsType<Patient>(trueResult);
-                Assert.Equal(patientAChercher, trueResult);
+        //        // Act
+        //        var trueResult = await service.ObtenirPatientParEmailAsync(patientAChercher.Courriel);
+        //        var falseResult = await service.ObtenirPatientParNAMAsync(courrielPatientFaux);
+        //        // Assert
+        //        Assert.NotNull(trueResult);
+        //        Assert.IsType<Patient>(trueResult);
+        //        Assert.Equal(patientAChercher, trueResult);
 
-                Assert.Null(falseResult);
-            }
-        }
+        //        Assert.Null(falseResult);
+        //    }
+        //}
 
-        /// <summary>
-        /// este la fonctionnalité d'enregistrement d'un patient lorsqu'il existe déjà un utilisateur avec la même adresse électronique.
-        /// </summary>
-        /// <returns>Lance une exception si l'on essaie d'enregistrer un patient avec un courriel existant.</returns>
-        [Fact]
-        public async Task EnregistrerPatient_CourrielExist_ThrowsException()
-        {
-            // Arrange
-            using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_WhenEmailExists_ThrowsException")))
-            {
-                // Arrange
-                IPatientService service = new PatientService(dbTest);
-                var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
+        ///// <summary>
+        ///// este la fonctionnalité d'enregistrement d'un patient lorsqu'il existe déjà un utilisateur avec la même adresse électronique.
+        ///// </summary>
+        ///// <returns>Lance une exception si l'on essaie d'enregistrer un patient avec un courriel existant.</returns>
+        //[Fact]
+        //public async Task EnregistrerPatient_CourrielExist_ThrowsException()
+        //{
+        //    // Arrange
+        //    using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_WhenEmailExists_ThrowsException")))
+        //    {
+        //        // Arrange
+        //        IPatientService service = new PatientService(dbTest);
+        //        var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
 
-                var courrielExistent = patientInscris.Courriel;
+        //        var courrielExistent = patientInscris.Courriel;
 
-                var patientAEnregistrer = new Patient { Courriel = courrielExistent };
+        //        var patientAEnregistrer = new Patient { Courriel = courrielExistent };
 
-                // Act & Assert
-                await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientAEnregistrer));
-            }
-        }
+        //        // Act & Assert
+        //        await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientAEnregistrer));
+        //    }
+        //}
 
         /// <summary>
         /// Test d'enregistrement des patients, avec un NAM déjà enregistré dans BD
@@ -409,7 +409,9 @@ namespace Clinique2000_TestsUnitaires
                 var namExistent = patientInscris.NAM;
                 var nouveauCourriel = "test@test.test";
 
-                var patientAEnregistrer = new Patient { NAM = namExistent , Courriel= nouveauCourriel };
+                var patientAEnregistrer = new Patient { NAM = namExistent 
+                    //, Courriel= nouveauCourriel 
+                };
 
                 // Act & Assert
                 await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientInscris));
@@ -431,12 +433,12 @@ namespace Clinique2000_TestsUnitaires
                 var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
 
                 var nouveauNAM = "ABCD12345678";
-                var nouveauCourriel = "test@test.test";
+                //var nouveauCourriel = "test@test.test";
                 var dateDeNaissanceInvalide = new DateTime(2099,01,01);
 
                 var patientAEnregistrer = new Patient { 
                     NAM = nouveauNAM, 
-                    Courriel = nouveauCourriel,
+                    //Courriel = nouveauCourriel,
                     DateDeNaissance=dateDeNaissanceInvalide
                 };
 
@@ -460,13 +462,13 @@ namespace Clinique2000_TestsUnitaires
                 var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
 
                 var nouveauNAM = "ABCD12345678";
-                var nouveauCourriel = "test@test.test";
+                //var nouveauCourriel = "test@test.test";
                 var dateDeNaissanceInvalide = DateTime.Now;
 
                 var patientAEnregistrer = new Patient
                 {
                     NAM = nouveauNAM,
-                    Courriel = nouveauCourriel,
+                    //Courriel = nouveauCourriel,
                     DateDeNaissance = dateDeNaissanceInvalide
                 };
 
@@ -491,11 +493,11 @@ namespace Clinique2000_TestsUnitaires
                     Nom = "TEST",
                     Prenom = "TEST",
                     CodePostal = "K3K 3K3",
-                    Courriel = "test@test.test",
+                    //Courriel = "test@test.test",
                     NAM = "ABCD12345678",
                     DateDeNaissance = new DateTime(1990, 1, 1),
-                    MotDePasse = "password123!",
-                    MotDePasseConfirmation = "password123!"
+                    //MotDePasse = "password123!",
+                    //MotDePasseConfirmation = "password123!"
                 };
 
                 // Act

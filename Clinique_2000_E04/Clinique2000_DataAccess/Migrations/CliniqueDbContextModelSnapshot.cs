@@ -22,20 +22,32 @@ namespace Clinique2000_DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Clinique2000_Core.Models.Personne", b =>
+            modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
                 {
-                    b.Property<int>("PersonneId")
+                    b.Property<int>("PatientId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonneId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientId"), 1L, 1);
 
-                    b.Property<string>("Courriel")
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CodePostal")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)");
+
+                    b.Property<DateTime>("DateDeNaissance")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NAM")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("Nom")
                         .IsRequired()
@@ -47,9 +59,55 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
-                    b.HasKey("PersonneId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.ToTable("Personne", (string)null);
+                    b.HasKey("PatientId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.PatientACharge", b =>
+                {
+                    b.Property<int>("PatientAChargeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientAChargeId"), 1L, 1);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDeNaissance")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NAM")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Prenom")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("PatientAChargeId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("PatientACharges");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -116,6 +174,10 @@ namespace Clinique2000_DataAccess.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -167,6 +229,8 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -254,66 +318,33 @@ namespace Clinique2000_DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Clinique2000_Core.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
             modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
                 {
-                    b.HasBaseType("Clinique2000_Core.Models.Personne");
+                    b.HasOne("Clinique2000_Core.Models.ApplicationUser", "User")
+                        .WithOne("Patient")
+                        .HasForeignKey("Clinique2000_Core.Models.Patient", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CodePostal")
-                        .IsRequired()
-                        .HasMaxLength(7)
-                        .HasColumnType("nvarchar(7)");
-
-                    b.Property<DateTime>("DateDeNaissance")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("GoogleNameIdentifier")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotDePasse")
-                        .IsRequired()
-                        .HasMaxLength(225)
-                        .HasColumnType("nvarchar(225)");
-
-                    b.Property<string>("MotDePasseConfirmation")
-                        .IsRequired()
-                        .HasMaxLength(225)
-                        .HasColumnType("nvarchar(225)");
-
-                    b.Property<string>("NAM")
-                        .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
-
-                    b.ToTable("Patient", (string)null);
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.PatientACharge", b =>
                 {
-                    b.HasBaseType("Clinique2000_Core.Models.Personne");
+                    b.HasOne("Clinique2000_Core.Models.Patient", "Patient")
+                        .WithMany("PatientsACharge")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateDeNaissance")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NAM")
-                        .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
-
-                    b.Property<int>("PatientAChargeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PatientPersonneId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("PatientPersonneId");
-
-                    b.ToTable("PatientACharge", (string)null);
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -369,29 +400,12 @@ namespace Clinique2000_DataAccess.Migrations
 
             modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
                 {
-                    b.HasOne("Clinique2000_Core.Models.Personne", null)
-                        .WithOne()
-                        .HasForeignKey("Clinique2000_Core.Models.Patient", "PersonneId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Clinique2000_Core.Models.PatientACharge", b =>
-                {
-                    b.HasOne("Clinique2000_Core.Models.Patient", null)
-                        .WithMany("PatientsACharge")
-                        .HasForeignKey("PatientPersonneId");
-
-                    b.HasOne("Clinique2000_Core.Models.Personne", null)
-                        .WithOne()
-                        .HasForeignKey("Clinique2000_Core.Models.PatientACharge", "PersonneId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
-                {
                     b.Navigation("PatientsACharge");
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Patient");
                 });
 #pragma warning restore 612, 618
         }

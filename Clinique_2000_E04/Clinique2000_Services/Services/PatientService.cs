@@ -31,21 +31,21 @@ namespace Clinique2000_Services.Services
                 .FirstOrDefaultAsync();
         }
 
-        /// <summary>
-        /// Obtenir un patient de manière asynchrone par courrier électronique
-        /// </summary>
-        /// <param name="courriel">courrier électronique</param>
-        /// <returns>Le patient correspond à l'adresse électronique fournie, s'il existe, sinon null.</returns>
-        public async Task<Patient?> ObtenirPatientParEmailAsync(string courriel)
-        {
-            if (courriel == null)
-            {
-                return null;
-            }
-            return await _dbContext.Set<Patient>()
-                .Where(p => p.Courriel.ToUpper() == courriel.ToUpper())
-                .FirstOrDefaultAsync();
-        }
+        ///// <summary>
+        ///// Obtenir un patient de manière asynchrone par courrier électronique
+        ///// </summary>
+        ///// <param name="courriel">courrier électronique</param>
+        ///// <returns>Le patient correspond à l'adresse électronique fournie, s'il existe, sinon null.</returns>
+        //public async Task<Patient?> ObtenirPatientParEmailAsync(string courriel)
+        //{
+        //    if (courriel == null)
+        //    {
+        //        return null;
+        //    }
+        //    return await _dbContext.Set<Patient>()
+        //        .Where(p => p.Courriel.ToUpper() == courriel.ToUpper())
+        //        .FirstOrDefaultAsync();
+        //}
 
         /// <summary>
         /// Valider la date de naissance par rapport à la date du jour et au nombre de jours du mois.
@@ -115,24 +115,24 @@ namespace Clinique2000_Services.Services
             return patientTrouve != null;
         }
 
-        /// <summary>
-        /// Vérifier si un patient existe dans la base de données avec l'adresse électronique donnée.
-        /// </summary>
-        /// <param name="curriel">Courriel du patient authentifié pour vérification.</param>
-        /// <returns>Vrai si le patient existe dans la base de données, sinon Faux.</returns>
-        public async Task<bool> VerifierExistencePatientParEmailAsync(string curriel)
-        {
-            var patientTrouve = await ObtenirPatientParEmailAsync(curriel);
-            return patientTrouve != null;
-        }
+        ///// <summary>
+        ///// Vérifier si un patient existe dans la base de données avec l'adresse électronique donnée.
+        ///// </summary>
+        ///// <param name="curriel">Courriel du patient authentifié pour vérification.</param>
+        ///// <returns>Vrai si le patient existe dans la base de données, sinon Faux.</returns>
+        //public async Task<bool> VerifierExistencePatientParEmailAsync(string curriel)
+        //{
+        //    var patientTrouve = await ObtenirPatientParEmailAsync(curriel);
+        //    return patientTrouve != null;
+        //}
 
         public async Task<Patient> EnregistrerPatient(Patient patient)
         {
 
-            if (await VerifierExistencePatientParEmailAsync(patient.Courriel))
-            {
-                throw new Exception("Cet email est déjà enregistré.");
-            }
+            //if (await VerifierExistencePatientParEmailAsync(patient.Courriel))
+            //{
+            //    throw new Exception("Cet email est déjà enregistré.");
+            //}
             if (await VerifierExistencePatientParNAM(patient.NAM))
             {
                 throw new Exception("Ce numéro d'assurance médicale est déjà enregistré.");

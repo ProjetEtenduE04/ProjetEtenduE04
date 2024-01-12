@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Clinique2000_DataAccess.Migrations
 {
-    public partial class ajoutUser : Migration
+    public partial class ajoutUsersPatientPatientACharge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,6 +28,7 @@ namespace Clinique2000_DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -46,22 +47,6 @@ namespace Clinique2000_DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Personne",
-                columns: table => new
-                {
-                    PersonneId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    Prenom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    Courriel = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Personne", x => x.PersonneId);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,52 +156,53 @@ namespace Clinique2000_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Patient",
+                name: "Patients",
                 columns: table => new
                 {
-                    PersonneId = table.Column<int>(type: "int", nullable: false),
-                    GoogleNameIdentifier = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Prenom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NAM = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     CodePostal = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
-                    MotDePasse = table.Column<string>(type: "nvarchar(225)", maxLength: 225, nullable: false),
-                    MotDePasseConfirmation = table.Column<string>(type: "nvarchar(225)", maxLength: 225, nullable: false),
                     DateDeNaissance = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false)
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Patient", x => x.PersonneId);
+                    table.PrimaryKey("PK_Patients", x => x.PatientId);
                     table.ForeignKey(
-                        name: "FK_Patient_Personne_PersonneId",
-                        column: x => x.PersonneId,
-                        principalTable: "Personne",
-                        principalColumn: "PersonneId");
+                        name: "FK_Patients_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PatientACharge",
+                name: "PatientACharges",
                 columns: table => new
                 {
-                    PersonneId = table.Column<int>(type: "int", nullable: false),
-                    PatientAChargeId = table.Column<int>(type: "int", nullable: false),
+                    PatientAChargeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Prenom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     NAM = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     DateDeNaissance = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    PatientPersonneId = table.Column<int>(type: "int", nullable: true)
+                    PatientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PatientACharge", x => x.PersonneId);
+                    table.PrimaryKey("PK_PatientACharges", x => x.PatientAChargeId);
                     table.ForeignKey(
-                        name: "FK_PatientACharge_Patient_PatientPersonneId",
-                        column: x => x.PatientPersonneId,
-                        principalTable: "Patient",
-                        principalColumn: "PersonneId");
-                    table.ForeignKey(
-                        name: "FK_PatientACharge_Personne_PersonneId",
-                        column: x => x.PersonneId,
-                        principalTable: "Personne",
-                        principalColumn: "PersonneId");
+                        name: "FK_PatientACharges_Patients_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Patients",
+                        principalColumn: "PatientId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -259,9 +245,15 @@ namespace Clinique2000_DataAccess.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PatientACharge_PatientPersonneId",
-                table: "PatientACharge",
-                column: "PatientPersonneId");
+                name: "IX_PatientACharges_PatientId",
+                table: "PatientACharges",
+                column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_UserId",
+                table: "Patients",
+                column: "UserId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -282,19 +274,16 @@ namespace Clinique2000_DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "PatientACharge");
+                name: "PatientACharges");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Patients");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Patient");
-
-            migrationBuilder.DropTable(
-                name: "Personne");
         }
     }
 }

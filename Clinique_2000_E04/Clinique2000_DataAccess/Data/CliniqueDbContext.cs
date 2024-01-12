@@ -11,8 +11,7 @@ namespace Clinique2000_DataAccess.Data
 
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PatientACharge> PatientACharges { get; set; }
-        public DbSet<Personne> Personnes { get; set; }
-
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public CliniqueDbContext(DbContextOptions<CliniqueDbContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -29,9 +28,6 @@ namespace Clinique2000_DataAccess.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CliniqueDbContext).Assembly);
-            modelBuilder.Entity<Personne>().ToTable("Personne");
-            modelBuilder.Entity<Patient>().ToTable("Patient");
-            modelBuilder.Entity<PatientACharge>().ToTable("PatientACharge");
 
         }
 

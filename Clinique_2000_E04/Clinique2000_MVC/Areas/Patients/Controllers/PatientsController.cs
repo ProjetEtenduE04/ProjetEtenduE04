@@ -37,12 +37,13 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // GET: PatientsController/Create
         public async Task<IActionResult> Create()
         {
-            var utilisateurConnecte = await _authenGoogleService.GetAuthUserDataAsync();
-            if(utilisateurConnecte.Courriel==null || await _patientService.VerifierExistencePatientParEmailAsync(utilisateurConnecte.Courriel))
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            return View(utilisateurConnecte);
+            //var utilisateurConnecte = await _authenGoogleService.GetAuthUserDataAsync();
+            //if(utilisateurConnecte.Courriel==null || await _patientService.VerifierExistencePatientParEmailAsync(utilisateurConnecte.Courriel))
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(utilisateurConnecte);
+            return View();
         }
 
         // POST: Patients/Create
