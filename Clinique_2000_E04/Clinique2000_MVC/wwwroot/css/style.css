@@ -625,3 +625,13 @@ table td {
 .btn-action {
     border-radius: 30px; 
 }
+
+.my-icon {
+    color: grey; 
+    cursor: pointer; 
+    font-size: 1.75rem !important; 
+}
+
+    .my-icon:hover {
+        color: blue !important; 
+    }

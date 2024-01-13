@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Immutable;
 
 namespace Clinique2000_MVC.Areas.Clinique.Controllers
 {
@@ -21,17 +22,36 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
             _services = service;
         }
 
-
-
-
+        
         // GET: ListeAttenteController
         public async Task<ActionResult> Index()
         {
-            List<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
-            listListAttente.OrderBy(x => x.DateEffectivite).ToList();
-            return View(listListAttente);
+            DateTime now = DateTime.Now;
 
+            IList<ListeAttente> listListAttente = await _services.listeAttente
+                .ObtenirToutAsync();
+
+
+            listListAttente = listListAttente.Where(x => x.DateEffectivite.AddDays(-1) >= now)
+                .OrderBy(x => x.DateEffectivite)
+                .ToList();
+                
+
+            return View(listListAttente);
         }
+
+
+        public async Task<ActionResult> HistoriqueListeAttentes()
+        {
+
+            IList<ListeAttente> listListAttente = await _services.listeAttente
+        .ObtenirToutAsync();
+
+          listListAttente = listListAttente.OrderByDescending(x => x.DateEffectivite).ToList();
+
+            return View(listListAttente);
+        }
+
 
 
         public async Task<ActionResult> Details(int id)
@@ -161,11 +181,6 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
 
             return View(listeAttente);
         }
-
-
-
-
-
 
 
 
