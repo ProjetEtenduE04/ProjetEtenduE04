@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    [Migration("20240112200829_ajoutUsersPatientPatientACharge")]
-    partial class ajoutUsersPatientPatientACharge
+    [Migration("20240114175026_ajoutUserPatientPatientACharge")]
+    partial class ajoutUserPatientPatientACharge
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

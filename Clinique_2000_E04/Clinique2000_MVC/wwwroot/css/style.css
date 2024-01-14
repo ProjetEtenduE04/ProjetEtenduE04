@@ -436,3 +436,7 @@ btn-loginGoogle {
         border: 1px solid #00DEA4;
         color: white;
     }
+
+.capitalize-first-letter::first-letter {
+    text-transform: uppercase;
+}

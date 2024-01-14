@@ -25,15 +25,10 @@ namespace Clinique2000_Core.Models
         [RegularExpression(@"^[A-Za-z]{2}[A-Za-z]*$", ErrorMessage = "Ce champ ne peut contenir que des lettres.")]
         public string Prenom { get; set; }
 
-        //[Required(ErrorMessage = "Ce champ est obligatoire.")]
-        //[EmailAddress(ErrorMessage = "Ce champ doit être une adresse email valide.")]
-        //[MinLength(7, ErrorMessage = "Ce champ doit avoir au moins 7 caractères.")]
-        //public string Courriel { get; set; }
-
         public string? Genre { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        [RegularExpression(@"^[A-Z]{4}\d{8}$", ErrorMessage = "Le format NAM n'est pas valide.(Ex:ABCD12345678)")]
+        [RegularExpression(@"^[A-Za-z]{4}\d{8}$", ErrorMessage = "Le format NAM n'est pas valide.(Ex:ABCD12345678)")]
         [StringLength(12, ErrorMessage = "Ce champ doit avoir au maximum 12 caractères.")]
         public string NAM { get; set; }
 
@@ -41,16 +36,6 @@ namespace Clinique2000_Core.Models
         [RegularExpression(@"^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$", ErrorMessage = "Le format du code postal n'est pas valide (Ex: A1A 1A1).")]
         [StringLength(7, MinimumLength = 7, ErrorMessage = "Ce champ doit avoir exactement 7 caractères.")]
         public string CodePostal { get; set; }
-
-        //[Required(ErrorMessage = "Ce champ est obligatoire.")]
-        //[MaxLength(225, ErrorMessage = "Ce champ ne peut pas dépasser 8 caractères.")]
-        //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\p{L}\d])(?!.*\s).{8,225}$", ErrorMessage = "Ce champ doit contenir au moins une lettre, un chiffre et doit avoir entre 8 et 225 caractères.")]
-        //public string MotDePasse { get; set; }
-
-        //[Required(ErrorMessage = "Ce champ est obligatoire.")]
-        //[MaxLength(225, ErrorMessage = "Ce champ ne peut pas dépasser  caractères.")]
-        //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\p{L}\d])(?!.*\s).{8,225}$", ErrorMessage = "Ce champ doit contenir au moins une lettre, un chiffre et doit avoir entre 8 et 225 caractères.")]
-        //public string MotDePasseConfirmation { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [DataType(DataType.Date)]
@@ -64,6 +49,7 @@ namespace Clinique2000_Core.Models
         [ForeignKey("UserId")]
         public string UserId { get; set; }
 
+        [ValidateNever]
         public virtual ApplicationUser User { get; set; }
 
         [ValidateNever]

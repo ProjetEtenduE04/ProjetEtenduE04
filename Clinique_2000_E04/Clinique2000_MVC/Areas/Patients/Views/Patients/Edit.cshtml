@@ -1,8 +1,8 @@
 ﻿@model Patient
 
 @{
-    var btnText = "S'enregistrer";
-    ViewData["Title"] = "Créer un profil";
+    var btnText = "Enregistrer les modifications";
+    ViewData["Title"] = "Modifier le profil";
 }
 
 <div class="container-fluid">
@@ -17,10 +17,10 @@
                     <span class="p3">Les champs marqués d'un astérisque (*) doivent être renseignés.</span>
                 </p>
             </div>
-            
 
-            <!--Form d'inscription patient-->
-            <form asp-controller="Patients" asp-action="Create" method="post" enctype="multipart/form-data" class="text-start p1">
+
+            <!--Form de modifier patient-->
+            <form asp-controller="Patients" asp-action="Edit" method="post" enctype="multipart/form-data" class="text-start p1">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <!--region input Hidden-->
@@ -30,7 +30,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.Nom" class="form-label mt-3 mb-1"></label>
-                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Nom" id="nomPatient" placeholder="Exemple: Jhon">
+                        <input type="text" class="form-control" asp-for="@Model.Nom" id="nomPatient" placeholder="Exemple: Jhon">
                         <span asp-validation-for="@Model.Nom" class="text-danger"></span>
                     </div>
                 </div>
@@ -39,10 +39,19 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.Prenom" class="form-label mt-3 mb-1"></label>
-                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Prenom" placeholder="Exemple: Smith">
+                        <input type="text" class="form-control" asp-for="@Model.Prenom" placeholder="Exemple: Smith">
                         <span asp-validation-for="@Model.Prenom" class="text-danger"></span>
                     </div>
                 </div>
+
+                @*                <!--Courrier Électronique-->
+                <div class="row justify-content-center">
+                <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                <label asp-for=Courriel class="form-label mt-3 mb-1"></label>
+                <input type="email" class="form-control" asp-for=Courriel placeholder="Exemple: JS@@mail.ca" readonly>
+                <span asp-validation-for=Courriel class="text-danger"></span>
+                </div>
+                </div>*@
 
                 <!--Genre-->
                 <div class="row justify-content-center">
@@ -70,7 +79,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.DateDeNaissance" class="form-label mt-3 mb-1"></label>
-                        <input id="DateDeNaissance" class="form-control" asp-for="@Model.DateDeNaissance" type="date" min="1900-01-01" max="@DateTime.Now.ToString("yyyy-MM-dd")">
+                        <input id="DateDeNaissance" class="form-control" asp-for="@Model.DateDeNaissance" type="date">
                         <span asp-validation-for="@Model.DateDeNaissance" class="text-danger"></span>
                     </div>
                 </div>
@@ -83,8 +92,25 @@
                         <span asp-validation-for="@Model.CodePostal" class="text-danger"></span>
                     </div>
                 </div>
+                @*                <!--Mot de Passe-->
+                <div class="row justify-content-center">
+                <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                <label asp-for="@Model.MotDePasse" class="form-label mt-3 mb-1"></label>
+                <input type="password" class="form-control" asp-for="@Model.MotDePasse" placeholder="Exemple: PaSsWorD123!$" autocomplete="new-password" aria-required="true">
+                <span asp-validation-for="@Model.MotDePasse" class="text-danger"></span>
+                </div>
+                </div>
+                <!--Mot de Conffirmation-->
+                <div class="row justify-content-center">
+                <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                <label asp-for="@Model.MotDePasseConfirmation" class="form-label mt-3 mb-1"></label>
+                <input type="password" class="form-control" asp-for="@Model.MotDePasseConfirmation" placeholder="Exemple: PaSsWorD123!$" autocomplete="new-password" aria-required="true">
+                <span asp-validation-for="@Model.MotDePasseConfirmation" class="text-danger"></span>
+                </div>
+                </div>*@
+                @*<partial name="_CreateButtonPartielle" model="@Model" />*@
 
-                <!--CreateBTN-->
+                <!--EditBTN-->
                 <div class="row justify-content-center text-center">
                     <div class="col col-md-8 col-xl-6 mb-2 mt-4">
                         <partial name="_SubmitButtonPartial" model="@btnText" />
@@ -103,7 +129,6 @@
     @{
 
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-
     }
 }
 

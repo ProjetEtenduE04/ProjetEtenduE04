@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\Patients\Views\Patients\NewFile.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="appsettings.json~RF14ec06e2.TMP" />
+    <None Remove="Areas\Patients\Views\Patients\NewFile.txt" />
   </ItemGroup>
 
   <ItemGroup>

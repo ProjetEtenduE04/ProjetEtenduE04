@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Clinique2000_DataAccess.Migrations
 {
-    public partial class ajoutUsersPatientPatientACharge : Migration
+    public partial class ajoutUserPatientPatientACharge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

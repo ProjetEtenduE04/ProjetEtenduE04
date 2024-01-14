@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Clinique2000_Core.Models;
 
 namespace Clinique2000_MVC.Areas.Identity.Pages.Account
 {
@@ -84,8 +85,23 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            public string UserName { get; set; }
+
         }
-        
+
+        public string NormalizeUserName(string name)
+        {
+            //normalisation du nom d'utilisateur 
+            //supprimer les espaces et les caractères spéciaux
+            string normalizedUserName = new string(name
+                .Where(c => char.IsLetterOrDigit(c))
+                .ToArray());
+
+            return normalizedUserName;
+        }
+
         public IActionResult OnGet() => RedirectToPage("./Login");
 
         public IActionResult OnPost(string provider, string returnUrl = null)
@@ -131,7 +147,7 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
                     };
                 }
                 return await OnPostConfirmationAsync(returnUrl);
@@ -150,12 +166,12 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
             }
 
             if (ModelState.IsValid)
-            {
+            { 
                 var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-
+                
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -163,7 +179,7 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-
+                        
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
