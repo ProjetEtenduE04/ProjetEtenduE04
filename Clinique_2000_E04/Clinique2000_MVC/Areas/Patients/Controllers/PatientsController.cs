@@ -34,15 +34,25 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         public async Task<IActionResult> Index()
         {
             //return View(); 
-            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            var listeDePatients = await _serviceBase.ObtenirToutAsync();
 
-            return View("Index");
+            return View("Index", listeDePatients);
         }
 
         // GET: PatientsController/Details/5
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+
+            if (id == null || _patientService.ObtenirToutAsync() == null)
+            {
+                return NotFound();
+            }
+            var patientDetails = await _patientService.ObtenirParIdAsync(id);
+            if (patientDetails == null)
+            {
+                return NotFound();
+            }
+            return View(patientDetails);
         }
 
         // GET: PatientsController/Create
@@ -100,33 +110,60 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             }
         }
 
-        //// GET: PatientsController/Edit/5
-        //public async ActionResult Edit(string id)
-        //{
-        //    try
-        //    {
-        //        var patient = await _patientService.GetPatientParUserIdAsync(id);
+        // GET: PatientsController/Edit/5
+        public async Task<ActionResult> Edit(int? id)
+        {
+            try
+            {
+                if (id == null || _patientService.ObtenirToutAsync() == null)
+                {
+                    return NotFound();
+                }
+                var patient = await _patientService.ObtenirParIdAsync(id);
 
-        //        if(patient == null)
-        //        {
-        //            return NotFound;
-        //        }
-        //        return View(patient);
-        //    } 
-        //    catch (Exception ex)
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View();
-        //}
+                if (patient == null)
+                {
+                    return NotFound();
+                }
+                return View(patient);
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
 
         // POST: PatientsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("PatientId,Nom,Prenom,Genre,NAM,CodePostal,DateDeNaissance,Age,UserId")] Patient patient)
         {
             try
             {
+                if (id != patient.PatientId)
+                {
+                    return NotFound();
+                }
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        await _patientService.EditerAsync(patient);
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!await _patientService.VerifierExistencePatientParNAM(patient.NAM))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -136,18 +173,41 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         }
 
         // GET: PatientsController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            try
+            {
+                if (id == null || _patientService.ObtenirToutAsync() == null)
+                {
+                    return NotFound();
+                }
+                var patient =  await _patientService.ObtenirParIdAsync(id);
+
+                if (patient != null)
+                {
+                    return View(patient);
+                }
+                else
+                    return NotFound();
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // POST: PatientsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int patientId)
         {
             try
             {
+                var patient = await _patientService.ObtenirParIdAsync(patientId);
+                if (patient != null)
+                {
+                    await _patientService.SupprimerAsync(patientId);
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch

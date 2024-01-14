@@ -25,12 +25,13 @@
 
                 <!--region input Hidden-->
                 <input asp-for="@Model.UserId" class="form-control" type="hidden" />
+                <input asp-for="@Model.PatientId" class="form-control" type="hidden" />
 
                 <!--Nom Patient-->
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.Nom" class="form-label mt-3 mb-1"></label>
-                        <input type="text" class="form-control" asp-for="@Model.Nom" id="nomPatient" placeholder="Exemple: Jhon">
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Nom" id="nomPatient" placeholder="Exemple: Jhon">
                         <span asp-validation-for="@Model.Nom" class="text-danger"></span>
                     </div>
                 </div>
@@ -39,19 +40,10 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.Prenom" class="form-label mt-3 mb-1"></label>
-                        <input type="text" class="form-control" asp-for="@Model.Prenom" placeholder="Exemple: Smith">
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Prenom" placeholder="Exemple: Smith">
                         <span asp-validation-for="@Model.Prenom" class="text-danger"></span>
                     </div>
                 </div>
-
-                @*                <!--Courrier Électronique-->
-                <div class="row justify-content-center">
-                <div class="col col-md-8 col-lg-7 col-xl-6 ">
-                <label asp-for=Courriel class="form-label mt-3 mb-1"></label>
-                <input type="email" class="form-control" asp-for=Courriel placeholder="Exemple: JS@@mail.ca" readonly>
-                <span asp-validation-for=Courriel class="text-danger"></span>
-                </div>
-                </div>*@
 
                 <!--Genre-->
                 <div class="row justify-content-center">
@@ -70,7 +62,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.NAM" class="form-label mt-3 mb-1"></label>
-                        <input type="text" class="form-control" asp-for="@Model.NAM" placeholder="Exemple: CULA-1234-5678">
+                        <input type="text" class="form-control" asp-for="@Model.NAM" placeholder="Exemple: CULA 12345678">
                         <span asp-validation-for="@Model.NAM" class="text-danger"></span>
                     </div>
                 </div>
@@ -79,7 +71,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.DateDeNaissance" class="form-label mt-3 mb-1"></label>
-                        <input id="DateDeNaissance" class="form-control" asp-for="@Model.DateDeNaissance" type="date">
+                        <input id="DateDeNaissance" class="form-control" asp-for="@Model.DateDeNaissance" type="date" min="1900-01-01" max="@DateTime.Now.ToString("yyyy-MM-dd")">
                         <span asp-validation-for="@Model.DateDeNaissance" class="text-danger"></span>
                     </div>
                 </div>
@@ -92,23 +84,6 @@
                         <span asp-validation-for="@Model.CodePostal" class="text-danger"></span>
                     </div>
                 </div>
-                @*                <!--Mot de Passe-->
-                <div class="row justify-content-center">
-                <div class="col col-md-8 col-lg-7 col-xl-6 ">
-                <label asp-for="@Model.MotDePasse" class="form-label mt-3 mb-1"></label>
-                <input type="password" class="form-control" asp-for="@Model.MotDePasse" placeholder="Exemple: PaSsWorD123!$" autocomplete="new-password" aria-required="true">
-                <span asp-validation-for="@Model.MotDePasse" class="text-danger"></span>
-                </div>
-                </div>
-                <!--Mot de Conffirmation-->
-                <div class="row justify-content-center">
-                <div class="col col-md-8 col-lg-7 col-xl-6 ">
-                <label asp-for="@Model.MotDePasseConfirmation" class="form-label mt-3 mb-1"></label>
-                <input type="password" class="form-control" asp-for="@Model.MotDePasseConfirmation" placeholder="Exemple: PaSsWorD123!$" autocomplete="new-password" aria-required="true">
-                <span asp-validation-for="@Model.MotDePasseConfirmation" class="text-danger"></span>
-                </div>
-                </div>*@
-                @*<partial name="_CreateButtonPartielle" model="@Model" />*@
 
                 <!--EditBTN-->
                 <div class="row justify-content-center text-center">
