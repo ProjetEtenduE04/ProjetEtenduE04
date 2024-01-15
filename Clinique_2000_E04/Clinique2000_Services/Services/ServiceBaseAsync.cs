@@ -31,7 +31,7 @@ namespace Clinique2000_Services.Services
         /// Modifie une entité de type T de manière asynchrone dans la base de données.
         /// </summary>
         /// <param name="entity">Entité à modifier</param>
-        public async Task EditerAsync(T entity)
+        public async Task<T> EditerAsync(T entity)
         {
 
             if (_dbContext.Entry(entity).State == EntityState.Detached)
@@ -46,6 +46,7 @@ namespace Clinique2000_Services.Services
             }
 
             await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
         /// <summary>

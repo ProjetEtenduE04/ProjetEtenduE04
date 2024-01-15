@@ -26,15 +26,17 @@ namespace Clinique2000_TestsUnitaires
                     context.Patients.AddRange(
                          new Patient()
                          {
+                             PatientId = 1,
                              Nom = "Smith",
                              Prenom = "Jhon",
                              NAM = "SMIJ12345678",
                              CodePostal = "A1A 1A1",
                              DateDeNaissance = new DateTime(2001, 05, 04),
+                             Age = 23,
                              UserId = "4eaffcbd-4351-4995-a0c0-03624a3743c7"
 
                          }
-                   );
+                   ); ;
                 context.SaveChanges();
             }
 
@@ -407,12 +409,12 @@ namespace Clinique2000_TestsUnitaires
                 var namExistent = patientInscris.NAM;
                 var nouveauCourriel = "test@test.test";
 
-                var patientAEnregistrer = new Patient { NAM = namExistent 
-                    //, Courriel= nouveauCourriel 
+                var patientAEnregistrer = new Patient { 
+                    NAM = namExistent 
                 };
 
                 // Act & Assert
-                await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientInscris));
+                await Assert.ThrowsAsync<Exception>(() => service.EnregistrerOuModifierPatient(patientAEnregistrer));
             }
         }
 
@@ -431,17 +433,15 @@ namespace Clinique2000_TestsUnitaires
                 var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
 
                 var nouveauNAM = "ABCD12345678";
-                //var nouveauCourriel = "test@test.test";
-                var dateDeNaissanceInvalide = new DateTime(2099,01,01);
+                var dateDeNaissanceInvalide = DateTime.Now.AddDays(1);
 
                 var patientAEnregistrer = new Patient { 
                     NAM = nouveauNAM, 
-                    //Courriel = nouveauCourriel,
                     DateDeNaissance=dateDeNaissanceInvalide
                 };
 
                 // Act & Assert
-                await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientInscris));
+                await Assert.ThrowsAsync<ArgumentException>(() => service.EnregistrerOuModifierPatient(patientAEnregistrer));
             }
         }
 
@@ -460,18 +460,15 @@ namespace Clinique2000_TestsUnitaires
                 var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
 
                 var nouveauNAM = "ABCD12345678";
-                //var nouveauCourriel = "test@test.test";
                 var dateDeNaissanceInvalide = DateTime.Now;
 
                 var patientAEnregistrer = new Patient
                 {
-                    NAM = nouveauNAM,
-                    //Courriel = nouveauCourriel,
                     DateDeNaissance = dateDeNaissanceInvalide
                 };
 
                 // Act & Assert
-                await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientInscris));
+                await Assert.ThrowsAsync<Exception>(() => service.EnregistrerOuModifierPatient(patientAEnregistrer));
             }
         }
 
@@ -497,7 +494,7 @@ namespace Clinique2000_TestsUnitaires
                 };
 
                 // Act
-                var createdPatient = await service.EnregistrerPatient(patientAEnregistrer);
+                var createdPatient = await service.EnregistrerOuModifierPatient(patientAEnregistrer);
 
                 //Assert
                 Assert.NotNull(createdPatient);

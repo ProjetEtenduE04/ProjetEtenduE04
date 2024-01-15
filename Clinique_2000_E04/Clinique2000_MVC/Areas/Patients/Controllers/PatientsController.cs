@@ -99,7 +99,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await _patientService.EnregistrerPatient(patient);
+                    await _patientService.EnregistrerOuModifierPatient(patient);
                     return RedirectToAction(nameof(Index));
                 }
                 return View(patient);
@@ -149,7 +149,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 {
                     try
                     {
-                        await _patientService.EditerAsync(patient);
+                        await _patientService.EnregistrerOuModifierPatient(patient);
                     }
                     catch (DbUpdateConcurrencyException)
                     {
