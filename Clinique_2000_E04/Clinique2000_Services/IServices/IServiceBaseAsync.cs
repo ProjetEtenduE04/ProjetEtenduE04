@@ -7,6 +7,6 @@
         Task<IReadOnlyList<T>> ObtenirToutAsync();
         Task<T?> ObtenirParIdAsync(int? id);
         Task<T?> ObtenirParNomAsync(string nom);
-        Task EditerAsync(T entity);
+        Task<T?> EditerAsync(T entity);
     }
 }

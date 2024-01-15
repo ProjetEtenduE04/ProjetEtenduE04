@@ -159,7 +159,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var patientValide = _patientsList.FirstOrDefault();
 
-            _patientServiceMock.Setup(service => service.EnregistrerPatient(patientValide)).ReturnsAsync(patientValide);
+            _patientServiceMock.Setup(service => service.EnregistrerOuModifierPatient(patientValide)).ReturnsAsync(patientValide);
 
             // Act
             var result = await _patientsController.Create(patientValide);

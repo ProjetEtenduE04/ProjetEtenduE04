@@ -11,7 +11,7 @@ namespace Clinique2000_Services.IServices
         bool EstMajeurAge(int age);
         bool EstMajeurDateDeNaissance(DateTime dateDeNaissance);
         Task<bool> VerifierExistencePatientParNAM(string nam);
-        Task<Patient> EnregistrerPatient(Patient patient);
+        Task<Patient> EnregistrerOuModifierPatient(Patient patient);
         Task<bool> UserEstPatientAsync(string userId);
         Task<Patient> GetPatientParUserIdAsync(string userId);
         Task<bool> VerifierExistencePatientParEmailAsync(string curriel);

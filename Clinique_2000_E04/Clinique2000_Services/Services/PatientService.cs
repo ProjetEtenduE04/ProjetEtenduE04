@@ -139,10 +139,62 @@ namespace Clinique2000_Services.Services
             return patientTrouve != null;
         }
 
-        public async Task<Patient> EnregistrerPatient(Patient patient)
+        //public async Task<Patient> EnregistrerPatient(Patient patient)
+        //{
+
+        //    if (await VerifierExistencePatientParNAM(patient.NAM))
+        //    {
+        //        throw new Exception("Ce numéro d'assurance médicale est déjà enregistré.");
+        //    }
+        //    if (!DateDeNaissanceEstValid(patient.DateDeNaissance))
+        //    {
+        //        throw new ArgumentException("La date de naissance n'est pas valide.");
+        //    }
+        //    Age ageExact = CalculerAge(patient.DateDeNaissance);
+        //    if (!EstMajeurAge(ageExact.Annees))
+        //    {
+        //        throw new Exception("Vous devez être majeur pour vous inscrire.");
+        //    }
+        //    patient.Age = ageExact.Annees;
+        //    return await CreerAsync(patient);
+        //}
+
+        //public async Task<Patient> ModifierPatient(Patient patient)
+        //{
+        //    if (patient.PatientId == 0)
+        //    {
+        //        throw new ArgumentException("L'identifiant du patient est nécessaire pour la modification.");
+        //    }
+
+        //    var existingPatient = await ObtenirParIdAsync(patient.PatientId);
+        //    if (existingPatient == null)
+        //    {
+        //        throw new Exception("Le patient n'existe pas.");
+        //    }
+
+        //    if (existingPatient.NAM != patient.NAM && await VerifierExistencePatientParNAM(patient.NAM))
+        //    {
+        //        throw new Exception("Un autre patient est déjà enregistré avec ce numéro d'assurance maladie, veuillez vérifier vos renseignements ou contacter le service clientèle.");
+        //    }
+
+        //    if (!DateDeNaissanceEstValid(patient.DateDeNaissance))
+        //    {
+        //        throw new ArgumentException("La date de naissance n'est pas valide.");
+        //    }
+        //    Age ageExact = CalculerAge(patient.DateDeNaissance);
+        //    if (!EstMajeurAge(ageExact.Annees))
+        //    {
+        //        throw new Exception("Vous devez être majeur pour vous inscrire.");
+        //    }
+        //    patient.Age = ageExact.Annees;
+
+        //    return await EditerAsync(patient);
+        //}
+
+        public async Task<Patient> EnregistrerOuModifierPatient(Patient patient)
         {
 
-            if (await VerifierExistencePatientParNAM(patient.NAM))
+            if (patient.PatientId == 0 && await VerifierExistencePatientParNAM(patient.NAM))
             {
                 throw new Exception("Ce numéro d'assurance médicale est déjà enregistré.");
             }
@@ -156,7 +208,19 @@ namespace Clinique2000_Services.Services
                 throw new Exception("Vous devez être majeur pour vous inscrire.");
             }
             patient.Age = ageExact.Annees;
-            return await CreerAsync(patient);
+            if (patient.PatientId != 0)
+            {
+                var existingPatient = await ObtenirParIdAsync(patient.PatientId);
+                if (existingPatient != null && existingPatient.NAM != patient.NAM && await VerifierExistencePatientParNAM(patient.NAM))
+                {
+                    throw new Exception("Un autre patient est déjà enregistré avec ce numéro d'assurance maladie, veuillez vérifier vos renseignements ou contacter le service clientèle.");
+                }
+                return await EditerAsync(patient);
+            }
+            else
+            {
+                return await CreerAsync(patient);
+            }
         }
 
         /// <summary>
