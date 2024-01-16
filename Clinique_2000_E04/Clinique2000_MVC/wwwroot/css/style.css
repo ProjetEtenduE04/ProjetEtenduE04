@@ -399,6 +399,12 @@ divider-2 {
 
 }
 
+#rv {
+    align-self: baseline;
+margin-left: 10px;
+padding: 20px 10px;
+}
+
     .btn-create:hover {
         color: #115E48;
         background-color: #95BFB8
