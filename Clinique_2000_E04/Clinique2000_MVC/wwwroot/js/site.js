@@ -2,9 +2,16 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-var today = new Date().toISOString().split('T')[0];
-var todayMax = new Date(today.getFullYear() - 14, today.getMonth(), today.getDate()).toISOString().split('T')[0];
-document.getElementById("DateDeNaissance").setAttribute("max", todayMax);
+/*var today = new Date().toISOString().split('T')[0];*/
+document.addEventListener('DOMContentLoaded', function () {
+    var today = new Date();
+    var todayMax = new Date(today.getFullYear() - 14, today.getMonth(), today.getDate()).toISOString().split('T')[0];
+    var dateInput = document.getElementById("DateDeNaissance");
+
+    if (dateInput) {
+        dateInput.setAttribute("max", todayMax);
+    }
+});
 
 
 
@@ -33,3 +40,29 @@ $(document).ready(function () {
         }
     });
 });
+
+//Start DATATABLE
+//================================================== 
+$(document).ready(function () {
+    $('#dataTable').DataTable({
+        "language": {
+            "decimal": ",",
+            "thousands": ".",
+            "lengthMenu": "Affichage de _MENU_ enregistrements par page",
+            "zeroRecords": "Rien trouvé… Désolé! ",
+            "info": "Affichage de la page _PAGE_ de _PAGES_",
+            "infoEmpty": "Aucun enregistrement disponible ",
+            "infoFiltered": "(filtré d’un maximum de _MAX_ enregistrement)",
+            "search": "Recherche: ",
+            "paginate": {
+                "first": "Première",
+                "last": "Dernière",
+                "next": "Suivant",
+                "previous": "Précédent",
+            }
+
+        }
+    });
+});
+//END DATATABLES
+//================================================== 
