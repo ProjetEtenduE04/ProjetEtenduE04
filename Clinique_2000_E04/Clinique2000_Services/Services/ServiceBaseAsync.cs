@@ -73,7 +73,7 @@ namespace Clinique2000_Services.Services
         /// Obtient toutes les entités de type T de manière asynchrone.
         /// </summary>
         /// <returns>Liste des entités</returns>
-        public async Task<IReadOnlyList<T>> ObtenirToutAsync()
+        public async Task<List<T>> ObtenirToutAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
         }

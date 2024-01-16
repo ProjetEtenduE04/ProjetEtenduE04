@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <!--Métadonnées-->
@@ -14,24 +14,36 @@
     @*<link rel="stylesheet" type="text/css" href="~/Clinique2000_MVC.styles.css" asp-append-version="true" />*@
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="h-logo " asp-area="" asp-controller="Home" asp-action="Index">Clinique2000</a>
+    <header >
+        <div class="container d-flex align-items-center justify-content-start">
+            <div class="container-fluid  row justify-content-start align-items-center">
+                <a class="col-4" asp-area="" asp-controller="Home" asp-action="Index"> <img class="h-logo ms-3 " src="/images/logo.png" alt="logo"></a>
+                <div class="col-2">
+                </div>
+                <div class="col-2">
+                </div>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  col-4 align-items-center  mb-3">
+            @* box-shadow border-bottom*@
+            
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav ms-5 align-items-baseline flex-grow-1 footer-links white-link">
+               
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end ">
+                    <ul class="navbar-nav  align-items-baseline justify-content-end  flex-grow-1 footer-links white-link">
                         <li class="nav-item mx-3">
-                            <a class="p1" asp-area="Patients" asp-controller="Home" asp-action="Index">Home</a>
+                            @* <a class="p1" asp-area="" asp-controller="Home" asp-action="Index">Nous</a> *@
+                                <a class="p1" href="/Home/Index/#Apropos">À propos</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="p1" asp-area="Patients" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                <a class="p1" href="/Home/Index/#NousJoindre">Nous Joindre</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="p1" asp-area="Patients" asp-controller="Patients" asp-action="Create">CreateTest</a>
+                                <a class="p1" asp-area="Clinique" asp-controller="ListeAttente" asp-action="Index">Clinique</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                                <a class="p1" asp-area="" asp-controller="Home" asp-action="Create">Patient</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav align-items-baseline footer-links white-link">
@@ -40,32 +52,78 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            
         </nav>
+            </div>
+        </div>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    @* <div class="container"> *@
+       @*  <main role="main" class="pb-3"> *@
             @RenderBody()
-        </main>
-    </div>
+      @*   </main> *@
+@*     </div> *@
 
 @*    <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - Clinique2000_MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>*@
-    <footer class="container-fluid mt-5 footer">
+    <footer class="container-fluid mt-5 ">
         <div class="container ">
-            <div class="row">
-                <div>
-                    <div class="divider-1 mb-3"></div>
+     
+            <div class="row text-center align-items-start pt-3 ">
+                <div class="col-12 col-md-3 text-center text-md-start p-0">
+                    <a asp-controller="Home" asp-action="Index"> <img src="~/Images/Logo.png" alt="logo footer" class="img-fluid"></a>
                 </div>
-            </div>
-            <div class="row align-items-center">
-                <div class="col-12 col-md-5 text-center text-md-start">
-                    <a asp-area="Patient" asp-controller="Home" asp-action="Index"><img src="~/Images/Logo/Logo_footer.svg" alt="logo footer" class="img-fluid"></a>
+                @* <div class="col-12 col-md-3 col-lg-3">
+                   
+                @*     <div class="divider-2 mb-3 "></div><!--devider linear gradient cian--> 
+                </div> *@
+                <div class="col-12 col-md-3 text-lg-start pt-0">
+                    <h5 class="">Liens Rapides</h5>
+                    <ul class="mb-3 px-3 footer-links white-link">
+                        
+                        <li><a class="p1 " asp-controller="#" asp-action="#">Page d'accueil</a></li>
+                        <li><a class="p1 " asp-controller="#" asp-action="#">Lorem Ipsum</a></li>
+                        <li><a class="p1 " asp-controller="#" asp-action="#">Lorem Ipsum</a></li>
+                        <li><a class="p1 " asp-controller="#" asp-action="Privacy">Confidentialité</a></li>
+                    </ul>
                 </div>
-                <div class="col-12 col-md-7 text-center text-md-end mt-3 m-md-0">
+              @*   <div class="col-12 col-md-4 col-lg-3 ">
+                    <p class="p2">
+                        <i class="fa-solid fa-envelope fa-xl icons-rs"></i>
+                        Contact <br>
+                        office@clinique.ca
+                    </p>
+                    <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
+                </div> *@
+                <div class="col-12 col-md-4 col-lg-4 text-start">
+                    <h5 class="">Nous Joindre</h5>
+                    <p class="p2">
+                        <i class="fa-solid fa-location-dot fa-xl icons-rs"></i>
+                        Adresse <br>
+                    <p class="ps-5">
+                        945 Ch. de Chambly,
+                        Longueuil, J4H 3M6
+                    </p>
+                    </p>
+                    <p class="p2">
+                        <i class="fa-solid fa-envelope fa-xl icons-rs"></i>
+                        Contact <br>
+                    <p class="ps-5">
+                        office@clinique.ca
+                    </p>
+                    </p>
+                    <p class="p2">
+                        <span class="mb-0"><i class="fa-solid fa-calendar fa-xl icons-rs"></i></span>
+                    Rendez-vous <br>
+                    <p class="ps-5">
+                        rdv@clinique.ca
+                    </p>
+                    </p>
+                   @*  <div class="divider-2 mb-3 "></div><!--devider linear gradient cian--> *@
+                </div>
+                <div class="col-12 col-md-2 text-center text-md-end mt-3 m-md-0 pt-2">
                     <nav>
 
                         <ul class="social">
@@ -77,44 +135,10 @@
 
                 </div>
             </div>
-            <div class="row text-center align-items-end ">
-                <div class="col-12 col-md-4 col-lg-3">
-                    <p class="p2">
-                        <i class="fa-solid fa-location-dot fa-xl icons-rs"></i>
-                        Adresse <br>
-                        945 Ch. de Chambly,
-                        Longueuil, J4H 3M6
-                    </p>
-                    <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
-                </div>
-                <div class="col-12 col-md-4 col-lg-3 ">
-                    <p class="p2">
-                        <i class="fa-solid fa-envelope fa-xl icons-rs"></i>
-                        Contact <br>
-                        office@clinique.ca
-                    </p>
-                    <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
-                </div>
-                <div class="col-12 col-md-4 col-lg-3">
-                    <p class="p2">
-                        <i class="fa-solid fa-calendar fa-xl icons-rs"></i>
-                        Rendez-vous <br>
-                        rdv@clinique.ca
-                    </p>
-                    <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
-                </div>
-                <div class="col-12 col-lg-3 text-lg-end ">
-                    <ul class="mt-4 mb-3 px-3 footer-links white-link">
-                        <li><a class="p1 " asp-controller="#" asp-action="#">Page d'accueil</a></li>
-                        <li><a class="p1 " asp-controller="#" asp-action="#">Lorem Ipsum</a></li>
-                        <li><a class="p1 " asp-controller="#" asp-action="#">Lorem Ipsum</a></li>
-                        <li><a class="p1 " asp-controller="#" asp-action="Privacy">Confidentialité</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col ">
-                    <p class="p3">Copyright 2023-2024 © Clinique2000. Tous droits réservés.</p>
+            <hr/>
+            <div class="row ">
+                <div class="col">
+                    <p class="p3 text-end">Copyright 2023-2024 © Clinique2000. Tous droits réservés.</p>
                 </div>
                 <div class="col">
                 </div>
@@ -125,8 +149,13 @@
     <script src="~/lib/inputmask/jquery.inputmask.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/63463ff979.js" crossorigin="anonymous"></script>@*Fontawesome*@
+    <script src="https://kit.fontawesome.com/63463ff979.js" crossorigin="anonymous"></script>@*Fontawesome*@
     <script src="~/lib/DataTables/datatables.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

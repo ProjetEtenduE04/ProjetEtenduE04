@@ -1,0 +1,86 @@
+﻿@model ListeAttente
+@{
+    Layout = "_Layout";
+}
+@{
+    var isOuverteSelectList = new SelectList(new[]
+    {
+        new { Value = "true", Text = "Oui" },
+        new { Value = "false", Text = "Non" }
+    }, "Value", "Text");
+}
+
+<div class="container">
+    <main role="main" class="pb-3">
+        <div class="container-fluid">
+            <div class="row justify-content-around">
+                <div class="col col-lg-10 col-xl-9">
+
+                    <form asp-area="Clinique" asp-controller="ListeAttente" asp-action="Edit" method="post" enctype="multipart/form-data" class="m-4">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="ListeAttenteID">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="IsOuverte" class="form-label">Ouvrir la liste d'attente directement apres la creation</label>
+                            @Html.DropDownListFor(model => model.IsOuverte, isOuverteSelectList, new { @class = "form-control" })
+                            <span asp-validation-for="IsOuverte" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="DateEffectivite" class="form-label">Date d'effectivité</label>
+                            <input asp-for="DateEffectivite" type="date" class="form-control form-control-lg">
+                            <span asp-validation-for="DateEffectivite" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="HeureOuverture" class="form-label" >Heure d'ouverture</label>
+                            <input asp-for="HeureOuverture" type="time" id="heureOuverture" class="form-control form-control-lg">
+                            <span asp-validation-for="HeureOuverture" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3" >
+                            <label asp-for="HeureFermeture" class="form-label">Heure de fermeture</label>
+                            <input asp-for="HeureFermeture" type="time" class="form-control form-control-lg" id="heureFermeture">
+                            <span asp-validation-for="HeureFermeture" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="NbMedecinsDispo" class="form-label">Nombre de médecins disponibles</label>
+                            <input type="number" asp-for="NbMedecinsDispo" class="form-control form-control-lg" min="0" placeholder="Entrez le nombre de médecins disponibles">
+                            <span asp-validation-for="NbMedecinsDispo" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="CliniqueID" class="form-label">ID de votre clinique :</label>
+                            <input asp-for="CliniqueID" type="number" class="form-control form-control-lg" min="0" placeholder="Entrez l'ID de votre clinique">
+                            <span asp-validation-for="CliniqueID" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn-create btn-lg">Modifier</button>
+                        <button type="reset" class="btn-reinitialiser btn-lg">Réinitialiser</button>
+                    </form>
+
+                    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+                    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script>
+
+                        $(document).ready(function () {
+                            $('#heureOuverture, #heureFermeture').change(function () {
+                                var ouverture = $('#heureOuverture').val();
+                                var fermeture = $('#heureFermeture').val();
+
+                                if (ouverture > fermeture) {
+                                    alert('L\'heure de fermeture doit être postérieure à l\'heure d\'ouverture.');
+                                    $('#heureFermeture').val('');
+                                }
+                            });
+                        });
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

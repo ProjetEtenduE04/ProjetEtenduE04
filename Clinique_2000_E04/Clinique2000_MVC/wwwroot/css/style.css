@@ -95,16 +95,28 @@
 }
 /* H0 Montserrat 38*/
 .h-logo {
-    font-family: 'Montserrat', sans-serif;
+    /*  font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 900;
     font-size: 38px;
     line-height: 38px;
     letter-spacing: 0.02em;
     color: #E9EFF2;
-    text-decoration: none;
+    text-decoration: none;*/
+    width: 180px;
+    height: 130px;
+  
+
+
 }
 
+.hero-home {
+    background: url(../images/hero-bg.jpg) no-repeat top center;
+    width: 100%;
+    height: 80vh;
+    background-size: cover;
+    margin-bottom: 0px;
+}
 
 /* H1 Montserrat 38*/
 h1 {
@@ -176,6 +188,7 @@ h4 {
     font-size: 12px;
     line-height: 15px;
     color: #445E81;
+    color:#fff;
 }
 
 /* P4 Mukta 10 */
@@ -204,35 +217,44 @@ html {
 }
 
 body {
-/*    margin-bottom: 60px;*/
-    background-color: #E9EFF2;
+   /* margin-bottom: 60px;*/
+    background-color: #fff;
+    height:100%;
+
 }
 header {
-    background-color: #132640;
+ 
+    background: linear-gradient(to left,#2567bd, #fff) no-repeat;
+   
 }
-footer {
 
-    bottom: 0;
-    width: 100%;
-    background-color: #132640;
+footer {
+ background: linear-gradient(to right,#2567bd, #fff) no-repeat;
+  
+}
+footer img {
+    width: 100px;
+    height: 60px;
 }
 footer p.p2 {
-    color: #E9EFF2;
+    color:#fff;
 }
 header a.p1 {
-        color: #E9EFF2;
+  
+    color:#fff;
+    font-size:14px;
+
+  /*  font-weight:bold;*/
 }
-.welcome {
-    color: #66D9A3;
-}
+
 /*List elemnts*/
 ul {
     list-style-type: none;
     padding: 0;
     display: inline-block;
 }
-/* Start : lignes décoratives pour la décoration des 
-    titres et autres éléments textuels
+/* Start : lignes dï¿½coratives pour la dï¿½coration des 
+    titres et autres ï¿½lï¿½ments textuels
     ================================================== 
 */
 .divider-1 {
@@ -273,14 +295,10 @@ divider-2 {
         text-align: center;
         border-radius: 50%;
         background-color: white;
-        color: black;
-        font-size: 14px;
+        font-size: 16px;
         -webkit-transition: all all 0.5s ease-out 0s;
-        -moz-transition: all all 0.5s ease-out 0s;
-        -ms-transition: all all 0.5s ease-out 0s;
         -o-transition: all all 0.5s ease-out 0s;
         transition: all all 0.5s ease-out 0s;
-    }
 
         .social li a:hover,
         .social li a:focus {
@@ -292,7 +310,6 @@ divider-2 {
         }
 .footer-links {
     margin: 0;
-}
 
     .footer-links li + li {
         padding-top: 10px;
@@ -333,7 +350,6 @@ divider-2 {
     .note-frame h0,
     .note-frame h1,
     .note-frame h2,
-    .note-frame h3,
     .note-frame h4,
     .note-frame .p1,
     .note-frame .p2,
@@ -342,11 +358,10 @@ divider-2 {
         color: black;
     }
 
-/*END-Btn reseaux social footer
     ================================================== 
 */
 
-/*--paramètres pour les icônes de bas de page--
+/*--paramï¿½tres pour les icï¿½nes de bas de page--
     ================================================== 
 */
 .icons-rs {
@@ -361,7 +376,6 @@ divider-2 {
 /* ---- bouton -formulaire----
     ================================================== 
 */
-.btn-create {
     border-radius: 20px;
     gap: 3px;
     align-items: flex-start;
@@ -380,28 +394,11 @@ divider-2 {
     border: none;
     cursor: pointer;
 }
-btn-loginGoogle {
-    border-radius: 20px;
-    gap: 3px;
-    align-items: flex-start;
-    font-family: 'Montserrat', sans-serif;
-    text-decoration: none;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 24px;
-    color: black;
-    order: 0;
-    background-color: #66D9A3;
-    align-items: center;
-    position: relative;
-    border: none;
-    cursor: pointer;
-}
-.btn-create:hover {
-    color: #115E48;
-    background-color: #95BFB8
-}
+
+    .btn-create:hover {
+        color: #115E48;
+        background-color: #95BFB8
+    }
 
     .btn-create:active {
         border: 2px solid #00DEA4;
@@ -437,6 +434,201 @@ btn-loginGoogle {
         color: white;
     }
 
-.capitalize-first-letter::first-letter {
-    text-transform: uppercase;
+
+.btn-secondaire {
+    border-radius: 20px;
+    padding: 6px 15px 6px 15px;
+    align-items: flex-start;
+    gap: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    background-color: #9FE2FF;
+    border: none;
+    cursor: pointer;
 }
+
+    .btn-secondaire:hover {
+        background-color: #95BFB8;
+        color: #115E48;
+    }
+
+    .btn-secondaire:active {
+        background-color: #1C8C6C;
+        border: 1px solid #00DEA4;
+        color: white;
+    }
+
+
+.btn-supprimmer {
+    border-radius: 20px;
+    padding: 6px 15px 6px 15px;
+    align-items: flex-start;
+    gap: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    background-color: #9FE2FF;
+    border: none;
+    cursor: pointer;
+}
+
+    .btn-supprimmer:hover {
+        background-color: #FF5151;
+        color: #115E48;
+    }
+
+    .btn-supprimmer:active {
+        background-color: #1C8C6C;
+        border: 1px solid #00DEA4;
+        color: white;
+    }
+
+
+
+
+    /*Liste d attente*/
+#heroDetails {
+    position: relative;
+    /*width: 100vw;
+    height: 50vh;*/
+    overflow:hidden;
+    background: url(../images/hero3.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(10px);
+    opacity: 0.8;
+    padding: 0;
+    width: 100%;
+    height: 80vh;
+    /* background-size: cover;
+    margin-bottom: 0px;*/
+}
+
+    #heroDetails h4, p, hr {
+        /*position: absolute;*/
+        color: #2567bd;
+        text-align:center;
+    }
+
+#mask {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 2;
+}
+
+.listeattente-data {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    color: white;
+    height:100%;
+}
+
+
+.hero-home .text-left {
+  width: 40%;
+  text-align: left;
+}
+
+#heroDetails hr {
+    position: relative;
+    width: 8rem;
+    height: 1px;
+
+   /* background-color: #2567bd;*/
+}
+
+#heroDetails .row > .col > div {
+    border-radius: 10px;
+    background-color: rgba(255, 0, 0,0.7);
+    height: 100%;
+}
+
+#watch {
+    /*border-radius: 10px;*/
+    /*box-shadow: 0 5px 15px rgba(0,0,0,0.1);*/
+    padding: 10px;
+    margin: 0px;
+    font-family: 'Californian FB';
+    font-size: 3em;
+    font-weight: bold;
+   
+    text-align: center;
+    display: inline-block;
+    z-index: 999;
+    position: relative;
+    border-radius: 10px;
+}
+
+.heureActuelle {
+    /*background-color: rgb(124, 111, 208,  0.2);*/
+    background-color: rgb(255,255,255, 0.7);
+    border-radius: 30px;
+    text-align: center;
+    color: #2567bd;
+}
+table td {
+    padding-bottom: 0px;
+    padding-left: 10px;
+}
+
+.card-details {
+   /* background-color: rgb(124, 111, 208, 0.3);*/
+   background-color:rgb(255,255,255, 0.7);
+    border-radius: 30px;
+    margin: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    height: 50%;
+    padding: 20px;
+    text-align: center;
+    
+}
+
+    .card-details p {
+        padding: 20px;
+        /*color: #fff;*/
+        color: #2567bd;
+        font-weight: bold;
+        font-size: 20px
+    }
+
+    .card-details div {
+        padding-left: 20px;
+        color: #2567bd;
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+.btn-action {
+    border-radius: 30px; 
+}
+
+.my-icon {
+    color: grey; 
+    cursor: pointer; 
+    font-size: 1.75rem !important; 
+}
+
+    .my-icon:hover {
+        color: blue !important; 
+    }
+
+        -ms-transition: all all 0.5s ease-out 0s;
+    }
+}
+.btn-create {

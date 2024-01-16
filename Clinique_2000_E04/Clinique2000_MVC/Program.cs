@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 //DbContext
 builder.Services.AddDbContext<CliniqueDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.UseLazyLoadingProxies();
+{ 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")).UseLazyLoadingProxies();
+  
 });
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -42,6 +42,8 @@ builder.Services.AddHttpContextAccessor();
 
 #region Servivces
 builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBaseAsync<>));
+builder.Services.AddScoped<IClinique2000Services, Clinique2000Services>();
+builder.Services.AddScoped<IListeAttenteService, ListeAttenteService>();
 builder.Services.AddScoped<IAuthenGoogleService, AuthenGoogleService>();
 builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
 #endregion
@@ -51,7 +53,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("Area/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -65,12 +67,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "areaRoute",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{area=Patients}/{controller=Home}/{action=Index}/{id?}");
 
-//app.MapAreaControllerRoute(
-//    name: "PatientArea",
-//    areaName: "Patient",
-//    pattern: "Patient/{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 app.Run();

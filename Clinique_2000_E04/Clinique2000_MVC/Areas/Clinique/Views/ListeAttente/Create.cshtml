@@ -1,0 +1,101 @@
+@model ListeAttente;
+@{
+    Layout = "_Layout";
+}
+
+@{
+    var isOuverteSelectList = new SelectList(new[]
+    {
+        new { Value = "true", Text = "Oui" },
+        new { Value = "false", Text = "Non" }
+    }, "Value", "Text");
+}
+
+
+<link rel="stylesheet" href="/js/site.js">
+<div class="container">
+    <main role="main" class="pb-3 ">
+        <div class="container-fluid">
+            <div class="row justify-content-around ">
+                <div class="col col-lg-10 col-xl-9">
+
+                    <form asp-area="Clinique" enctype="multipart/form-data" asp-controller="ListeAttente" asp-action="Create" method="post" class="m-4">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group mb-3">
+                            <label asp-for="IsOuverte" class="form-label">Disponible pour réservation :</label>
+                            @Html.DropDownListFor(model => model.IsOuverte, isOuverteSelectList, new { @class = "form-control" })
+                            <span asp-validation-for="IsOuverte" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="DateEffectivite" class="form-label">Date d'effectivité :</label>
+                            <input type="date" asp-for="DateEffectivite" class="form-control form-control-lg">
+                            <span asp-validation-for="DateEffectivite" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="HeureOuverture" class="form-label">Heure d'ouverture :</label>
+                            <input type="time" asp-for="HeureOuverture" class="form-control form-control-lg" id="heureOuverture">
+                            <span asp-validation-for="HeureOuverture" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3"  @* style="display:none;" *@>
+                            <label asp-for="HeureFermeture" class="form-label">Heure de fermeture :</label>
+                            <input type="time" asp-for="HeureFermeture" id="heureFermeture" class="form-control form-control-lg">
+                            <span asp-validation-for="HeureFermeture" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label asp-for="NbMedecinsDispo" class="form-label">Nombre de médecins disponibles :</label>
+                            <input type="number" asp-for="NbMedecinsDispo" class="form-control form-control-lg" min="0" placeholder="Entrez le nombre de médecins disponibles">
+                            <span asp-validation-for="NbMedecinsDispo" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="CliniqueID" class="form-label">ID de votre clinique :</label>
+                            <input type="number" asp-for="CliniqueID" class="form-control form-control-lg" min="0" placeholder="Entrez l'ID de votre clinique">
+                            <span asp-validation-for="CliniqueID" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn-create btn-lg">Créer</button>
+                        <button type="reset" class="btn-reinitialiser btn-lg">Réinitialiser</button>
+                    </form>
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+                    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+                    <script>
+
+                        $(document).ready(function () {
+                            $('#heureOuverture, #heureFermeture').change(function () {
+                                var ouverture = $('#heureOuverture').val();
+                                var fermeture = $('#heureFermeture').val();
+
+                                if (ouverture > fermeture) {
+                                    alert('L\'heure de fermeture doit être postérieure à l\'heure d\'ouverture.');
+                                    $('#heureFermeture').val('');
+                                }
+                            });
+                        });
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

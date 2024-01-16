@@ -1,4 +1,4 @@
-﻿using Clinique2000_Utility.CustomAttributesValidation;
+using Clinique2000_Utility.CustomAttributesValidation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
