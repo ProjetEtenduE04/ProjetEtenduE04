@@ -1,56 +1,60 @@
-
-
 @using System.Security.Claims
 
 @{
-   Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-   
-    
-    <section class="hero-home d-flex align-items-center justify-content-center mb-2 ">
-        <div class="container" data-aos="fade-up">
 
-            <div class="row justify-content-center">
+<section class="hero-home d-flex align-items-center justify-content-center ">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-center">
             <div class="col-lg-12 d-none  d-md-block p-5 m-5">
                 <h1 class="mb-5 text-left">Votre santé, notre priorité :<br>Clinique2000 à votre écoute.</h1>
 
                 <h4 class="text-left">
                     Clinique2000 vous relie aux meilleurs soins médicaux près de chez vous en quelques clics.
                 </h4>
-
+                @*  <div class="row justify-content-start text-center mt-2"> *@
+                <div class="mt-5">
+                    <a asp-area="Patients" asp-controller="Patients" asp-action="Create" id="rv" class="btn-create col-auto col-xl-4">
+                        Prendre Rendez-Vous
+                    </a>
                 </div>
+                @*  </div> *@
             </div>
         </div>
-    </section><!-- End Hero -->
+    </div>
 
-<section id="Apropos"  class=" d-flex align-items-center justify-content-left  mb-2 ">
+</section><!-- End Hero -->
+
+
+
+@* <section id="Apropos"  class=" d-flex align-items-center justify-content-left  mb-2 ">
 <div class="container">
-    <main role="main" class="pb-3 ">
-        <div class="container-fluid">
-            <div class="row justify-content-left text-left ">
-                <div class="col col-lg-10 col-xl-9">
-                    <h1>À propos  </h1>
-                </div>
-            </div>
-        </div>
-    </main>
-    <h1 class="display-4 h0">Welcome</h1>
+<main role="main" class="pb-3 ">
+<div class="container-fluid">
+<div class="row justify-content-left text-left ">
+<div class="col col-lg-10 col-xl-9">
+<h1>À propos  </h1>
+</div>
+</div>
+</div>
+</main>
+<h1 class="display-4 h0">Welcome</h1>
 </div>
 </section><!-- A propos -->
 <section id="NousJoindre" class="d-flex align-items-center justify-content-left  mb-2 ">
-    <div class="container">
-        <main role="main" class="pb-3 ">
-            <div class="container-fluid">
-                <div class="row justify-content-left text-left ">
-                    <div class="col col-lg-10 col-xl-9">
-                        <h1>Nous joindre  </h1>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-</section><!-- Nous Joindre -->
-    {
-{
+<div class="container">
+<main role="main" class="pb-3 ">
+<div class="container-fluid">
+<div class="row justify-content-left text-left ">
+<div class="col col-lg-10 col-xl-9">
+<h1>Nous joindre  </h1>
+</div>
+</div>
+</div>
+</main>
+</div>
+</section> *@<!-- Nous Joindre -->
