@@ -23,7 +23,12 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         }
 
         
-        // GET: ListeAttenteController
+        /// <summary>
+        /// Obtient tout les listes d'Attente ordered par date d'effectivité ,
+        /// qui sont pertinantes a la receptionniste
+        /// , puis les renvoie a la vue.
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> Index()
         {
             DateTime now = DateTime.Now;
@@ -40,7 +45,10 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
             return View(listListAttente);
         }
 
-
+        /// <summary>
+        /// Retourne tout les Listes d'attente 
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> HistoriqueListeAttentes()
         {
 
@@ -53,7 +61,12 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         }
 
 
-
+        /// <summary>
+        /// Obtient une ListeAttenteId en parametre, recupere la liste d'attente et la renvoie a la vue, 
+        /// si le listeAttenteId recu en parametre est pas valide, retourne NotFound
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Details(int id)
         {
             if (id >= 0)
@@ -73,7 +86,13 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         }
 
         // POST: ListeAttenteController/Create
-
+        /// <summary>
+        /// Action de creation de la liste d'attente.
+        /// Si le formulaire est valide, on redirige l'utilisateur vers la page index,
+        /// sinon, on lui retourne le formulaire comme il l'avait remplit avec l'erreur de validation
+        /// </summary>
+        /// <param name="listeAttente"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ListeAttente listeAttente)
@@ -112,6 +131,13 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         }
 
         // POST: ListeAttenteController/Edit/5
+        /// <summary>
+        /// Action de modification de la liste d'attente.
+        /// Si le formulaire est valide, la modification est effectuee et l'utilisateur est redirige vers la page index,
+        /// dans le cas contraire, on lui envoie l'erreur de validation
+        /// </summary>
+        /// <param name="listeAttente"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ListeAttente listeAttente)
@@ -134,10 +160,14 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
             return View(listeAttente);
         }
 
-
-
-        [HttpGet]
+        /// <summary>
+        /// Recoit un ListeAttenteID en parametre et recupere la liste d'Attente puis l'envoie a la vue.
+        /// Redirige l'utilisateur vers la vue Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: ListeAttenteController/Delete/5
+        [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
             if (id >= 0)
@@ -152,6 +182,12 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
 
 
         // POST: ListeAttenteController/Delete/5
+        /// <summary>
+        /// Verifie si la liste d'Attente peut etre supprimee, si elle peut etre supprimee,
+        /// on la supprime, sinon, on retourne la meme vue avec l'erreur de validation.
+        /// </summary>
+        /// <param name="listeAttente"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(ListeAttente listeAttente)
@@ -185,7 +221,11 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
 
 
 
-
+        /// <summary>
+        /// Genere des plages horaires
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AjouterDesPlagesHorairesl(int ID)
