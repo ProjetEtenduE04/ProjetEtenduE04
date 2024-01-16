@@ -11,20 +11,19 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
     {
 
         private readonly ILogger<HomeController> _logger;
-        private readonly IServiceBaseAsync<Patient> _serviceBase;
-        private readonly IAuthenGoogleService _authenGoogleService;
+        public IClinique2000Services _services { get; set; }
 
-        public HomeController(ILogger<HomeController> logger, IServiceBaseAsync<Patient> serviceBase, IAuthenGoogleService authenGoogleService)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IClinique2000Services service)
         {
-            _serviceBase = serviceBase;
-            _authenGoogleService = authenGoogleService;
             _logger = logger;
+            _services = service;
         }
-
 
         public async Task Login()
         {
-            await _authenGoogleService.LoginAsync();
+            await _services.authenGoogle.LoginAsync();
         }
 
         //public async Task<IActionResult> GoogleReponse()
@@ -34,7 +33,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            await _authenGoogleService.LogoutAsync();
+            await _services.authenGoogle.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }
 

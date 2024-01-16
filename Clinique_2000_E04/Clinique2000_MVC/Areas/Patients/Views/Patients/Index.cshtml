@@ -4,77 +4,83 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container " style="margin-top:50px">
+    <h1 class="text-center">Liste de patients</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div class="table-responsive-sm">
-    <table class="table stripe hover order-column  " id="dataTable">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nom)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Prenom)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Genre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NAM)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CodePostal)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateDeNaissance)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Age)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserId)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div class="row">
+        <div class="col-md-6" style="display: flex;margin:20px 0">
+            <p>
+                <a asp-action="Create" class="btn btn-create form-control" style="width:auto">Créer un nouveau patient</a>
+            </p>
+        </div>
+    </div>
+    <div class="table-responsive-sm mx-auto">
+        <table class="table stripe hover order-column  " id="dataTable">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Prenom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Genre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NAM)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CodePostal)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateDeNaissance)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Age)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserId)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.PatientId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.PatientId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.PatientId">Delete</a>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nom)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Prenom)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Genre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NAM)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CodePostal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateDeNaissance)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Age)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserId)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prenom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NAM)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodePostal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateDeNaissance)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Age)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserId)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.PatientId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.PatientId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.PatientId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

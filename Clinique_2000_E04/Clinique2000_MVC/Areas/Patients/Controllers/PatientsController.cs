@@ -12,26 +12,26 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
     public class PatientsController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IServiceBaseAsync<Patient> _serviceBase;
-        private readonly IPatientService _patientService;
-        private readonly IAuthenGoogleService _authenGoogleService;
+        public IClinique2000Services _services { get; set; }
 
-        public PatientsController(IServiceBaseAsync<Patient> serviceBase,
-            IPatientService patientService,
-            IAuthenGoogleService authenGoogleService,
-            UserManager<IdentityUser> userManager)
+        public PatientsController(
+            IClinique2000Services service,
+            UserManager<IdentityUser> userManager
+            )
         {
-            _serviceBase = serviceBase;
-            _patientService = patientService;
-            _authenGoogleService = authenGoogleService;
+            _services = service;
             _userManager = userManager;
         }
 
+        public async Task Login()
+        {
+            await _services.authenGoogle.LoginAsync();
+        }
         // GET: PatientsController
         public async Task<IActionResult> Index()
         {
             //return View(); 
-            var listeDePatients = await _serviceBase.ObtenirToutAsync();
+            var listeDePatients = await _services.patient.ObtenirToutAsync();
 
             return View("Index", listeDePatients);
         }
@@ -40,11 +40,11 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         public async Task<IActionResult> Details(int? id)
         {
 
-            if (id == null || await _patientService.ObtenirToutAsync() == null)
+            if (id == null || await _services.patient.ObtenirToutAsync() == null)
             {
                 return NotFound();
             }
-            var patientDetails = await _patientService.ObtenirParIdAsync(id);
+            var patientDetails = await _services.patient.ObtenirParIdAsync(id);
             if (patientDetails == null)
             {
                 return NotFound();
@@ -68,14 +68,14 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 string courriel = User.FindFirstValue(ClaimTypes.Email);
-                var user  =await _userManager.FindByEmailAsync(courriel);
-                bool isPatient = await _patientService.UserEstPatientAsync(user.Id);
+                var user = await _userManager.FindByEmailAsync(courriel);
+                bool isPatient = await _services.patient.UserEstPatientAsync(user.Id);
 
                 if (!isPatient)
                 {
                     var patientModel = new Patient
                     {
-                       UserId = user.Id
+                        UserId = user.Id
                     };
 
                     return View(patientModel);
@@ -96,7 +96,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await _patientService.EnregistrerOuModifierPatient(patient);
+                    await _services.patient.EnregistrerOuModifierPatient(patient);
                     return RedirectToAction(nameof(Index));
                 }
                 return View(patient);
@@ -112,11 +112,11 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         {
             try
             {
-                if (id == null || await _patientService.ObtenirToutAsync() == null)
+                if (id == null || await _services.patient.ObtenirToutAsync() == null)
                 {
                     return NotFound();
                 }
-                var patient = await _patientService.ObtenirParIdAsync(id);
+                var patient = await _services.patient.ObtenirParIdAsync(id);
 
                 if (patient == null)
                 {
@@ -146,11 +146,11 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 {
                     try
                     {
-                        await _patientService.EnregistrerOuModifierPatient(patient);
+                        await _services.patient.EnregistrerOuModifierPatient(patient);
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!await _patientService.VerifierExistencePatientParNAM(patient.NAM))
+                        if (!await _services.patient.VerifierExistencePatientParNAM(patient.NAM))
                         {
                             return NotFound();
                         }
@@ -174,11 +174,11 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         {
             try
             {
-                if (id == null || await _patientService.ObtenirToutAsync() == null)
+                if (id == null || await _services.patient.ObtenirToutAsync() == null)
                 {
                     return NotFound();
                 }
-                var patient = await _patientService.ObtenirParIdAsync(id);
+                var patient = await _services.patient.ObtenirParIdAsync(id);
 
                 if (patient != null)
                 {
@@ -201,10 +201,10 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         {
             try
             {
-                var patient = await _patientService.ObtenirParIdAsync(patientId);
+                var patient = await _services.patient.ObtenirParIdAsync(patientId);
                 if (patient != null)
                 {
-                    await _patientService.SupprimerAsync(patientId);
+                    await _services.patient.SupprimerAsync(patientId);
                 }
                 return RedirectToAction(nameof(Index));
             }
