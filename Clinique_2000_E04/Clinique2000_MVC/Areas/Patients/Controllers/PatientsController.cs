@@ -177,7 +177,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         {
             try
             {
-                if (id == null || _patientService.ObtenirToutAsync() == null)
+                if (id == null || await _patientService.ObtenirToutAsync() == null)
                 {
                     return NotFound();
                 }

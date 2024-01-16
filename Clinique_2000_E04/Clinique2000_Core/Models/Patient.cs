@@ -39,7 +39,7 @@ namespace Clinique2000_Core.Models
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [ValiderDateDeNaissance(ErrorMessage = "{0} field validation failed.")]
         public DateTime DateDeNaissance { get; set; }
 
