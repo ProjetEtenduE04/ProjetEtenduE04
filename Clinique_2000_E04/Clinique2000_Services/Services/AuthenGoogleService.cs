@@ -120,12 +120,22 @@ namespace Clinique2000_Services.Services
         ///  Récupère les données de l'utilisateur authentifié, telles que l'adresse e-mail, l'identifiant Google et la date de naissance.
         /// </summary>
         /// <returns>Un objet Patient représentant les données de l'utilisateur authentifié.</returns>
+        //public async Task<Patient> GetAuthUserDataAsync()
+        //{
+        //    var UilisateurConnecte = new Patient
+        //    {
+        //        //Courriel = await GetUserEmailAsync(),
+        //        //GoogleNameIdentifier = await GetUserNameIdentifierAsync(),
+        //        DateDeNaissance = (DateTime)await GetUserDateOfBirthAsync()
+        //    };
+        //    return UilisateurConnecte;
+        //}
         public async Task<Patient> GetAuthUserDataAsync()
         {
             var UilisateurConnecte = new Patient
             {
-                Courriel = await GetUserEmailAsync(),
-                GoogleNameIdentifier = await GetUserNameIdentifierAsync(),
+                //Courriel = await GetUserEmailAsync(),
+                //GoogleNameIdentifier = await GetUserNameIdentifierAsync(),
                 DateDeNaissance = (DateTime)await GetUserDateOfBirthAsync()
             };
             return UilisateurConnecte;

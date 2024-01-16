@@ -27,10 +27,10 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             await _authenGoogleService.LoginAsync();
         }
 
-        public async Task<IActionResult> GoogleReponse()
-        {
-            return await _authenGoogleService.HandleGoogleResponseAsync();
-        }
+        //public async Task<IActionResult> GoogleReponse()
+        //{
+        //    return await _authenGoogleService.HandleGoogleResponseAsync();
+        //}
 
         public async Task<IActionResult> Logout()
         {

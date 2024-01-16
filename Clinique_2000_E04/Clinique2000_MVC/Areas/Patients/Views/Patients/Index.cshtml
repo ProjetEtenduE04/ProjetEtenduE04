@@ -1,29 +1,80 @@
-﻿@using System.Security.Claims
+﻿@model IEnumerable<Patient>
 
 @{
-    ViewData["Title"] = "Home Page";
-    var isAuthenticated = Context.User.Identity.IsAuthenticated;
-    var userEmail = isAuthenticated ? Context.User.FindFirst(ClaimTypes.Email)?.Value : null;
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4 h0">Welcome</h1>
-    <p class="p1">Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="table-responsive-sm">
+    <table class="table stripe hover order-column  " id="dataTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Prenom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Genre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NAM)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CodePostal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateDeNaissance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Age)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prenom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NAM)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CodePostal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateDeNaissance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Age)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.PatientId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.PatientId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.PatientId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-
-@if (isAuthenticated)
-{
-    <br />
-    <h3>Welcome @User.Identity.Name</h3>
-    @if (!string.IsNullOrEmpty(userEmail))
-    {
-        <p>Email: @userEmail</p>
-    }
-    <br />
-    <a asp-controller="Home" asp-action="Logout" class="btn btn-primary form-control">Logout</a>
-}
-else
-{
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary form-control">Log in</a>
-}
-

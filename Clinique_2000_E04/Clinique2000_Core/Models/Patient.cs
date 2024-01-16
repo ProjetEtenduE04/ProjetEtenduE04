@@ -1,22 +1,34 @@
 ﻿using Clinique2000_Utility.CustomAttributesValidation;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Clinique2000_Core.Models
 {
-    [MetadataType(typeof(Patient))]
-    public partial class PatientMeta
-    {
-    }
+    //[MetadataType(typeof(Patient))]
+    //public partial class PatientMeta
+    //{
+    //}
 
-    public class Patient : Personne
+    public class Patient
     {
-
-        //public Guid PatientId { get; set; }
-        public string? GoogleNameIdentifier { get; set; }
+        [Key]
+        public int PatientId { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        [RegularExpression(@"^[A-Z]{4}\d{8}$", ErrorMessage = "Le format NAM n'est pas valide.(Ex:ABCD12345678)")]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Ce champ doit avoir entre 2 et 25 caractères.")]
+        [RegularExpression(@"^[A-Za-z]{2}[A-Za-z]*$", ErrorMessage = "Ce champ ne peut contenir que des lettres.")]
+        public string Nom { get; set; }
+
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Ce champ doit avoir entre 2 et 25 caractères.")]
+        [RegularExpression(@"^[A-Za-z]{2}[A-Za-z]*$", ErrorMessage = "Ce champ ne peut contenir que des lettres.")]
+        public string Prenom { get; set; }
+
+        public string? Genre { get; set; }
+
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [RegularExpression(@"^[A-Za-z]{4}\d{8}$", ErrorMessage = "Le format NAM n'est pas valide.(Ex:ABCD12345678)")]
         [StringLength(12, ErrorMessage = "Ce champ doit avoir au maximum 12 caractères.")]
         public string NAM { get; set; }
 
@@ -26,23 +38,19 @@ namespace Clinique2000_Core.Models
         public string CodePostal { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        [MaxLength(225, ErrorMessage = "Ce champ ne peut pas dépasser 8 caractères.")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\p{L}\d])(?!.*\s).{8,225}$", ErrorMessage = "Ce champ doit contenir au moins une lettre, un chiffre et doit avoir entre 8 et 225 caractères.")]
-        public string MotDePasse { get; set; }
-
-        [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        [MaxLength(225, ErrorMessage = "Ce champ ne peut pas dépasser  caractères.")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\p{L}\d])(?!.*\s).{8,225}$", ErrorMessage = "Ce champ doit contenir au moins une lettre, un chiffre et doit avoir entre 8 et 225 caractères.")]
-        public string MotDePasseConfirmation { get; set; }
-
-        [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [ValiderDateDeNaissance(ErrorMessage = "{0} field validation failed.")]
         public DateTime DateDeNaissance { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         public int Age { get; set; }
+
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
+
+        [ValidateNever]
+        public virtual ApplicationUser User { get; set; }
 
         [ValidateNever]
         public virtual List<PatientACharge>? PatientsACharge { get; set; }
