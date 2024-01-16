@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Clinique2000_Utility.Enum;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Clinique2000_Services.Services
