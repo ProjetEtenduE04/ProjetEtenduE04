@@ -231,6 +231,11 @@ namespace Clinique2000_Services.Services
             return patient;
         }
 
+        public Task ReserverConsultation(Consultation consultation, Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
         ///// <summary>
         ///// Cette methode s'occupe de cr�er une consultation
         ///// </summary>
@@ -259,53 +264,47 @@ namespace Clinique2000_Services.Services
 
         //}
 
+          
+        ///// <summary>
+        ///// Cette methode recoit une consultation et un patient, assigne le patient a la consultation,
+         ///// </summary>  
+        ///// <param name="consultation"></param>
+        ///// <param name="patient"></param>
+        ///// <returns></returns>     
+        ///// <exception cref="ValidationException"></exception>
+        //public async Task ReserverConsultation(Consultation consultation,Patient patient/*,Medecin medecin*/)
+        //{
+
+        //    if (PeutReserver(consultation.Patient,consultation) && consultation.StatutConsultation==StatutConsultation.DisponiblePourReservation)    //On verifie ici que le patient n'a pas deja une consultation en attente, et que la Consultation est disponible
+        //    {          //        //on change le statut de la consultation a EnAttente
+        //        consultation.StatutConsultation = StatutConsultation.EnAttente;
+        //        consultation.Patient = patient;
+        //        /*consultation.medecin= medecin*/
+        //        consultation.HeureDateDebutReele = null;
+        //        consultation.HeureDateFinReele = null;
+        //        _context.Update(consultation);
+        //        _context.SaveChanges();
+        //    }
+        //    else
+        //    throw new ValidationException("Une consultation est deja en attente. Veuillez annuller celle-ci afin d'en demander une nouvelle.");
+
+ 
 
 
-        /// <summary>
-        /// Cette methode recoit une consultation et un patient, assigne le patient a la consultation,
-        /// change le statut de la consultation afin d'indiquer que la consultation est plus disponible et quelle a ete reservee
-        /// </summary>
-        /// <param name="consultation"></param>
-        /// <param name="patient"></param>
-        /// <returns></returns>
-        /// <exception cref="ValidationException"></exception>
-        public async Task ReserverConsultation(Consultation consultation,Patient patient/*,Medecin medecin*/)
-        {
-
-            if (PeutReserver(consultation.Patient,consultation) && consultation.StatutConsultation==StatutConsultation.DisponiblePourReservation)    //On verifie ici que le patient n'a pas deja une consultation en attente, et que la Consultation est disponible
-            {
-                //on change le statut de la consultation a EnAttente
-                consultation.StatutConsultation = StatutConsultation.EnAttente;
-                consultation.Patient = patient;
-                /*consultation.medecin= medecin*/
-                consultation.HeureDateDebutReele = null;
-                consultation.HeureDateFinReele = null;
-                _context.Update(consultation);
-                _context.SaveChanges();
-            }
-            else
-            throw new ValidationException("Une consultation est deja en attente. Veuillez annuller celle-ci afin d'en demander une nouvelle.");
-
-        }
-
-    
-
-
-
-        /// <summary>
+         /// <summary>    
         /// Cette methode verifie si le patient a deja une demande de consultation en attente
         /// </summary>
-        /// <param name="patient"></param>
+        /// <param name="patient"></param>     
         /// <returns> Si deja consultation en attente, retourne false, sinon, retourne true </returns>
-        public bool PeutReserver(Patient patient, Consultation consultation)
-        {
-            if(patient.consultation != null && consultation.StatutConsultation == StatutConsultation.DisponiblePourReservation)
-            {
-                return true;
-            }
-            return false;
-        }
+        //public bool PeutReserver(Patient patient, Consultation consultation)
+        //{
+        //    if(patient.consultation != null && consultation.StatutConsultation == StatutConsultation.DisponiblePourReservation)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-      
+
     }
 }

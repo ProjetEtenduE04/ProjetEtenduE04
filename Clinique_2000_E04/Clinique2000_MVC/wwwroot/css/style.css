@@ -105,9 +105,6 @@
     text-decoration: none;*/
     width: 180px;
     height: 130px;
-  
-
-
 }
 
 .hero-home {
@@ -188,7 +185,7 @@ h4 {
     font-size: 12px;
     line-height: 15px;
     color: #445E81;
-    color:#fff;
+    color: #fff;
 }
 
 /* P4 Mukta 10 */
@@ -206,45 +203,43 @@ html {
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-   /* margin-bottom: 60px;*/
+    /* margin-bottom: 60px;*/
     background-color: #fff;
-    height:100%;
-
+    height: 100%;
 }
+
 header {
- 
     background: linear-gradient(to left,#2567bd, #fff) no-repeat;
-   
 }
 
 footer {
- background: linear-gradient(to right,#2567bd, #fff) no-repeat;
-  
+    background: linear-gradient(to right,#2567bd, #fff) no-repeat;
 }
-footer img {
-    width: 100px;
-    height: 60px;
-}
-footer p.p2 {
-    color:#fff;
-}
-header a.p1 {
-  
-    color:#fff;
-    font-size:14px;
 
-  /*  font-weight:bold;*/
+    footer img {
+        width: 100px;
+        height: 60px;
+    }
+
+    footer p.p2 {
+        color: #fff;
+    }
+
+header a.p1 {
+    color: #fff;
+    font-size: 14px;
+    /*  font-weight:bold;*/
 }
 
 /*List elemnts*/
@@ -253,8 +248,8 @@ ul {
     padding: 0;
     display: inline-block;
 }
-/* Start : lignes d�coratives pour la d�coration des 
-    titres et autres �l�ments textuels
+/* Start : lignes décoratives pour la décoration des 
+    titres et autres éléments textuels
     ================================================== 
 */
 .divider-1 {
@@ -263,7 +258,6 @@ ul {
     width: auto;
     height: 1px;
     position: relative;
-
 }
 
 divider-2 {
@@ -295,10 +289,14 @@ divider-2 {
         text-align: center;
         border-radius: 50%;
         background-color: white;
+        color: black;
         font-size: 16px;
         -webkit-transition: all all 0.5s ease-out 0s;
+        -moz-transition: all all 0.5s ease-out 0s;
+        -ms-transition: all all 0.5s ease-out 0s;
         -o-transition: all all 0.5s ease-out 0s;
         transition: all all 0.5s ease-out 0s;
+    }
 
         .social li a:hover,
         .social li a:focus {
@@ -308,8 +306,10 @@ divider-2 {
             color: white;
             box-shadow: 2.5px 4.33px 15px 0px rgba(170, 165, 154, 0.4);
         }
+
 .footer-links {
     margin: 0;
+}
 
     .footer-links li + li {
         padding-top: 10px;
@@ -350,6 +350,7 @@ divider-2 {
     .note-frame h0,
     .note-frame h1,
     .note-frame h2,
+    .note-frame h3,
     .note-frame h4,
     .note-frame .p1,
     .note-frame .p2,
@@ -358,10 +359,11 @@ divider-2 {
         color: black;
     }
 
+/*END-Btn reseaux social footer
     ================================================== 
 */
 
-/*--param�tres pour les ic�nes de bas de page--
+/*--paramètres pour les icônes de bas de page--
     ================================================== 
 */
 .icons-rs {
@@ -376,6 +378,7 @@ divider-2 {
 /* ---- bouton -formulaire----
     ================================================== 
 */
+.btn-create {
     border-radius: 20px;
     gap: 3px;
     align-items: flex-start;
@@ -423,6 +426,7 @@ divider-2 {
     border: none;
     cursor: pointer;
 }
+
     .btn-reinitialiser:hover {
         background-color: #95BFB8;
         color: #115E48;
@@ -497,12 +501,12 @@ divider-2 {
 
 
 
-    /*Liste d attente*/
+/*Liste d attente*/
 #heroDetails {
     position: relative;
     /*width: 100vw;
     height: 50vh;*/
-    overflow:hidden;
+    overflow: hidden;
     background: url(../images/hero3.jpg) no-repeat;
     background-size: cover;
     background-position: center;
@@ -518,7 +522,7 @@ divider-2 {
     #heroDetails h4, p, hr {
         /*position: absolute;*/
         color: #2567bd;
-        text-align:center;
+        text-align: center;
     }
 
 #mask {
@@ -536,21 +540,20 @@ divider-2 {
     z-index: 3;
     width: 100%;
     color: white;
-    height:100%;
+    height: 100%;
 }
 
 
 .hero-home .text-left {
-  width: 40%;
-  text-align: left;
+    width: 40%;
+    text-align: left;
 }
 
 #heroDetails hr {
     position: relative;
     width: 8rem;
     height: 1px;
-
-   /* background-color: #2567bd;*/
+    /* background-color: #2567bd;*/
 }
 
 #heroDetails .row > .col > div {
@@ -567,7 +570,6 @@ divider-2 {
     font-family: 'Californian FB';
     font-size: 3em;
     font-weight: bold;
-   
     text-align: center;
     display: inline-block;
     z-index: 999;
@@ -582,21 +584,21 @@ divider-2 {
     text-align: center;
     color: #2567bd;
 }
+
 table td {
     padding-bottom: 0px;
     padding-left: 10px;
 }
 
 .card-details {
-   /* background-color: rgb(124, 111, 208, 0.3);*/
-   background-color:rgb(255,255,255, 0.7);
+    /* background-color: rgb(124, 111, 208, 0.3);*/
+    background-color: rgb(255,255,255, 0.7);
     border-radius: 30px;
     margin: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     height: 50%;
     padding: 20px;
     text-align: center;
-    
 }
 
     .card-details p {
@@ -615,20 +617,15 @@ table td {
     }
 
 .btn-action {
-    border-radius: 30px; 
+    border-radius: 30px;
 }
 
 .my-icon {
-    color: grey; 
-    cursor: pointer; 
-    font-size: 1.75rem !important; 
+    color: grey;
+    cursor: pointer;
+    font-size: 1.75rem !important;
 }
 
     .my-icon:hover {
-        color: blue !important; 
+        color: blue !important;
     }
-
-        -ms-transition: all all 0.5s ease-out 0s;
-    }
-}
-.btn-create {

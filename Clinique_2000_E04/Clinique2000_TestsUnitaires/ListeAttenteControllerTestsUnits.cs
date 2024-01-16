@@ -29,7 +29,7 @@ namespace Clinique2000_TestsUnitaires
                         {
                             ListeAttenteID = 1,
                             IsOuverte = true,
-                            DateEffectivite = new DateTime(2023, 1, 1),
+                            DateEffectivite = DateTime.Now.AddDays(5),
                             HeureOuverture = new TimeSpan(9, 0, 0),
                             HeureFermeture = new TimeSpan(17, 0, 0),
                             NbMedecinsDispo = 5,
@@ -40,7 +40,7 @@ namespace Clinique2000_TestsUnitaires
                         {
                             ListeAttenteID = 2,
                             IsOuverte = false,
-                            DateEffectivite = new DateTime(2023, 1, 2),
+                            DateEffectivite = DateTime.Now.AddDays(6),
                             HeureOuverture = new TimeSpan(8, 30, 0),
                             HeureFermeture = new TimeSpan(16, 30, 0),
                             NbMedecinsDispo = 4,
@@ -222,9 +222,9 @@ namespace Clinique2000_TestsUnitaires
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 5,
                 DureeConsultationMinutes = 30,
-               
             };
-            mockService.Setup(s => s.listeAttente.EditerAsync(listeAttente)).Returns(Task.CompletedTask);
+            // Set up the mock to return a completed Task<ListeAttente> with the listeAttente entity
+            mockService.Setup(s => s.listeAttente.EditerAsync(listeAttente)).Returns(Task.FromResult(listeAttente));
 
             var controller = new ListeAttenteController(mockService.Object);
             controller.ModelState.Clear();
@@ -236,6 +236,7 @@ namespace Clinique2000_TestsUnitaires
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("Index", redirectResult.ActionName);
         }
+
 
 
         // Ce test v�rifie que si le mod�le n'est pas valide, l'action Edit retourne la m�me vue avec le mod�le fourni.

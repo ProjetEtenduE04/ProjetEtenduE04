@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Clinique2000_DataAccess.Migrations
 {
-    public partial class ajoutUserPatientPatientACharge : Migration
+    public partial class mergeFix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,19 @@ namespace Clinique2000_DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cliniques",
+                columns: table => new
+                {
+                    CliniqueID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TempsMoyenConsultation = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cliniques", x => x.CliniqueID);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,6 +195,31 @@ namespace Clinique2000_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ListeAttentes",
+                columns: table => new
+                {
+                    ListeAttenteID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IsOuverte = table.Column<bool>(type: "bit", nullable: false),
+                    DateEffectivite = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HeureOuverture = table.Column<TimeSpan>(type: "time", nullable: false),
+                    HeureFermeture = table.Column<TimeSpan>(type: "time", nullable: false),
+                    NbMedecinsDispo = table.Column<int>(type: "int", nullable: false),
+                    DureeConsultationMinutes = table.Column<int>(type: "int", nullable: true),
+                    CliniqueID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ListeAttentes", x => x.ListeAttenteID);
+                    table.ForeignKey(
+                        name: "FK_ListeAttentes_Cliniques_CliniqueID",
+                        column: x => x.CliniqueID,
+                        principalTable: "Cliniques",
+                        principalColumn: "CliniqueID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PatientACharges",
                 columns: table => new
                 {
@@ -204,6 +242,62 @@ namespace Clinique2000_DataAccess.Migrations
                         principalColumn: "PatientId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "PlagesHoraires",
+                columns: table => new
+                {
+                    PlageHoraireID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HeureDebut = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HeureFin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ListeAttenteID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlagesHoraires", x => x.PlageHoraireID);
+                    table.ForeignKey(
+                        name: "FK_PlagesHoraires_ListeAttentes_ListeAttenteID",
+                        column: x => x.ListeAttenteID,
+                        principalTable: "ListeAttentes",
+                        principalColumn: "ListeAttenteID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Consultations",
+                columns: table => new
+                {
+                    ConsultationID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HeureDateDebutPrevue = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HeureDateFinPrevue = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HeureDateDebutReele = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    HeureDateFinReele = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    StatutConsultation = table.Column<int>(type: "int", nullable: false),
+                    PlageHoraireID = table.Column<int>(type: "int", nullable: false),
+                    PatientID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Consultations", x => x.ConsultationID);
+                    table.ForeignKey(
+                        name: "FK_Consultations_Patients_PatientID",
+                        column: x => x.PatientID,
+                        principalTable: "Patients",
+                        principalColumn: "PatientId");
+                    table.ForeignKey(
+                        name: "FK_Consultations_PlagesHoraires_PlageHoraireID",
+                        column: x => x.PlageHoraireID,
+                        principalTable: "PlagesHoraires",
+                        principalColumn: "PlageHoraireID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Cliniques",
+                columns: new[] { "CliniqueID", "TempsMoyenConsultation" },
+                values: new object[] { 1, 30 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -245,6 +339,21 @@ namespace Clinique2000_DataAccess.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Consultations_PatientID",
+                table: "Consultations",
+                column: "PatientID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Consultations_PlageHoraireID",
+                table: "Consultations",
+                column: "PlageHoraireID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ListeAttentes_CliniqueID",
+                table: "ListeAttentes",
+                column: "CliniqueID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PatientACharges_PatientId",
                 table: "PatientACharges",
                 column: "PatientId");
@@ -254,6 +363,11 @@ namespace Clinique2000_DataAccess.Migrations
                 table: "Patients",
                 column: "UserId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlagesHoraires_ListeAttenteID",
+                table: "PlagesHoraires",
+                column: "ListeAttenteID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -274,16 +388,28 @@ namespace Clinique2000_DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Consultations");
+
+            migrationBuilder.DropTable(
                 name: "PatientACharges");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "PlagesHoraires");
+
+            migrationBuilder.DropTable(
                 name: "Patients");
 
             migrationBuilder.DropTable(
+                name: "ListeAttentes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Cliniques");
         }
     }
 }

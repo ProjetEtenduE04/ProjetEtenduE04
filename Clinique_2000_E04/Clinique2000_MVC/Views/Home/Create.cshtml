@@ -1,128 +1,193 @@
-﻿@model Clinique2000_Core.Models.Patient
+﻿[1:40 PM] Culaxiz Alexei
+@model Patient
 
 @{
+
     var btnText = "S'enregistrer";
+
+    ViewData["Title"] = "Créer un profil";
+
 }
-<div class="container"> 
-  <main role="main" class="pb-3"> 
+
 <div class="container-fluid">
+
     <div class="row justify-content-around text-center">
+
         <div class="col col-lg-10 col-xl-9">
+
             <div>
+
                 <h1 class="h0">Renseignements Obligatoires</h1>
+
                 <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
 
                 <p class="p1">
-                    Veuillez compléter ces informations <br />
-                    <span class="p3">Les champs marqués d'un astérisque (*) doivent être renseignés.</span>
-                </p>
-            </div> 
 
-            
+                    Veuillez compléter ces informations <br />
+
+                    <span class="p3">Les champs marqués d'un astérisque (*) doivent être renseignés.</span>
+
+                </p>
+
+            </div>
+
+
             <!--Form d'inscription patient-->
-            <form asp-controller="#" asp-action="#" method="post" enctype="multipart/form-data" class="text-start p1">
+
+            <form asp-controller="Patients" asp-action="Create" method="post" enctype="multipart/form-data" class="text-start p1">
+
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                
+
                 <!--region input Hidden-->
-                <input asp-for="@Model.Courriel" value="@Model" class="form-control" type="hidden" /> 
-                
+
+                <input asp-for="@Model.UserId" class="form-control" type="hidden" />
+
                 <!--Nom Patient-->
+
                 <div class="row justify-content-center">
+
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
+
                         <label asp-for="@Model.Nom" class="form-label mt-3 mb-1"></label>
-                        <input type="text" class="form-control" asp-for="@Model.Nom" id="nomPatient" placeholder="Exemple: Jhon">
+
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Nom" id="nomPatient" placeholder="Exemple: Jhon">
+
                         <span asp-validation-for="@Model.Nom" class="text-danger"></span>
+
                     </div>
+
                 </div>
 
                 <!--Prenom Patient-->
+
                 <div class="row justify-content-center">
+
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
+
                         <label asp-for="@Model.Prenom" class="form-label mt-3 mb-1"></label>
-                        <input type="text" class="form-control" asp-for="@Model.Prenom" placeholder="Exemple: Smith">
+
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Prenom" placeholder="Exemple: Smith">
+
                         <span asp-validation-for="@Model.Prenom" class="text-danger"></span>
+
                     </div>
+
                 </div>
 
-                <!--Courrier Électronique-->
-                <div class="row justify-content-center">
-                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
-                        <label asp-for="@Model.Courriel" class="form-label mt-3 mb-1"></label>
-                        <input type="email" class="form-control" asp-for="@Model.Courriel" placeholder="Exemple: JS@@mail.ca"> @*value="@Model.Courriel"*@
-                        <span asp-validation-for="@Model.Courriel" class="text-danger"></span>
-                    </div>
-                </div> 
-                
                 <!--Genre-->
+
                 <div class="row justify-content-center">
+
                     <div class="col col-md-8 col-lg-7 col-xl-6">
+
                         <label asp-for="@Model.Genre" class="form-label mt-3 mb-1"></label>
+
                         <select class="form-select" asp-for="@Model.Genre" aria-label="Genre">
+
                             <option selected value="">Choisissez parmi les options proposées</option>
+
                             <option selected value="Féminine">Féminine</option>
+
                             <option selected value="Masculin">Masculin</option>
+
                         </select>
+
                         <span asp-validation-for="@Model.Genre" class="text-danger"></span>
+
                     </div>
+
                 </div>
 
                 <!--NAM-->
+
                 <div class="row justify-content-center">
+
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
+
                         <label asp-for="@Model.NAM" class="form-label mt-3 mb-1"></label>
+
                         <input type="text" class="form-control" asp-for="@Model.NAM" placeholder="Exemple: CULA-1234-5678">
+
                         <span asp-validation-for="@Model.NAM" class="text-danger"></span>
+
                     </div>
+
                 </div>
 
                 <!--La date de naissance-->
+
                 <div class="row justify-content-center">
+
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
+
                         <label asp-for="@Model.DateDeNaissance" class="form-label mt-3 mb-1"></label>
-                        <input class="form-control" asp-for="@Model.DateDeNaissance">
+
+                        @{
+
+                            string formattedDate = Model.DateDeNaissance == DateTime.MinValue ? null : Model.DateDeNaissance.ToString("yyyy-MM-dd");
+
+                        }
+
+                        <input id="DateDeNaissance" class="form-control" asp-for="@Model.DateDeNaissance" value="@formattedDate" type="date" min="1900-01-01" max="@DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd")">
+
                         <span asp-validation-for="@Model.DateDeNaissance" class="text-danger"></span>
+
                     </div>
+
                 </div>
 
                 <!--Code Postal-->
+
                 <div class="row justify-content-center">
+
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
+
                         <label asp-for="@Model.CodePostal" class="form-label mt-3 mb-1"></label>
+
                         <input type="text" class="form-control" asp-for="@Model.CodePostal" placeholder="Exemple: J4K 2T4">
+
                         <span asp-validation-for="@Model.CodePostal" class="text-danger"></span>
+
                     </div>
+
                 </div>
-   @*             <partial name="_CreateButtonPartielle" model="@Model" />*@
-                
+
                 <!--CreateBTN-->
+
                 <div class="row justify-content-center text-center">
+
                     <div class="col col-md-8 col-xl-6 mb-2 mt-4">
-                        <button type="submit" class="btn-create">
-                            <span id="btntextCreate">
-                                @btnText
-                            </span>
-                            <i class="fa-solid fa-clipboard-check"></i>
-                        </button>
+
+                        <partial name="_SubmitButtonPartial" model="@btnText" />
+
                     </div>
+
                 </div>
+
                 <div class="row justify-content-center text-center">
+
                     <div class="col col-md-8 col-xl-6 my-2">
-                        <button type="reset" class="btn-reinitialiser">
-                            <span id="btntextReset">
-                                Réinitialiser
-                            </span> 
-                            <i class="fa-solid fa-arrow-rotate-left"></i>
-                        </button>
+
+                        <partial name="_ResetButtonPartial" />
+
                     </div>
+
                 </div>
+
             </form>
+
         </div>
+
     </div>
+
 </div>
-    </main>
-</div>
+
 @section Scripts {
+
     @{
+
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
     }
+
 }

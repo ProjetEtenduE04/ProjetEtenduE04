@@ -54,5 +54,7 @@ namespace Clinique2000_Core.Models
 
         [ValidateNever]
         public virtual List<PatientACharge>? PatientsACharge { get; set; }
+
+
     }
 }
