@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace Clinique2000_Services.IServices
     {
 
         public IListeAttenteService listeAttente { get; }
-
+        public IPatientService patient { get; }
+        public IAuthenGoogleService authenGoogle { get; }
     }
     
 }
