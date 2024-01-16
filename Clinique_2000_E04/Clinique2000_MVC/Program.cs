@@ -1,20 +1,49 @@
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
 //DbContext
 builder.Services.AddDbContext<CliniqueDbContext>(options =>
-{ 
+{
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     options.UseLazyLoadingProxies();
 });
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<CliniqueDbContext>();
+
+
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
+    googleOptions.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
+});
+builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+//})
+//.AddCookie()
+//.AddGoogle(GoogleDefaults.AuthenticationScheme, option =>
+//{
+//    option.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
+//    option.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
+//});
+
+// Add services to the container.
+
 #region Servivces
 builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBaseAsync<>));
+builder.Services.AddScoped<IAuthenGoogleService, AuthenGoogleService>();
+builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
 #endregion
 
 var app = builder.Build();
@@ -32,10 +61,16 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Patients}/{controller=Home}/{action=Index}/{id?}");
 
+//app.MapAreaControllerRoute(
+//    name: "PatientArea",
+//    areaName: "Patient",
+//    pattern: "Patient/{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 app.Run();

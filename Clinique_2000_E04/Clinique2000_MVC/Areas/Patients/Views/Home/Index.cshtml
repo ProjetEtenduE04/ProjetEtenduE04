@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<a asp-area="Patients" asp-controller="Patients" asp-action="Index" class="btn btn-create form-control" style="width:270px">
+    <span id="btntextCreate ">
+        Voir tous les patients (Liste des patients)
+    </span>
+    <i class=""></i>
+</a>
+
+<a asp-area="Patients" asp-controller="Patients" asp-action="Create" class="btn btn-create form-control" style="width:270px">
+    <span id="btntextCreate ">
+        S'inscrire comme patient
+    </span>
+    <i class=""></i>
+</a>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

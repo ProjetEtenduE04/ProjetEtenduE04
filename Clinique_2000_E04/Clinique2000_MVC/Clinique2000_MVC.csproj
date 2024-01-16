@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\Patients\Views\Patients\NewFile.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="appsettings.json~RF14ec06e2.TMP" />
+    <None Remove="Areas\Patients\Views\Patients\NewFile.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.25" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.34" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
@@ -30,10 +38,36 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\" />
+    <Folder Include="Areas\Patients\Data\" />
+    <Folder Include="Areas\Patients\Models\" />
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap4.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap4.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap5.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap5.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bulma.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bulma.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.dataTables.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.dataTables.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.foundation.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.foundation.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.jqueryui.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.jqueryui.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.semanticui.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.semanticui.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\jquery.dataTables.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\jquery.dataTables.min.js" />
+    <None Include="wwwroot\lib\DataTables\datatables.js" />
+    <None Include="wwwroot\lib\DataTables\datatables.min.js" />
   </ItemGroup>
 
 </Project>

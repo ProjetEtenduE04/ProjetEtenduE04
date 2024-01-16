@@ -1,11 +1,6 @@
 ﻿using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinique2000_Services.Services
 {
@@ -36,7 +31,7 @@ namespace Clinique2000_Services.Services
         /// Modifie une entité de type T de manière asynchrone dans la base de données.
         /// </summary>
         /// <param name="entity">Entité à modifier</param>
-        public async Task EditerAsync(T entity)
+        public async Task<T> EditerAsync(T entity)
         {
 
             if (_dbContext.Entry(entity).State == EntityState.Detached)
@@ -49,8 +44,9 @@ namespace Clinique2000_Services.Services
             {
                 _dbContext.Entry(entity).State = EntityState.Modified;
             }
-                
+
             await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
         /// <summary>

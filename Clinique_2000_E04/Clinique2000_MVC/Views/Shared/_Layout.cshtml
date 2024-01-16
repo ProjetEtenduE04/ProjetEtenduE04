@@ -1,29 +1,42 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
+    <!--Métadonnées-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Clinique2000_MVC</title>
+    <title>@ViewData["Title"] - Clinique2000</title>
+    <meta name="description" content="Clinique 2000 est un projet à but non lucratif qui a comme objectif de complémenter le service existant Bonjour-santé et qui permettra de s’inscrire à distance pour une clinique sans rendez-vous.">
+    <meta name="keywords" content="Clinique 2000, projet, santé, rendez-vous médical, inscription à distance, Bonjour-santé, non lucratif, clinique sans rendez-vous">
+    <meta name="author" content="EO4 (Misleidy, Alexei, Jordan, Thi Anh)">
+    <link rel="stylesheet" href="~/lib/DataTables/datatables.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Clinique2000_MVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/style.css" asp-append-version="true" />
+    @*<link rel="stylesheet" type="text/css" href="~/Clinique2000_MVC.styles.css" asp-append-version="true" />*@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Clinique2000_MVC</a>
+                <a class="h-logo " asp-area="" asp-controller="Home" asp-action="Index">Clinique2000</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <ul class="navbar-nav ms-5 align-items-baseline flex-grow-1 footer-links white-link">
+                        <li class="nav-item mx-3">
+                            <a class="p1" asp-area="Patients" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li class="nav-item mx-3">
+                            <a class="p1" asp-area="Patients" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="p1" asp-area="Patients" asp-controller="Patients" asp-action="Create">CreateTest</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav align-items-baseline footer-links white-link">
+                        <li>
+                            <partial name="_LoginPartial" />
                         </li>
                     </ul>
                 </div>
@@ -36,13 +49,83 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+@*    <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - Clinique2000_MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
+    </footer>*@
+    <footer class="container-fluid mt-5 footer">
+        <div class="container ">
+            <div class="row">
+                <div>
+                    <div class="divider-1 mb-3"></div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-12 col-md-5 text-center text-md-start">
+                    <a asp-area="Patient" asp-controller="Home" asp-action="Index"><img src="~/Images/Logo/Logo_footer.svg" alt="logo footer" class="img-fluid"></a>
+                </div>
+                <div class="col-12 col-md-7 text-center text-md-end mt-3 m-md-0">
+                    <nav>
+
+                        <ul class="social">
+                            <li><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="https://www.youtube.com/"><i class="fa-brands fa-youtube"></i></a></li>
+                            <li><a href="https://www.Instagram.com/"><i class="fa-brands fa-instagram "></i></a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+            <div class="row text-center align-items-end ">
+                <div class="col-12 col-md-4 col-lg-3">
+                    <p class="p2">
+                        <i class="fa-solid fa-location-dot fa-xl icons-rs"></i>
+                        Adresse <br>
+                        945 Ch. de Chambly,
+                        Longueuil, J4H 3M6
+                    </p>
+                    <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
+                </div>
+                <div class="col-12 col-md-4 col-lg-3 ">
+                    <p class="p2">
+                        <i class="fa-solid fa-envelope fa-xl icons-rs"></i>
+                        Contact <br>
+                        office@clinique.ca
+                    </p>
+                    <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                    <p class="p2">
+                        <i class="fa-solid fa-calendar fa-xl icons-rs"></i>
+                        Rendez-vous <br>
+                        rdv@clinique.ca
+                    </p>
+                    <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
+                </div>
+                <div class="col-12 col-lg-3 text-lg-end ">
+                    <ul class="mt-4 mb-3 px-3 footer-links white-link">
+                        <li><a class="p1 " asp-controller="#" asp-action="#">Page d'accueil</a></li>
+                        <li><a class="p1 " asp-controller="#" asp-action="#">Lorem Ipsum</a></li>
+                        <li><a class="p1 " asp-controller="#" asp-action="#">Lorem Ipsum</a></li>
+                        <li><a class="p1 " asp-controller="#" asp-action="Privacy">Confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col ">
+                    <p class="p3">Copyright 2023-2024 © Clinique2000. Tous droits réservés.</p>
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/inputmask/jquery.inputmask.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/63463ff979.js" crossorigin="anonymous"></script>@*Fontawesome*@
+    <script src="~/lib/DataTables/datatables.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
