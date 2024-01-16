@@ -2,6 +2,7 @@
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
@@ -34,6 +35,18 @@ namespace Clinique2000_TestsUnitaires
                              DateDeNaissance = new DateTime(2001, 05, 04),
                              Age = 23,
                              UserId = "4eaffcbd-4351-4995-a0c0-03624a3743c7"
+
+                         },
+                         new Patient()
+                         {
+                             PatientId = 2,
+                             Nom = "Smith2",
+                             Prenom = "Jhon2",
+                             NAM = "SMIJ00001111",
+                             CodePostal = "A1A 1A1",
+                             DateDeNaissance = new DateTime(2001, 05, 04),
+                             Age = 23,
+                             UserId = "4eaffcbd-4351-4995-a0c0-03624a3743c9"
 
                          }
                    ); ;
@@ -435,15 +448,64 @@ namespace Clinique2000_TestsUnitaires
                 var nouveauNAM = "ABCD12345678";
                 var dateDeNaissanceInvalide = DateTime.Now.AddDays(1);
 
-                var patientAEnregistrer = new Patient { 
-                    NAM = nouveauNAM, 
-                    DateDeNaissance=dateDeNaissanceInvalide
+                var patientAEnregistrer = new Patient
+                {
+                    NAM = nouveauNAM,
+                    DateDeNaissance = dateDeNaissanceInvalide
                 };
 
                 // Act & Assert
                 await Assert.ThrowsAsync<ArgumentException>(() => service.EnregistrerOuModifierPatient(patientAEnregistrer));
             }
         }
+
+
+
+        [Fact]
+        public async Task TestExistingPatientModificationSuccess()
+        {
+            // Arrange
+            using (var dbTest = new CliniqueDbContext(SetUpInMemory("TestExistingPatientModificationSuccess")))
+            {
+
+                IPatientService service = new PatientService(dbTest);
+
+                var initPatient = await dbTest.Patients.FindAsync(1);
+
+                initPatient.NAM = "TEST12345678";
+
+
+                // Act
+                var result = await service.EnregistrerOuModifierPatient(initPatient);
+
+                // Assert
+                var updatedPatient = await dbTest.Patients.FindAsync(1);
+                Assert.NotNull(updatedPatient);
+                Assert.Equal("TEST12345678", updatedPatient.NAM);
+            }
+        }
+
+        [Fact]
+        public async Task TestEditPatientWithExistingNAMFailure()
+        {
+            // Arrange
+            using (var dbTest = new CliniqueDbContext(SetUpInMemory("TestExistingPatientModificationSuccess")))
+            {
+
+                IPatientService service = new PatientService(dbTest);
+
+                var initPatient = await dbTest.Patients.FindAsync(1);
+
+                // Modify the patient's details to an existing NAM
+                initPatient.NAM = "SMIJ00001111"; // NAM already in use by another patient
+
+                // Act & Assert
+                var result = await service.EnregistrerOuModifierPatient(initPatient);
+
+                Assert.ThrowsAsync<Exception>(async () => await service.EnregistrerOuModifierPatient(initPatient));
+            }
+        }
+
 
         /// <summary>
         /// Cas test d'enregistrement du patient mineur
