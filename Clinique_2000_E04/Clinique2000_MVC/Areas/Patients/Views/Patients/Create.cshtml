@@ -70,7 +70,10 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.DateDeNaissance" class="form-label mt-3 mb-1"></label>
-                        <input id="DateDeNaissance" class="form-control" asp-for="@Model.DateDeNaissance" type="date" min="1900-01-01" max="@DateTime.Now.ToString("yyyy-MM-dd")">
+                        @{
+                            string formattedDate = Model.DateDeNaissance == DateTime.MinValue ? null : Model.DateDeNaissance.ToString("yyyy-MM-dd");
+                        }
+                        <input id="DateDeNaissance" class="form-control" asp-for="@Model.DateDeNaissance" value="@formattedDate" type="date" min="1900-01-01" max="@DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd")">
                         <span asp-validation-for="@Model.DateDeNaissance" class="text-danger"></span>
                     </div>
                 </div>

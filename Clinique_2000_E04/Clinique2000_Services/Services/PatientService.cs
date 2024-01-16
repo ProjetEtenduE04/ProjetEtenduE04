@@ -12,18 +12,10 @@ namespace Clinique2000_Services.Services
     public class PatientService : ServiceBaseAsync<Patient>, IPatientService
     {
         private readonly CliniqueDbContext _context;
-        //private readonly SignInManager<IdentityUser> _signInManager;
-        //private readonly UserManager<IdentityUser> _userManager;
 
-        public PatientService(CliniqueDbContext context
-            //,
-            //            SignInManager<IdentityUser> signInManager,
-            //            UserManager<IdentityUser> userManager
-            ) : base(context)
+        public PatientService(CliniqueDbContext context) : base(context)
         {
             _context = context;
-            //_signInManager = signInManager;
-            //_userManager = userManager;
         }
 
         /// <summary>
@@ -82,6 +74,7 @@ namespace Clinique2000_Services.Services
         {
             DateDeNaissanceEstValid(dateDeNaissance);
 
+            #region refactoriser, supprimer ultérieurement
             //int jours = (DateTime.Now - dateDeNaissance).Days;
             //int annees = DateTime.Now.Year - dateDeNaissance.Year;
 
@@ -89,6 +82,7 @@ namespace Clinique2000_Services.Services
             //bool estAnneeNaissanceBissextile = DateTime.IsLeapYear(dateDeNaissance.Year);
 
             //int age = (int)((DateTime.Now - dateDeNaissance).TotalDays / 365.242199);
+            #endregion
 
             var ageExactJMA = new Age(dateDeNaissance, DateTime.Now);
 
@@ -138,7 +132,7 @@ namespace Clinique2000_Services.Services
             var patientTrouve = await ObtenirPatientParNomAsync(nom);
             return patientTrouve != null;
         }
-
+        #region Méthodes de création et d'édition, modulaires, séparée
         //public async Task<Patient> EnregistrerPatient(Patient patient)
         //{
 
@@ -190,7 +184,15 @@ namespace Clinique2000_Services.Services
 
         //    return await EditerAsync(patient);
         //}
+        #endregion
 
+        /// <summary>
+        /// Enregistre ou modifie un patient dans la base de données.
+        /// </summary>
+        /// <param name="patient">Le patient à enregistrer ou modifier.</param>
+        /// <returns>Le patient enregistré ou modifié.</returns>
+        /// <exception cref="Exception">Exception générale levée lors de problèmes.</exception>
+        /// <exception cref="ArgumentException">Exception levée en cas d'argument non valide.</exception>
         public async Task<Patient> EnregistrerOuModifierPatient(Patient patient)
         {
 

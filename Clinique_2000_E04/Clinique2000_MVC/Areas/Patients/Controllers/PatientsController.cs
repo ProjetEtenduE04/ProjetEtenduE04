@@ -11,7 +11,6 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
     [Area("Patients")]
     public class PatientsController : Controller
     {
-        //private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IServiceBaseAsync<Patient> _serviceBase;
         private readonly IPatientService _patientService;
@@ -20,13 +19,11 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         public PatientsController(IServiceBaseAsync<Patient> serviceBase,
             IPatientService patientService,
             IAuthenGoogleService authenGoogleService,
-            //SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager)
         {
             _serviceBase = serviceBase;
             _patientService = patientService;
             _authenGoogleService = authenGoogleService;
-            //_signInManager = signInManager;
             _userManager = userManager;
         }
 
@@ -43,7 +40,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         public async Task<IActionResult> Details(int? id)
         {
 
-            if (id == null || _patientService.ObtenirToutAsync() == null)
+            if (id == null || await _patientService.ObtenirToutAsync() == null)
             {
                 return NotFound();
             }
@@ -58,7 +55,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // GET: PatientsController/Create
         public async Task<IActionResult> Create()
         {
-            #region
+            #region refacturé
             //var utilisateurConnecte = await _authenGoogleService.GetAuthUserDataAsync();
             //if(utilisateurConnecte.Courriel==null || await _patientService.VerifierExistencePatientParEmailAsync(utilisateurConnecte.Courriel))
             //{
@@ -78,7 +75,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 {
                     var patientModel = new Patient
                     {
-                       UserId = user.Id,
+                       UserId = user.Id
                     };
 
                     return View(patientModel);
@@ -115,7 +112,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         {
             try
             {
-                if (id == null || _patientService.ObtenirToutAsync() == null)
+                if (id == null || await _patientService.ObtenirToutAsync() == null)
                 {
                     return NotFound();
                 }
@@ -164,8 +161,6 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-
-                //return RedirectToAction(nameof(Index));
                 return View(patient);
             }
             catch
@@ -175,34 +170,11 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         }
 
         // GET: PatientsController/Delete/5
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    try
-        //    {
-        //        if (id == null || await _patientService.ObtenirToutAsync() == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        var patient =  await _patientService.ObtenirParIdAsync(id);
-
-        //        if (patient != null)
-        //        {
-        //            return View(patient);
-        //        }
-        //        else
-        //            return NotFound();
-        //    }
-        //    catch
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //}
-
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
             try
             {
-                if (id == 0 || await _patientService.ObtenirParIdAsync(id) == null)
+                if (id == null || await _patientService.ObtenirToutAsync() == null)
                 {
                     return NotFound();
                 }

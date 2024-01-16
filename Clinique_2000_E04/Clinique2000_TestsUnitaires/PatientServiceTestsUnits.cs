@@ -382,29 +382,6 @@ namespace Clinique2000_TestsUnitaires
             }
         }
 
-        ///// <summary>
-        ///// este la fonctionnalité d'enregistrement d'un patient lorsqu'il existe déjà un utilisateur avec la même adresse électronique.
-        ///// </summary>
-        ///// <returns>Lance une exception si l'on essaie d'enregistrer un patient avec un courriel existant.</returns>
-        //[Fact]
-        //public async Task EnregistrerPatient_CourrielExist_ThrowsException()
-        //{
-        //    // Arrange
-        //    using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_WhenEmailExists_ThrowsException")))
-        //    {
-        //        // Arrange
-        //        IPatientService service = new PatientService(dbTest);
-        //        var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
-
-        //        var courrielExistent = patientInscris.Courriel;
-
-        //        var patientAEnregistrer = new Patient { Courriel = courrielExistent };
-
-        //        // Act & Assert
-        //        await Assert.ThrowsAsync<Exception>(() => service.EnregistrerPatient(patientAEnregistrer));
-        //    }
-        //}
-
         /// <summary>
         /// Test d'enregistrement des patients, avec un NAM déjà enregistré dans BD
         /// </summary>
@@ -459,21 +436,20 @@ namespace Clinique2000_TestsUnitaires
             }
         }
 
-
-
+        /// <summary>
+        /// Teste la modification réussie d'un patient existant.
+        /// </summary>
         [Fact]
-        public async Task TestExistingPatientModificationSuccess()
+        public async Task EnregistrerOuModifierPatient_PatientExistant_ModifierAvecSuccess()
         {
             // Arrange
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("TestExistingPatientModificationSuccess")))
             {
-
                 IPatientService service = new PatientService(dbTest);
 
                 var initPatient = await dbTest.Patients.FindAsync(1);
 
                 initPatient.NAM = "TEST12345678";
-
 
                 // Act
                 var result = await service.EnregistrerOuModifierPatient(initPatient);
@@ -485,19 +461,20 @@ namespace Clinique2000_TestsUnitaires
             }
         }
 
+        /// <summary>
+        /// Teste l'échec de la modification d'un patient avec un NAM existant.
+        /// </summary>
         [Fact]
         public async Task TestEditPatientWithExistingNAMFailure()
         {
             // Arrange
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("TestExistingPatientModificationSuccess")))
             {
-
                 IPatientService service = new PatientService(dbTest);
 
                 var initPatient = await dbTest.Patients.FindAsync(1);
 
-                // Modify the patient's details to an existing NAM
-                initPatient.NAM = "SMIJ00001111"; // NAM already in use by another patient
+                initPatient.NAM = "SMIJ00001111"; // NAM déjà utilisé par un autre patient
 
                 // Act & Assert
                 var result = await service.EnregistrerOuModifierPatient(initPatient);
@@ -505,7 +482,6 @@ namespace Clinique2000_TestsUnitaires
                 Assert.ThrowsAsync<Exception>(async () => await service.EnregistrerOuModifierPatient(initPatient));
             }
         }
-
 
         /// <summary>
         /// Cas test d'enregistrement du patient mineur
