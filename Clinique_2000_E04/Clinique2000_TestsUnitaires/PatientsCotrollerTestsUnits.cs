@@ -50,6 +50,7 @@ namespace Clinique2000_TestsUnitaires
             {
                 new Patient()
                 {
+                    PatientId = 1,
                     Nom = "Smith",
                     Prenom = "Jhon",
                     NAM = "SMIJ12345678",
@@ -118,6 +119,10 @@ namespace Clinique2000_TestsUnitaires
             Assert.IsType<Patient>(viewResult.Model);
         }
 
+        /// <summary>
+        /// Teste si la méthode Create renvoie une redirection vers l'action "Index" du contrôleur "Home"
+        /// lorsque l'utilisateur est un patient.
+        /// <returns></returns>
         [Fact]
         public async Task Create_ReturnsRedirectToIndex_WhenUserIsPatient()
         {
@@ -189,5 +194,171 @@ namespace Clinique2000_TestsUnitaires
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Equal(patientInvalid, viewResult.Model);
         }
+
+
+
+
+
+        [Fact]
+        public async Task Index_ReturnsViewWithModel()
+        {
+            // Arrange
+            _serviceBaseMock.Setup(service => service.ObtenirToutAsync()).ReturnsAsync(_patientsList);
+
+            // Act
+            var result = await _patientsController.Index();
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Patient>>(viewResult.Model);
+            Assert.Equal(_patientsList, model);
+        }
+
+        [Fact]
+        public async Task Edit_Get_Returns_ViewWithPatient()
+        {
+            // Arrange
+            int id = 1;
+            var patient = _patientsList.FirstOrDefault();
+            _patientServiceMock.Setup(service => service.ObtenirParIdAsync(id)).ReturnsAsync(patient);
+
+            // Act
+            var result = await _patientsController.Edit(id);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsType<Patient>(viewResult.Model);
+            Assert.Equal(id, model.PatientId);
+            Assert.Equal(_patientsList.FirstOrDefault(), model);
+        }
+
+        [Fact]
+        public async Task Edit_Get_Returns_NotFound_LorsqueIdNull()
+        {
+            // Arrange
+   
+            // Act
+            var result = await _patientsController.Edit(null);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task Edit_ReturnsNotFound_Lorsque_Patient_EstNull()
+        {
+            // Arrange
+            int id = 1;
+            var patient = _patientsList.FirstOrDefault();
+            _patientServiceMock.Setup(service => service.ObtenirParIdAsync(id)).ReturnsAsync((Patient)null);
+
+            // Act
+            var result = await _patientsController.Edit(id);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task Edit_ReturnsViewWithPatient_Lorque_Id_EstValide()
+        {
+            // Arrange
+            int id = 1;
+            var patient = _patientsList.FirstOrDefault();
+            _patientServiceMock.Setup(repo => repo.ObtenirParIdAsync(id))
+                .ReturnsAsync(patient);
+
+
+            // Act
+            var result = await _patientsController.Edit(id);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<Patient>(viewResult.ViewData.Model);
+            Assert.Equal(id, model.PatientId);
+        }
+
+      /*  [Fact]
+        public async Task Edit_ModelStateInvalid_ReturnsView()
+        {
+            // Arrange
+            var patient = new Patient();
+
+            _patientsController.ModelState.AddModelError("Error", "Model State is invalid");
+
+            // Act
+            var result = await _patientsController.Edit(1, patient);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(patient, viewResult.Model);
+        }
+      */
+      /*
+        [Fact]
+        public async Task Edit_ModelStateValid_RedirectsToIndex()
+        {
+            // Arrange
+            var patient = new Patient(); 
+
+            // Act
+            var result = await _patientsController.Edit(1, patient);
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+        }*/
+
+        [Fact]
+        public async Task Delete_ReturnsViewWithModel()
+        {
+            // Arrange
+            int id = 1;
+
+            Console.WriteLine("Patients List:");
+            foreach (var patient in _patientsList)
+            {
+                Console.WriteLine($"PatientId: {patient.PatientId}");
+            }
+            Assert.True(_patientsList.Any(p => p.PatientId == id), "Ensure that _patientsList contains a patient with the specified ID.");
+
+      
+
+            _patientServiceMock.Setup(service => service.ObtenirParIdAsync(id)).ReturnsAsync(_patientsList.FirstOrDefault());
+
+            // Act
+            var result = await _patientsController.Delete(id);
+
+            // Assert
+            if (result is ViewResult viewResult)
+            {
+                var model = Assert.IsType<Patient>(viewResult.Model);
+                Assert.Equal(_patientsList.FirstOrDefault(), model);
+            }
+            else
+            {
+                var notFoundResult = Assert.IsType<NotFoundResult>(result);
+                Assert.True(false, $"Expected a ViewResult but got a NotFoundResult. Status code: {notFoundResult.StatusCode}");
+            }
+
+        }
+
+        [Fact]
+        public async Task DeleteConfirmed_DeletesPatientAndRedirectsToIndex()
+        {
+            // Arrange
+            int patientId = 1;
+            _patientServiceMock.Setup(service => service.ObtenirParIdAsync(patientId)).ReturnsAsync(_patientsList.FirstOrDefault());
+
+            // Act
+            var result = await _patientsController.DeleteConfirmed(patientId);
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+
+            _patientServiceMock.Verify(service => service.SupprimerAsync(patientId), Times.Once);
+        }
+
     }
 }

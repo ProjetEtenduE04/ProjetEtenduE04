@@ -164,7 +164,9 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+
+                //return RedirectToAction(nameof(Index));
+                return View(patient);
             }
             catch
             {
@@ -173,15 +175,38 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         }
 
         // GET: PatientsController/Delete/5
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    try
+        //    {
+        //        if (id == null || await _patientService.ObtenirToutAsync() == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        var patient =  await _patientService.ObtenirParIdAsync(id);
+
+        //        if (patient != null)
+        //        {
+        //            return View(patient);
+        //        }
+        //        else
+        //            return NotFound();
+        //    }
+        //    catch
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //}
+
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                if (id == null || await _patientService.ObtenirToutAsync() == null)
+                if (id == 0 || await _patientService.ObtenirParIdAsync(id) == null)
                 {
                     return NotFound();
                 }
-                var patient =  await _patientService.ObtenirParIdAsync(id);
+                var patient = await _patientService.ObtenirParIdAsync(id);
 
                 if (patient != null)
                 {
@@ -195,6 +220,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+
 
         // POST: PatientsController/Delete/5
         [HttpPost]
