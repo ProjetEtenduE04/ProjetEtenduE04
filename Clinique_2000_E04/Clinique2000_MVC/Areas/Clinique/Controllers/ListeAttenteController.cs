@@ -37,8 +37,8 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
                 .ObtenirToutAsync();
 
 
-            listListAttente = listListAttente.Where(x => x.DateEffectivite.AddDays(-1) >= now)
-                .OrderBy(x => x.DateEffectivite)
+            listListAttente = listListAttente.Where(x => x.DateEffectivite >= now)
+                .OrderBy(x => x.DateEffectivite.Date)
                 .ToList();
                 
 

@@ -34,8 +34,8 @@
                                 @(liste.IsOuverte ? "Ouverte" : "Fermée")
                             </td>
                             <td>
-                             
-                                @Html.ActionLink("Détails", "Details", new { id = liste.ListeAttenteID }, new { @class = "btn-secondaire btn-sm" })
+
+                                @Html.ActionLink("Détails","Details","ListeAttente", new { controller = "Listeattente", Action = "details", id = liste.ListeAttenteID }, new { @class = "btn-secondaire btn-sm" })
                                
                             </td>
                         </tr>
