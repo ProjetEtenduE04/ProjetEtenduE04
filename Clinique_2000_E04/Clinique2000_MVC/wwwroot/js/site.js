@@ -64,4 +64,92 @@ $(document).ready(function () {
     });
 });
 //END DATATABLES
-//================================================== 
+//==================================================
+
+
+//ListeAttenteForms HeureFermetureSeulementActiveLorsqueHeureOuvertureRemplieCreate
+///=================================================
+
+$(document).ready(function () {
+    $('#heureOuverture').on('input', function () {
+        var heureOuvertureValue = $(this).val();
+        if (heureOuvertureValue) {
+            $('#heureFermetureContainer').show();
+        } else {
+            $('#heureFermetureContainer').hide();
+        }
+    });
+});
+
+///=================================================
+
+
+
+//ListeAttenteForms HeureFermetureSeulementActiveLorsqueHeureOuvertureRemplieEdit
+///=================================================
+$(document).ready(function () {
+    $('#heureOuvertureEdit').on('input', function () {
+        // Reset and require re-entry of HeureFermeture when HeureOuverture changes
+        $('#heureFermetureEdit').val('');
+    });
+});
+
+///=================================================
+
+
+
+//ListeAttenteForms-HeureFermeturePlusGrandeHeureOuverture
+///=================================================
+///create
+$(document).ready(function () {
+    function convertTimeToMinutes(time) {
+        var [hours, minutes] = time.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
+
+    function validateTimes() {
+        var heureOuverture = $('#heureOuverture').val();
+        var heureFermeture = $('#heureFermeture').val();
+
+        if (heureOuverture && heureFermeture) {
+            var ouvertureMinutes = convertTimeToMinutes(heureOuverture);
+            var fermetureMinutes = convertTimeToMinutes(heureFermeture);
+
+            if (fermetureMinutes <= ouvertureMinutes) {
+                alert("L'heure de fermeture doit être supérieure à l'heure d'ouverture.");
+                $('#heureFermeture').val(''); // Reset the heureFermeture field
+            }
+        }
+    }
+
+    $('#heureOuverture, #heureFermeture').change(validateTimes);
+});
+
+
+
+///edit
+$(document).ready(function () {
+    function convertTimeToMinutes(time) {
+        var [hours, minutes] = time.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
+
+    function validateTimes() {
+        var heureOuverture = $('#heureOuvertureEdit').val();
+        var heureFermeture = $('#heureFermetureEdit').val();
+
+        if (heureOuverture && heureFermeture) {
+            var ouvertureMinutes = convertTimeToMinutes(heureOuverture);
+            var fermetureMinutes = convertTimeToMinutes(heureFermeture);
+
+            if (fermetureMinutes <= ouvertureMinutes) {
+                alert("L'heure de fermeture doit être supérieure à l'heure d'ouverture.");
+                $('#heureFermetureEdit').val(''); // Reset the heureFermetureEdit field
+            }
+        }
+    }
+
+    $('#heureOuvertureEdit, #heureFermetureEdit').change(validateTimes);
+});
+
+///=================================================

@@ -101,7 +101,12 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    listeAttente.CliniqueID = 1;
                     await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
+                    //valeur hardcodé
+                  
+
+
                     return RedirectToAction("Index");
                 }
             }
@@ -147,6 +152,10 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    //hardcodé
+                    listeAttente.CliniqueID = 1;
+
+
                     await _services.listeAttente.ModifierListeAttenteAsync(listeAttente);
                     return RedirectToAction("Index");
                 }
