@@ -40,7 +40,7 @@ namespace Clinique2000_Services.Services
             var consultation = await _context.Consultations.FindAsync(consultationId);
 
             if (consultation == null)
-            {
+             {
                 throw new ValidationException("Consultation introuvable.");
             }
 
