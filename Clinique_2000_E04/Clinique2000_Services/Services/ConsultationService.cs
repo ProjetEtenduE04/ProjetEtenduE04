@@ -1,77 +1,59 @@
-﻿using Clinique2000_Core.Models;
-using Clinique2000_DataAccess.Data;
-using Clinique2000_Services.IServices;
-using Clinique2000_Utility.Enum;
-using MessagePack.Formatters;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Clinique2000_DataAccess.Data;
+using Clinique2000_Services.IServices;
+using Clinique2000_Core.Models;
+using Microsoft.EntityFrameworkCore;
+using Clinique2000_Utility.Enum;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinique2000_Services.Services
 {
-    public class ConsultationService:ServiceBaseAsync<Consultation>, IConsultationService
+    public class ConsultationService : ServiceBaseAsync<Consultation>, IConsultationService
     {
-
         private readonly CliniqueDbContext _context;
+        private readonly IPatientService _patientService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ConsultationService(CliniqueDbContext context):base(context)
+        public ConsultationService(CliniqueDbContext context, IPatientService patientService, IHttpContextAccessor httpContextAccessor) : base(context)
         {
             _context = context;
+            _patientService = patientService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-
-
-
-
-
-        public async Task ReserverConsultationAsync(int patientId, Consultation consultation)
+        /// <summary>
+        /// Réserve une consultation pour un patient.
+        /// </summary>
+        /// <param name="consultation">La consultation à réserver.</param>
+        /// <exception cref="ValidationException">En cas d'échec des vérifications.</exception>
+        public async Task ReserverConsultationAsync(Consultation consultation)
         {
-            // recuperer les objets plagehoraire, listeattente et consultation reliés a la consultation en question
-            var tuple = GetPlageHoraireEtListeAttenteParConsultationIdAsync(consultation.ConsultationID);
-            PlageHoraire plagehoraire = tuple.Result.Item1;
-            ListeAttente listeattente = tuple.Result.Item2;
-
-            //On verifie que la liste d'Attente est ouverte
-            if (VerifierPlageHoraireValideEtListeAttenteOuverte(consultation.ConsultationID) == false)
+            var patientId = await ObtenirPatientId();
+            // Vérifier si le patient a déjà une consultation planifiée
+            if (await PatientAConsultationPlanifiee(patientId))
             {
-                throw new ValidationException("Plage horaire non disponible ou liste d'attente fermée.");
+                throw new ValidationException("Le patient a déjà une consultation planifiée.");
             }
 
-            // Vérifier si le patient a déjà une consultation active
-            if (VerifierSiPatientAdejaConsultationEnAttente(patientId) == false)
+            if (!await ListeAttenteEstOuverte(consultation.ConsultationID))
             {
-                throw new ValidationException("Vous possédez une consultation en attente, veuillez annuler celle-ci pour en demander une nouvelle.");
+                throw new ValidationException("La liste d'attente est fermée.");
             }
-            else
 
-
-                // Réserver la consultation
-                consultation.StatutConsultation = StatutConsultation.EnAttente;
-                consultation.PatientID = patientId;
-                consultation.HeureDateDebutPrevue = plagehoraire.HeureDebut;
-                consultation.HeureDateFinPrevue = plagehoraire.HeureFin;
-                consultation.StatutConsultation = StatutConsultation.EnAttente;
-                
-
-
-
+            consultation.PatientID = patientId;
+            consultation.StatutConsultation = StatutConsultation.EnAttente;
 
             _context.Consultations.Update(consultation);
             await _context.SaveChangesAsync();
-
-           
         }
-
-
-
-
-
 
         /// <summary>
         /// Récupère de manière asynchrone la plage horaire et la liste d'attente associées à un identifiant de consultation donné.
@@ -81,17 +63,13 @@ namespace Clinique2000_Services.Services
         /// <returns>Un tuple contenant les objets PlageHoraire et ListeAttente associés.</returns>
         public async Task<(PlageHoraire, ListeAttente)> GetPlageHoraireEtListeAttenteParConsultationIdAsync(int consultationId)
         {
-
-
-
             if (consultationId == null)
             {
                 throw new ValidationException("Consultation introuvable.");
             }
 
-            
             Consultation consultationn = await _context.Consultations.FindAsync(consultationId);
-           
+
             var plageHoraire = await _context.PlagesHoraires.FindAsync(consultationn.PlageHoraireID);
             if (plageHoraire == null)
             {
@@ -108,49 +86,45 @@ namespace Clinique2000_Services.Services
         }
 
         /// <summary>
-        /// Cette methode prend une consultationId et un patientID en parametre afin de déterminer si le patient a deja une consultation en attente.
-        /// Si c'est le cas, une erreur de validation est envoyee, sinon, il est elligible pour demander une consultation.
+        /// Vérifie si la liste d'attente est ouverte pour une consultation donnée.
         /// </summary>
-        /// <param name="consultationId"></param>
-        /// <param name="patientID"></param>
-        /// <returns></returns>
-        /// <exception cref="ValidationException"></exception>
-        public bool VerifierSiPatientAdejaConsultationEnAttente(int patientID)
+        /// <param name="consultationId">L'identifiant de la consultation.</param>
+        /// <returns>true si la liste d'attente est ouverte, sinon false.</returns>
+        public async Task<bool> ListeAttenteEstOuverte(int consultationId)
         {
+            var tuple = await GetPlageHoraireEtListeAttenteParConsultationIdAsync(consultationId);
+            ListeAttente listeAttente = tuple.Item2;
 
-            return _context.Consultations.Any(c => c.PatientID == patientID && c.StatutConsultation == StatutConsultation.EnAttente)
-                ? true
-                : false;
+            // Vérifie si la liste d'attente est ouverte
+            return listeAttente != null && listeAttente.IsOuverte;
         }
 
+        private async Task<int> ObtenirPatientId()
+        {
+            var userId = GetUserId();
+            return await GetPatientIdFromUserId(userId);
+        }
+
+        private string GetUserId()
+        {
+            return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        }
+
+        private async Task<int> GetPatientIdFromUserId(string userId)
+        {
+            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
+            return patient?.PatientId ?? 0; // Retourne 0 ou un ID de patient valide
+        }
 
         /// <summary>
-        /// Cette methode verifie que la liste d'attente dans laquelle l'utilisateur essaie de reserver une consultation est ouverte,
-        /// et que la plageHoraire choisie est pas null
+        /// Vérifie si un patient a une consultation planifiée en attente.
         /// </summary>
-        /// <param name="plageHoraireId"></param>
-        /// <param name="listeattenteId"></param>
-        /// <returns> false et ue erreur de validation, ou true</returns>
-        /// <exception cref="ValidationException"></exception>
-        public bool VerifierPlageHoraireValideEtListeAttenteOuverte(int ConsultationID)
+        /// <param name="patientId">L'identifiant du patient.</param>
+        /// <returns>true si le patient a une consultation planifiée en attente, sinon false.</returns>
+        public async Task<bool> PatientAConsultationPlanifiee(int patientId)
         {
-
-            var tuple = GetPlageHoraireEtListeAttenteParConsultationIdAsync(ConsultationID);
-            PlageHoraire plagehoraire = tuple.Result.Item1;
-            ListeAttente listeattente = tuple.Result.Item2;
-
-            return (plagehoraire == null || listeattente.IsOuverte == false)
-                ?  false
-                : true;
-
+            return await _context.Consultations
+                .AnyAsync(c => c.PatientID == patientId && c.StatutConsultation == StatutConsultation.EnAttente);
         }
-
-
-
-
-
-
-
-
     }
 }
