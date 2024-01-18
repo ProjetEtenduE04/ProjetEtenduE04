@@ -30,35 +30,25 @@ namespace Clinique2000_Services.Services
 
 
 
-        public async Task ReserverConsultationAsync(int patientId, int ConsultationId)
+        public async Task ReserverConsultationAsync(int patientId, Consultation consultation)
         {
             // recuperer les objets plagehoraire, listeattente et consultation reliés a la consultation en question
-            var consultation = await _context.Consultations.FindAsync(ConsultationId);
-            var tuple = GetPlageHoraireEtListeAttenteParConsultationIdAsync(ConsultationId);
+            var tuple = GetPlageHoraireEtListeAttenteParConsultationIdAsync(consultation.ConsultationID);
             PlageHoraire plagehoraire = tuple.Result.Item1;
             ListeAttente listeattente = tuple.Result.Item2;
 
             //On verifie que la liste d'Attente est ouverte
-            if (VerifierPlageHoraireValideEtListeAttenteOuverte(ConsultationId) == false)
+            if (VerifierPlageHoraireValideEtListeAttenteOuverte(consultation.ConsultationID) == false)
             {
                 throw new ValidationException("Plage horaire non disponible ou liste d'attente fermée.");
             }
 
             // Vérifier si le patient a déjà une consultation active
-            if (VerifierSiPatientAdejaConsultationEnAttente(ConsultationId, patientId) == false)
+            if (VerifierSiPatientAdejaConsultationEnAttente(patientId) == false)
             {
                 throw new ValidationException("Vous possédez une consultation en attente, veuillez annuler celle-ci pour en demander une nouvelle.");
             }
             else
-
-                //// Réserver la consultation
-                //consultation = Consultation
-                //{
-                //    PatientID = patientId,
-                //    PlageHoraireID = plageHoraireId,
-                //    StatutConsultation = StatutConsultation.EnAttente,
-                //    //MedecinID = 1,
-                //};
 
 
                 // Réserver la consultation
@@ -67,7 +57,7 @@ namespace Clinique2000_Services.Services
                 consultation.HeureDateDebutPrevue = plagehoraire.HeureDebut;
                 consultation.HeureDateFinPrevue = plagehoraire.HeureFin;
                 consultation.StatutConsultation = StatutConsultation.EnAttente;
-                consultation.PlageHoraireID = plagehoraire.PlageHoraireID;
+                
 
 
 
@@ -91,13 +81,18 @@ namespace Clinique2000_Services.Services
         /// <returns>Un tuple contenant les objets PlageHoraire et ListeAttente associés.</returns>
         public async Task<(PlageHoraire, ListeAttente)> GetPlageHoraireEtListeAttenteParConsultationIdAsync(int consultationId)
         {
-            var consultation = await _context.Consultations.FindAsync(consultationId);
-            if (consultation == null)
+
+
+
+            if (consultationId == null)
             {
                 throw new ValidationException("Consultation introuvable.");
             }
 
-            var plageHoraire = await _context.PlagesHoraires.FindAsync(consultation.PlageHoraireID);
+            
+            Consultation consultationn = await _context.Consultations.FindAsync(consultationId);
+           
+            var plageHoraire = await _context.PlagesHoraires.FindAsync(consultationn.PlageHoraireID);
             if (plageHoraire == null)
             {
                 throw new ValidationException("Plage horaire non trouvée.");
@@ -120,7 +115,7 @@ namespace Clinique2000_Services.Services
         /// <param name="patientID"></param>
         /// <returns></returns>
         /// <exception cref="ValidationException"></exception>
-        public bool VerifierSiPatientAdejaConsultationEnAttente(int consultationId, int patientID)
+        public bool VerifierSiPatientAdejaConsultationEnAttente(int patientID)
         {
 
             return _context.Consultations.Any(c => c.PatientID == patientID && c.StatutConsultation == StatutConsultation.EnAttente)

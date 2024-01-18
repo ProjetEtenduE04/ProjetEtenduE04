@@ -39,7 +39,7 @@ namespace Clinique2000_Core.Models
         //proprietes de navigation
         [ValidateNever]
         [ForeignKey("PlageHoraire")]
-        public int PlageHoraireID { get; set; }
+        public int? PlageHoraireID { get; set; }
         public virtual PlageHoraire  PlageHorarie { get; set; }
 
         [ValidateNever]
