@@ -25,6 +25,11 @@ namespace Clinique2000_Services.Services
             _context = context;
         }
 
+
+
+
+
+
         public async Task ReserverConsultationAsync(int patientId, int ConsultationId)
         {
             // recuperer les objets plagehoraire, listeattente et consultation reliés a la consultation en question
@@ -32,7 +37,6 @@ namespace Clinique2000_Services.Services
             var tuple = GetPlageHoraireEtListeAttenteParConsultationIdAsync(ConsultationId);
             PlageHoraire plagehoraire = tuple.Result.Item1;
             ListeAttente listeattente = tuple.Result.Item2;
-
 
             //On verifie que la liste d'Attente est ouverte
             if (VerifierPlageHoraireValideEtListeAttenteOuverte(ConsultationId) == false)
@@ -59,9 +63,11 @@ namespace Clinique2000_Services.Services
 
                 // Réserver la consultation
                 consultation.StatutConsultation = StatutConsultation.EnAttente;
-            consultation.PatientID = patientId;
-            consultation.Patient = await _context.Patients.FindAsync(patientId);
-
+                consultation.PatientID = patientId;
+                consultation.HeureDateDebutPrevue = plagehoraire.HeureDebut;
+                consultation.HeureDateFinPrevue = plagehoraire.HeureFin;
+                consultation.StatutConsultation = StatutConsultation.EnAttente;
+                consultation.PlageHoraireID = plagehoraire.PlageHoraireID;
 
 
 
