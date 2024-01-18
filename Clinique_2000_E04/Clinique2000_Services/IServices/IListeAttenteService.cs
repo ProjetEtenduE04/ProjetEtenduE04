@@ -22,6 +22,7 @@ namespace Clinique2000_Services.IServices
         Task<ListeAttente> ModifierListeAttenteAsync(ListeAttente listeAttente);
         Task SupprimmerListeAttente(ListeAttente listeAttente);
         bool PeutSupprimmer(ListeAttente listeAttente);
+       
 
 
     }

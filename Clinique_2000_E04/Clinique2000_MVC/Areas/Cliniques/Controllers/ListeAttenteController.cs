@@ -252,11 +252,25 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
             return NotFound();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ReserverConsultation(int id)
+        {
+            try
+            {
+                // Call the ReserverConsultationAsync method from your service
+                await _services.consultation.ReserverConsultationAsync(id);
 
-
-
-
-       
+                // If the reservation is successful, you can redirect to a success page or perform other actions
+                return RedirectToAction("ReservationSuccess"); // Replace with your success action
+            }
+            catch (ValidationException ex)
+            {
+                // Handle validation errors, e.g., show an error message to the user
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(); // Return to the same view with validation errors
+            }
+        }
 
 
 
