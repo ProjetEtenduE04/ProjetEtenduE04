@@ -63,44 +63,38 @@
             &copy; 2023 - Clinique2000_MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>*@
-    <footer class="border-top footer text-muted" style="margin-top:30px;">
+    <footer class="border-top footer text-muted">
         <section class="footer-col">
             <div>
-                <a asp-controller="Home" asp-action="Index">CLINIQUE2000 @* <img src="~/Images/Logo.png" alt="logo footer" class="logo"> *@</a>
+                <a id="clinque" asp-controller="Home" asp-action="Index">CLINIQUE2000 @* <img src="~/Images/Logo.png" alt="logo footer" class="logo"> *@</a>
             </div>
             <div>
                 <h5 class="">Liens Rapides</h5>
-                <ul class="mb-3 px-3 footer-links white-link">
-                    <a class="p1 " asp-controller="#" asp-action="#">Page d'accueil</a>
-                    <a class="p1 " asp-controller="#" asp-action="#">Lorem Ipsum</a>
-                    <a class="p1 " asp-controller="#" asp-action="#">Lorem Ipsum</a>
-                    <a class="p1 " asp-controller="#" asp-action="Privacy">Privacy</a>
+                <ul class="mb-3 px-1 footer-links white-link">
+                   <li><a class="p1 " asp-controller="#" asp-action="#">Page d'accueil</a><li/>
+                    <li><a class="p1 " asp-controller="#" asp-action="#">Lorem Ipsum</a><li/>
+                    <li><a class="p1 " asp-controller="#" asp-action="#">Lorem Ipsum</a><li/>
+                    <li><a class="p1 " asp-controller="#" asp-action="Privacy">Privacy</a><li/>
                 </ul>
             </div>
-            <div id="col-liensRapides">
-                <h5 class="">Nous Joindre</h5>
-                <p class="p2">
+            <div id="col-nousjoindre" >
+                <h5>Nous Joindre</h5>
+                <div>
                     <i class="fa-solid fa-location-dot fa-xl icons-rs"></i>
-                    @*  Adresse <br>
-                    <p class="ps-5"> *@
                     945 Ch. de Chambly,
                     Longueuil, J4H 3M6
-                    @* </p> *@
-                </p>
-                <p class="p2">
+
+                </div>
+               <div>
                     <i class="fa-solid fa-envelope fa-xl icons-rs"></i>
-                    @* Contact <br>
-                    <p class="ps-5"> *@
                     office@clinique.ca
-                    @*  </p>
-                    </p> *@
-                <p class="p2">
-                    <span class="mb-0"><i class="fa-solid fa-calendar fa-xl icons-rs"></i></span>
-                        @*   Rendez-vous <br>
-                    <p class="ps-5"> *@
+
+                </div>
+
+                <div>
+                    <span><i class="fa-solid fa-calendar fa-xl icons-rs"></i></span>
                     rdv@clinique.ca
-                        @* </p>
-                    </p> *@
+                </div>  
             </div>
             <div id="col-social">
                 <a href="https://www.facebook.com/"><i class="fab fa-facebook fa-2x "></i></a>
@@ -108,7 +102,7 @@
                 <a href="https://www.Instagram.com/"><i class="fa-brands fa-instagram fa-2x"></i></a>
             </div>
         </section>
-        @*  <hr id="footer-hr"/> *@
+       
         <section id="copyright">
             <div class="copyright-content py-2">
                 Copyright &copy; 2024 Clinique2000 <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
