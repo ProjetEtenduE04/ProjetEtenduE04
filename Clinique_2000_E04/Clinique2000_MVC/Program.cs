@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-
+using Clinique2000_MVC.Areas.Clinique.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 //DbContext
@@ -46,6 +46,10 @@ builder.Services.AddScoped<IClinique2000Services, Clinique2000Services>();
 builder.Services.AddScoped<IListeAttenteService, ListeAttenteService>();
 builder.Services.AddScoped<IAuthenGoogleService, AuthenGoogleService>();
 builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
+
+builder.Services.AddScoped<ICliniqueService, CliniqueService>();
+
+
 #endregion
 
 var app = builder.Build();
