@@ -32,18 +32,27 @@ namespace Clinique2000_Services.Services
         /// <summary>
         /// Réserve une consultation pour un patient.
         /// </summary>
-        /// <param name="consultation">La consultation à réserver.</param>
+        /// <param name="consultationId">L'identifiant de la consultation à réserver.</param>
         /// <exception cref="ValidationException">En cas d'échec des vérifications.</exception>
-        public async Task ReserverConsultationAsync(Consultation consultation)
+        public async Task ReserverConsultationAsync(int consultationId)
         {
+            // Retrieve the existing consultation from the database
+            var consultation = await _context.Consultations.FindAsync(consultationId);
+
+            if (consultation == null)
+            {
+                throw new ValidationException("Consultation introuvable.");
+            }
+
             var patientId = await ObtenirPatientId();
+
             // Vérifier si le patient a déjà une consultation planifiée
             if (await PatientAConsultationPlanifiee(patientId))
             {
                 throw new ValidationException("Le patient a déjà une consultation planifiée.");
             }
 
-            if (!await ListeAttenteEstOuverte(consultation.ConsultationID))
+            if (!await ListeAttenteEstOuverte(consultationId))
             {
                 throw new ValidationException("La liste d'attente est fermée.");
             }
@@ -51,7 +60,6 @@ namespace Clinique2000_Services.Services
             consultation.PatientID = patientId;
             consultation.StatutConsultation = StatutConsultation.EnAttente;
 
-            _context.Consultations.Update(consultation);
             await _context.SaveChangesAsync();
         }
 
@@ -126,5 +134,7 @@ namespace Clinique2000_Services.Services
             return await _context.Consultations
                 .AnyAsync(c => c.PatientID == patientId && c.StatutConsultation == StatutConsultation.EnAttente);
         }
+
+    
     }
 }

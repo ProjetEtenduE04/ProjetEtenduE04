@@ -134,6 +134,9 @@ namespace Clinique2000_Services.Services
 
 
 
+
+
+
         public bool VerifierSiListeAttenteEstCree(ListeAttente listeAttente)
         {
             return _context.ListeAttentes.Any(l => l.DateEffectivite == listeAttente.DateEffectivite && l.CliniqueID == listeAttente.CliniqueID)
@@ -209,6 +212,10 @@ namespace Clinique2000_Services.Services
             await _context.SaveChangesAsync();
 
         }
+
+
+
+
 
 
     }
