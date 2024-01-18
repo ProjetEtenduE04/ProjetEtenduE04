@@ -1,5 +1,5 @@
 using Clinique2000_Core.Models;
-using Clinique2000_MVC.Areas.Clinique.Controllers;
+using Clinique2000_MVC.Areas.Cliniques.Controllers;
 using Clinique2000_MVC.Controllers;
 using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Mvc;
