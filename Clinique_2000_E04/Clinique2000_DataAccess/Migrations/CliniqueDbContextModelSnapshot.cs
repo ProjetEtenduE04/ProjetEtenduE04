@@ -143,8 +143,8 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.Property<string>("NAM")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
 
                     b.Property<string>("Nom")
                         .IsRequired()

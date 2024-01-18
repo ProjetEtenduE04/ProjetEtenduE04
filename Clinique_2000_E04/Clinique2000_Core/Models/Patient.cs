@@ -28,8 +28,8 @@ namespace Clinique2000_Core.Models
         public string? Genre { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        [RegularExpression(@"^[A-Za-z]{4}\d{8}$", ErrorMessage = "Le format NAM n'est pas valide.(Ex:ABCD12345678)")]
-        [StringLength(12, ErrorMessage = "Ce champ doit avoir au maximum 12 caractères.")]
+        [RegularExpression(@"^[A-Z]{4} \d{4} \d{4}$", ErrorMessage = "Le format NAM n'est pas valide.(Ex:ABCD 1234 5678)")]
+        [StringLength(14, ErrorMessage = "Ce champ doit avoir au maximum 12 caractères.")]
         public string NAM { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]

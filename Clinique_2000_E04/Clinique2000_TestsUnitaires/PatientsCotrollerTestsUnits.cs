@@ -256,23 +256,25 @@ namespace Clinique2000_TestsUnitaires
             Assert.Equal("Index", redirectToActionResult.ActionName);
         }
 
-        ///// <summary>
-        ///// Teste si la méthode Edit (POST) redirige vers l'Index lorsque ModelState est valide.
-        ///// </summary>
-        //[Fact]
-        //public async Task Edit_Post_ModelStateValid_RedirectsToIndex()
-        //{
-        //    // Arrange
-        //    var patient = _patientsList.FirstOrDefault();
+        /// <summary>
+        /// Teste si la méthode Edit (POST) redirige vers l'Index lorsque ModelState est valide.
+        /// </summary>
+        [Fact]
+        public async Task Edit_Post_ModelStateValid_RedirectsToIndex()
+        {
+            // Arrange
+            var patient = _patientsList.FirstOrDefault();
 
-        //    // Act
-        //    var result = await _patientsController.Edit(1, patient);
+            _servicesMock.Setup(service => service.patient.EnregistrerOuModifierPatient(patient)).ReturnsAsync(patient);
 
-        //    // Assert
-        //    var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-        //    Assert.Equal("Index", redirectToActionResult.ActionName);
-        //    _servicesMock.Verify(service => service.patient.EnregistrerOuModifierPatient(patient), Times.Once);
-        //}
+            // Act
+            var result = await _patientsController.Edit(1, patient);
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+            _servicesMock.Verify(service => service.patient.EnregistrerOuModifierPatient(patient), Times.Once);
+        }
 
         /// <summary>
         /// Teste si la méthode Edit (POST) retourne une vue avec le patient initial lorsque ModelState est invalide.

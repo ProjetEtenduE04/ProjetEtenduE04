@@ -21,7 +21,8 @@ $(document).ready(function () {
     // définir un modèle de code postal
     $('#CodePostal').inputmask('A9A 9A9');
     // définir un modèle de Numar de asigurare medicala
-    $('#NAM').inputmask('AAAA99999999');
+/*    $('#nam').inputmask('aaaa 9999 9999', { "onfocusout": function () { alert('le format nam n\'est pas valide.(ex:abcd 1234 5678)'); } });*/
+    $('#NAM').inputmask('AAAA 9999 9999');
 
     //Fonction qui modifie la première lettre en majuscule de la valeur d'entrée
     $('.capitalize-first-letter').on('input', function () {
