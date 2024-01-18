@@ -139,12 +139,9 @@ namespace Clinique2000_Services.Services
             PlageHoraire plagehoraire = tuple.Result.Item1;
             ListeAttente listeattente = tuple.Result.Item2;
 
-            if (plagehoraire == null || listeattente.IsOuverte == false)
-            {
-                return false;
-            }
-            else
-                return true;
+            return (plagehoraire == null || listeattente.IsOuverte == false)
+                ?  false
+                : true;
 
         }
 
