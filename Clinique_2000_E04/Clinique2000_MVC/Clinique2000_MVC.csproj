@@ -48,8 +48,8 @@
     <Folder Include="Areas\Patients\Data\" />
     <Folder Include="Areas\Patients\Models\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Areas\Clinique\Data\" />
-    <Folder Include="Areas\Clinique\Models\" />
+    <Folder Include="Areas\Cliniques\Data\" />
+    <Folder Include="Areas\Cliniques\Models\" />
   </ItemGroup>
 
   <ItemGroup>
