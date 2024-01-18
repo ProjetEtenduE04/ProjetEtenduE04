@@ -46,6 +46,7 @@ builder.Services.AddScoped<IClinique2000Services, Clinique2000Services>();
 builder.Services.AddScoped<IListeAttenteService, ListeAttenteService>();
 builder.Services.AddScoped<IAuthenGoogleService, AuthenGoogleService>();
 builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
+builder.Services.AddScoped<IConsultationService, ConsultationService>();
 #endregion
 
 var app = builder.Build();
