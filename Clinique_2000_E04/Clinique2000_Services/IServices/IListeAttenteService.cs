@@ -18,7 +18,6 @@ namespace Clinique2000_Services.IServices
         bool VerifierSiNbMedecinsDisponibles(ListeAttente listeAttente);
         bool VerifierSiHeureOuvertureValide(ListeAttente listeAttente);
         bool VerifierSiDateEffectiviteValide(ListeAttente listeAttente);
-        Task ReserverConsultation(Consultation consultation, Patient patient);
 
         Task<ListeAttente> ModifierListeAttenteAsync(ListeAttente listeAttente);
 
