@@ -9,12 +9,10 @@ namespace Clinique2000_Services.IServices
 {
     public interface IConsultationService:IServiceBaseAsync<Consultation>
     {
-        //public bool IsClinicQueueOpen(int cliniqueId);
+        Task ReserverConsultationAsync(int patientId, Consultation consultation);
+        Task<(PlageHoraire, ListeAttente)> GetPlageHoraireEtListeAttenteParConsultationIdAsync(int consultationId);
+        bool VerifierSiPatientAdejaConsultationEnAttente(int patientID);
 
-        //public bool HasActiveConsultation(int patientId);
-
-        //public string ValidateConsultationRequestForm(Consultation consultation);
-
-        //Task<Consultation> CreateConsultationRequest(Consultation consultation);
+        bool VerifierPlageHoraireValideEtListeAttenteOuverte(int ConsultationID);
     }
 }
