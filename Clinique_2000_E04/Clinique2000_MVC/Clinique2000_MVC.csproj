@@ -48,6 +48,7 @@
   <ItemGroup>
     <Folder Include="Areas\Patients\Data\" />
     <Folder Include="Areas\Patients\Models\" />
+    <Folder Include="Areas\Patients\Views\Shared\" />
     <Folder Include="Controllers\" />
     <Folder Include="Areas\Cliniques\Data\" />
     <Folder Include="Areas\Cliniques\Models\" />
