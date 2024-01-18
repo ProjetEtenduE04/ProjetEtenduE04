@@ -31,13 +31,13 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         /// <returns></returns>
         public async Task<ActionResult> Index()
         {
-            DateTime now = DateTime.Now;
+            DateTime now = DateTime.Now.Date;
 
             IList<ListeAttente> listListAttente = await _services.listeAttente
                 .ObtenirToutAsync();
 
 
-            listListAttente = listListAttente.Where(x => x.DateEffectivite.AddDays(-1) >= now)
+            listListAttente = listListAttente.Where(x => x.DateEffectivite >= now)
                 .OrderBy(x => x.DateEffectivite)
                 .ToList();
                 
@@ -246,16 +246,7 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
 
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ReserverConsultation(Patient patient, Consultation consultation)
-        {
-            _services.listeAttente.ReserverConsultation(consultation, patient);
-            return RedirectToAction("Details", consultation);
-        }
-
-
-
+       
 
 
 

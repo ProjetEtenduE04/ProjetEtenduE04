@@ -20,9 +20,7 @@ namespace Clinique2000_Services.IServices
         bool VerifierSiDateEffectiviteValide(ListeAttente listeAttente);
 
         Task<ListeAttente> ModifierListeAttenteAsync(ListeAttente listeAttente);
-
         Task SupprimmerListeAttente(ListeAttente listeAttente);
-
         bool PeutSupprimmer(ListeAttente listeAttente);
 
 
