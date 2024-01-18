@@ -14,6 +14,11 @@ namespace Clinique2000_Core.Models
         public int AdresseID { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [StringLength(10, MinimumLength = 1, ErrorMessage = "Ce champ doit avoir entre 1 et 10 caractères.")]
+        [Display(Name = "Numéro")]
+        public string? Numero { get; set; }
+
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [StringLength(25, MinimumLength = 3, ErrorMessage = "Ce champ doit avoir entre 3 et 25 caractères.")]
         [Display(Name = "Rue")]
         public string Rue { get; set; }
@@ -26,12 +31,12 @@ namespace Clinique2000_Core.Models
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [StringLength(25, MinimumLength = 3, ErrorMessage = "Ce champ doit avoir entre 3 et 25 caractères.")]
         [Display(Name = "Province")]
-        public string Province { get; set; }
+        public string? Province { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [StringLength(25, MinimumLength = 3, ErrorMessage = "Ce champ doit avoir entre 3 et 25 caractères.")]
         [Display(Name = "Pays")]
-        public string Pays { get; set; }
+        public string? Pays { get; set; }
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [RegularExpression(@"^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$", ErrorMessage = "Le format du code postal n'est pas valide (Ex: A1A 1A1).")]

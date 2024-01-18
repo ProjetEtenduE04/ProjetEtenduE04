@@ -23,7 +23,9 @@ namespace Clinique2000_DataAccess.Data
                    HeureFermeture = new TimeSpan(17, 0, 0),
                    TempsMoyenConsultation = 30,
                    EstActive = true,
-                   AdresseID = 1
+                   AdresseID = 1,
+                   CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
+                   
                },
                new Clinique()
                {
@@ -34,7 +36,8 @@ namespace Clinique2000_DataAccess.Data
                    HeureFermeture = new TimeSpan(17, 0, 0),
                    TempsMoyenConsultation = 30,
                    EstActive = true,
-                   AdresseID = 2
+                   AdresseID = 2,
+                   CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
                }
 
             );
@@ -45,7 +48,8 @@ namespace Clinique2000_DataAccess.Data
                 new Adresse()
                 {
                     AdresseID = 1,
-                    Rue = "123 rue de la clinique",
+                    Numero = "7-756",
+                    Rue = "rue de la Clinique",
                     Ville = "Montréal",
                     Province = "Québec",
                     Pays = "Canada",
@@ -54,7 +58,8 @@ namespace Clinique2000_DataAccess.Data
                 new Adresse()
                 {
                     AdresseID = 2,
-                    Rue = "777 rue de la Cegep",
+                    Numero = "2-66",
+                    Rue = "rue de la Cegep",
                     Ville = "Longueuil",
                     Province = "Québec",
                     Pays = "Canada",
@@ -63,6 +68,16 @@ namespace Clinique2000_DataAccess.Data
             );
 
             #endregion
+            builder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser()
+                {
+                    Id = "7cc96785-8933-4eac-8d7f-a289b28df222",
+                    UserName = "bitcav@gmail.com",
+                    NormalizedUserName = "ALEX",
+                    Email = "bitcav@gmail.com",
+                    NormalizedEmail = "BITCAV@GMAIL.COM",
+                    EmailConfirmed = true,
+                });
         }
     }
 }

@@ -1,0 +1,97 @@
+﻿@model CliniqueAdresseVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Clinique</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Propriétés pour Clinique -->
+            <!--region input Hidden-->
+            <input asp-for=Clinique.CreateurID class="form-control" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Clinique.NomClinique" class="control-label"></label>
+                <input asp-for="Clinique.NomClinique" class="form-control" />
+                <span asp-validation-for="Clinique.NomClinique" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clinique.Courriel" class="control-label"></label>
+                <input asp-for="Clinique.Courriel" class="form-control" />
+                <span asp-validation-for="Clinique.Courriel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clinique.HeureOuverture" class="control-label"></label>
+                <input asp-for="Clinique.HeureOuverture" class="form-control" />
+                <span asp-validation-for="Clinique.HeureOuverture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clinique.HeureFermeture" class="control-label"></label>
+                <input asp-for="Clinique.HeureFermeture" class="form-control" />
+                <span asp-validation-for="Clinique.HeureFermeture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clinique.TempsMoyenConsultation" class="control-label"></label>
+                <input asp-for="Clinique.TempsMoyenConsultation" class="form-control" />
+                <span asp-validation-for="Clinique.TempsMoyenConsultation" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Clinique.EstActive" /> @Html.DisplayNameFor(model => model.Clinique.EstActive)
+                </label>
+            </div>
+
+            <h4>Adresse</h4>
+            <hr />
+            <!-- Propriétés pour Adresse -->
+            <div class="form-group">
+                <label asp-for="Adresse.Numero" class="control-label"></label>
+                <input asp-for="Adresse.Numero" class="form-control" />
+                <span asp-validation-for="Adresse.Numero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adresse.Rue" class="control-label"></label>
+                <input asp-for="Adresse.Rue" class="form-control" />
+                <span asp-validation-for="Adresse.Rue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adresse.Ville" class="control-label"></label>
+                <input asp-for="Adresse.Ville" class="form-control" />
+                <span asp-validation-for="Adresse.Ville" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adresse.Province" class="control-label"></label>
+                <input asp-for="Adresse.Province" class="form-control" />
+                <span asp-validation-for="Adresse.Province" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adresse.Pays" class="control-label"></label>
+                <input asp-for="Adresse.Pays" class="form-control" />
+                <span asp-validation-for="Adresse.Pays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adresse.CodePostal" class="control-label"></label>
+                <input asp-for="Adresse.CodePostal" class="form-control" />
+                <span asp-validation-for="Adresse.CodePostal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,17 +39,31 @@ namespace Clinique2000_Core.Models
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         public  int TempsMoyenConsultation { get; set; }
 
-        [Display(Name = "Est Active")]
+        [Display(Name = "Est Aactive")]
         public bool EstActive { get; set; } = false;
+
+        [Display(Name = "Date de Création")]
+        [DataType(DataType.DateTime)]
+        public DateTime? DateCreation { get; set; } = DateTime.Now;
+
+        [Display(Name = "Date de Modification")]
+        [DataType(DataType.DateTime)]
+        public DateTime? DateModification { get; set; }
 
         [ValidateNever]
         public virtual List<ListeAttente>? ListeAttente { get; set; }
-
 
         [Display(Name = "Adresse")]
         public int AdresseID { get; set; }
 
         [ValidateNever]
         public virtual Adresse? Adresse { get; set; }
+
+        [ForeignKey("CreateurID")]
+        public string CreateurID { get; set; }
+
+        [ValidateNever]
+        public virtual ApplicationUser Createur { get; set; }
+
     }
 }

@@ -1,20 +1,32 @@
 ﻿using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
+using Clinique2000_Services.IServices;
 using Google;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
+    [Area("Cliniques")]
     public class CliniquesController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
+        public IClinique2000Services _services { get; set; }
         private readonly CliniqueDbContext _context;
 
-        public CliniquesController(CliniqueDbContext context)
+        public CliniquesController(
+            IClinique2000Services service,
+            UserManager<IdentityUser> userManager,
+            CliniqueDbContext context
+            )
         {
+            _services = service;
+            _userManager = userManager;
             _context = context;
         }
 
@@ -45,27 +57,48 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         // GET: Cliniques/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["AdresseID"] = new SelectList(_context.Adresses, "AdresseID", "CodePostal");
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                string courriel = User.FindFirstValue(ClaimTypes.Email);
+                var user = await _userManager.FindByEmailAsync(courriel);
+
+                var cliniqueModel = new CliniqueAdresseVM() { 
+                    Clinique = new Clinique() 
+                    { 
+                        CreateurID = user.Id} 
+                    };
+
+                    return View(cliniqueModel);
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Cliniques/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CliniqueID,NomClinique,Courriel,HeureOuverture,HeureFermeture,TempsMoyenConsultation,EstActive,AdresseID")] Clinique clinique)
+        public IActionResult Create(CliniqueAdresseVM viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(clinique);
-                await _context.SaveChangesAsync();
+                var clinique = viewModel.Clinique;
+                var adresse = viewModel.Adresse;
+
+                _context.Adresses.Add(adresse);
+                _context.SaveChanges();
+
+                clinique.AdresseID = adresse.AdresseID;
+                clinique.Adresse = adresse;
+                _context.Cliniques.Add(clinique);
+                ;
+                _context.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AdresseID"] = new SelectList(_context.Adresses, "AdresseID", "CodePostal", clinique.AdresseID);
-            return View(clinique);
+
+            return View(viewModel);
         }
 
 
