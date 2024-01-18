@@ -24,21 +24,21 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
 
         
         /// <summary>
-        /// Obtient tout les listes d'Attente ordered par date d'effectivité ,
+        /// Obtient tout les listes d'Attente ordered par date d'effectivitï¿½ ,
         /// qui sont pertinantes a la receptionniste
         /// , puis les renvoie a la vue.
         /// </summary>
         /// <returns></returns>
         public async Task<ActionResult> Index()
         {
-            DateTime now = DateTime.Now;
+            DateTime now = DateTime.Now.Date;
 
             IList<ListeAttente> listListAttente = await _services.listeAttente
                 .ObtenirToutAsync();
 
 
             listListAttente = listListAttente.Where(x => x.DateEffectivite >= now)
-                .OrderBy(x => x.DateEffectivite.Date)
+                .OrderBy(x => x.DateEffectivite)
                 .ToList();
                 
 
@@ -103,7 +103,7 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
                 {
                     listeAttente.CliniqueID = 1;
                     await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
-                    //valeur hardcodé
+                    //valeur hardcodï¿½
                   
 
 
@@ -152,7 +152,7 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //hardcodé
+                    //hardcodï¿½
                     listeAttente.CliniqueID = 1;
 
 
@@ -255,16 +255,7 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
 
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ReserverConsultation(Patient patient, Consultation consultation)
-        {
-            _services.listeAttente.ReserverConsultation(consultation, patient);
-            return RedirectToAction("Details", consultation);
-        }
-
-
-
+       
 
 
 
