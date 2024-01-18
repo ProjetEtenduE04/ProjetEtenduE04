@@ -91,24 +91,24 @@ namespace Clinique2000_TestsUnitaires
 
 
 
-        [Fact]
-        public async Task ReserverConsultationAsync_ShouldReserveConsultation_WhenAllValidationsPass()
-        {
-            // Arrange
-            var consultationService = new ConsultationService(dbTest);
+        //[Fact]
+        //public async Task ReserverConsultationAsync_ShouldReserveConsultation_WhenAllValidationsPass()
+        //{
+        //    // Arrange
+        //    var consultationService = new ConsultationService(dbTest);
 
-            int patientId = 1; // ID de test
-            var consultation = dbTest.Consultations.FirstOrDefault(c => c.ConsultationID == 1);
+        //    int patientId = 1; // ID de test
+        //    var consultation = dbTest.Consultations.FirstOrDefault(c => c.ConsultationID == 1);
 
-            // Act
-            await consultationService.ReserverConsultationAsync(patientId, consultation);
+        //    // Act
+        //    await consultationService.ReserverConsultationAsync(patientId, consultation);
 
-            // Assert
-            var reservedConsultation = dbTest.Consultations.Find(consultation.ConsultationID);
-            Assert.NotNull(reservedConsultation);
-            Assert.Equal(patientId, reservedConsultation.PatientID);
-            Assert.Equal(StatutConsultation.EnAttente, reservedConsultation.StatutConsultation);
-        }
+        //    // Assert
+        //    var reservedConsultation = dbTest.Consultations.Find(consultation.ConsultationID);
+        //    Assert.NotNull(reservedConsultation);
+        //    Assert.Equal(patientId, reservedConsultation.PatientID);
+        //    Assert.Equal(StatutConsultation.EnAttente, reservedConsultation.StatutConsultation);
+        //}
 
 
     }

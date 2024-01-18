@@ -16,6 +16,7 @@ namespace Clinique2000_Services.Services
         public PatientService(CliniqueDbContext context) : base(context)
         {
             _context = context;
+
         }
 
         /// <summary>
@@ -245,6 +246,22 @@ namespace Clinique2000_Services.Services
             return await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
         }
 
+
+
+
+        /// <summary>
+        /// Récupère l'ID du patient en fonction de l'identifiant de l'utilisateur.
+        /// </summary>
+        /// <param name="userId">L'identifiant de l'utilisateur associé au patient.</param>
+        /// <returns>L'ID du patient correspondant à l'identifiant de l'utilisateur, ou 0 si non trouvé.</returns>
+        public async Task<int> GetPatientIdFromUserIdAsync(string userId)
+        {
+            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
+            return patient?.PatientId ?? 0; // Retourne 0 si aucun patient n'est trouvé
+        }
+
+
+
         /// <summary>
         /// Représente l'âge d'une personne en années, mois et jours.
         /// </summary>
@@ -333,6 +350,10 @@ namespace Clinique2000_Services.Services
                 }
                 return this;
             }
+
+
+
+
         }
     }
 }
