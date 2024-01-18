@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Clinique2000_Core.Models.Consultation>
+
+@{
+    ViewData["Title"] = "Index de consultations";
+}
+
+<div class="container mt-5">
+    <main role="main" class="pb-3">
+        <div class="container-fluid">
+            <div style="padding-bottom:2%;" class="row justify-content-between align-items-center mb-3">
+                <div class="col">
+                    <h2>@ViewData["Title"]</h2>
+                </div>
+                <div class="col text-end" >
+                    <button class="btn btn-create"  onclick="location.href='@Url.Action("Create")'">Créer une liste d'attente</button>
+                    <i onclick="location.href='@Url.Action("HistoriqueListeAttentes")'" class="my-icon fa-solid fa-file fa-lg" style="padding-left:1%; margin-top:1%;"></i>
+                </div>
+            </div>
+
+            <div class="row">
+                @foreach (var liste in Model.Select((value, index) => new { Value = value, Index = index }))
+                {
+                    if (liste.Index % 3 == 0 && liste.Index != 0)
+                    {
+                        @:</div><div class="row mt-3">
+                    }
+
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                Toutes les consultations @Html.DisplayFor(model => liste.Value.ConsultationID)
+                            </div>
+                            <div class="card-body">
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.PlageHorarie)
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(model => liste.Value.PlageHorarie)
+                                </dd>
+
+                               @* <dt class="col-sm-4">
+                                    État
+                                </dt>
+                                <dd class="col-sm-8" style="color: @(liste.Value.StatutConsultation ? "green" : "red");">
+                                    @(liste.Value.IsOuverte ? "Ouverte" : "Fermée")
+                                </dd>*@
+                            </div>
+                            <div class="card-footer">
+                                @Html.ActionLink("Modifier", "Edit", new { id = liste.Value.ConsultationID }, new { @class = "btn-secondaire btn-sm" }) |
+                                @Html.ActionLink("Détails", "Details", new { id = liste.Value.ConsultationID }, new { @class = "btn-secondaire btn-sm" }) |
+                                @Html.ActionLink("Supprimer", "Delete", new { id = liste.Value.ConsultationID }, new { @class = "btn-supprimmer btn-sm" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </main>
+</div>
