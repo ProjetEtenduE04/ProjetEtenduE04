@@ -202,6 +202,7 @@ namespace Clinique2000_Services.Services
                         StatutConsultation = StatutConsultation.DisponiblePourReservation,
                         PlageHoraireID = plageHoraire.PlageHoraireID,
                         PatientID = null,
+                        ///Salle=i++;
 
                     };
                     _context.Consultations.Add(consultation);
