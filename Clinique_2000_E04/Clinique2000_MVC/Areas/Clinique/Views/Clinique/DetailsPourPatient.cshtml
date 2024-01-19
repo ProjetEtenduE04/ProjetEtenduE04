@@ -4,8 +4,8 @@
     ViewData["Title"] = "Details";
 }
 
-<div class="container" style="max-width: 1080px; margin-top: 50px;">
-    <h1 class="text-center">Details</h1>
+<div class="container" style="max-width: 1080px;">
+    <h1 class="text-center" style="margin-top: 50px;">Details</h1>
 
     <div>
         <h4>Clinique : @Model.NomClinique</h4>
@@ -62,7 +62,7 @@
            
         </dl>
     </div>
-    <div>
+    <div style="margin-bottom: 50px;">
         <a asp-action="Index" class="btn-reinitialiser">Back to List</a>
     </div>
 </div>

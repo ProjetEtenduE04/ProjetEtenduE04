@@ -1,0 +1,75 @@
+﻿
+@model IEnumerable<Clinique>
+ 
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container ">
+    <h1 class="text-center " style="margin: 50px 0">Liste de Cliniques</h1>
+
+
+    <div class="table-responsive-sm mx-auto">
+        <table class="table stripe hover order-column  " id="dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NomClinique)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adresse.CodePostal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HeureOuverture)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HeureFermeture)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EstActive)
+                    </th>
+                   
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomClinique)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Adresse.CodePostal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HeureOuverture)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HeureFermeture)
+                        </td>
+                    
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EstActive)
+                        </td>
+
+                        <td class="clinic-row" data-clinic-id="@item.CliniqueID">
+                            <a asp-action="DetailsPourPatients" asp-route-id="@item.CliniqueID" class="btn btn-secondaire btn-sm" style="width:auto">Details</a> |
+                            <a asp-action="WaitingLists" asp-route-clinicId="@item.CliniqueID" class="btn btn-secondaire btn-sm" style="width:auto">Tous les fill d'attente</a>
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- Placeholder for waiting lists -->
+    <div id="waitingListsContainer"></div>
+</div>
+

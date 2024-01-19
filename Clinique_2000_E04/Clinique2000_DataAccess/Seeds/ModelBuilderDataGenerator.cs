@@ -21,7 +21,16 @@ namespace Clinique2000_DataAccess.Data
                    Province = "Quebec",
                    Pays = "Canada",
                    CodePostal = "H2X 1Y6"
-               }
+               },
+                    new Adresse()
+                    {
+                        AdresseID = 2,
+                        Rue = "Rue ABC",
+                        Ville = "Brossard",
+                        Province = "Quebec",
+                        Pays = "Canada",
+                        CodePostal = "J3Y 1Y5"
+                    }
             );
             #endregion
 
@@ -37,7 +46,18 @@ namespace Clinique2000_DataAccess.Data
                    TempsMoyenConsultation = 30,
                    EstActive = false,
                    AdresseID = 1
-               }
+               },
+                new Clinique()
+                {
+                    CliniqueID = 2,
+                    NomClinique = "Apple CLinique",
+                    Courriel = "nguyenhonganh.hn29@gmail.com",
+                    HeureOuverture = new TimeSpan(9, 0, 0),
+                    HeureFermeture = new TimeSpan(17, 0, 0),
+                    TempsMoyenConsultation = 45,
+                    EstActive = false,
+                    AdresseID = 2
+                }
             );
             #endregion
         }
