@@ -79,23 +79,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         // POST: Cliniques/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CliniqueAdresseVM viewModel)
+        public async Task<IActionResult> Create(CliniqueAdresseVM viewModel)
         {
             if (ModelState.IsValid)
             {
-                var clinique = viewModel.Clinique;
-                var adresseClinque = viewModel.Adresse;
+                var cliniqueEnregistre = await _services.clinique.EnregistrerCliniqueAsync(viewModel);
 
-                _context.Adresses.Add(adresseClinque);
-                _context.SaveChanges();
-
-                clinique.AdresseID = adresseClinque.AdresseID;
-                clinique.Adresse = adresseClinque;
-                _context.Cliniques.Add(clinique);
-                ;
-                _context.SaveChanges();
-
-                return RedirectToAction("Details", "Cliniques", new { id = clinique.CliniqueID });
+                return RedirectToAction("Details", "Cliniques", new { id = cliniqueEnregistre.CliniqueID });
             }
 
             return View(viewModel);
