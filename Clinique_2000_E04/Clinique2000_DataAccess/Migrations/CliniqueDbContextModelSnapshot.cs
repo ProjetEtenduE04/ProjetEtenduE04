@@ -148,7 +148,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 1,
                             Courriel = "test@clinique2000.com",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
-                            DateCreation = new DateTime(2024, 1, 18, 2, 30, 24, 448, DateTimeKind.Local).AddTicks(3489),
+                            DateCreation = new DateTime(2024, 1, 18, 21, 54, 42, 744, DateTimeKind.Local).AddTicks(1470),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -161,7 +161,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 2,
                             Courriel = "Test2@test.com",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
-                            DateCreation = new DateTime(2024, 1, 18, 2, 30, 24, 448, DateTimeKind.Local).AddTicks(3533),
+                            DateCreation = new DateTime(2024, 1, 18, 21, 54, 42, 744, DateTimeKind.Local).AddTicks(1520),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -575,16 +575,16 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df222",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "65eab6bf-6567-41c1-84f9-98b2eb67a165",
+                            ConcurrencyStamp = "8212d9d5-a9da-4889-8d1a-e0c6e9d7ded6",
                             Email = "bitcav@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "BITCAV@GMAIL.COM",
-                            NormalizedUserName = "ALEX",
+                            NormalizedUserName = "BITCAV@GMAIL.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2f225759-4e40-4142-9e3c-cc0587a1e55a",
+                            SecurityStamp = "8d66cb4b-adbc-412c-978a-25abb3a6a6ff",
                             TwoFactorEnabled = false,
-                            UserName = "bitcav@gmail.com"
+                            UserName = "bit@gmail.com"
                         });
                 });
 

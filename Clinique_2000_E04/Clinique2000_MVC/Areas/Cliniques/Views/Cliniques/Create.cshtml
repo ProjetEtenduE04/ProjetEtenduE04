@@ -2,7 +2,7 @@
 
 @{
     var btnText = "Enregistrer la clinique";
-   ViewData["Title"] = "Create";
+    ViewData["Title"] = "Enregistrer";
 }
 
 <div class="container-fluid">
@@ -14,7 +14,7 @@
 
                 <p class="p1">
                     Veuillez compléter ces informations <br />
-                    <span class="p3" >Les champs marqués d'un astérisque (*) doivent être renseignés.</span>
+                    <span class="p3">Les champs marqués d'un astérisque (<span class="champs-obligatoires">*</span>) doivent être renseignés.</span>
                 </p>
             </div>
             <form asp-controller="Cliniques" asp-action="Create" method="post" enctype="multipart/form-data" class="text-start p1">
@@ -77,6 +77,7 @@
                     </div>
                 </div>
 
+                <!-- Propriétés pour Adresse -->
                 <p class="p1">
                   Adresse de la clinique
                 </p>

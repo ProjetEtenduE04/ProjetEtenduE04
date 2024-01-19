@@ -84,18 +84,18 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             if (ModelState.IsValid)
             {
                 var clinique = viewModel.Clinique;
-                var adresse = viewModel.Adresse;
+                var adresseClinque = viewModel.Adresse;
 
-                _context.Adresses.Add(adresse);
+                _context.Adresses.Add(adresseClinque);
                 _context.SaveChanges();
 
-                clinique.AdresseID = adresse.AdresseID;
-                clinique.Adresse = adresse;
+                clinique.AdresseID = adresseClinque.AdresseID;
+                clinique.Adresse = adresseClinque;
                 _context.Cliniques.Add(clinique);
                 ;
                 _context.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Cliniques", new { id = clinique.CliniqueID });
             }
 
             return View(viewModel);
@@ -109,24 +109,28 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 return NotFound();
             }
-
             var clinique = await _context.Cliniques.FindAsync(id);
+            var adreesseClinique = await _context.Adresses.FindAsync(clinique.AdresseID);
+            var cliniqueAdresseVM = new CliniqueAdresseVM()
+            {
+                Clinique = clinique,
+                Adresse = adreesseClinique
+            };
+
             if (clinique == null)
             {
                 return NotFound();
             }
-            ViewData["AdresseID"] = new SelectList(_context.Adresses, "AdresseID", "CodePostal", clinique.AdresseID);
-            return View(clinique);
+            //ViewData["AdresseID"] = new SelectList(_context.Adresses, "AdresseID", "CodePostal", clinique.AdresseID);
+            return View(cliniqueAdresseVM);
         }
 
         // POST: Cliniques/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CliniqueID,NomClinique,Courriel,HeureOuverture,HeureFermeture,TempsMoyenConsultation,EstActive,AdresseID")] Clinique clinique)
+        public async Task<IActionResult> Edit(int id, CliniqueAdresseVM cliniqueAdresseVM)
         {
-            if (id != clinique.CliniqueID)
+            if (id != cliniqueAdresseVM.Clinique.CliniqueID)
             {
                 return NotFound();
             }
@@ -135,12 +139,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 try
                 {
-                    _context.Update(clinique);
+                    _context.Update(cliniqueAdresseVM.Adresse);
+                    _context.Update(cliniqueAdresseVM.Clinique);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CliniqueExists(clinique.CliniqueID))
+                    if (!CliniqueExists(cliniqueAdresseVM.Clinique.CliniqueID))
                     {
                         return NotFound();
                     }
@@ -149,10 +154,10 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Cliniques", new { id = cliniqueAdresseVM.Clinique.CliniqueID });
             }
-            ViewData["AdresseID"] = new SelectList(_context.Adresses, "AdresseID", "CodePostal", clinique.AdresseID);
-            return View(clinique);
+            //ViewData["AdresseID"] = new SelectList(_context.Adresses, "AdresseID", "CodePostal", cliniqueAdresseVM.Clinique.AdresseID);
+            return View(cliniqueAdresseVM.Clinique);
         }
 
         // GET: Cliniques/Delete/5

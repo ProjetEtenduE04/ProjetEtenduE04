@@ -72,8 +72,8 @@ namespace Clinique2000_DataAccess.Data
                 new ApplicationUser()
                 {
                     Id = "7cc96785-8933-4eac-8d7f-a289b28df222",
-                    UserName = "bitcav@gmail.com",
-                    NormalizedUserName = "ALEX",
+                    UserName = "bit@gmail.com",
+                    NormalizedUserName = "BITCAV@GMAIL.COM",
                     Email = "bitcav@gmail.com",
                     NormalizedEmail = "BITCAV@GMAIL.COM",
                     EmailConfirmed = true,
