@@ -8,8 +8,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
+using Clinique2000_Utility.Enum;
 
-namespace Clinique2000_MVC.Areas.Clinique.Controllers
+namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
     [Area("Cliniques")]
     public class ListeAttenteController : Controller
@@ -260,18 +261,85 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
             {
                 // Call the ReserverConsultationAsync method from your service
                 await _services.consultation.ReserverConsultationAsync(id);
-
+                var consultation = await _services.consultation.ObtenirParIdAsync(id);
+                if (consultation == null)
+                {
+                    return NotFound();
+                }
                 // If the reservation is successful, you can redirect to a success page or perform other actions
-                return RedirectToAction("ReservationSuccess"); // Replace with your success action
+                return View("ReservationSuccess", consultation );
+
             }
             catch (ValidationException ex)
             {
+               var consultation=await _services.consultation.ObtenirParIdAsync(id);
+                var listeAttente = await _services.listeAttente.ObtenirParIdAsync(consultation.PlageHorarie.ListeAttenteID);
+                listeAttente.Consultations = listeAttente.Consultations.OrderBy(c => c.ConsultationID).ToList();
                 // Handle validation errors, e.g., show an error message to the user
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(); // Return to the same view with validation errors
+                return View("Details",listeAttente); // Return to the same view with validation errors
             }
         }
 
+
+        public async Task<ActionResult> TestReservationSuccess()
+        {
+            // Crear una clínica de prueba
+            var clinique = new Clinique2000_Core.Models.Clinique
+            {
+                CliniqueID = 1, // ID ficticio
+               
+                // Añade aquí otras propiedades necesarias para Clinique
+            };
+
+            // Crear una liste d'attente de prueba
+            var listeAttente = new ListeAttente
+            {
+                ListeAttenteID = 1, // ID ficticio
+                IsOuverte = true,
+                DateEffectivite = new DateTime(2024, 1, 19),
+                HeureOuverture = new TimeSpan(8, 0, 0), // Ejemplo: 8:00 AM
+                HeureFermeture = new TimeSpan(17, 0, 0), // Ejemplo: 5:00 PM
+                NbMedecinsDispo = 5,
+                DureeConsultationMinutes = 30,
+                CliniqueID = clinique.CliniqueID,
+                Clinique = clinique
+                
+            };
+
+            // Crear una plage horaire de prueba
+            var plageHoraire = new PlageHoraire
+            {
+                PlageHoraireID = 1, // ID ficticio
+                HeureDebut = new DateTime(2024, 1, 19, 9, 0, 0),
+                HeureFin = new DateTime(2024, 1, 19, 9, 30, 0),
+                ListeAttenteID = listeAttente.ListeAttenteID,
+                ListeAttente = listeAttente
+            };
+
+            // Crear una consultation de prueba
+            var consultation = new Consultation
+            {
+                ConsultationID = 1, // ID ficticio
+                HeureDateDebutPrevue = plageHoraire.HeureDebut,
+                HeureDateFinPrevue = plageHoraire.HeureFin,
+                PlageHoraireID = plageHoraire.PlageHoraireID,
+                PlageHorarie = plageHoraire,
+                PatientID = 1, // ID ficticio
+                Patient = new Patient
+                {
+                    
+                    Nom = "Doe",
+                    Prenom = "John"
+                  
+                }
+               
+                // Añade aquí otras propiedades necesarias para Consultation
+            };
+
+            // Pasar el objeto consultation a la vista
+            return View("ReservationSuccess", consultation);
+        }
 
 
 

@@ -39,9 +39,9 @@
 <div class="container ps-0">
     <table class="table mb-0 pb-0">
         <thead>
-            <tr>
+            @* <tr>
                 <!-- En-têtes de colonnes si nécessaire -->
-            </tr>
+            </tr> *@
         </thead>
         <tbody>
             @foreach (var consultation in Model)
@@ -49,15 +49,16 @@
                 <tr id="tableinterne" class="pb-0 mb-0">
                     <td class="ps-0 mb-0">
                         <!-- Affichez les détails de la consultation si nécessaire -->
+                        <div>@consultation.ConsultationID</div>
                         <div>Medecin: </div>
-                        <div>Patient: </div>
+                        <div>Patient: @Html.Raw(consultation.PatientID >= 0 && consultation.Patient != null ? $"{consultation.Patient.Prenom} {consultation.Patient.Nom}" : "")</div>
                     </td>
                     <td>
                         <!-- Utilisez un formulaire pour chaque bouton "Réserver" -->
                         <form method="post" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="ReserverConsultation">
                             <input type="hidden" name="id" value="@consultation.ConsultationID" />
                             <input type="hidden" name="patientId" value="@consultation.PatientID" />
-                            <button type="submit" class="btn btn-success">Réserver</button>
+                            <button type="submit" class="btn btn-success" @(consultation.PatientID>=0?"disabled":"")>Réserver</button>
                         </form>
                     </td>
                 </tr>

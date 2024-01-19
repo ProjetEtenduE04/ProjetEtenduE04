@@ -1,0 +1,35 @@
+﻿@model Consultation
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<body onload="animarEntrada()">
+    <div class="container-fluid">
+        <div class="row justify-content-around text-center">
+            <div class="col col-lg-10 col-xl-9">
+                
+                    
+                 <div id="confirmation" class="confirmation ">
+                  <h1 class="h0 mb-5" style="margin-top:50px">Confirmation de Rendez-Vous</h1>
+                  <h3>@Model.Patient.Prenom @Model.Patient.Nom</h3>
+                  <p><strong>Date:</strong> @Model.PlageHorarie.ListeAttente.DateEffectivite.Date.ToString("dddd yyyy-MM-dd")</p>
+                  <p><strong>Heure:</strong> @Model.HeureDateDebutPrevue.ToString("HH:mm")</p>
+                  <p class="mb-5"><strong>Clinique:</strong> @Model.PlageHorarie.ListeAttente.CliniqueID</p>
+                  
+        
+                </div>
+            </div>
+           
+        </div>
+    </div>
+   
+</body>
+<script>
+    function animarEntrada() {
+        document.getElementById("confirmation").style.transform = "translateY(0)";
+        document.getElementById("confirmation").style.opacity = 1;
+    }
+
+</script>
