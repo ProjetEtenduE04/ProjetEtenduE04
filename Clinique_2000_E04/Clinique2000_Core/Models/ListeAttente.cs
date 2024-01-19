@@ -64,7 +64,8 @@ namespace Clinique2000_Core.Models
         [ValidateNever]
         public virtual List<PlageHoraire>? PlagesHoraires { get; set; }
 
-       
+        [ValidateNever]
+        public virtual List<Consultation>? Consultations { get; set; }
     }
 
 

@@ -52,7 +52,7 @@ namespace Clinique2000_Services.Services
                 throw new ValidationException("Le patient a déjà une consultation planifiée.");
             }
 
-            if (!await ListeAttenteEstOuverte(consultationId))
+            if (await ListeAttenteEstOuverte(consultationId)==false)
             {
                 throw new ValidationException("La liste d'attente est fermée.");
             }
@@ -131,8 +131,15 @@ namespace Clinique2000_Services.Services
         /// <returns>true si le patient a une consultation planifiée en attente, sinon false.</returns>
         public async Task<bool> PatientAConsultationPlanifiee(int patientId)
         {
-            return await _context.Consultations
-                .AnyAsync(c => c.PatientID == patientId && c.StatutConsultation == StatutConsultation.EnAttente);
+            
+
+            if (await _context.Consultations
+                .AnyAsync(c => c.PatientID == patientId && c.StatutConsultation == StatutConsultation.EnAttente))
+            {
+                throw new ValidationException("Vous avez déjà une consultation planifiée.");
+            }
+            else
+                return false;
         }
 
     
