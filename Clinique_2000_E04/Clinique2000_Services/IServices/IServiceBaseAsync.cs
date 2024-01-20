@@ -1,4 +1,6 @@
-﻿namespace Clinique2000_Services.IServices
+﻿using System.Linq.Expressions;
+
+namespace Clinique2000_Services.IServices
 {
     public interface IServiceBaseAsync<T> where T : class
     {

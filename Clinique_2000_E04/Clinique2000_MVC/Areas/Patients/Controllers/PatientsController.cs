@@ -67,8 +67,8 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                string courriel = User.FindFirstValue(ClaimTypes.Email);
-                var user = await _userManager.FindByEmailAsync(courriel);
+                string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
+                var user = await _userManager.FindByEmailAsync(courrielUserAuth);
                 bool isPatient = await _services.patient.UserEstPatientAsync(user.Id);
 
                 if (!isPatient)

@@ -130,9 +130,9 @@ namespace Clinique2000_Services.Services
             clinique.AdresseID = adresse.AdresseID;
             clinique.Adresse = adresse;
 
-            var cliniqueEnregistre = await CreerAsync(clinique);
+            var cliniqueEnregistree = await CreerAsync(clinique);
 
-            return cliniqueEnregistre;
+            return cliniqueEnregistree;
         }
     }
 }

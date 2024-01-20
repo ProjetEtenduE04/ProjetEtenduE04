@@ -16,18 +16,21 @@ namespace Clinique2000_Services.Services
         public IPatientService patient { get; private set; }
         public IAuthenGoogleService authenGoogle { get; private set; }
         public ICliniqueService clinique { get; private set; }
+        public IAdresseService adresse { get; private set; }
 
         public Clinique2000Services(
             IListeAttenteService listeAttenteService,
             IPatientService patientService,
             IAuthenGoogleService authenGoogleService,
-            ICliniqueService cliniqueService
+            ICliniqueService cliniqueService,
+            IAdresseService adresseService
             )
         {
             listeAttente = listeAttenteService;
             patient = patientService;
             authenGoogle = authenGoogleService;
             clinique = cliniqueService;
+            adresse = adresseService;
         }
     }
 }
