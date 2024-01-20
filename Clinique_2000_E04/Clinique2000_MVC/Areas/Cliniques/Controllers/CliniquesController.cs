@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
+
+
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
     [Area("Cliniques")]
@@ -67,7 +69,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 var user = await _userManager.FindByEmailAsync(courriel);
 
                 var cliniqueModel = new CliniqueAdresseVM() { 
-                    Clinique = new Clinique() 
+                    Clinique = new Clinique2000_Core.Models.Clinique() 
                     { 
                         CreateurID = user.Id} 
                     };

@@ -13,21 +13,19 @@
             {
                 <tr id="tableinterne" class="pb-0 mb-0">
                     <td class="ps-0 mb-0">
-                        @* <div>@consultation.ConsultationID</div> *@
-                        <div>Medecin:</div>
-                        <div>Patient:</div>
-              @*           <div>Salle:</div> *@
+                        <!-- Affichez les détails de la consultation si nécessaire -->
+                        <div>@consultation.ConsultationID</div>
+                        <div>Medecin: </div>
+                        <div>Patient: @Html.Raw(consultation.PatientID >= 0 && consultation.Patient != null ? $"{consultation.Patient.Prenom} {consultation.Patient.Nom}" : "")</div>
                     </td>
-                <td>
-                        <input type="hidden" name="id" value="@consultation.ConsultationID" />
-                    <form method="post"> <button type="submit" class="btn btn-success" asp-area="Clinique" asp-controller="ListeAttente" asp-action="ReserverConsultation">Reserver</button>
+                    <td>
+                        <!-- Utilisez un formulaire pour chaque bouton "Réserver" -->
+                        <form method="post" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="ReserverConsultation">
+                            <input type="hidden" name="id" value="@consultation.ConsultationID" />
+                            <input type="hidden" name="patientId" value="@consultation.PatientID" />
+                            <button type="submit" class="btn btn-success" @(consultation.PatientID >= 0 ? "disabled" : "")>Réserver</button>
                         </form>
-                </td>
-
-                 @*    <td>
-                        <a asp-controller="ListeAttente" asp-action="ModifierPlageHoraire" asp-route-id="@consultation.ConsultationID" class="btn btn-primary">Modifier</a>
-                        <a asp-controller="ListeAttente" asp-action="SupprimerPlageHoraire" asp-route-id="@consultation.ConsultationID" class="btn btn-danger">Supprimer</a>
-                    </td> *@
+                    </td>
                 </tr>
             }
         </tbody>
