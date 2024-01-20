@@ -58,7 +58,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         //[Authorize]
         public async Task<IActionResult> Create()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated) //Utiliser temporairement, jusqu'à implémentation Role-based authorization
             {
                 string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
                 var user = await _userManager.FindByEmailAsync(courrielUserAuth);
