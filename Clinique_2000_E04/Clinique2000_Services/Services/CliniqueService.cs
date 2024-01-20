@@ -19,10 +19,7 @@ namespace Clinique2000_Services.Services
             _context = context;
         }
 
-        public Task<bool> VerifierExistenceCliniqueParId(int id)
-        {
-            throw new NotImplementedException();
-        }
+      
         public async Task<IList<ListeAttente>> GetListeAttentePourPatientAsync(int clinicId, bool? isOuvert)
         {
             IQueryable<ListeAttente> query = _context.Set<ListeAttente>();

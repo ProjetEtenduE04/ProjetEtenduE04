@@ -11,7 +11,7 @@ using System.Collections.Immutable;
 
 namespace Clinique2000_MVC.Areas.Clinique.Controllers
 {
-    [Area("Clinique")]
+    [Area("Cliniques")]
     public class ListeAttenteController : Controller
     {
 

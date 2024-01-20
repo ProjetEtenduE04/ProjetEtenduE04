@@ -29,7 +29,7 @@
 
                             <div class="card-body " style="color:black">
                                 <p class="card-text text-start">Date Effectivite: @Html.DisplayFor(modelItem => item.DateEffectivite)</p>
-                                <p class="col-sm-8" style="color: @(item.IsOuverte ? "green" : "red");">
+                        <p class="col-sm-8 text-start" style="color: @(item.IsOuverte ? "green" : "red");">
                                     @(item.IsOuverte ? "Ouverte" : "Fermée")
                                 </p>
 
