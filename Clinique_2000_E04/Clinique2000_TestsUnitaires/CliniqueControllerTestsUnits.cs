@@ -38,7 +38,7 @@ namespace Clinique2000_TestsUnitaires
                    HeureOuverture = new TimeSpan(8, 0, 0),
                    HeureFermeture = new TimeSpan(18, 0, 0),
                    TempsMoyenConsultation = 30,
-                   EstActive = false,
+                   EstActive = true,
                    AdresseID = 1
 
                 }
@@ -69,6 +69,34 @@ namespace Clinique2000_TestsUnitaires
             {
                 Assert.Contains(model, c => c.CliniqueID == clinique.CliniqueID);
             }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+
+        [Fact]
+        public async Task IndexPourPatients_ReturnsEmptyViewWhenNoClinics()
+        {
+            // Arrange
+            var mockService = new Mock<IClinique2000Services>();
+            var emptyCliniqueList = new List<Clinique>(); 
+
+            var mockCliniqueService = new Mock<ICliniqueService>();
+            mockCliniqueService.Setup(s => s.ObtenirToutAsync()).ReturnsAsync(emptyCliniqueList);
+
+            mockService.Setup(s => s.clinique).Returns(mockCliniqueService.Object);
+
+            var controller = new CliniquesController(mockService.Object);
+
+            // Act
+            var result = await controller.IndexPourPatients();
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Clinique>>(viewResult.Model);
+
+            Assert.Empty(model);
         }
 
     }
