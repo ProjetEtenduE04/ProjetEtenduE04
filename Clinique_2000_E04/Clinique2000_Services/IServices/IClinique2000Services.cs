@@ -15,6 +15,7 @@ namespace Clinique2000_Services.IServices
         public IPatientService patient { get; }
         public IAuthenGoogleService authenGoogle { get; }
         public ICliniqueService clinique { get; }
+        public IAdresseService adresse { get; }
     }
     
 }
