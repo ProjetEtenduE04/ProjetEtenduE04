@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    [Migration("20240120002341_ajoutApplicationUserCreateurClinique")]
-    partial class ajoutApplicationUserCreateurClinique
+    [Migration("20240120031740_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -150,7 +150,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 1,
                             Courriel = "test@clinique2000.com",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
-                            DateCreation = new DateTime(2024, 1, 19, 19, 23, 41, 430, DateTimeKind.Local).AddTicks(3599),
+                            DateCreation = new DateTime(2024, 1, 19, 22, 17, 40, 482, DateTimeKind.Local).AddTicks(3242),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -163,7 +163,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 2,
                             Courriel = "Test2@test.com",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
-                            DateCreation = new DateTime(2024, 1, 19, 19, 23, 41, 430, DateTimeKind.Local).AddTicks(3647),
+                            DateCreation = new DateTime(2024, 1, 19, 22, 17, 40, 482, DateTimeKind.Local).AddTicks(3381),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -192,16 +192,21 @@ namespace Clinique2000_DataAccess.Migrations
                     b.Property<DateTime?>("HeureDateFinReele")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ListeAttenteID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PatientID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlageHoraireID")
+                    b.Property<int?>("PlageHoraireID")
                         .HasColumnType("int");
 
                     b.Property<int>("StatutConsultation")
                         .HasColumnType("int");
 
                     b.HasKey("ConsultationID");
+
+                    b.HasIndex("ListeAttenteID");
 
                     b.HasIndex("PatientID");
 
@@ -577,14 +582,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7a8bb752-85ce-4b61-90f6-364e3116f03e",
+                            ConcurrencyStamp = "636181b7-361f-4197-85ca-bc9edc93327a",
                             Email = "bit@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "BIT@GMAIL.COM",
                             NormalizedUserName = "BIT@GMAIL.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c6b83a5e-fd3a-4e6f-a2ec-1aed9ebac37c",
+                            SecurityStamp = "35fb0ad9-baaf-45aa-a0d4-e9bd7fd0a747",
                             TwoFactorEnabled = false,
                             UserName = "bit@gmail.com"
                         });
@@ -611,15 +616,17 @@ namespace Clinique2000_DataAccess.Migrations
 
             modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
                 {
+                    b.HasOne("Clinique2000_Core.Models.ListeAttente", null)
+                        .WithMany("Consultations")
+                        .HasForeignKey("ListeAttenteID");
+
                     b.HasOne("Clinique2000_Core.Models.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("Consultations")
                         .HasForeignKey("PatientID");
 
                     b.HasOne("Clinique2000_Core.Models.PlageHoraire", "PlageHorarie")
                         .WithMany("Consultations")
-                        .HasForeignKey("PlageHoraireID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlageHoraireID");
 
                     b.Navigation("Patient");
 
@@ -734,11 +741,15 @@ namespace Clinique2000_DataAccess.Migrations
 
             modelBuilder.Entity("Clinique2000_Core.Models.ListeAttente", b =>
                 {
+                    b.Navigation("Consultations");
+
                     b.Navigation("PlagesHoraires");
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
                 {
+                    b.Navigation("Consultations");
+
                     b.Navigation("PatientsACharge");
                 });
 
