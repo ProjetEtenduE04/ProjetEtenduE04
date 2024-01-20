@@ -89,7 +89,11 @@ namespace Clinique2000_Services.Services
         /// <exception cref="ValidationException">Lancée lorsque les heures d'ouverture ne sont pas valides.</exception>
         public async Task<bool> VerifierSiHeureOuvertureValide(Clinique clinique)
         {
-            return clinique.HeureOuverture > clinique.HeureFermeture;
+            if (clinique.HeureOuverture >= clinique.HeureFermeture)
+            {
+                throw new ValidationException("L'heure d'ouverture doit être inférieure à l'heure de fermeture.");
+            }
+            return true;
         }
 
         /// <summary>
