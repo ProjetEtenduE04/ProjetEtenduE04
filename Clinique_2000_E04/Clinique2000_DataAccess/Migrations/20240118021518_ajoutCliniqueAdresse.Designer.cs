@@ -4,6 +4,7 @@ using Clinique2000_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    partial class CliniqueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240118021518_ajoutCliniqueAdresse")]
+    partial class ajoutCliniqueAdresse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,15 +70,6 @@ namespace Clinique2000_DataAccess.Migrations
                             Province = "Quebec",
                             Rue = "123 Main Street",
                             Ville = "Montreal"
-                        },
-                        new
-                        {
-                            AdresseID = 2,
-                            CodePostal = "J3Y 1Y5",
-                            Pays = "Canada",
-                            Province = "Quebec",
-                            Rue = "Rue ABC",
-                            Ville = "Brossard"
                         });
                 });
 
@@ -133,17 +126,6 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             NomClinique = "Ma Clinique Générale",
                             TempsMoyenConsultation = 30
-                        },
-                        new
-                        {
-                            CliniqueID = 2,
-                            AdresseID = 2,
-                            Courriel = "nguyenhonganh.hn29@gmail.com",
-                            EstActive = false,
-                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
-                            HeureOuverture = new TimeSpan(0, 9, 0, 0, 0),
-                            NomClinique = "Apple CLinique",
-                            TempsMoyenConsultation = 45
                         });
                 });
 
