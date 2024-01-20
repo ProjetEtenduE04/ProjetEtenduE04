@@ -44,7 +44,7 @@ namespace Clinique2000_DataAccess.Data
                    HeureOuverture = new TimeSpan(8, 0, 0),
                    HeureFermeture = new TimeSpan(18, 0, 0),
                    TempsMoyenConsultation = 30,
-                   EstActive = false,
+                   EstActive = true,
                    AdresseID = 1
                },
                 new Clinique()

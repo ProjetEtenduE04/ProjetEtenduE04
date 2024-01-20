@@ -25,10 +25,13 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         // GET: CliniqueController
         public async Task<IActionResult> IndexPourPatients()
         {
-            //return View(); 
-            var listeClinique = await _services.clinique.ObtenirToutAsync();
+            // Get all clinics from the service
+            var allClinics = await _services.clinique.ObtenirToutAsync();
 
-            return View("IndexPourPatients", listeClinique);
+            // Filter clinics where EstActive is true
+            var activeClinics = allClinics.Where(clinic => clinic.EstActive);
+
+            return View("IndexPourPatients", activeClinics);
         }
 
 

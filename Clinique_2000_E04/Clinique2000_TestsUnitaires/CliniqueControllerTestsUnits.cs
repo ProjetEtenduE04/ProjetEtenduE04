@@ -45,6 +45,10 @@ namespace Clinique2000_TestsUnitaires
             };
         }
 
+        /// <summary>
+        /// Teste si la méthode IndexPourPatients renvoie une vue avec le modèle de type IEnumerable<Clinique>.
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task IndexPourPatients_ReturnsViewWithList()
         {
