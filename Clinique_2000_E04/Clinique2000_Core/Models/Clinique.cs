@@ -59,7 +59,7 @@ namespace Clinique2000_Core.Models
         [ValidateNever]
         public virtual Adresse? Adresse { get; set; }
 
-        [ForeignKey("CreateurID")]
+        [ForeignKey(nameof(ApplicationUser))]
         public string CreateurID { get; set; }
 
         [ValidateNever]

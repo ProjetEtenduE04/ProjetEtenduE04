@@ -148,7 +148,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 1,
                             Courriel = "test@clinique2000.com",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
-                            DateCreation = new DateTime(2024, 1, 18, 21, 54, 42, 744, DateTimeKind.Local).AddTicks(1470),
+                            DateCreation = new DateTime(2024, 1, 19, 19, 23, 41, 430, DateTimeKind.Local).AddTicks(3599),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -161,7 +161,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 2,
                             Courriel = "Test2@test.com",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
-                            DateCreation = new DateTime(2024, 1, 18, 21, 54, 42, 744, DateTimeKind.Local).AddTicks(1520),
+                            DateCreation = new DateTime(2024, 1, 19, 19, 23, 41, 430, DateTimeKind.Local).AddTicks(3647),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -573,16 +573,16 @@ namespace Clinique2000_DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7cc96785-8933-4eac-8d7f-a289b28df222",
+                            Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8212d9d5-a9da-4889-8d1a-e0c6e9d7ded6",
-                            Email = "bitcav@gmail.com",
+                            ConcurrencyStamp = "7a8bb752-85ce-4b61-90f6-364e3116f03e",
+                            Email = "bit@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "BITCAV@GMAIL.COM",
-                            NormalizedUserName = "BITCAV@GMAIL.COM",
+                            NormalizedEmail = "BIT@GMAIL.COM",
+                            NormalizedUserName = "BIT@GMAIL.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8d66cb4b-adbc-412c-978a-25abb3a6a6ff",
+                            SecurityStamp = "c6b83a5e-fd3a-4e6f-a2ec-1aed9ebac37c",
                             TwoFactorEnabled = false,
                             UserName = "bit@gmail.com"
                         });
@@ -597,7 +597,7 @@ namespace Clinique2000_DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Clinique2000_Core.Models.ApplicationUser", "Createur")
-                        .WithMany()
+                        .WithMany("Clinique")
                         .HasForeignKey("CreateurID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -747,6 +747,8 @@ namespace Clinique2000_DataAccess.Migrations
 
             modelBuilder.Entity("Clinique2000_Core.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Clinique");
+
                     b.Navigation("Patient");
                 });
 #pragma warning restore 612, 618

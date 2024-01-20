@@ -71,11 +71,11 @@ namespace Clinique2000_DataAccess.Data
             builder.Entity<ApplicationUser>().HasData(
                 new ApplicationUser()
                 {
-                    Id = "7cc96785-8933-4eac-8d7f-a289b28df222",
+                    Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
                     UserName = "bit@gmail.com",
-                    NormalizedUserName = "BITCAV@GMAIL.COM",
-                    Email = "bitcav@gmail.com",
-                    NormalizedEmail = "BITCAV@GMAIL.COM",
+                    NormalizedUserName = "BIT@GMAIL.COM",
+                    Email = "bit@gmail.com",
+                    NormalizedEmail = "BIT@GMAIL.COM",
                     EmailConfirmed = true,
                 });
         }

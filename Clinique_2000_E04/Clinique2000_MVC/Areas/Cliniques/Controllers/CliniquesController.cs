@@ -3,6 +3,7 @@ using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Google;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -57,6 +58,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         // GET: Cliniques/Create
+        //[Authorize]
         public async Task<IActionResult> Create()
         {
             if (User.Identity.IsAuthenticated)

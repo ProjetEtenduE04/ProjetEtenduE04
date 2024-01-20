@@ -1,6 +1,7 @@
 ﻿@*DropDown Ajouter*@
-@*@if (this.User.IsInRole(AppConstants.AdminRole))
-{*@
+@*@if (this.User.IsInRole(AppConstants.AdminRole))*@
+@if (this.User.Identity.IsAuthenticated)
+{
 
 <a class="nav-link custom-nav-link" style="color:white" data-bs-toggle="dropdown" aria-expanded="false">
             Clinique
@@ -17,4 +18,4 @@
          
         </ul>
 
-@*}*@
+}
