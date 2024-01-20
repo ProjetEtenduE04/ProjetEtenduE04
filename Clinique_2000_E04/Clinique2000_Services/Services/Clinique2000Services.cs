@@ -21,9 +21,8 @@ namespace Clinique2000_Services.Services
         public Clinique2000Services(
             IListeAttenteService listeAttenteService,
             IPatientService patientService,
-            IAuthenGoogleService authenGoogleService
-            ,IConsultationService consultationService
-            
+            IAuthenGoogleService authenGoogleService,
+            IConsultationService consultationService,      
             ICliniqueService cliniqueService
             )
         {

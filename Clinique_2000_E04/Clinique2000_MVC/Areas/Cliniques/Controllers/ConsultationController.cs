@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
 
-namespace Clinique2000_MVC.Areas.Clinique.Controllers
+namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
     [Area("Cliniques")]
     public class ConsultationController : Controller
