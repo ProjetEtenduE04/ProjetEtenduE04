@@ -22,7 +22,7 @@ namespace Clinique2000_Services.Services
             IListeAttenteService listeAttenteService,
             IPatientService patientService,
             IAuthenGoogleService authenGoogleService
-            ,IConsultationService consultationService
+            ,IConsultationService consultationService,
             
             ICliniqueService cliniqueService
             )
