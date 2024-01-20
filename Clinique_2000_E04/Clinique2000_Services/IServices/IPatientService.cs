@@ -14,7 +14,7 @@ namespace Clinique2000_Services.IServices
         Task<Patient> EnregistrerOuModifierPatient(Patient patient);
         Task<bool> UserEstPatientAsync(string userId);
         Task<Patient> GetPatientParUserIdAsync(string userId);
-        Task<bool> VerifierExistencePatientParEmailAsync(string curriel);
+        Task<bool> VerifierExistencePatientParNomAsync(string nom);
         Task<Patient?> ObtenirPatientParNomAsync(string curriel);
     }
 }

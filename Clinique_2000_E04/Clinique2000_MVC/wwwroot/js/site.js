@@ -32,7 +32,7 @@ $(document).ready(function () {
         // Vérifier si la valeur contient au moins une lettre
         if (/[a-zA-Z]/.test(currentValue)) {
             // Formatage de la valeur pour que la première lettre soit en majuscule et le reste en minuscule
-            var formattedValue = currentValue.charAt(0).toUpperCase() + currentValue.slice(1).toLowerCase();
+            var formattedValue = currentValue.charAt(0).toUpperCase() + currentValue.slice(1);
 
             // Remettre la valeur formatée dans le champ de saisie
             $(this).val(formattedValue);

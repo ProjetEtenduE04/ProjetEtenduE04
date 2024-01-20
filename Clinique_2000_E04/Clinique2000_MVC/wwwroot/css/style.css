@@ -649,10 +649,11 @@ table td {
     }
 
 .custom-nav-link {
-    color:white;
+    color: white;
     text-decoration: none;
     position: relative;
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
 }
 
     .custom-nav-link:hover,

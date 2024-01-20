@@ -61,7 +61,7 @@ namespace Clinique2000_Services.Services
 
                 if (!string.IsNullOrEmpty(courriel))
                 {
-                    var patientExists = await _patientService.VerifierExistencePatientParEmailAsync(courriel);
+                    var patientExists = await _patientService.VerifierExistencePatientParNomAsync(courriel);
 
                     _logger.LogInformation($"User authenticated successfully with email: {courriel}. Patient exists : {patientExists}");
                     if (!patientExists)

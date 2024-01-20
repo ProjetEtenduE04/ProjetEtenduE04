@@ -1,0 +1,173 @@
+﻿@model CliniqueAdresseVM
+
+@{
+    var btnText = "Modifier la clinique";
+    ViewData["Title"] = "Modifier";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-around text-center">
+        <div class="col col-lg-10 col-xl-9">
+            <div>
+                <h1 class="h0" style="margin-top:50px">Modifier la clinique</h1>
+                <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
+                @*                <p class="p1">
+                Veuillez compléter ces informations <br />
+                <span class="p3">Les champs marqués d'un astérisque (*) doivent être renseignés.</span>
+                </p>*@
+            </div>
+            <form asp-controller="Cliniques" asp-action="Edit" method="post" enctype="multipart/form-data" class="text-start p1">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <!--region input Hidden-->
+                <input asp-for=Clinique.CreateurID class="form-control" type="hidden" />
+                <input asp-for=Clinique.AdresseID class="form-control" type="hidden" />
+                <input asp-for="Clinique.CliniqueID" class="form-control" type="hidden" />
+                <!-- NomClinique -->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Clinique.NomClinique" class="form-label mt-3 mb-1">Nom de la Clinique <span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="Clinique.NomClinique" id="nomClinique" placeholder="Exemple: Clinique de Longueuil" />
+                        <span asp-validation-for="Clinique.NomClinique" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Courriel -->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Clinique.Courriel" class="form-label mt-3 mb-1">Courriel <span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control" asp-for="Clinique.Courriel" id="courrielClinique" placeholder="Exemple: clinique@longueuil.ca" />
+                        <span asp-validation-for="Clinique.Courriel" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- HeureOuverture -->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Clinique.HeureOuverture" class="form-label mt-3 mb-1">Heure d'ouverture <span class="champs-obligatoires"> *</span></label>
+                        <input type="time" asp-for="Clinique.HeureOuverture" class="form-control form-control-lg" id="heureOuvertureEdit">
+                        <span asp-validation-for="Clinique.HeureOuverture" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- HeureFermeture -->
+                <div class="row justify-content-center" id="heureFermetureContainer" style="display:none;">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Clinique.HeureFermeture" class="form-label mt-3 mb-1">Heure de fermeture <span class="champs-obligatoires"> *</span></label>
+                        <input type="time" asp-for="Clinique.HeureFermeture" class="form-control form-control-lg" id="heureFermetureEdit">
+                        <span asp-validation-for="Clinique.HeureFermeture" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- TempsMoyenConsultation -->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Clinique.TempsMoyenConsultation" class="form-label mt-3 mb-1">Temps moyen de consultation <span class="champs-obligatoires"> *</span></label>
+                        <input asp-for="Clinique.TempsMoyenConsultation" class="form-control form-control-lg" id="tempsMoyenConsultation" placeholder="Exemple: 15 min">
+                        <span asp-validation-for="Clinique.TempsMoyenConsultation" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- EstActive -->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Clinique.EstActive" /> @Html.DisplayNameFor(model => model.Clinique.EstActive)
+                        </label>
+                    </div>
+                </div>
+                @*                <div class="form-group">
+                <label asp-for="AdresseID" class="control-label"></label>
+                <select asp-for="AdresseID" class="form-control" asp-items="ViewBag.AdresseID"></select>
+                <span asp-validation-for="AdresseID" class="text-danger"></span>
+                </div>*@
+
+                <!-- Propriétés pour Adresse -->
+                <p class="p1">
+                    Adresse de la clinique
+                </p>
+                <hr />
+                <!-- Numéro -->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Adresse.Numero" class="form-label mt-3 mb-1">Numéro <span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="Adresse.Numero" id="adresseNumero" placeholder="Exemple: 7-756" />
+                        <span asp-validation-for="Adresse.Numero" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Rue-->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Adresse.Rue" class="form-label mt-3 mb-1">Rue <span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="Adresse.Rue" id="adresseRue" placeholder="Exemple: Chambly" />
+                        <span asp-validation-for="Adresse.Rue" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Ville-->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Adresse.Ville" class="form-label mt-3 mb-1">Ville <span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="Adresse.Ville" id="adresseVille" placeholder="Exemple: Longueuil" />
+                        <span asp-validation-for="Adresse.Ville" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Province-->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Adresse.Province" class="form-label mt-3 mb-1">Province <span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="Adresse.Province" id="adresseProvince" placeholder="Exemple: Québec" />
+                        <span asp-validation-for="Adresse.Province" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Pays-->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Adresse.Pays" class="form-label mt-3 mb-1">Pays <span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="Adresse.Pays" id="adressePays" placeholder="Exemple: Canada" />
+                        <span asp-validation-for="Adresse.Pays" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Code Postal-->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Adresse.CodePostal" class="form-label mt-3 mb-1">Code Postal <span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control" asp-for="Adresse.CodePostal" id="CodePostal" placeholder="Exemple: J4K 2T4">
+                        <span asp-validation-for="Adresse.CodePostal" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--CreateBTN-->
+                <div class="row justify-content-center text-center">
+                    <div class="col col-md-8 col-xl-6 mb-2 mt-4">
+                        <partial name="_SubmitButtonPartial" model="@btnText" />
+                    </div>
+                </div>
+                <div class="row justify-content-center text-center">
+                    <div class="col col-md-8 col-xl-6 my-2">
+                        <partial name="_ResetButtonPartial" />
+                    </div>
+                </div>
+                <div class="row justify-content-center text-center">
+                    <div class="col col-md-8 col-xl-6 mb-2 mt-4">
+                        <a asp-action="Index">Retour à la liste</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

@@ -15,6 +15,7 @@ namespace Clinique2000_Services.Services
         public IServices.IListeAttenteService listeAttente { get; private set; }
         public IPatientService patient { get; private set; }
         public IAuthenGoogleService authenGoogle { get; private set; }
+        public ICliniqueService clinique { get; private set; }
        public IConsultationService consultation { get; private set; }
 
         public Clinique2000Services(
@@ -23,6 +24,7 @@ namespace Clinique2000_Services.Services
             IAuthenGoogleService authenGoogleService
             ,IConsultationService consultationService
             
+            ICliniqueService cliniqueService
             )
         {
             listeAttente = listeAttenteService;
@@ -30,6 +32,7 @@ namespace Clinique2000_Services.Services
             authenGoogle = authenGoogleService;
             consultation = consultationService;
             
+            clinique = cliniqueService;
         }
     }
 }
