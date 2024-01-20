@@ -11,41 +11,29 @@ using System.Collections.Immutable;
 
 namespace Clinique2000_MVC.Areas.Clinique.Controllers
 {
-    [Area("Clinique")]
+    [Area("Cliniques")]
 
-    public class CliniqueController : Controller
+    public class CliniquesController : Controller
     {
 
         public IClinique2000Services _services { get; set; }
 
-        public CliniqueController(IClinique2000Services service)
+        public CliniquesController(IClinique2000Services service)
         {
             _services = service;
         }
         // GET: CliniqueController
         public async Task<IActionResult> IndexPourPatients()
         {
-            //return View(); 
-            var listeClinique = await _services.clinique.ObtenirToutAsync();
+            // Get all clinics from the service
+            var allClinics = await _services.clinique.ObtenirToutAsync();
 
-            return View("IndexPourPatients", listeClinique);
+            // Filter clinics where EstActive is true
+            var activeClinics = allClinics.Where(clinic => clinic.EstActive);
+
+            return View("IndexPourPatients", activeClinics);
         }
 
-        // GET: CliniqueController/Details/5
-        public async Task<IActionResult> DetailsPourPatient(int? id)
-        {
-
-            if (id == null || await _services.clinique.ObtenirToutAsync() == null)
-            {
-                return NotFound();
-            }
-            var cliniqueDetail = await _services.clinique.ObtenirParIdAsync(id);
-            if (cliniqueDetail == null)
-            {
-                return NotFound();
-            }
-            return View(cliniqueDetail);
-        }
 
         //[HttpGet]
         //public async Task<IActionResult> WaitingLists(int clinicId)
@@ -94,14 +82,6 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
 
         public async Task<IActionResult> ListeAttentePourPatient(int clinicId, bool? isOuvert)
         {
-            //IList<ListeAttente> listeAttentePourPatient = await _services.listeAttente.ObtenirToutAsync();
-
-           
-            //string clinicName = _services.clinique.ObtenirParIdAsync(clinicId)?.Result?.NomClinique;
-
-            //ViewBag.CliniqueName = clinicName;
-
-            //return View("ListeAttentePourPatient", listeAttentePourPatient);
 
             IList<ListeAttente> listeAttentePourPatient = await _services.clinique.GetListeAttentePourPatientAsync(clinicId, isOuvert);
 
@@ -115,6 +95,5 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
     }
 
 
-
-    }
 }
+

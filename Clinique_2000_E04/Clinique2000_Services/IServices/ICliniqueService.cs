@@ -9,7 +9,6 @@ namespace Clinique2000_Services.IServices
 {
     public interface ICliniqueService : IServiceBaseAsync<Clinique>
     {
-        Task<bool> VerifierExistenceCliniqueParId(int id);
         Task<IList<ListeAttente>> GetListeAttentePourPatientAsync(int clinicId, bool? isOuvert);
 
     }
