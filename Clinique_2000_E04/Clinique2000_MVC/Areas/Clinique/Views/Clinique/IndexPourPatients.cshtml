@@ -60,7 +60,7 @@
 
                         <td class="clinic-row" data-clinic-id="@item.CliniqueID">
                             <a asp-action="DetailsPourPatients" asp-route-id="@item.CliniqueID" class="btn btn-secondaire btn-sm" style="width:auto">Details</a> |
-                            <a asp-action="WaitingLists" asp-route-clinicId="@item.CliniqueID" class="btn btn-secondaire btn-sm" style="width:auto">Tous les fill d'attente</a>
+                                <a asp-action="ListeAttentePourPatient" asp-route-clinicId="@item.CliniqueID" class="btn btn-secondaire btn-sm" style="width:auto">Tous les fill d'attente</a>
                         </td>
 
 

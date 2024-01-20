@@ -69,29 +69,50 @@ namespace Clinique2000_MVC.Areas.Clinique.Controllers
         //}
 
 
-        public async Task<IActionResult> WaitingLists(int clinicId)
-        {
-            IList<ListeAttente> listeAttentes = await _services.listeAttente.ObtenirToutAsync();
+        //public async Task<IActionResult> WaitingLists(int clinicId)
+        //{
+        //    IList<ListeAttente> listeAttentes = await _services.listeAttente.ObtenirToutAsync();
 
-            listeAttentes = listeAttentes.Where(la => la.Clinique.CliniqueID == clinicId)
-                .OrderBy(x => x.DateEffectivite)
-                .ToList();
+        //    listeAttentes = listeAttentes.Where(la => la.Clinique.CliniqueID == clinicId)
+        //        .OrderBy(x => x.DateEffectivite)
+        //        .ToList();
+
+        //    string clinicName = _services.clinique.ObtenirParIdAsync(clinicId)?.Result?.NomClinique;
+
+        //    ViewBag.CliniqueName = clinicName;
+
+        //    // If the form is submitted with filtering data
+        //    if (Request.Method == "POST")
+        //    {
+        //        bool isOuvert = bool.Parse(Request.Form["isOuvert"]);
+        //        listeAttentes = listeAttentes.Where(la => la.IsOuverte == isOuvert).ToList();
+        //    }
+
+        //    // Return the same view with the filtered or initial data
+        //    return View("WaitingLists", listeAttentes);
+        //}
+
+        public async Task<IActionResult> ListeAttentePourPatient(int clinicId, bool? isOuvert)
+        {
+            //IList<ListeAttente> listeAttentePourPatient = await _services.listeAttente.ObtenirToutAsync();
+
+           
+            //string clinicName = _services.clinique.ObtenirParIdAsync(clinicId)?.Result?.NomClinique;
+
+            //ViewBag.CliniqueName = clinicName;
+
+            //return View("ListeAttentePourPatient", listeAttentePourPatient);
+
+            IList<ListeAttente> listeAttentePourPatient = await _services.clinique.GetListeAttentePourPatientAsync(clinicId, isOuvert);
 
             string clinicName = _services.clinique.ObtenirParIdAsync(clinicId)?.Result?.NomClinique;
 
             ViewBag.CliniqueName = clinicName;
 
-            // If the form is submitted with filtering data
-            if (Request.Method == "POST")
-            {
-                bool isOuvert = bool.Parse(Request.Form["isOuvert"]);
-                listeAttentes = listeAttentes.Where(la => la.IsOuverte == isOuvert).ToList();
-            }
-
-            // Return the same view with the filtered or initial data
-            return View("WaitingLists", listeAttentes);
+            return View("ListeAttentePourPatient", listeAttentePourPatient);
         }
 
+    }
 
 
 
