@@ -54,6 +54,10 @@ namespace Clinique2000_TestsUnitaires
             }
         }
 
+        /// <summary>
+        /// Teste le methode ListeAttentePourPatien, Le patient qui peut voir seulement les listes d'attentes sont ouvert
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task GetListeAttentePourPatientAsync_FiltersAndOrdersCorrectly()
         {
