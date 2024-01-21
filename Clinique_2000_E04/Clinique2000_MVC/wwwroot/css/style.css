@@ -785,47 +785,109 @@ display: flex;
     align-items: center;
 }
 
-@media screen and (max-width: 768px) {
-    .footer-col {
-        flex-direction: column;
-        align-items: center; 
-        padding: 10px;
-
-    }
-    #col-nousjoindre {
-       margin-left:120px;
-    }
-}
-@media screen and (max-width: 1554px) {
-    #col-nousjoindre {
-        flex-direction: column;
-        align-items: center; 
-        padding: 10px;
-    }
-}
 .champs-obligatoires  {
     color: red;
 }
 /****Confirmation de rv */
-.confirmacion {
+#confirmation {
     background-color: #f2f2f2;
     width: 80%;
-    margin: 0 auto;
-    padding: 10px;
-   
-    text-align: center;
+    margin: 30px;
+    padding: 50px ;
+   text-justify:auto;
+   /* text-align: center;*/
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: translateY(100%);
+    transform: translateZ(100);
     opacity: 0;
-    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    transition: transform 0.9s ease-out, opacity 0.9s ease-out;
 }
+    #confirmation .h0 {
+        display: flex;
+justify-content: center;
+        text-align: center;
+        
+    }
 
-    /*.confirmacion h1 {
-        color: #4CAF50;*/ /* Un color verde suave */
-    /*}*/
 
-    .confirmacion p {
+    #confirmation p {
+        text-align: start;
         font-size: 1.2em;
         color: #333;
+        padding: 20px 50px;
     }
+.confirmation-bouttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;/*eviter quils prenent 100width*/
+    padding: 10px;
+}
+
+    .confirmation-bouttons .btn {
+        margin-top: 10px;
+        padding: 10px;
+    }
+#confirmation .adresse, .details-rdv {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 10px;
+    margin: 20px;
+padding: 10px 50px;
+    
+}
+
+
+
+/**Responsive*/
+@media screen and (max-width: 768px) {
+    .footer-col {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    #col-nousjoindre {
+        margin-left: 120px;
+    }
+    .confirmation-bouttons {
+        display: flex;
+        flex-direction: column;
+       
+        justify-content:center;
+        padding: 10px;
+    }
+
+    .confirmation-bouttons .btn {
+        margin-top: 10px;
+        padding: 10px;
+
+        
+    }
+    #confirmation h1 {
+        width: 100%;
+        
+        padding: 10px;
+        border-radius: 0px;
+    }
+
+#confirmation {
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+border-radius: 0px;
+
+    }
+}
+
+@media screen and (max-width: 1554px) {
+    #col-nousjoindre {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    
+}

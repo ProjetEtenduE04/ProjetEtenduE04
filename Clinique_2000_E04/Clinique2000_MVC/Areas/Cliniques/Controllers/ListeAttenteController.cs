@@ -288,6 +288,22 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             var clinique = new Clinique2000_Core.Models.Clinique
             {
                 CliniqueID = 1, // ID ficticio
+                NomClinique = "Santé pour tous",
+                Courriel = "abc@dcv",
+                //NumTelephone="514-123 4567",
+                HeureOuverture = new TimeSpan(8, 0, 0), // Ejemplo: 8:00 AM
+                HeureFermeture = new TimeSpan(17, 0, 0), // Ejemplo: 5:00 PM
+               
+                Adresse = new Adresse
+                {
+                    AdresseID = 1, // ID ficticio
+                    Numero = "123",
+                    Rue = "Rue de la Clinique",
+                    Ville = "Montréal",
+                    Province = "Québec",
+                    CodePostal = "H1H 1H1"
+                },
+
                
                 // Añade aquí otras propiedades necesarias para Clinique
             };
@@ -329,10 +345,11 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 Patient = new Patient
                 {
                     
-                    Nom = "Doe",
-                    Prenom = "John"
+                    Nom = "Emond",
+                    Prenom = "Benoit"
                   
-                }
+                },
+             
                
                 // Añade aquí otras propiedades necesarias para Consultation
             };

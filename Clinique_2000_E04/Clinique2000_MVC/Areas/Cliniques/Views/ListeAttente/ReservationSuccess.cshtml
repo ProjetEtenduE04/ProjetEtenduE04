@@ -2,34 +2,52 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-
-
 <body onload="animarEntrada()">
-    <div class="container-fluid">
-        <div class="row justify-content-around text-center">
-            <div class="col col-lg-10 col-xl-9">
-                
-                    
-                 <div id="confirmation" class="confirmation ">
-                  <h1 class="h0 mb-5" style="margin-top:50px">Confirmation de Rendez-Vous</h1>
-                  <h3>@Model.Patient.Prenom @Model.Patient.Nom</h3>
-                  <p><strong>Date:</strong> @Model.PlageHorarie.ListeAttente.DateEffectivite.Date.ToString("dddd yyyy-MM-dd")</p>
-                  <p><strong>Heure:</strong> @Model.HeureDateDebutPrevue.ToString("HH:mm")</p>
-                  <p class="mb-5"><strong>Clinique:</strong> @Model.PlageHorarie.ListeAttente.CliniqueID</p>
-                  
-        
+    <div class="container d-flex">
+        <div class="row justify-content-center text-start">
+            <div class="col col-lg-10 col-xl-9 d-flex justify-content-center">
+                <div id="confirmation">
+                    <h1 class="h0 mb-5" style="margin-top:30px">Confirmation de <br />Rendez-Vous</h1>
+                    <p class="">Cher <strong><span id="patientName">@Model.Patient.Prenom @Model.Patient.Nom</span></strong>,</p>
+                    <p>Nous sommes heureux de confirmer que votre rendez-vous a été fixé avec succès. Voici les détails de votre prochaine visite :</p>
+                    <ul class ="details-rdv">
+                        <li><strong> Date: </strong><span id="appointmentDate"> @Model.PlageHorarie.ListeAttente.DateEffectivite.Date.ToString("dddd yyyy-MM-dd")</span></li>
+                        <li><strong>Heure:</strong> <span id="appointmentTime">@Model.HeureDateDebutPrevue.ToString("HH:mm")</span></li>
+                        
+                    </ul>
+                    <p>Si vous avez des questions ou besoin d'assistance, n'hésitez pas à contacter la clinique :</p>
+                    <ul class="adresse">
+                        <li><strong>Clinique <span id="clinicName">@Model.PlageHorarie.ListeAttente.Clinique.NomClinique</span></strong></li>
+@*                         <li><strong>Clinique <span id="clinicName">@Model.PlageHorarie.ListeAttente.Clinique.NomClinique</span></li>
+ *@                        <li><strong>Adresse:</strong> 
+                            <span id="clinicAddress">
+
+                                @Model.PlageHorarie.ListeAttente.Clinique.Adresse.Numero,
+                                @Model.PlageHorarie.ListeAttente.Clinique.Adresse.Rue,
+                                @Model.PlageHorarie.ListeAttente.Clinique.Adresse.Ville,
+                                @Model.PlageHorarie.ListeAttente.Clinique.Adresse.Province,
+                                @Model.PlageHorarie.ListeAttente.Clinique.Adresse.CodePostal
+                            </span>
+                        </li>
+                        <li><strong>Téléphone:</strong> <span id="clinicPhone">NumTelephone</span></li>
+                        <li><strong>Email: </strong><span id="clinicEmail">@Model.PlageHorarie.ListeAttente.Clinique.Courriel</span></li>
+                    </ul>
+                    <div class="confirmation-bouttons mt-5 mb-4">
+                        <button id="rescheduleButton" class=" btn btn-create " asp-action="Index" asp-controller="Home">Retour à l'accueil</button>
+                        <button id="cancelButton" class="btn btn-reinitialiser" disabled>Annuler le RDV</button>
+                    </div>
                 </div>
-            </div>
-           
+             </div>
         </div>
-    </div>
+     </div>
    
 </body>
+
+
 <script>
     function animarEntrada() {
         document.getElementById("confirmation").style.transform = "translateY(0)";
         document.getElementById("confirmation").style.opacity = 1;
     }
 
-</script>
+</script> 
