@@ -806,3 +806,30 @@ display: flex;
 .champs-obligatoires  {
     color: red;
 }
+/*Login form*/
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+.google{
+    width:25px;
+    height:25px;
+}
+.custom-popover {
+    --bs-popover-max-width: 200px;
+    --bs-popover-border-color: #023373;
+    --bs-popover-header-bg: #132640;
+    --bs-popover-header-color: white;
+    --bs-popover-body-padding-x: 1rem;
+    --bs-popover-body-padding-y: .5rem;
+}
+.btnRound {
+    border: none; 
+    background-color: transparent; 
+    padding: 0;
+    cursor: pointer; 
+}

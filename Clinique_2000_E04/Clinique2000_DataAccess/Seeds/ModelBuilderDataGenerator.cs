@@ -24,7 +24,8 @@ namespace Clinique2000_DataAccess.Data
                    TempsMoyenConsultation = 30,
                    EstActive = true,
                    AdresseID = 1,
-                   CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
+                   NumTelephone = "(438) 333-5555",
+                   CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
                    
                },
                new Clinique()
@@ -37,7 +38,8 @@ namespace Clinique2000_DataAccess.Data
                    TempsMoyenConsultation = 30,
                    EstActive = true,
                    AdresseID = 2,
-                   CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
+                   NumTelephone = "(438) 333-7777",
+                   CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
                }
 
             );

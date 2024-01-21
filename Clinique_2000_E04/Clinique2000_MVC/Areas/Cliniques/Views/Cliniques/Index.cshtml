@@ -65,7 +65,13 @@
                             @Html.DisplayFor(modelItem => item.EstActive)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Adresse.CodePostal)
+                            @{
+                                // Concatène toutes les propriétés pertinentes de l'objet Adresse en une chaîne de caractères.
+                                string concatenatedAddress = $"{item.Adresse.Numero} {item.Adresse.Rue}, {item.Adresse.Ville}, {item.Adresse.Province}, {item.Adresse.Pays}, {item.Adresse.CodePostal}";
+
+                                // Afficher la chaîne concaténée
+                                @Html.DisplayFor(modelItem => concatenatedAddress)
+                            }
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.CliniqueID">Edit</a> |

@@ -89,11 +89,7 @@ namespace Clinique2000_Services.Services
         /// <exception cref="ValidationException">Lancée lorsque les heures d'ouverture ne sont pas valides.</exception>
         public async Task<bool> VerifierSiHeureOuvertureValide(Clinique clinique)
         {
-            if (clinique.HeureOuverture >= clinique.HeureFermeture)
-            {
-                throw new ValidationException("L'heure d'ouverture doit être inférieure à l'heure de fermeture.");
-            }
-            return true;
+            return clinique.HeureOuverture < clinique.HeureFermeture;
         }
 
         /// <summary>
@@ -122,7 +118,7 @@ namespace Clinique2000_Services.Services
                 throw new ValidationException("Une clinique avec la même adresse e-mail existe déjà.");
             }
 
-            if (await VerifierSiHeureOuvertureValide(clinique))
+            if (!await VerifierSiHeureOuvertureValide(clinique))
             {
                 throw new ValidationException("L'heure d'ouverture doit etre inferieure a l'heure de fermeture.");
 

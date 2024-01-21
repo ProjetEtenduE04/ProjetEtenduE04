@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    [Migration("20240118073024_ajout_CreatorClinique_NumeroAdresse_DateModifCreateClinique")]
-    partial class ajout_CreatorClinique_NumeroAdresse_DateModifCreateClinique
+    [Migration("20240121011211_initClasseEtSeed")]
+    partial class initClasseEtSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -149,8 +149,8 @@ namespace Clinique2000_DataAccess.Migrations
                             CliniqueID = 1,
                             AdresseID = 1,
                             Courriel = "test@clinique2000.com",
-                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
-                            DateCreation = new DateTime(2024, 1, 18, 2, 30, 24, 448, DateTimeKind.Local).AddTicks(3489),
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 20, 20, 12, 11, 465, DateTimeKind.Local).AddTicks(5929),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -162,8 +162,8 @@ namespace Clinique2000_DataAccess.Migrations
                             CliniqueID = 2,
                             AdresseID = 2,
                             Courriel = "Test2@test.com",
-                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
-                            DateCreation = new DateTime(2024, 1, 18, 2, 30, 24, 448, DateTimeKind.Local).AddTicks(3533),
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 20, 20, 12, 11, 465, DateTimeKind.Local).AddTicks(5981),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -575,18 +575,18 @@ namespace Clinique2000_DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7cc96785-8933-4eac-8d7f-a289b28df222",
+                            Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "65eab6bf-6567-41c1-84f9-98b2eb67a165",
-                            Email = "bitcav@gmail.com",
+                            ConcurrencyStamp = "e9ba5ecc-dbf6-46f0-a246-c891e8ef7404",
+                            Email = "bit@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "BITCAV@GMAIL.COM",
-                            NormalizedUserName = "ALEX",
+                            NormalizedEmail = "BIT@GMAIL.COM",
+                            NormalizedUserName = "BIT@GMAIL.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2f225759-4e40-4142-9e3c-cc0587a1e55a",
+                            SecurityStamp = "7b0dfa67-7306-4d0c-ba37-70d681443184",
                             TwoFactorEnabled = false,
-                            UserName = "bitcav@gmail.com"
+                            UserName = "bit@gmail.com"
                         });
                 });
 
@@ -599,7 +599,7 @@ namespace Clinique2000_DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Clinique2000_Core.Models.ApplicationUser", "Createur")
-                        .WithMany()
+                        .WithMany("Clinique")
                         .HasForeignKey("CreateurID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -749,6 +749,8 @@ namespace Clinique2000_DataAccess.Migrations
 
             modelBuilder.Entity("Clinique2000_Core.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Clinique");
+
                     b.Navigation("Patient");
                 });
 #pragma warning restore 612, 618

@@ -14,6 +14,7 @@ using System.Security.Claims;
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
     [Area("Cliniques")]
+    [Authorize]
     public class CliniquesController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -39,7 +40,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         // GET: Cliniques/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _services.clinique.ObtenirToutAsync() == null)
+            if (id == null || await _services.clinique.ObtenirToutAsync() == null)
             {
                 return NotFound();
             }
@@ -55,11 +56,10 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         // GET: Cliniques/Create
-        //[Authorize]
         public async Task<IActionResult> Create()
         {
-            if (User.Identity.IsAuthenticated) //Utiliser temporairement, jusqu'à implémentation Role-based authorization
-            {
+            //if (User.Identity.IsAuthenticated) //Utiliser temporairement, jusqu'à implémentation Role-based authorization
+            //{
                 string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
                 var user = await _userManager.FindByEmailAsync(courrielUserAuth);
 
@@ -70,9 +70,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     };
 
                     return View(cliniqueModel);
-            }
+            //}
 
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
         }
 
         // POST: Cliniques/Create
@@ -94,7 +94,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         // GET: Cliniques/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _services.clinique.ObtenirToutAsync() == null)
+            if (id == null || await _services.clinique.ObtenirToutAsync() == null)
             {
                 return NotFound();
             }
@@ -136,7 +136,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    var cliniqueExiste = _services.clinique.ObtenirParIdAsync(cliniqueAdresseVM.Clinique.CliniqueID);
+                    var cliniqueExiste = await _services.clinique.ObtenirParIdAsync(cliniqueAdresseVM.Clinique.CliniqueID);
                     if (cliniqueExiste==null)
                     {
                         return NotFound();
@@ -155,7 +155,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         // GET: Cliniques/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _services.clinique.ObtenirToutAsync() == null)
+            if (id == null || await _services.clinique.ObtenirToutAsync() == null)
             {
                 return NotFound();
             }
@@ -174,7 +174,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_services.clinique.ObtenirToutAsync() == null)
+            if (await _services.clinique.ObtenirToutAsync() == null)
             {
                 return Problem("L'ensemble d'entités 'ApplicationDbContext.Cliniques' est nul.");
             }

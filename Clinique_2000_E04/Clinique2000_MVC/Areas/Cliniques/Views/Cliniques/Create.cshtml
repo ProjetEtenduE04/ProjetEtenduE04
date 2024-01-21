@@ -40,6 +40,14 @@
                         <span asp-validation-for="Clinique.Courriel" class="text-danger"></span>
                     </div>
                 </div>
+                <!-- NumTelephone -->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Clinique.NumTelephone" class="form-label mt-3 mb-1">Numéro de téléphone <span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control" asp-for="Clinique.NumTelephone" id="numTelephoneClinique" placeholder="Exemple: (xxx) xxx-xxxx" />
+                        <span asp-validation-for="Clinique.NumTelephone" class="text-danger"></span>
+                    </div>
+                </div>
 
                 <!-- HeureOuverture -->
                 <div class="row justify-content-center">

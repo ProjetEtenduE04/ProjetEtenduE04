@@ -1,5 +1,6 @@
 ﻿using Clinique2000_Core.Models;
 using Clinique2000_Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using System.Security.Claims;
 namespace Clinique2000_MVC.Areas.Patients.Controllers
 {
     [Area("Patients")]
+    [Authorize]
     public class PatientsController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -23,10 +25,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             _userManager = userManager;
         }
 
-        public async Task Login()
-        {
-            await _services.authenGoogle.LoginAsync();
-        }
+
         // GET: PatientsController
         public async Task<IActionResult> Index()
         {
@@ -55,18 +54,8 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // GET: PatientsController/Create
         public async Task<IActionResult> Create()
         {
-            #region refacturé
-            //var utilisateurConnecte = await _authenGoogleService.GetAuthUserDataAsync();
-            //if(utilisateurConnecte.Courriel==null || await _patientService.VerifierExistencePatientParEmailAsync(utilisateurConnecte.Courriel))
+            //if (User.Identity.IsAuthenticated) // temporaire, à appliquer role-base Authorization
             //{
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(utilisateurConnecte);
-            #endregion
-
-
-            if (User.Identity.IsAuthenticated)
-            {
                 string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
                 var user = await _userManager.FindByEmailAsync(courrielUserAuth);
                 bool isPatient = await _services.patient.UserEstPatientAsync(user.Id);
@@ -82,9 +71,9 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 }
 
                 return RedirectToAction("Index", "Home");
-            }
+            //}
 
-            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home");
         }
 
         // POST: Patients/Create

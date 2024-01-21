@@ -18,21 +18,14 @@ namespace Clinique2000_TestsUnitaires
     public class PatientsCotrollerTestsUnits
     {
 
-        //private readonly Mock<IServiceBaseAsync<Patient>> _serviceBaseMock;
-        //private readonly Mock<IPatientService> _patientServiceMock;
-        //private readonly Mock<IAuthenGoogleService> _authenGoogleServiceMock;
         private readonly Mock<UserManager<IdentityUser>> _userManagerMock;
         private readonly Mock<IClinique2000Services> _servicesMock;
-
 
         private List<Patient> _patientsList;
         private readonly PatientsController _patientsController;
 
         public PatientsCotrollerTestsUnits()
         {
-            //_serviceBaseMock = new Mock<IServiceBaseAsync<Patient>>();
-            //_patientServiceMock = new Mock<IPatientService>();
-            //_authenGoogleServiceMock = new Mock<IAuthenGoogleService>();
             _userManagerMock = new Mock<UserManager<IdentityUser>>(new Mock<IUserStore<IdentityUser>>().Object, null, null, null, null, null, null, null, null);
             _servicesMock = new Mock<IClinique2000Services>();
 
