@@ -44,19 +44,49 @@ namespace Clinique2000_TestsUnitaires
         private void SeedInMemoryStore(CliniqueDbContext dbContext)
         {
             // Seed your in-memory database with data resembling your real database
-            var clinique = new Clinique { CliniqueID = 1, TempsMoyenConsultation = 30 };
+
+            // Create a Clinique with required properties
+            var clinique = new Clinique
+            {
+                CliniqueID = 1,
+                TempsMoyenConsultation = 30,
+                Courriel = "clinique@example.com",
+                CreateurID = "user1",
+                HeureOuverture = new TimeSpan(8, 0, 0),   // Opening time (8:00 AM)
+                HeureFermeture = new TimeSpan(18, 0, 0),  // Closing time (6:00 PM)
+                NomClinique = "Clinique2000"
+            };
             dbContext.Cliniques.Add(clinique);
 
-            var listeAttente = new ListeAttente { ListeAttenteID = 1, CliniqueID = 1, IsOuverte = true };
+            // Create a ListeAttente associated with the Clinique
+            var listeAttente = new ListeAttente
+            {
+                ListeAttenteID = 1,
+                CliniqueID = 1,
+                IsOuverte = true
+            };
             dbContext.ListeAttentes.Add(listeAttente);
 
-            var plageHoraire = new PlageHoraire { PlageHoraireID = 1, HeureDebut = DateTime.Now, HeureFin = DateTime.Now.AddHours(1), ListeAttenteID = 1 };
+            // Create a PlageHoraire associated with the ListeAttente
+            var plageHoraire = new PlageHoraire
+            {
+                PlageHoraireID = 1,
+                HeureDebut = DateTime.Now,
+                HeureFin = DateTime.Now.AddHours(1),
+                ListeAttenteID = 1
+            };
             dbContext.PlagesHoraires.Add(plageHoraire);
 
-            var user = new ApplicationUser { UserName = "user1", Email = "user1@example.com" };
+            // Create a ApplicationUser (User)
+            var user = new ApplicationUser
+            {
+                UserName = "user1",
+                Email = "user1@example.com"
+            };
             dbContext.ApplicationUser.Add(user);
             dbContext.SaveChanges(); // Save to generate user Id
 
+            // Create a Patient associated with the User
             var patient = new Patient
             {
                 PatientId = 1,
@@ -69,6 +99,7 @@ namespace Clinique2000_TestsUnitaires
             };
             dbContext.Patients.Add(patient);
 
+            // Create a Consultation with missing properties and associate with PlageHoraire
             var consultationReady = new Consultation
             {
                 ConsultationID = 1,
@@ -78,6 +109,7 @@ namespace Clinique2000_TestsUnitaires
             };
             dbContext.Consultations.Add(consultationReady);
 
+            // Create another Consultation with missing properties and associate with PlageHoraire
             var consultationPlanned = new Consultation
             {
                 ConsultationID = 2,

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Clinique2000_Core.Models
 {
-    [Area("Clinique")]
+   
     public class ListeAttente
     {
         [Key]
@@ -50,7 +50,7 @@ namespace Clinique2000_Core.Models
 
 
 
-        //Propiete de navigation
+        //Propietes de navigation
    
         [Display(Name = "Clinique")]
         [ValidateNever]
