@@ -26,6 +26,7 @@ namespace Clinique2000_Services.Services
             _adresseService = adresseService;
         }
 
+
         /// <summary>
         /// Obtient une clinique par son nom de manière asynchrone.
         /// </summary>
@@ -41,6 +42,8 @@ namespace Clinique2000_Services.Services
                 .Where(p => p.NomClinique.ToUpper() == nomClinique.ToUpper())
                 .FirstOrDefaultAsync();
         }
+
+
 
         /// <summary>
         /// Obtient une clinique en fonction de l'adresse e-mail de manière asynchrone.
@@ -58,6 +61,8 @@ namespace Clinique2000_Services.Services
                 .FirstOrDefaultAsync();
         }
 
+
+
         /// <summary>
         /// Vérifie si une clinique existe par son nom de manière asynchrone.
         /// </summary>
@@ -69,6 +74,8 @@ namespace Clinique2000_Services.Services
             return cliniqueTrouvee != null;
         }
 
+
+
         /// <summary>
         /// Vérifie l'existence d'une clinique en fonction de l'adresse e-mail de manière asynchrone.
         /// </summary>
@@ -79,6 +86,9 @@ namespace Clinique2000_Services.Services
             var cliniqueTrouvee = await ObtenirCliniqueParCourrielAsync(courriel);
             return cliniqueTrouvee != null;
         }
+
+
+
         /// <summary>
         /// Vérifie si les heures d'ouverture d'une clinique sont valides.
         /// </summary>
@@ -91,6 +101,8 @@ namespace Clinique2000_Services.Services
         {
             return clinique.HeureOuverture < clinique.HeureFermeture;
         }
+
+
 
         /// <summary>
         /// Enregistre une nouvelle clinique avec son adresse associée.
@@ -134,6 +146,10 @@ namespace Clinique2000_Services.Services
 
             return cliniqueEnregistree;
         }
+
+
+
+
     }
 }
 

@@ -1,4 +1,5 @@
 using Clinique2000_Core.Models;
+using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
@@ -11,14 +12,25 @@ using Xunit;
 
 namespace Clinique2000_TestsUnitaires
 {
-    public class CliniqueServiceTests_ObtenirCliniqueParNomAsync
+    public class CliniqueServiceTests_ObtenirCliniqueParNomAsync : IDisposable
     {
+        private readonly CliniqueDbContext _dbContext;
+
+        public CliniqueServiceTests_ObtenirCliniqueParNomAsync()
+        {
+            _dbContext = CreateDbContext();
+        }
+
+        public void Dispose()
+        {
+            _dbContext.Dispose();
+        }
+
         [Fact]
         public async Task ObtenirCliniqueParNomAsync_ValidName_ReturnsClinique()
         {
             // Arrange
-            var dbContext = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
             var clinicName = "TestClinique";
             var expectedClinique = new Clinique
             {
@@ -28,8 +40,8 @@ namespace Clinique2000_TestsUnitaires
                 HeureOuverture = TimeSpan.FromHours(8),
                 HeureFermeture = TimeSpan.FromHours(18),
             };
-            dbContext.Cliniques.Add(expectedClinique);
-            dbContext.SaveChanges();
+            _dbContext.Cliniques.Add(expectedClinique);
+            _dbContext.SaveChanges();
 
             // Act
             var result = await cliniqueService.ObtenirCliniqueParNomAsync(clinicName);
@@ -43,8 +55,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task ObtenirCliniqueParNomAsync_NullName_ReturnsNull()
         {
             // Arrange
-            var dbContext1 = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext1, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
             string clinicName = null;
 
             // Act
@@ -58,8 +69,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task ObtenirCliniqueParNomAsync_NonExistentName_ReturnsNull()
         {
             // Arrange
-            var dbContext2 = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext2, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
             var clinicName = "NonExistentClinique";
 
             // Act
@@ -73,35 +83,42 @@ namespace Clinique2000_TestsUnitaires
         public async Task ObtenirCliniqueParCourrielAsync_ValidCourriel_ReturnsClinique()
         {
             // Arrange
-            var dbContext3 = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext3, Mock.Of<IAdresseService>());
+            var dbContext = CreateDbContext(); // Create a new DbContext instance for isolation
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
             var courriel = "test@example.com";
             var expectedClinique = new Clinique
             {
-                CliniqueID = 4, // Update the CliniqueID to match the ID in your in-memory database
+                CliniqueID = 5, // Choose a unique CliniqueID that doesn't exist in the database
                 NomClinique = "TestClinique",
                 Courriel = courriel,
                 CreateurID = "SDASDA231231ADSA3213DSAD",
                 HeureOuverture = TimeSpan.FromHours(8),
                 HeureFermeture = TimeSpan.FromHours(18),
             };
-            dbContext3.Cliniques.Add(expectedClinique);
-            dbContext3.SaveChanges();
+            dbContext.Cliniques.Add(expectedClinique);
+            dbContext.SaveChanges();
 
             // Act
             var result = await cliniqueService.ObtenirCliniqueParCourrielAsync(courriel);
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(expectedClinique, result);
+            Assert.Equal(expectedClinique.CliniqueID, result.CliniqueID);
+            Assert.Equal(expectedClinique.NomClinique, result.NomClinique);
+            Assert.Equal(expectedClinique.Courriel, result.Courriel);
+            Assert.Equal(expectedClinique.CreateurID, result.CreateurID);
+            Assert.Equal(expectedClinique.HeureOuverture, result.HeureOuverture);
+            Assert.Equal(expectedClinique.HeureFermeture, result.HeureFermeture);
+
+            // Clean up the DbContext to ensure isolation
+            dbContext.Dispose();
         }
 
         [Fact]
         public async Task ObtenirCliniqueParCourrielAsync_NullCourriel_ReturnsNull()
         {
             // Arrange
-            var dbContext4 = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext4, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
             string courriel = null;
 
             // Act
@@ -115,8 +132,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task ObtenirCliniqueParCourrielAsync_NonExistentCourriel_ReturnsNull()
         {
             // Arrange
-            var dbContext5 = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext5, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
             var courriel = "NonExistent@example.com";
 
             // Act
@@ -130,8 +146,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task VerifierExistenceCliniqueParCourrielAsync_ExistingClinique_ReturnsTrue()
         {
             // Arrange
-            var dbContext6 = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext6, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
             var courriel = "test@example.com";
             var expectedClinique = new Clinique
             {
@@ -141,8 +156,8 @@ namespace Clinique2000_TestsUnitaires
                 HeureOuverture = TimeSpan.FromHours(8),
                 HeureFermeture = TimeSpan.FromHours(18),
             };
-            dbContext6.Cliniques.Add(expectedClinique);
-            dbContext6.SaveChanges();
+            _dbContext.Cliniques.Add(expectedClinique);
+            _dbContext.SaveChanges();
 
             // Act
             var result = await cliniqueService.VerifierExistenceCliniqueParCourrielAsync(courriel);
@@ -155,8 +170,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task VerifierExistenceCliniqueParCourrielAsync_NonExistentClinique_ReturnsFalse()
         {
             // Arrange
-            var dbContext7 = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext7, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
             var courriel = "nonexistent@example.com";
 
             // Act
@@ -170,8 +184,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task VerifierExistenceCliniqueParCourrielAsync_NullCourriel_ReturnsFalse()
         {
             // Arrange
-            var dbContext8 = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext8, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
             string courriel = null;
 
             // Act
@@ -185,8 +198,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task VerifierSiHeureOuvertureValide_ValidOpeningHours_ReturnsTrue()
         {
             // Arrange
-            var dbContext9 = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext9, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
             var clinique = new Clinique
             {
                 NomClinique = "TestClinique",
@@ -204,11 +216,10 @@ namespace Clinique2000_TestsUnitaires
         }
 
         [Fact]
-        public async Task VerifierSiHeureOuvertureValide_InvalidOpeningHours_ThrowsValidationException()
+        public void VerifierSiHeureOuvertureValide_InvalidOpeningHours_ReturnsFalse()
         {
             // Arrange
-            var dbContext10 = CreateDbContext();
-            var cliniqueService = new CliniqueService(dbContext10, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
             var clinique = new Clinique
             {
                 NomClinique = "TestClinique",
@@ -218,9 +229,54 @@ namespace Clinique2000_TestsUnitaires
                 HeureFermeture = TimeSpan.FromHours(8),  // Set closing hours before opening hours
             };
 
-            // Act & Assert
-            var exception = await Assert.ThrowsAsync<ValidationException>(() => cliniqueService.VerifierSiHeureOuvertureValide(clinique));
-            Assert.Equal("L'heure d'ouverture doit être inférieure à l'heure de fermeture.", exception.Message);
+            // Act
+            var result = cliniqueService.VerifierSiHeureOuvertureValide(clinique);
+
+            // Assert
+            Assert.False(result.Result);
+        }
+
+
+
+        [Fact]
+        public async Task EnregistrerCliniqueAsync_ValidInput_ReturnsClinique()
+        {
+            // Arrange
+            var dbContext = CreateDbContext();
+            var adresseService = new Mock<IAdresseService>();
+            adresseService.Setup(s => s.VerifierCodePostalValideAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var cliniqueService = new CliniqueService(dbContext, adresseService.Object);
+            var viewModel = new CliniqueAdresseVM
+            {
+                Clinique = new Clinique
+                {
+                    NomClinique = "NewClinique",
+                    Courriel = "new@example.com",
+                    CreateurID = "12345",
+                    HeureOuverture = TimeSpan.FromHours(8),
+                    HeureFermeture = TimeSpan.FromHours(18)
+                },
+                Adresse = new Adresse
+                {
+                    Numero = "123",
+                    Rue = "Main Street",
+                    Ville = "City",
+                    Province = "State",
+                    Pays = "Country",
+                    CodePostal = "A1A 1A1"
+                }
+            };
+
+            // Act
+            var result = await cliniqueService.EnregistrerCliniqueAsync(viewModel);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(viewModel.Clinique.NomClinique, result.NomClinique);
+
+            // Add more assertions as needed to verify the returned Clinique object and other conditions.
+            dbContext.Dispose();
         }
 
         private CliniqueDbContext CreateDbContext()
@@ -229,9 +285,9 @@ namespace Clinique2000_TestsUnitaires
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
 
-            var dbContext11 = new CliniqueDbContext(options);
-            dbContext11.Database.EnsureCreated();
-            return dbContext11;
+            var dbContext = new CliniqueDbContext(options);
+            dbContext.Database.EnsureCreated();
+            return dbContext;
         }
     }
 }

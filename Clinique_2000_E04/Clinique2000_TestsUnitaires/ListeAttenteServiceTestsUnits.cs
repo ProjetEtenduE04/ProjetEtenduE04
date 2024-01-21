@@ -29,32 +29,55 @@ namespace Clinique2000_TestsUnitaires
         //Preparer des valeurs 
         private void SeedInMemoryStore(CliniqueDbContext dbTest)
         {
+            if (!dbTest.Cliniques.Any())
+            {
+                dbTest.Cliniques.AddRange(
+                    new Clinique
+                    {
+                        CliniqueID = 1,
+                        NomClinique = "Clinique A", // Added NomClinique
+                        Courriel = "cliniqueA@example.com", // Added Courriel
+                        CreateurID = "creator1", // Added CreateurID
+                        HeureOuverture = TimeSpan.FromHours(8),
+                        HeureFermeture = TimeSpan.FromHours(18), // Added HeureFermeture
+                        TempsMoyenConsultation = 30,
+                    },
+                    new Clinique
+                    {
+                        CliniqueID = 2,
+                        NomClinique = "Clinique B", // Added NomClinique
+                        Courriel = "cliniqueB@example.com", // Added Courriel
+                        CreateurID = "creator2", // Added CreateurID
+                        HeureOuverture = TimeSpan.FromHours(9), // Adjusted HeureOuverture
+                        HeureFermeture = TimeSpan.FromHours(17), // Adjusted HeureFermeture
+                        TempsMoyenConsultation = 20,
+                    },
+                    new Clinique
+                    {
+                        CliniqueID = 3,
+                        NomClinique = "Clinique C", // Added NomClinique
+                        Courriel = "cliniqueC@example.com", // Added Courriel
+                        CreateurID = "creator3", // Added CreateurID
+                        HeureOuverture = TimeSpan.FromHours(8),
+                        HeureFermeture = TimeSpan.FromHours(18), // Added HeureFermeture
+                        TempsMoyenConsultation = 30,
+                    }
+                );
+                dbTest.SaveChanges();
+            }
 
-           
-                if (!dbTest.Cliniques.Any())
-                {
-                    dbTest.Cliniques.AddRange(
-                     new Clinique { CliniqueID = 1, TempsMoyenConsultation = 30 },
-                     new Clinique { CliniqueID = 2, TempsMoyenConsultation = 20 },
-                     new Clinique { CliniqueID = 3, TempsMoyenConsultation = 30 }
-                     );
-                    dbTest.SaveChanges();
-                }
-
-                if (!dbTest.ListeAttentes.Any())
-                {
-                    dbTest.ListeAttentes.AddRange(
-                     new ListeAttente { ListeAttenteID = 1, DateEffectivite = DateTime.Today, HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 1 },
-                     new ListeAttente { ListeAttenteID = 2, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 0, CliniqueID = 1 },
-                     new ListeAttente { ListeAttenteID = 3, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 3 },
-                     new ListeAttente { ListeAttenteID = 4, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 2 }
-
-
-                     );
-                    dbTest.SaveChanges();
-                }
-            
+            if (!dbTest.ListeAttentes.Any())
+            {
+                dbTest.ListeAttentes.AddRange(
+                    new ListeAttente { ListeAttenteID = 1, DateEffectivite = DateTime.Today, HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 1 },
+                    new ListeAttente { ListeAttenteID = 2, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 0, CliniqueID = 1 },
+                    new ListeAttente { ListeAttenteID = 3, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 3 },
+                    new ListeAttente { ListeAttenteID = 4, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 2 }
+                );
+                dbTest.SaveChanges();
+            }
         }
+
 
         [Fact]
         public async Task GenererPlagesHorairesAsync_CreatesCorrectNumberofConsultation()
@@ -71,7 +94,7 @@ namespace Clinique2000_TestsUnitaires
 
             // Assert
             var consultations = dbTest.PlagesHoraires.Count();
-            var expectedCount = 4;//dans 2hrs avec 2 medecins je dois ouvrir 4 plages horaires pour la Liste d'attente 1
+            var expectedCount = 4; // You mentioned that you expect 4 consultations.
             Assert.Equal(expectedCount, consultations);
         }
 
