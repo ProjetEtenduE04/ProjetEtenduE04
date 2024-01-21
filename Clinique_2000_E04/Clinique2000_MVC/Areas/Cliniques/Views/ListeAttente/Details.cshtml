@@ -3,39 +3,40 @@
 <section id="heroDetails" class=" d-flex align-items-center justify-content-center mb-2">
 
 
-    <div class="container listeattente-data ">
-        <div class="row mb-2 ms-2 justify-content-start align-content-center">
-            <div class="col-md-12 ms-3 mt-5">
-                <h1 class="ps-5" >Liste d'attente </h1> @* @Model.DateEffectivite.DayOfWeek *@
+    <div class=" listeattente-data ">
+        <div class="row d-flex mb-2  justify-content-center align-content-center text-center">
+            <div class="col-md-12 mt-5">
+                <h1 class="text-center justify-content-center">Liste d'attente </h1> @* @Model.DateEffectivite.DayOfWeek *@
             </div>
         </div>
-        <div class="row ps-5 ms-2 mb-2 justify-content-start align-content-center">
-            <div class="col-md-3 ms-3 p-5  text-center justify-content-center align-content-center heureActuelle">
+        <div class="container-fluid heure-medecins">
+            <div class="heureActuelle card-details">
                 <p>Heure Actuelle</p>
                 <div id="watch"></div>
             </div>
+            <div class="card-details"><p>Nombre de médecins: <div id="nb-medecins-dispo">@Model.NbMedecinsDispo</div></p></div>
         </div>
 
-        <div class="row my-2 ms-2  justify-content-center align-content-center">
-            <div class="col-md-3 card-details">
+        <div class="heure-date-liste">
+            <div class="card-details">
                 <p>Effective le: </p>
-                 <div id="date-effectivite">
-                        @Model.DateEffectivite.ToString("yyyy-MM-dd")
-                 </div>
-                
+                <div id="date-effectivite">
+                    @Model.DateEffectivite.ToString("yyyy-MM-dd")
+                </div>
             </div>
 
-            <div class="col-md-3 card-details"><p>Ouvre à: </p><div id="heure-ouverture">@Model.HeureOuverture.ToString("hh\\:mm")</div></div>
-            <div class="col-md-3 card-details"><p>Ferme à: </p><div id="heure-fermeture">@Model.HeureFermeture.ToString("hh\\:mm")</div></div>
-          @*<div class="col-md-3 card-details"><p>Nombre de médecins disponibles: <div id="nb-medecins-dispo">@Model.NbMedecinsDispo</div></p></div>*@
+            <div class=" card-details"><p>Ouvre à: </p><div id="heure-ouverture">@Model.HeureOuverture.ToString("hh\\:mm")</div></div>
+            <div class=" card-details"><p>Ferme à: </p><div id="heure-fermeture">@Model.HeureFermeture.ToString("hh\\:mm")</div></div>
+
         </div>
 
-        <div class="row m-2 ps-5  justify-content-end  align-content-center">
+        <div class="generer-plages-horaires">
             <form class="my-3 justify-content-end " asp-action="AjouterDesPlagesHorairesl" asp-controller="ListeAttente" method="post">
                 <input type="hidden" name="id" value="@Model.ListeAttenteID" />
                 <input type="submit" value="Generer plages horaire" class="btn btn-success btn-action"
-                @(Model.PlagesHoraires.Count > 0 ? "disabled" : "") />
+                @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") />
             </form>
+            <a class="btn btn-reinitialiser " asp-action="Index" asp-controller="Home" asp-area=""> Retour à l'accueil</a>
         </div>
 
     </div>
@@ -46,7 +47,7 @@
         <div>
             @if (Model.PlagesHoraires != null && Model.PlagesHoraires.Count > 0)
             {
-                <partial name="_PartialAjouterDesPlagesHoraires" for="@Model.PlagesHoraires"/>
+                <partial name="_PartialAjouterDesPlagesHoraires" for="@Model.PlagesHoraires" />
             }
         </div>
     </div>
@@ -61,5 +62,5 @@
     }
 
     setInterval(actualiserHeure, 1000);
-    actualiserHeure(); 
+    actualiserHeure();
 </script>

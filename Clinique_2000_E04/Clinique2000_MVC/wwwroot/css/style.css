@@ -75,16 +75,16 @@
 .col-md-auto,
 .col-lg-auto,
 .col-xl-auto {
-  border: 2px dotted rgb(252, 134, 222);
+    border: 2px dotted rgb(252, 134, 222);
 }
 
 .row {
-  border: 1px solid rgb(39, 255, 93);
-}*/
-
+    border: 1px solid rgb(39, 255, 93);
+}
+    */
 /*----------------Style de police-------------*/
 /* H0 Montserrat 48*/
-*{
+* {
     min-width: 0;
 }
 
@@ -220,15 +220,15 @@ body {
     /* margin-bottom: 60px;*/
     background-color: #fff;
     height: 100%;
-    min-height:100dvh;
-    margin:0;
+    min-height: 100dvh;
+    margin: 0;
 }
 
 header {
     background: linear-gradient(to left,#2567bd, #fff) no-repeat;
 }
 
-/*footer {
+    /*footer {
     background: linear-gradient(to right,#2567bd, #fff) no-repeat;
     margin-top:0px;
 }
@@ -242,11 +242,11 @@ header {
         color: #fff;
     }
 */
-header a.p1 {
-    color: #fff;
-    font-size: 14px;
-    /*  font-weight:bold;*/
-}
+    header a.p1 {
+        color: #fff;
+        font-size: 14px;
+        /*  font-weight:bold;*/
+    }
 
 /*List elemnts*/
 ul {
@@ -283,12 +283,12 @@ divider-2 {
     ================================================== 
 */
 .social li {
- /*   display: inline-block;
+    /*   display: inline-block;
     margin-right: 10px;*/
 }
 
     .social li a {
-       /* display: block;*/
+        /* display: block;*/
         width: 30px;
         height: 30px;
         line-height: 30px;
@@ -402,25 +402,24 @@ divider-2 {
     position: relative;
     border: none;
     cursor: pointer;
-
 }
 
 #rv {
     align-self: baseline;
-margin-left: 10px;
-padding: 20px 10px;
+    margin-left: 10px;
+    padding: 20px 10px;
 }
 
-    .btn-create:hover {
-        color: #115E48;
-        background-color: #95BFB8
-    }
+.btn-create:hover {
+    color: #115E48;
+    background-color: #95BFB8
+}
 
-    .btn-create:active {
-        border: 2px solid #00DEA4;
-        background-color: #1C8C6C;
-        color: white;
-    }
+.btn-create:active {
+    border: 2px solid #00DEA4;
+    background-color: #1C8C6C;
+    color: white;
+}
 
 
 .hero-home a {
@@ -524,7 +523,7 @@ padding: 20px 10px;
     position: relative;
     /*width: 100vw;
     height: 50vh;*/
-    overflow: hidden;
+    overflow: visible;
     background: url(../images/hero3.jpg) no-repeat;
     background-size: cover;
     background-position: center;
@@ -532,16 +531,79 @@ padding: 20px 10px;
     opacity: 0.8;
     padding: 0;
     width: 100%;
-    height: 80vh;
+    height: fit-content;
     /* background-size: cover;
     margin-bottom: 0px;*/
 }
 
-    #heroDetails h4, p, hr {
-        /*position: absolute;*/
+.heure-medecins {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+    margin: 20px;
+    padding: 10px 50px;
+    /*background-color: #fff;*/
+    border-radius: 10px;
+    /* box-shadow: 0 5px 15px rgba(0,0,0,0.1);*/
+    height: 50%;
+    text-align: center;
+    color: #2567bd;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+    .heure-medecins h4 {
+        margin: 0px;
+        padding: 0px;
         color: #2567bd;
+        font-size: 20px;
+        font-weight: bold;
         text-align: center;
     }
+
+    .heure-medecins p {
+        margin: 0px;
+        flex: 1;
+    }
+
+    .heure-medecins .heure-actuelle {
+        margin: 0px;
+        flex: 1;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+.heure-date-liste {
+    display: flex;
+    flex-direction: row;
+    justify-content: safe center;
+    align-items: center;
+    gap: 12px
+}
+
+.generer-plages-horaires {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 30px 0px;
+    padding: 10px;
+}
+
+
+    .generer-plages-horaires .btn {
+        margin: 0px 10px;
+        padding: 10px 10px;
+        text-align: center;
+    }
+
+
+#heroDetails h4, p, hr {
+    /*position: absolute;*/
+    color: #2567bd;
+    text-align: center;
+}
 
 #mask {
     position: relative;
@@ -561,11 +623,52 @@ padding: 20px 10px;
     height: 100%;
 }
 
+.hero-home {
+    height: fit-content;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
 
-.hero-home .text-left {
+.hero-home-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin:50px auto;
+    
+    gap: 20px;
+    width: fit-content;
+}
+
+.hero-home .hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 40%;
     text-align: left;
+    margin: 0px;
+    padding: 0px;
 }
+
+.hero-home-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 10px;
+    margin: 0px;
+    padding: 0px;
+    width: fit-content;
+}
+
+.hero-home-buttons a {
+    margin: 0px;
+    padding: 10px;
+    
+}
+
 
 #heroDetails hr {
     position: relative;
@@ -585,7 +688,6 @@ padding: 20px 10px;
     /*box-shadow: 0 5px 15px rgba(0,0,0,0.1);*/
     padding: 10px;
     margin: 0px;
-    font-family: 'Californian FB';
     font-size: 3em;
     font-weight: bold;
     text-align: center;
@@ -612,15 +714,15 @@ table td {
     /* background-color: rgb(124, 111, 208, 0.3);*/
     background-color: rgb(255,255,255, 0.7);
     border-radius: 30px;
-    margin: 20px;
+    /*margin: 20px;*/
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    height: 50%;
+    height: fit-content;
     padding: 20px;
     text-align: center;
 }
 
     .card-details p {
-        padding: 20px;
+        padding: 10px;
         /*color: #fff;*/
         color: #2567bd;
         font-weight: bold;
@@ -628,7 +730,7 @@ table td {
     }
 
     .card-details div {
-        padding-left: 20px;
+        padding-left: 10px;
         color: #2567bd;
         font-size: 40px;
         font-weight: bold;
@@ -683,7 +785,7 @@ table td {
     padding: 50px 50px;
     display: flex;
     color: #fff;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     align-items: flex-start;
     margin-top: 0px;
     row-gap: 10px;
@@ -700,7 +802,6 @@ table td {
     text-decoration: none;
     font-weight: bold;
     color: #ffffb3;
-    
 }
 
 
@@ -709,11 +810,11 @@ table td {
     width: 90px;
     height: 50px;
 }
-#clinique{
+
+#clinique {
     width: 90px;
     height: 50px;
     margin-left: 20px;
-
 }
 /*.footer-col div {
     flex: 1;
@@ -725,7 +826,7 @@ table td {
 }
 
 .footer-col #col-nousjoindre {
-display: flex;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: start;
@@ -735,9 +836,9 @@ display: flex;
     border-radius: 10px;
     background-color: #023b6d;
     margin-bottom: 20px;
-    
 }
-#col-nousjoindre h5{
+
+#col-nousjoindre h5 {
     margin: 0px;
     padding: 0px;
     color: #fff;
@@ -746,9 +847,9 @@ display: flex;
     text-align: center;
 }
 
-    #col-nousjoindre p {
-        margin: 0px;
-        flex:1;
+#col-nousjoindre p {
+    margin: 0px;
+    flex: 1;
 }
 
 #col-social a {
@@ -785,7 +886,7 @@ display: flex;
     align-items: center;
 }
 
-.champs-obligatoires  {
+.champs-obligatoires {
     color: red;
 }
 /****Confirmation de rv */
@@ -793,20 +894,20 @@ display: flex;
     background-color: #f2f2f2;
     width: 80%;
     margin: 30px;
-    padding: 50px ;
-   text-justify:auto;
-   /* text-align: center;*/
+    padding: 50px;
+    text-justify: auto;
+    /* text-align: center;*/
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transform: translateZ(100);
     opacity: 0;
     transition: transform 0.9s ease-out, opacity 0.9s ease-out;
 }
+
     #confirmation .h0 {
         display: flex;
-justify-content: center;
+        justify-content: center;
         text-align: center;
-        
     }
 
 
@@ -816,11 +917,12 @@ justify-content: center;
         color: #333;
         padding: 20px 50px;
     }
+
 .confirmation-bouttons {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;/*eviter quils prenent 100width*/
+    align-items: center; /*eviter quils prenent 100width*/
     padding: 10px;
 }
 
@@ -828,6 +930,7 @@ justify-content: center;
         margin-top: 10px;
         padding: 10px;
     }
+
 #confirmation .adresse, .details-rdv {
     display: flex;
     flex-direction: column;
@@ -835,14 +938,42 @@ justify-content: center;
     align-items: start;
     gap: 10px;
     margin: 20px;
-padding: 10px 50px;
-    
+    padding: 10px 50px;
 }
 
 
 
 /**Responsive*/
 @media screen and (max-width: 768px) {
+    .hero-home-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 50px auto;
+        gap: 20px;
+        width:100dvw;
+    }
+
+    .hero-home-content .hero-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        margin: 50px auto;
+        gap: 20px;
+        width: 100dvw;
+    }
+    .hero-home-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /*align-items: center;*/
+        gap: 10px;
+        margin: 20px;
+        padding: 10px;
+        width: 100dvw;
+    }
+
+
     .footer-col {
         flex-direction: column;
         align-items: center;
@@ -852,33 +983,89 @@ padding: 10px 50px;
     #col-nousjoindre {
         margin-left: 120px;
     }
+
     .confirmation-bouttons {
         display: flex;
         flex-direction: column;
-       
-        justify-content:center;
+        justify-content: center;
         padding: 10px;
     }
 
-    .confirmation-bouttons .btn {
-        margin-top: 10px;
-        padding: 10px;
+        .confirmation-bouttons .btn {
+            margin-top: 10px;
+            padding: 10px;
+        }
 
-        
-    }
     #confirmation h1 {
         width: 100%;
-        
         padding: 10px;
         border-radius: 0px;
     }
 
-#confirmation {
+    #confirmation {
         width: 100%;
         margin: 0px;
         padding: 0px;
-border-radius: 0px;
+        border-radius: 0px;
+    }
 
+
+    .heroDetails {
+        background: url(../images/hero-bg.jpg) no-repeat top center;
+        width: 100vw;
+        height: 100vh;
+        background-size: cover;
+        margin-bottom: 0px;
+    }
+
+    .heure-date-liste {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px
+    }
+
+    .heure-medecins {
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        width: 100dvw;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    #heroDetails .card-details {
+        width: 100dvw;
+        padding: 0px;
+        flex: 1;
+    }
+
+    .listeattente-data h1 {
+        display: flex;
+        font-size: 2.5em;
+        font-weight: bold;
+        text-align: center;
+        padding: 0px;
+        left: 0;
+        flex: 1;
+    }
+
+    .heure-medecins h4 {
+        margin: 0px;
+        padding: 0px;
+        color: #2567bd;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .generer-plages-horaires {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 30px 0px;
+        padding: 10px;
     }
 }
 
@@ -888,6 +1075,4 @@ border-radius: 0px;
         align-items: center;
         padding: 10px;
     }
-
-    
 }

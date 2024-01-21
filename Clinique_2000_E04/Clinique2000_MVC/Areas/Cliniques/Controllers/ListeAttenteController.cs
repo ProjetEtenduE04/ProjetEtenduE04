@@ -68,15 +68,43 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        //public async Task<ActionResult> Details(int id)
+        //{
+        //    if (id >= 0)
+        //    {
+        //        ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
+        //        var plagesHorairesOrdonnees = listeAttente.PlagesHoraires.OrderBy(plage => plage.HeureDebut).SkipWhile(plage=>plage.Consultations.All(c=> c.StatutConsultation != StatutConsultation.DisponiblePourReservation)).ToList();
+
+        //        Consultation consultations = await plagesHorairesOrdonnees?.Consultations.OrderBy(consultation=>consultation.ConsultationID).ToList();
+
+        //        return View(listeAttente);
+        //    }
+        //    return NotFound();
+
+        //}
         public async Task<ActionResult> Details(int id)
         {
             if (id >= 0)
             {
-                ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
+                var listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
+
+                // Usar SkipWhile para excluir las primeras PlagesHoraires llenas y luego ordenar por ID
+                var plagesHorairesOrdonnees = listeAttente.PlagesHoraires
+                    .SkipWhile(ph => ph.Consultations.All(c => c.StatutConsultation != StatutConsultation.DisponiblePourReservation))
+                    .OrderBy(ph => ph.PlageHoraireID)
+                    .ToList();
+
+                // Asegurarse de que cada PlageHoraire tenga sus Consultations ordenadas
+                foreach (var plageHoraire in plagesHorairesOrdonnees)
+                {
+                    plageHoraire.Consultations = plageHoraire.Consultations.OrderBy(c => c.ConsultationID).ToList();
+                }
+
+                listeAttente.PlagesHoraires = plagesHorairesOrdonnees;
+
                 return View(listeAttente);
             }
             return NotFound();
-
         }
 
 
@@ -344,10 +372,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 PatientID = 1, // ID ficticio
                 Patient = new Patient
                 {
-                    
                     Nom = "Emond",
                     Prenom = "Benoit"
-                  
                 },
              
                

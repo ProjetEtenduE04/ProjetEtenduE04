@@ -1,4 +1,5 @@
 ﻿@model Consultation
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -33,8 +34,8 @@
                         <li><strong>Email: </strong><span id="clinicEmail">@Model.PlageHorarie.ListeAttente.Clinique.Courriel</span></li>
                     </ul>
                     <div class="confirmation-bouttons mt-5 mb-4">
-                        <button id="rescheduleButton" class=" btn btn-create " asp-action="Index" asp-controller="Home">Retour à l'accueil</button>
-                        <button id="cancelButton" class="btn btn-reinitialiser" disabled>Annuler le RDV</button>
+                        <a id="rescheduleButton" class=" btn btn-create " asp-action="Index" asp-controller="Home" asp-area="">Retour à l'accueil</a>
+                        <a id="cancelButton" class="btn btn-reinitialiser" disabled>Annuler le RDV</a>
                     </div>
                 </div>
              </div>
