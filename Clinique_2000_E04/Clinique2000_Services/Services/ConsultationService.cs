@@ -1,31 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Clinique2000_Core.Models;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
-using Clinique2000_Core.Models;
-using Microsoft.EntityFrameworkCore;
 using Clinique2000_Utility.Enum;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinique2000_Services.Services
 {
+    /// <summary>
+    /// Service de gestion des consultations.
+    /// </summary>
     public class ConsultationService : ServiceBaseAsync<Consultation>, IConsultationService
     {
         private readonly CliniqueDbContext _context;
-        private readonly IPatientService _patientService;
+        private readonly IPatientService _servicePatient;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ConsultationService(CliniqueDbContext context, IPatientService patientService, IHttpContextAccessor httpContextAccessor) : base(context)
+        /// <summary>
+        /// Initialise une nouvelle instance du service de consultation.
+        /// </summary>
+        /// <param name="context">Le contexte de base de données.</param>
+        /// <param name="servicePatient">Le service de gestion des patients.</param>
+        /// <param name="httpContextAccessor">L'accessoir HTTP pour accéder au contexte de la requête.</param>
+        public ConsultationService(CliniqueDbContext context, IPatientService servicePatient, IHttpContextAccessor httpContextAccessor) : base(context)
         {
             _context = context;
-            _patientService = patientService;
+            _servicePatient = servicePatient;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -36,23 +40,23 @@ namespace Clinique2000_Services.Services
         /// <exception cref="ValidationException">En cas d'échec des vérifications.</exception>
         public async Task ReserverConsultationAsync(int consultationId)
         {
-            // Retrieve the existing consultation from the database
+            // Récupérer la consultation existante depuis la base de données
             var consultation = await _context.Consultations.FindAsync(consultationId);
 
             if (consultation == null)
-             {
+            {
                 throw new ValidationException("Consultation introuvable.");
             }
 
-            var patientId = await ObtenirPatientId();
+            var patientId = await ObtenirIdPatientAsync();
 
             // Vérifier si le patient a déjà une consultation planifiée
-            if (await PatientAConsultationPlanifiee(patientId))
+            if (await PatientAConsultationPlanifieeAsync(patientId))
             {
                 throw new ValidationException("Le patient a déjà une consultation planifiée.");
             }
 
-            if (await ListeAttenteEstOuverte(consultationId)==false)
+            if (await ListeAttenteOuverteAsync(consultationId) == false)
             {
                 throw new ValidationException("La liste d'attente est fermée.");
             }
@@ -69,16 +73,16 @@ namespace Clinique2000_Services.Services
         /// </summary>
         /// <param name="consultationId">L'identifiant de la consultation.</param>
         /// <returns>Un tuple contenant les objets PlageHoraire et ListeAttente associés.</returns>
-        public async Task<(PlageHoraire, ListeAttente)> GetPlageHoraireEtListeAttenteParConsultationIdAsync(int consultationId)
+        public async Task<(PlageHoraire, ListeAttente)> ObtenirPlageHoraireEtListeAttenteAsync(int consultationId)
         {
             if (consultationId == null)
             {
                 throw new ValidationException("Consultation introuvable.");
             }
 
-            Consultation consultationn = await _context.Consultations.FindAsync(consultationId);
+            Consultation consultation = await _context.Consultations.FindAsync(consultationId);
 
-            var plageHoraire = await _context.PlagesHoraires.FindAsync(consultationn.PlageHoraireID);
+            var plageHoraire = await _context.PlagesHoraires.FindAsync(consultation.PlageHoraireID);
             if (plageHoraire == null)
             {
                 throw new ValidationException("Plage horaire non trouvée.");
@@ -98,27 +102,27 @@ namespace Clinique2000_Services.Services
         /// </summary>
         /// <param name="consultationId">L'identifiant de la consultation.</param>
         /// <returns>true si la liste d'attente est ouverte, sinon false.</returns>
-        public async Task<bool> ListeAttenteEstOuverte(int consultationId)
+        public async Task<bool> ListeAttenteOuverteAsync(int consultationId)
         {
-            var tuple = await GetPlageHoraireEtListeAttenteParConsultationIdAsync(consultationId);
+            var tuple = await ObtenirPlageHoraireEtListeAttenteAsync(consultationId);
             ListeAttente listeAttente = tuple.Item2;
 
             // Vérifie si la liste d'attente est ouverte
             return listeAttente != null && listeAttente.IsOuverte;
         }
 
-        private async Task<int> ObtenirPatientId()
+        private async Task<int> ObtenirIdPatientAsync()
         {
-            var userId = GetUserId();
-            return await GetPatientIdFromUserId(userId);
+            var userId = ObtenirIdUtilisateur();
+            return await ObtenirIdPatientDepuisUtilisateurAsync(userId);
         }
 
-        private string GetUserId()
+        private string ObtenirIdUtilisateur()
         {
             return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
 
-        private async Task<int> GetPatientIdFromUserId(string userId)
+        private async Task<int> ObtenirIdPatientDepuisUtilisateurAsync(string userId)
         {
             var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
             return patient?.PatientId ?? 0; // Retourne 0 ou un ID de patient valide
@@ -129,10 +133,8 @@ namespace Clinique2000_Services.Services
         /// </summary>
         /// <param name="patientId">L'identifiant du patient.</param>
         /// <returns>true si le patient a une consultation planifiée en attente, sinon false.</returns>
-        public async Task<bool> PatientAConsultationPlanifiee(int patientId)
+        public async Task<bool> PatientAConsultationPlanifieeAsync(int patientId)
         {
-            
-
             if (await _context.Consultations
                 .AnyAsync(c => c.PatientID == patientId && c.StatutConsultation == StatutConsultation.EnAttente))
             {
@@ -141,7 +143,5 @@ namespace Clinique2000_Services.Services
             else
                 return false;
         }
-
-    
     }
 }
