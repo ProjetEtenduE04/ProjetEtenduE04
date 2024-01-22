@@ -46,7 +46,7 @@ namespace Clinique2000_Core.Models
         [RegularExpression(@"^\(\d{3}\) \d{3}-\d{4}$", ErrorMessage = "Le format du numéro de téléphone n'est pas valide. Utilisez le format (xxx) xxx-xxxx.")]
         public string? NumTelephone { get; set; }
 
-        [Display(Name = "Est Aactive")]
+        [Display(Name = "Est Active")]
         public bool EstActive { get; set; } = false;
 
         [Display(Name = "Date de Création")]

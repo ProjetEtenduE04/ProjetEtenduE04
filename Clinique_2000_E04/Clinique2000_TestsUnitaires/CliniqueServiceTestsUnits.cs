@@ -26,22 +26,62 @@ namespace Clinique2000_TestsUnitaires
             _dbContext.Dispose();
         }
 
+        // Définir la DB InMemory
+
+        private DbContextOptions<CliniqueDbContext> SetUpInMemory(string uniqueName)
+        {
+            var options = new DbContextOptionsBuilder<CliniqueDbContext>().UseInMemoryDatabase(uniqueName).Options;
+            SeedInMemoryStore(options);
+            return options;
+        }
+        //Preparer des valeurs 
+        private void SeedInMemoryStore(DbContextOptions<CliniqueDbContext> options)
+        {
+            using (var context = new CliniqueDbContext(options))
+            {
+                if (!context.Cliniques.Any())
+                    context.Cliniques.AddRange(
+                       new Clinique()
+                       {
+                           CliniqueID = 1,
+                           NomClinique = "CliniqueA",
+                           Courriel = "test@clinique2000.com",
+                           HeureOuverture = new TimeSpan(8, 0, 0),
+                           HeureFermeture = new TimeSpan(17, 0, 0),
+                           TempsMoyenConsultation = 30,
+                           EstActive = true,
+                           AdresseID = 1,
+                           NumTelephone = "(438) 333-5555",
+                           CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+
+                       },
+                        new Clinique()
+                        {
+                            CliniqueID = 2,
+                            NomClinique = "CliniqueB",
+                            Courriel = "Test2@test.com",
+                            HeureOuverture = new TimeSpan(8, 0, 0),
+                            HeureFermeture = new TimeSpan(17, 0, 0),
+                            TempsMoyenConsultation = 30,
+                            EstActive = true,
+                            AdresseID = 2,
+                            NumTelephone = "(438) 333-7777",
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                        }
+                   ); 
+                context.SaveChanges();
+            }
+        }
+
         [Fact]
         public async Task ObtenirCliniqueParNomAsync_ValidName_ReturnsClinique()
         {
             // Arrange
-            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
-            var clinicName = "TestClinique";
-            var expectedClinique = new Clinique
-            {
-                NomClinique = clinicName,
-                Courriel = "test@example.com",
-                CreateurID = "SDASDA231231ADSA3213DSAD",
-                HeureOuverture = TimeSpan.FromHours(8),
-                HeureFermeture = TimeSpan.FromHours(18),
-            };
-            _dbContext.Cliniques.Add(expectedClinique);
-            _dbContext.SaveChanges();
+            var options = SetUpInMemory("moq_db");
+            using var context = new CliniqueDbContext(options);
+            var cliniqueService = new CliniqueService(context, Mock.Of<IAdresseService>());
+            var clinicName = "CliniqueA";
+            var expectedClinique = await context.Cliniques.FirstOrDefaultAsync();
 
             // Act
             var result = await cliniqueService.ObtenirCliniqueParNomAsync(clinicName);
@@ -83,35 +123,16 @@ namespace Clinique2000_TestsUnitaires
         public async Task ObtenirCliniqueParCourrielAsync_ValidCourriel_ReturnsClinique()
         {
             // Arrange
-            var dbContext = CreateDbContext(); // Create a new DbContext instance for isolation
-            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
-            var courriel = "test@example.com";
-            var expectedClinique = new Clinique
-            {
-                CliniqueID = 5, // Choose a unique CliniqueID that doesn't exist in the database
-                NomClinique = "TestClinique",
-                Courriel = courriel,
-                CreateurID = "SDASDA231231ADSA3213DSAD",
-                HeureOuverture = TimeSpan.FromHours(8),
-                HeureFermeture = TimeSpan.FromHours(18),
-            };
-            dbContext.Cliniques.Add(expectedClinique);
-            dbContext.SaveChanges();
+            var options = SetUpInMemory("moq_db");
+            using var context = new CliniqueDbContext(options);
+            var cliniqueService = new CliniqueService(context, Mock.Of<IAdresseService>());
 
             // Act
-            var result = await cliniqueService.ObtenirCliniqueParCourrielAsync(courriel);
+            var resultClinique = await cliniqueService.ObtenirCliniqueParCourrielAsync("test@clinique2000.com");
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal(expectedClinique.CliniqueID, result.CliniqueID);
-            Assert.Equal(expectedClinique.NomClinique, result.NomClinique);
-            Assert.Equal(expectedClinique.Courriel, result.Courriel);
-            Assert.Equal(expectedClinique.CreateurID, result.CreateurID);
-            Assert.Equal(expectedClinique.HeureOuverture, result.HeureOuverture);
-            Assert.Equal(expectedClinique.HeureFermeture, result.HeureFermeture);
-
-            // Clean up the DbContext to ensure isolation
-            dbContext.Dispose();
+                // Assert
+                Assert.NotNull(resultClinique);
+                Assert.Equal("test@clinique2000.com", resultClinique.Courriel); 
         }
 
         [Fact]

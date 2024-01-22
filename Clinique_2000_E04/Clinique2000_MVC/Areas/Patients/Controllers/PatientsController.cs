@@ -41,12 +41,12 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
             if (id == null || await _services.patient.ObtenirToutAsync() == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             var patientDetails = await _services.patient.ObtenirParIdAsync(id);
             if (patientDetails == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             return View(patientDetails);
         }
@@ -69,8 +69,8 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
                     return View(patientModel);
                 }
-
-                return RedirectToAction("Index", "Home");
+                var patient = await _services.patient.GetPatientParUserIdAsync(user.Id);
+                return RedirectToAction("Details", "Patients", new { id = patient.PatientId });
             //}
 
             //return RedirectToAction("Index", "Home");
@@ -103,13 +103,13 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             {
                 if (id == null || await _services.patient.ObtenirToutAsync() == null)
                 {
-                    return NotFound();
+                    return View("NotFound");
                 }
                 var patient = await _services.patient.ObtenirParIdAsync(id);
 
                 if (patient == null)
                 {
-                    return NotFound();
+                    return View("NotFound");
                 }
                 return View(patient);
             }
@@ -128,7 +128,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             {
                 if (id != patient.PatientId)
                 {
-                    return NotFound();
+                    return View("NotFound");
                 }
 
                 if (ModelState.IsValid)
@@ -141,7 +141,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                     {
                         if (!await _services.patient.VerifierExistencePatientParNAM(patient.NAM))
                         {
-                            return NotFound();
+                            return View("NotFound");
                         }
                         else
                         {
@@ -165,7 +165,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             {
                 if (id == null || await _services.patient.ObtenirToutAsync() == null)
                 {
-                    return NotFound();
+                    return View("NotFound");
                 }
                 var patient = await _services.patient.ObtenirParIdAsync(id);
 
@@ -174,7 +174,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                     return View(patient);
                 }
                 else
-                    return NotFound();
+                    return View("NotFound");
             }
             catch
             {

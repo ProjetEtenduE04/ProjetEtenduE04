@@ -104,13 +104,13 @@ namespace Clinique2000_TestsUnitaires
         public async Task Details_AvecValidId_RenvoieViewResult()
         {
             // Arrange
-            int clinicId = 1;
+            int cliniqueId = 1;
             var expectedClinique = _listeCliniques.FirstOrDefault();
-
-            _servicesMock.Setup(s => s.clinique.ObtenirParIdAsync(clinicId)).ReturnsAsync(expectedClinique);
+            _servicesMock.Setup(s => s.clinique.ObtenirToutAsync()).ReturnsAsync(_listeCliniques);
+            _servicesMock.Setup(s => s.clinique.ObtenirParIdAsync(cliniqueId)).ReturnsAsync(expectedClinique);
 
             // Act
-            var result = await _cliniqueControllerMock.Details(clinicId);
+            var result = await _cliniqueControllerMock.Details(cliniqueId);
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -133,7 +133,8 @@ namespace Clinique2000_TestsUnitaires
             var result = await _cliniqueControllerMock.Details(invalidClinicId);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            var notFoundResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("NotFound", notFoundResult.ViewName);
         }
 
         /// <summary>

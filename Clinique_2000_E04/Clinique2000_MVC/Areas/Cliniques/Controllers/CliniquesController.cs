@@ -42,14 +42,14 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             if (id == null || await _services.clinique.ObtenirToutAsync() == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var clinique = await _services.clinique.ObtenirParIdAsync(id);
 
             if (clinique == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(clinique);
@@ -96,7 +96,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             if (id == null || await _services.clinique.ObtenirToutAsync() == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             var clinique = await _services.clinique.ObtenirParIdAsync(id);
             var adreesseClinique = await _services.adresse.ObtenirParIdAsync(clinique.AdresseID);
@@ -109,7 +109,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             if (clinique == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(cliniqueAdresseVM);
@@ -122,7 +122,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             if (id != cliniqueAdresseVM.Clinique.CliniqueID)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)
@@ -139,7 +139,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     var cliniqueExiste = await _services.clinique.ObtenirParIdAsync(cliniqueAdresseVM.Clinique.CliniqueID);
                     if (cliniqueExiste==null)
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -157,13 +157,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             if (id == null || await _services.clinique.ObtenirToutAsync() == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var cliniqueASupprimer = await _services.clinique.ObtenirParIdAsync(id);
             if (cliniqueASupprimer == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(cliniqueASupprimer);

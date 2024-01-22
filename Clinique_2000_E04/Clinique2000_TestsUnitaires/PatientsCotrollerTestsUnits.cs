@@ -211,7 +211,8 @@ namespace Clinique2000_TestsUnitaires
             var result = await _patientsController.Edit(null);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            var notFoundResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("NotFound", notFoundResult.ViewName);
         }
 
         /// <summary>
@@ -229,7 +230,8 @@ namespace Clinique2000_TestsUnitaires
             var result = await _patientsController.Edit(id);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            var notFoundResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("NotFound", notFoundResult.ViewName);
         }
 
         /// <summary>
@@ -327,7 +329,8 @@ namespace Clinique2000_TestsUnitaires
             var result = await _patientsController.Delete(invalidPatientId);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            var notFoundResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("NotFound", notFoundResult.ViewName);
         }
 
         /// <summary>
@@ -341,7 +344,8 @@ namespace Clinique2000_TestsUnitaires
             var result = await _patientsController.Delete(null);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            var notFoundResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("NotFound", notFoundResult.ViewName);
         }
 
         /// <summary>
