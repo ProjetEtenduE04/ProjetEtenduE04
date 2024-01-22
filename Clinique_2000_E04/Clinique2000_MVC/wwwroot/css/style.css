@@ -599,6 +599,14 @@ divider-2 {
     }
 
 
+    .generer-plages-horaires button {
+        margin: 0px 10px;
+        padding: 10px 10px;
+        text-align: center;
+        line-height: 20px;
+    }
+
+
 #heroDetails h4, p, hr {
     /*position: absolute;*/
     color: #2567bd;
