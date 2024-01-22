@@ -1,4 +1,4 @@
- @model Clinique2000_Core.Models.ListeAttente
+ @model Clinique2000_Core.ViewModels.ListeAttenteVM
 
 <section id="heroDetails" class=" d-flex align-items-center justify-content-center mb-2">
 
@@ -14,41 +14,40 @@
                 <p>Heure Actuelle</p>
                 <div id="watch"></div>
             </div>
-            <div class="card-details"><p>Nombre de médecins: <div id="nb-medecins-dispo">@Model.NbMedecinsDispo</div></p></div>
+            <div class="card-details"><p>Nombre de médecins: <div id="nb-medecins-dispo">@Model.ListeAttente.NbMedecinsDispo</div></p></div>
         </div>
 
         <div class="heure-date-liste">
             <div class="card-details">
                 <p>Effective le: </p>
                 <div id="date-effectivite">
-                    @Model.DateEffectivite.ToString("yyyy-MM-dd")
+                    @Model.ListeAttente.DateEffectivite.ToString("yyyy-MM-dd")
                 </div>
             </div>
 
-            <div class=" card-details"><p>Ouvre à: </p><div id="heure-ouverture">@Model.HeureOuverture.ToString("hh\\:mm")</div></div>
-            <div class=" card-details"><p>Ferme à: </p><div id="heure-fermeture">@Model.HeureFermeture.ToString("hh\\:mm")</div></div>
+            <div class=" card-details"><p>Ouvre à: </p><div id="heure-ouverture">@Model.ListeAttente.HeureOuverture.ToString("hh\\:mm")</div></div>
+            <div class=" card-details"><p>Ferme à: </p><div id="heure-fermeture">@Model.ListeAttente.HeureFermeture.ToString("hh\\:mm")</div></div>
 
         </div>
 
         <div class="generer-plages-horaires">
-            <form class="my-3 justify-content-end " asp-action="AjouterDesPlagesHorairesl" asp-controller="ListeAttente" method="post">
-                <input type="hidden" name="id" value="@Model.ListeAttenteID" />
-                <input type="submit" value="Generer plages horaire" class="btn btn-success btn-action"
-                @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") />
+            <form class="my-3 justify-content-end " asp-action="AjouterDesPlagesHoraires" asp-controller="ListeAttente" method="post">
+                <input type="hidden" name="id" value="@Model.ListeAttente.ListeAttenteID" />
+                <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") /> 
+                
             </form>
             <a class="btn btn-reinitialiser " asp-action="Index" asp-controller="Home" asp-area=""> Retour à l'accueil</a>
         </div>
 
     </div>
 </section>
-
+               
 <div class="container mt-3">
     <div class="liste-attente-info mb-0  mt-2 ">
         <div>
-            @if (Model.PlagesHoraires != null && Model.PlagesHoraires.Count > 0)
-            {
+           
                 <partial name="_PartialAjouterDesPlagesHoraires" for="@Model.PlagesHoraires" />
-            }
+           
         </div>
     </div>
 </div>
@@ -63,4 +62,6 @@
 
     setInterval(actualiserHeure, 1000);
     actualiserHeure();
+
+
 </script>

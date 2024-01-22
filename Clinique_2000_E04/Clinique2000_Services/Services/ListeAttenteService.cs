@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Core.Models;
+using Clinique2000_Core.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Clinique2000_Utility.Enum;
 using System.ComponentModel.DataAnnotations;
@@ -179,7 +180,7 @@ namespace Clinique2000_Services.Services
             DateTime heureDebut = listeAttente.DateEffectivite.Date.Add(listeAttente.HeureOuverture);
             DateTime finService = listeAttente.DateEffectivite.Date.Add(listeAttente.HeureFermeture);
             PlageHoraire plageHoraire;
-            //Consultation consultation;
+            
             while (heureDebut < finService)
             {
                 DateTime nouvelleHeureFin = heureDebut.AddMinutes((double)listeAttente.Clinique.TempsMoyenConsultation);
@@ -215,6 +216,50 @@ namespace Clinique2000_Services.Services
         }
 
 
+        public async Task<ListeAttenteVM> GetListeAttenteOrdonnee(int listeAttenteID)
+        {
+           var listeAttente = await _context.ListeAttentes
+                                    .FirstOrDefaultAsync(la => la.ListeAttenteID== listeAttenteID);
+            
+            if (listeAttente == null)
+            {
+                throw new Exception("La liste d'attente n'existe pas");
+            }
+
+
+           var plagesHoraires = await _context.PlagesHoraires
+                                      .Where(ph=> ph.ListeAttenteID == listeAttenteID)
+                                      .OrderBy(ph => ph.PlageHoraireID)
+                                      //.SkipWhile(ph => ph.Consultations.All(c => c.StatutConsultation != StatutConsultation.DisponiblePourReservation))
+                                     
+                                      .ToListAsync();
+
+            
+            var index = plagesHoraires.FindIndex(ph => ph.Consultations.Any(c => c.StatutConsultation == StatutConsultation.DisponiblePourReservation));
+            if (index != -1)
+            {
+                plagesHoraires = plagesHoraires.Skip(index).ToList();
+            }
+
+
+
+            foreach (var plageHoraire in plagesHoraires)
+            {
+                plageHoraire.Consultations = await _context.Consultations
+                                                           .Where(c => c.PlageHoraireID == plageHoraire.PlageHoraireID)
+                                                           .OrderBy(c => c.ConsultationID)
+                                                           .ToListAsync();
+            }
+
+
+            var listeAttenteVM = new ListeAttenteVM
+            {
+                ListeAttente = listeAttente,
+                PlagesHoraires = plagesHoraires
+            };
+
+            return listeAttenteVM; 
+        }
 
 
 

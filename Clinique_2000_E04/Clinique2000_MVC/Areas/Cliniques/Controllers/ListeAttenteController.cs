@@ -1,5 +1,6 @@
 
 using Clinique2000_Core.Models;
+using Clinique2000_Core.ViewModels;
 using Clinique2000_Services.Services;
 using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +24,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             _services = service;
         }
 
-        
+
         /// <summary>
         /// Obtient tout les listes d'Attente ordered par date d'effectivit� ,
         /// qui sont pertinantes a la receptionniste
@@ -41,7 +42,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             listListAttente = listListAttente.Where(x => x.DateEffectivite >= now)
                 .OrderBy(x => x.DateEffectivite)
                 .ToList();
-                
+
 
             return View(listListAttente);
         }
@@ -56,7 +57,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             IList<ListeAttente> listListAttente = await _services.listeAttente
         .ObtenirToutAsync();
 
-          listListAttente = listListAttente.OrderByDescending(x => x.DateEffectivite).ToList();
+            listListAttente = listListAttente.OrderByDescending(x => x.DateEffectivite).ToList();
 
             return View(listListAttente);
         }
@@ -68,43 +69,51 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        //public async Task<ActionResult> Details(int id)
-        //{
-        //    if (id >= 0)
-        //    {
-        //        ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
-        //        var plagesHorairesOrdonnees = listeAttente.PlagesHoraires.OrderBy(plage => plage.HeureDebut).SkipWhile(plage=>plage.Consultations.All(c=> c.StatutConsultation != StatutConsultation.DisponiblePourReservation)).ToList();
-
-        //        Consultation consultations = await plagesHorairesOrdonnees?.Consultations.OrderBy(consultation=>consultation.ConsultationID).ToList();
-
-        //        return View(listeAttente);
-        //    }
-        //    return NotFound();
-
-        //}
         public async Task<ActionResult> Details(int id)
         {
             if (id >= 0)
             {
-                var listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
-
-                // Usar SkipWhile para excluir las primeras PlagesHoraires llenas y luego ordenar por ID
-                var plagesHorairesOrdonnees = listeAttente.PlagesHoraires
-                    .SkipWhile(ph => ph.Consultations.All(c => c.StatutConsultation != StatutConsultation.DisponiblePourReservation))
-                    .OrderBy(ph => ph.PlageHoraireID)
-                    .ToList();
-
-                // Asegurarse de que cada PlageHoraire tenga sus Consultations ordenadas
-                foreach (var plageHoraire in plagesHorairesOrdonnees)
-                {
-                    plageHoraire.Consultations = plageHoraire.Consultations.OrderBy(c => c.ConsultationID).ToList();
+               ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
+               if (listeAttente == null)
+                { 
+                    return NotFound();
                 }
 
-                listeAttente.PlagesHoraires = plagesHorairesOrdonnees;
-
-                return View(listeAttente);
+               var plagesHoraires = listeAttente.PlagesHoraires?? new List<PlageHoraire>();
+               ListeAttenteVM listeAttenteVM = new ListeAttenteVM
+                {
+                    ListeAttente = listeAttente,
+                    PlagesHoraires = listeAttente.PlagesHoraires.OrderBy(ph => ph.PlageHoraireID).ToList()
+                };
+                return View(listeAttenteVM);
             }
+
             return NotFound();
+        }
+
+
+
+        /// <summary>
+        /// Obtient une ListeAttenteId en parametre, recupere la liste d'attente et la renvoie a la vue,
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ActionResult> DetailsOrdonnes(int id)
+        {
+            ListeAttenteVM listeAttenteVM = new ListeAttenteVM();
+
+            if (id >= 0)
+            {
+               listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(id);
+                if (listeAttenteVM == null)
+                {
+                    return NotFound();
+                }
+                return View("Details",listeAttenteVM);
+            }
+
+            return NotFound();
+ 
         }
 
 
@@ -266,20 +275,21 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AjouterDesPlagesHorairesl(int ID)
+        public async Task<ActionResult> AjouterDesPlagesHoraires(int ID)
         {
-            var model = await _services.listeAttente.ObtenirParIdAsync(ID);
-            if (model != null)
-            {
-                await _services.listeAttente.GenererPlagesHorairesAsync(ID);
+           
+               await _services.listeAttente.GenererPlagesHorairesAsync(ID);
 
-                model = await _services.listeAttente.ObtenirParIdAsync(ID);
-
-                return View("Details", model);
-
-            }
-            return NotFound();
+               var listeAttente = await _services.listeAttente.ObtenirParIdAsync(ID);
+                ListeAttenteVM listeAttenteVM = new ListeAttenteVM
+                {
+                    ListeAttente = listeAttente,
+                    PlagesHoraires = listeAttente.PlagesHoraires.OrderBy(ph => ph.PlageHoraireID).ToList()
+                };
+                return View("Details", listeAttenteVM);  
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -287,40 +297,40 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             try
             {
-                // Call the ReserverConsultationAsync method from your service
+                
                 await _services.consultation.ReserverConsultationAsync(id);
                 var consultation = await _services.consultation.ObtenirParIdAsync(id);
                 if (consultation == null)
                 {
                     return NotFound();
                 }
-                // If the reservation is successful, you can redirect to a success page or perform other actions
+                
                 return View("ReservationSuccess", consultation );
 
             }
             catch (ValidationException ex)
             {
                var consultation=await _services.consultation.ObtenirParIdAsync(id);
-                var listeAttente = await _services.listeAttente.ObtenirParIdAsync(consultation.PlageHorarie.ListeAttenteID);
-                listeAttente.Consultations = listeAttente.Consultations.OrderBy(c => c.ConsultationID).ToList();
-                // Handle validation errors, e.g., show an error message to the user
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View("Details",listeAttente); // Return to the same view with validation errors
+               var listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
+
+              
+                ModelState.AddModelError(string.Empty, "IL semble que vous avez déja une rendez-vous confirmée. Pour reserver une autre vous devez annuler la premiere." );
+                return View("Details",listeAttenteVM); // Return to the same view with validation errors
             }
         }
 
 
         public async Task<ActionResult> TestReservationSuccess()
         {
-            // Crear una clínica de prueba
+          
             var clinique = new Clinique2000_Core.Models.Clinique
             {
                 CliniqueID = 1, // ID ficticio
                 NomClinique = "Santé pour tous",
                 Courriel = "abc@dcv",
                 //NumTelephone="514-123 4567",
-                HeureOuverture = new TimeSpan(8, 0, 0), // Ejemplo: 8:00 AM
-                HeureFermeture = new TimeSpan(17, 0, 0), // Ejemplo: 5:00 PM
+                HeureOuverture = new TimeSpan(8, 0, 0), 
+                HeureFermeture = new TimeSpan(17, 0, 0),
                
                 Adresse = new Adresse
                 {
@@ -332,11 +342,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     CodePostal = "H1H 1H1"
                 },
 
-               
-                // Añade aquí otras propiedades necesarias para Clinique
             };
 
-            // Crear una liste d'attente de prueba
+           
             var listeAttente = new ListeAttente
             {
                 ListeAttenteID = 1, // ID ficticio
@@ -351,7 +359,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 
             };
 
-            // Crear una plage horaire de prueba
+            
             var plageHoraire = new PlageHoraire
             {
                 PlageHoraireID = 1, // ID ficticio
@@ -361,7 +369,6 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 ListeAttente = listeAttente
             };
 
-            // Crear una consultation de prueba
             var consultation = new Consultation
             {
                 ConsultationID = 1, // ID ficticio
@@ -380,7 +387,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 // Añade aquí otras propiedades necesarias para Consultation
             };
 
-            // Pasar el objeto consultation a la vista
+           
             return View("ReservationSuccess", consultation);
         }
 
