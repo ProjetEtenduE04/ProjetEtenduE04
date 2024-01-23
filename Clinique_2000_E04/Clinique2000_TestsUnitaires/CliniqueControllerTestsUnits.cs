@@ -250,61 +250,84 @@ namespace Clinique2000_TestsUnitaires
             }
         }
 
+        /// <summary>
+        /// Verifie si la méthode IndexPourPatients renvoie une vue vide lorsque la liste des cliniques est vide.
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        public async Task IndexPourPatients_ReturnsEmptyViewWhenNoClinics()
+        {
+            // Arrange 
+            var emptyCliniqueList = new List<Clinique>();
+            _servicesMock.Setup(s => s.clinique.ObtenirToutAsync()).ReturnsAsync(emptyCliniqueList);
+
+            // Act 
+            var result = await _cliniqueControllerMock.IndexPourPatients();
+
+            // Assert 
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Clinique>>(viewResult.Model);
+
+            Assert.Empty(model);
+        }
 
         /// <summary>
-        /// 
-        /// <returns></returns>
+        /// Verifie si la méthode IndexPourPatients renvoie une vue avec les cliniques actives seulement.
         /// </summary>
-        //[Fact]
-        //public async Task IndexPourPatients_ReturnsEmptyViewWhenNoClinics()
-        //{
-        //    // Arrange 
-        //    var mockService = new Mock<IClinique2000Services>();
-        //    var emptyCliniqueList = new List<Clinique>();
+        /// <returns></returns>
+        [Fact]
+        public async Task IndexPourPatients_ReturnsCorrectViewWithActiveClinics()
+        {
+            // Arrange
+            var activeClinicsList = new List<Clinique>
+            {
+                new Clinique { CliniqueID = 1, NomClinique = "Clinic1", EstActive = true },
+                new Clinique { CliniqueID = 2, NomClinique = "Clinic2", EstActive = true }
+                // Adăugați alți clinici activi, după nevoie
+            };
 
-        //    var mockCliniqueService = new Mock<ICliniqueService>();
-        //    mockCliniqueService.Setup(s => s.ObtenirToutAsync()).ReturnsAsync(emptyCliniqueList);
+            _servicesMock.Setup(service => service.clinique.ObtenirToutAsync()).ReturnsAsync(activeClinicsList);
 
-        //    mockService.Setup(s => s.clinique).Returns(mockCliniqueService.Object);
+            // Act
+            var result = await _cliniqueControllerMock.IndexPourPatients();
 
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("IndexPourPatients", viewResult.ViewName);
 
-        //    // Act 
-        //    var result = await _cliniqueControllerMock.IndexPourPatients();
+            var model = Assert.IsAssignableFrom<IEnumerable<Clinique>>(viewResult.Model);
+            Assert.Equal(activeClinicsList.Count, model.Count());
+            Assert.All(model, clinic => Assert.True(clinic.EstActive));
+        }
 
-        //    // Assert 
-        //    var viewResult = Assert.IsType<ViewResult>(result);
-        //    var model = Assert.IsAssignableFrom<IEnumerable<Clinique>>(viewResult.Model);
+        [Fact]
+        public async Task ListeAttentePourPatient_ReturnsCorrectView()
+        {
+            // Arrange
+            var clinicId = 1;
+            var isOuvert = true;
 
-        //    Assert.Empty(model);
-        //}
+            var listeAttenteData = new List<ListeAttente>
+                {
+                    new ListeAttente()                 
+                  };
 
-        //[Fact]
-        //public async Task IndexPourPatients_ReturnsCorrectViewWithActiveClinics()
-        //{
-        //    // Arrange
-        //    var mockCliniqueService = new Mock<ICliniqueService>();
-        //    var activeClinicsList = new List<Clinique>
-        //{
-        //    new Clinique { CliniqueID = 1, NomClinique = "Clinic1", EstActive = true },
-        //    new Clinique { CliniqueID = 2, NomClinique = "Clinic2", EstActive = true }
-        //    // Adăugați alți clinici activi, după nevoie
-        //};
+            _servicesMock.Setup(s => s.clinique.GetListeAttentePourPatientAsync(clinicId, isOuvert))
+                               .ReturnsAsync(listeAttenteData);
 
-        //    mockCliniqueService.Setup(service => service.ObtenirToutAsync()).ReturnsAsync(activeClinicsList);
+            // Act
+            var result = await _cliniqueControllerMock.ListeAttentePourPatient(clinicId, isOuvert);
 
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("ListeAttentePourPatient", viewResult.ViewName);
 
-        //    // Act
-        //    var result = await _cliniqueControllerMock.IndexPourPatients();
+            // Verificați dacă modelul este o listă de așteptare
+            var model = Assert.IsAssignableFrom<IList<ListeAttente>>(viewResult.Model);
+            Assert.Equal(listeAttenteData, model);
 
-        //    // Assert
-        //    var viewResult = Assert.IsType<ViewResult>(result);
-        //    Assert.Equal("IndexPourPatients", viewResult.ViewName);
-
-        //    var model = Assert.IsAssignableFrom<IEnumerable<Clinique>>(viewResult.Model);
-        //    Assert.Equal(activeClinicsList.Count, model.Count());
-        //    Assert.All(model, clinic => Assert.True(clinic.EstActive));
-        //}
-
-
+            // Verificați dacă ViewBag.CliniqueName este setat corespunzător
+            Assert.Equal("ListeAttentePourPatient", viewResult.ViewName);
+        }
     }
 }

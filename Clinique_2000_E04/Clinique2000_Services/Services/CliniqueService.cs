@@ -141,7 +141,17 @@ namespace Clinique2000_Services.Services
 
             }
         }
-
+        /// <summary>
+        /// Effectue une vérification pour l'édition d'une clinique, y compris la validation de l'existence par nom et par adresse e-mail,
+        /// ainsi que la vérification de la validité des heures d'ouverture.
+        /// </summary>
+        /// <param name="clinique">La clinique à vérifier et à éditer.</param>
+        /// <exception cref="ValidationException">
+        ///     Levée si une validation échoue, par exemple:
+        ///     - Une clinique avec le même nom existe déjà.
+        ///     - Une clinique avec la même adresse e-mail existe déjà.
+        ///     - Les heures d'ouverture ne sont pas valides.
+        /// </exception>
         public async Task ListeDeVerificationCliniqueEdit(Clinique clinique)
         {
 
@@ -219,6 +229,7 @@ namespace Clinique2000_Services.Services
             await EditerAsync(clinique);
         }
 
+
         /// <summary>
         /// Obtient les listes d'attentes (la vue pour les patients)
         /// </summary>
@@ -226,8 +237,6 @@ namespace Clinique2000_Services.Services
         /// <param name="isOuvert"> filtre selon l'etat pour affichie seulement les listes d'attentes sont ouvert</param>
         /// <returns>Les listes d'attentes sont ouvert pour un clinique a choisi</returns>
         /// 
-       
-
         public async Task<IList<ListeAttente>> GetListeAttentePourPatientAsync(int clinicId, bool? isOuvert)
         {
             IQueryable<ListeAttente> query = _context.Set<ListeAttente>();

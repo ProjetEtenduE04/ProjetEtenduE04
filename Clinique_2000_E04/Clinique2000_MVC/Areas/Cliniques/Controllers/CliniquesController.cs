@@ -2,6 +2,7 @@ using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
+using Clinique2000_Services.Services;
 using Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -195,13 +196,14 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
         public async Task<IActionResult> IndexPourPatients()
         {
-        
-            // Get all clinics from the service
             List<Clinique> allClinics = await _services.clinique.ObtenirToutAsync();
 
-            // Filter clinics where EstActive is true
+            if (allClinics == null)
+            {
+                return View("IndexPourPatients", Enumerable.Empty<Clinique>());
+            }
 
-            var activeClinics = allClinics.Where(clinic => clinic.EstActive);
+            var activeClinics = allClinics.Where(clinic => clinic.EstActive).ToList();
             return View("IndexPourPatients", activeClinics);
         }
 
