@@ -1,4 +1,4 @@
-﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -20,5 +20,6 @@ namespace Clinique2000_Services.IServices
         Task<bool> VerifierSiHeureOuvertureValide(Clinique clinique);
         Task<Clinique> EnregistrerCliniqueAsync(CliniqueAdresseVM viewModel);
         Task EditerCliniqueAsync(CliniqueAdresseVM viewModel);
+        Task<IList<ListeAttente>> GetListeAttentePourPatientAsync(int clinicId, bool? isOuvert);
     }
 }

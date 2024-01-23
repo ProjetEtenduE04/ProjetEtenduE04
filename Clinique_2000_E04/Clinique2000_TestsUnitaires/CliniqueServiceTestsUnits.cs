@@ -1,4 +1,4 @@
-﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
@@ -465,5 +465,23 @@ namespace Clinique2000_TestsUnitaires
             dbContext.Database.EnsureCreated();
             return dbContext;
         }
-    }
-}
+        /// <summary>
+        /// Teste le methode ListeAttentePourPatien, Le patient qui peut voir seulement les listes d'attentes sont ouvert
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        public async Task GetListeAttentePourPatientAsync_FiltersAndOrdersCorrectly()
+        {
+            // Arrange
+            var options = SetUpInMemory("moq_db");
+            using var context = new CliniqueDbContext(options);
+            var service = new CliniqueService(context);
+
+            // Act
+            var result = await service.GetListeAttentePourPatientAsync(1, true);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.True(result.All(la => la.Clinique.CliniqueID == 1 && la.IsOuverte == true));
+            Assert.Equal(result, result.OrderBy(x => x.DateEffectivite).ToList());
+        }

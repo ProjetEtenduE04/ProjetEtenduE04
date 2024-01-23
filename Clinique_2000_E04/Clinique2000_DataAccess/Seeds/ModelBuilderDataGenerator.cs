@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Clinique2000_Core.Models;
@@ -11,9 +11,34 @@ namespace Clinique2000_DataAccess.Data
     {
         public static void GenerateData(this ModelBuilder builder)
         {
+            #region Adresse 
+            builder.Entity<Adresse>().HasData(
+               new Adresse()
+               {
+                   AdresseID = 1,
+                   Numero = "123",
+                   Rue = "123 Main Street",
+                   Ville = "Montreal",
+                   Province = "Quebec",
+                   Pays = "Canada",
+                   CodePostal = "H2X 1Y6"
+
+               },
+                    new Adresse()
+                    {
+                        AdresseID = 2,
+                        Numero = "456",
+                        Rue = "Rue ABC",
+                        Ville = "Brossard",
+                        Province = "Quebec",
+                        Pays = "Canada",
+                        CodePostal = "J3Y 1Y5"
+                    }
+            );
+            #endregion
+
             #region Clinique 
             builder.Entity<Clinique>().HasData(
-
                new Clinique()
                {
                    CliniqueID = 1,

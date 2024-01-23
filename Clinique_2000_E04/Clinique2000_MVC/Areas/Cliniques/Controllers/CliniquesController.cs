@@ -1,4 +1,4 @@
-﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
@@ -193,3 +193,25 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         //}
     }
 }
+
+        public async Task<IActionResult> IndexPourPatients()
+        {
+            // Get all clinics from the service
+            var allClinics = await _services.clinique.ObtenirToutAsync();
+
+            // Filter clinics where EstActive is true
+
+            var activeClinics = allClinics.Where(clinic => clinic.EstActive);
+            return View("IndexPourPatients", activeClinics);
+        }
+        public async Task<IActionResult> ListeAttentePourPatient(int clinicId, bool? isOuvert)
+        {
+            IList<ListeAttente> listeAttentePourPatient = await _services.clinique.GetListeAttentePourPatientAsync(clinicId, isOuvert);
+
+
+            string clinicName = _services.clinique.ObtenirParIdAsync(clinicId)?.Result?.NomClinique;
+
+            ViewBag.CliniqueName = clinicName;
+
+            return View("ListeAttentePourPatient", listeAttentePourPatient);
+        }

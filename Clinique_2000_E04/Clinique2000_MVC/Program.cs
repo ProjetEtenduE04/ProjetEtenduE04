@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-
+using Clinique2000_MVC.Areas.Clinique.Controllers;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 //DbContext
@@ -48,7 +49,15 @@ builder.Services.AddScoped<IAuthenGoogleService, AuthenGoogleService>();
 builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
 builder.Services.AddScoped(typeof(ICliniqueService), typeof(CliniqueService));
 builder.Services.AddScoped(typeof(IAdresseService), typeof(AdresseService));
+builder.Services.AddScoped<ICliniqueService, CliniqueService>();
+
 #endregion
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    });
+
 
 var app = builder.Build();
 
