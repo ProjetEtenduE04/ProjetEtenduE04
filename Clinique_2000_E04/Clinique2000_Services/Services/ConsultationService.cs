@@ -11,21 +11,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clinique2000_Services.Services
 {
-    /// <summary>
-    /// Service de gestion des consultations.
-    /// </summary>
     public class ConsultationService : ServiceBaseAsync<Consultation>, IConsultationService
     {
+
         private readonly CliniqueDbContext _context;
         private readonly IPatientService _servicePatient;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        /// <summary>
-        /// Initialise une nouvelle instance du service de consultation.
-        /// </summary>
-        /// <param name="context">Le contexte de base de données.</param>
-        /// <param name="servicePatient">Le service de gestion des patients.</param>
-        /// <param name="httpContextAccessor">L'accessoir HTTP pour accéder au contexte de la requête.</param>
+     
         public ConsultationService(CliniqueDbContext context, IPatientService servicePatient, IHttpContextAccessor httpContextAccessor) : base(context)
         {
             _context = context;
