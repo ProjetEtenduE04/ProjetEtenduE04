@@ -195,8 +195,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
         public async Task<IActionResult> IndexPourPatients()
         {
+        
             // Get all clinics from the service
-            var allClinics = await _services.clinique.ObtenirToutAsync();
+            List<Clinique> allClinics = await _services.clinique.ObtenirToutAsync();
 
             // Filter clinics where EstActive is true
 
