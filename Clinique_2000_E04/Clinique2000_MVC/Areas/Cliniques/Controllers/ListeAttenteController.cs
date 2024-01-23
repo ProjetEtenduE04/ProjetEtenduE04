@@ -139,7 +139,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    listeAttente.CliniqueID = 1;
+                    listeAttente.CliniqueID = 2;
                     await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
                     //valeur hardcod�
                   
