@@ -14,5 +14,8 @@ namespace Clinique2000_Core.Models
     {
         [ValidateNever]
         public virtual Patient? Patient { get; set; }
+
+        [ValidateNever]
+        public virtual List<Clinique>? Clinique { get; set; }
     }
 }

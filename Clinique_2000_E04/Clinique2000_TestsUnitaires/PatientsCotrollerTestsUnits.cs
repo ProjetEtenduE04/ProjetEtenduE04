@@ -18,21 +18,14 @@ namespace Clinique2000_TestsUnitaires
     public class PatientsCotrollerTestsUnits
     {
 
-        //private readonly Mock<IServiceBaseAsync<Patient>> _serviceBaseMock;
-        //private readonly Mock<IPatientService> _patientServiceMock;
-        //private readonly Mock<IAuthenGoogleService> _authenGoogleServiceMock;
         private readonly Mock<UserManager<IdentityUser>> _userManagerMock;
         private readonly Mock<IClinique2000Services> _servicesMock;
-
 
         private List<Patient> _patientsList;
         private readonly PatientsController _patientsController;
 
         public PatientsCotrollerTestsUnits()
         {
-            //_serviceBaseMock = new Mock<IServiceBaseAsync<Patient>>();
-            //_patientServiceMock = new Mock<IPatientService>();
-            //_authenGoogleServiceMock = new Mock<IAuthenGoogleService>();
             _userManagerMock = new Mock<UserManager<IdentityUser>>(new Mock<IUserStore<IdentityUser>>().Object, null, null, null, null, null, null, null, null);
             _servicesMock = new Mock<IClinique2000Services>();
 
@@ -116,14 +109,15 @@ namespace Clinique2000_TestsUnitaires
 
             _userManagerMock.Setup(manager => manager.FindByEmailAsync("test@example.com")).ReturnsAsync(user);
             _servicesMock.Setup(service => service.patient.UserEstPatientAsync(user.Id)).ReturnsAsync(true);
+            _servicesMock.Setup(service => service.patient.GetPatientParUserIdAsync(user.Id)).ReturnsAsync(_patientsList.FirstOrDefault());
 
             // Act
             var result = await _patientsController.Create();
 
             // Assert
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectToActionResult.ActionName);
-            Assert.Equal("Home", redirectToActionResult.ControllerName);
+            Assert.Equal("Details", redirectToActionResult.ActionName);
+            Assert.Equal("Patients", redirectToActionResult.ControllerName);
         }
 
         /// <summary>
@@ -218,7 +212,8 @@ namespace Clinique2000_TestsUnitaires
             var result = await _patientsController.Edit(null);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            var notFoundResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("NotFound", notFoundResult.ViewName);
         }
 
         /// <summary>
@@ -236,7 +231,8 @@ namespace Clinique2000_TestsUnitaires
             var result = await _patientsController.Edit(id);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            var notFoundResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("NotFound", notFoundResult.ViewName);
         }
 
         /// <summary>
@@ -334,7 +330,8 @@ namespace Clinique2000_TestsUnitaires
             var result = await _patientsController.Delete(invalidPatientId);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            var notFoundResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("NotFound", notFoundResult.ViewName);
         }
 
         /// <summary>
@@ -348,7 +345,8 @@ namespace Clinique2000_TestsUnitaires
             var result = await _patientsController.Delete(null);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            var notFoundResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("NotFound", notFoundResult.ViewName);
         }
 
         /// <summary>

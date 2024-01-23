@@ -13,10 +13,10 @@
     <EmbeddedResource Remove="ViewModels\**" />
     <None Remove="Interfaces\**" />
     <None Remove="ViewModels\**" />
+    <None Remove="Models\ApplicationUser.cs~RF2f33c35.TMP" />
+    <Compile Include="ViewModels\CliniqueAdresseVM.cs" />
     <Folder Include="Interfaces\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>

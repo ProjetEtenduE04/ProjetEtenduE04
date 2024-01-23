@@ -22,6 +22,71 @@ namespace Clinique2000_DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Clinique2000_Core.Models.Adresse", b =>
+                {
+                    b.Property<int>("AdresseID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdresseID"), 1L, 1);
+
+                    b.Property<string>("CodePostal")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)");
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Pays")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Province")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Rue")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Ville")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("AdresseID");
+
+                    b.ToTable("Adresses");
+
+                    b.HasData(
+                        new
+                        {
+                            AdresseID = 1,
+                            CodePostal = "H1H 1H1",
+                            Numero = "7-756",
+                            Pays = "Canada",
+                            Province = "Québec",
+                            Rue = "rue de la Clinique",
+                            Ville = "Montréal"
+                        },
+                        new
+                        {
+                            AdresseID = 2,
+                            CodePostal = "A1A 1A1",
+                            Numero = "2-66",
+                            Pays = "Canada",
+                            Province = "Québec",
+                            Rue = "rue de la Cegep",
+                            Ville = "Longueuil"
+                        });
+                });
+
             modelBuilder.Entity("Clinique2000_Core.Models.Clinique", b =>
                 {
                     b.Property<int>("CliniqueID")
@@ -30,10 +95,52 @@ namespace Clinique2000_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CliniqueID"), 1L, 1);
 
+                    b.Property<int>("AdresseID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Courriel")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("CreateurID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("DateCreation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModification")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("EstActive")
+                        .HasColumnType("bit");
+
+                    b.Property<TimeSpan?>("HeureFermeture")
+                        .IsRequired()
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan?>("HeureOuverture")
+                        .IsRequired()
+                        .HasColumnType("time");
+
+                    b.Property<string>("NomClinique")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("NumTelephone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TempsMoyenConsultation")
                         .HasColumnType("int");
 
                     b.HasKey("CliniqueID");
+
+                    b.HasIndex("AdresseID")
+                        .IsUnique();
+
+                    b.HasIndex("CreateurID");
 
                     b.ToTable("Cliniques");
 
@@ -41,6 +148,29 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             CliniqueID = 1,
+                            AdresseID = 1,
+                            Courriel = "test@clinique2000.com",
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 21, 2, 38, 51, 9, DateTimeKind.Local).AddTicks(3128),
+                            EstActive = true,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            NomClinique = "CliniqueA",
+                            NumTelephone = "(438) 333-5555",
+                            TempsMoyenConsultation = 30
+                        },
+                        new
+                        {
+                            CliniqueID = 2,
+                            AdresseID = 2,
+                            Courriel = "Test2@test.com",
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 21, 2, 38, 51, 9, DateTimeKind.Local).AddTicks(3175),
+                            EstActive = true,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            NomClinique = "CliniqueB",
+                            NumTelephone = "(438) 333-7777",
                             TempsMoyenConsultation = 30
                         });
                 });
@@ -444,6 +574,42 @@ namespace Clinique2000_DataAccess.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9ee17560-2cd0-487d-9d58-9e7f06489ec1",
+                            Email = "bit@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "BIT@GMAIL.COM",
+                            NormalizedUserName = "BIT@GMAIL.COM",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "9588f4b6-2176-4f98-b01b-34d8c148d773",
+                            TwoFactorEnabled = false,
+                            UserName = "bit@gmail.com"
+                        });
+                });
+
+            modelBuilder.Entity("Clinique2000_Core.Models.Clinique", b =>
+                {
+                    b.HasOne("Clinique2000_Core.Models.Adresse", "Adresse")
+                        .WithOne("Clinique")
+                        .HasForeignKey("Clinique2000_Core.Models.Clinique", "AdresseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clinique2000_Core.Models.ApplicationUser", "Createur")
+                        .WithMany("Clinique")
+                        .HasForeignKey("CreateurID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Adresse");
+
+                    b.Navigation("Createur");
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
@@ -558,6 +724,12 @@ namespace Clinique2000_DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Clinique2000_Core.Models.Adresse", b =>
+                {
+                    b.Navigation("Clinique")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Clinique2000_Core.Models.Clinique", b =>
                 {
                     b.Navigation("ListeAttente");
@@ -580,6 +752,8 @@ namespace Clinique2000_DataAccess.Migrations
 
             modelBuilder.Entity("Clinique2000_Core.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Clinique");
+
                     b.Navigation("Patient");
                 });
 #pragma warning restore 612, 618

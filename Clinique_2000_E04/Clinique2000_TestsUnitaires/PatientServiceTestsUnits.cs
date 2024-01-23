@@ -310,8 +310,8 @@ namespace Clinique2000_TestsUnitaires
                 var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
                 var nomPatientFaux = "Alex";
                 // Act
-                var trueResult = await service.VerifierExistencePatientParEmailAsync(patientAChercher.Nom);
-                var falseResult = await service.VerifierExistencePatientParEmailAsync(nomPatientFaux);
+                var trueResult = await service.VerifierExistencePatientParNomAsync(patientAChercher.Nom);
+                var falseResult = await service.VerifierExistencePatientParNomAsync(nomPatientFaux);
 
                 // Assert
                 Assert.IsType<bool>(trueResult);

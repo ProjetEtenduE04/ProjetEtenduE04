@@ -5,10 +5,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Clinique2000_DataAccess.Migrations
 {
-    public partial class mergeFix : Migration
+    public partial class initClasseEtSeed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Adresses",
+                columns: table => new
+                {
+                    AdresseID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Numero = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Rue = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Ville = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Province = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Pays = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    CodePostal = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Adresses", x => x.AdresseID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -47,19 +65,6 @@ namespace Clinique2000_DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cliniques",
-                columns: table => new
-                {
-                    CliniqueID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TempsMoyenConsultation = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cliniques", x => x.CliniqueID);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,6 +174,40 @@ namespace Clinique2000_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cliniques",
+                columns: table => new
+                {
+                    CliniqueID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NomClinique = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Courriel = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    HeureOuverture = table.Column<TimeSpan>(type: "time", nullable: false),
+                    HeureFermeture = table.Column<TimeSpan>(type: "time", nullable: false),
+                    TempsMoyenConsultation = table.Column<int>(type: "int", nullable: false),
+                    EstActive = table.Column<bool>(type: "bit", nullable: false),
+                    DateCreation = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateModification = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AdresseID = table.Column<int>(type: "int", nullable: false),
+                    CreateurID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cliniques", x => x.CliniqueID);
+                    table.ForeignKey(
+                        name: "FK_Cliniques_Adresses_AdresseID",
+                        column: x => x.AdresseID,
+                        principalTable: "Adresses",
+                        principalColumn: "AdresseID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cliniques_AspNetUsers_CreateurID",
+                        column: x => x.CreateurID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
@@ -177,7 +216,7 @@ namespace Clinique2000_DataAccess.Migrations
                     Nom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     Prenom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     Genre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NAM = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    NAM = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
                     CodePostal = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
                     DateDeNaissance = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
@@ -295,9 +334,29 @@ namespace Clinique2000_DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Adresses",
+                columns: new[] { "AdresseID", "CodePostal", "Numero", "Pays", "Province", "Rue", "Ville" },
+                values: new object[] { 1, "H1H 1H1", "7-756", "Canada", "Québec", "rue de la Clinique", "Montréal" });
+
+            migrationBuilder.InsertData(
+                table: "Adresses",
+                columns: new[] { "AdresseID", "CodePostal", "Numero", "Pays", "Province", "Rue", "Ville" },
+                values: new object[] { 2, "A1A 1A1", "2-66", "Canada", "Québec", "rue de la Cegep", "Longueuil" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "7cc96785-8933-4eac-8d7f-a289b28df223", 0, "e9ba5ecc-dbf6-46f0-a246-c891e8ef7404", "ApplicationUser", "bit@gmail.com", true, false, null, "BIT@GMAIL.COM", "BIT@GMAIL.COM", null, null, false, "7b0dfa67-7306-4d0c-ba37-70d681443184", false, "bit@gmail.com" });
+
+            migrationBuilder.InsertData(
                 table: "Cliniques",
-                columns: new[] { "CliniqueID", "TempsMoyenConsultation" },
-                values: new object[] { 1, 30 });
+                columns: new[] { "CliniqueID", "AdresseID", "Courriel", "CreateurID", "DateCreation", "DateModification", "EstActive", "HeureFermeture", "HeureOuverture", "NomClinique", "TempsMoyenConsultation" },
+                values: new object[] { 1, 1, "test@clinique2000.com", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 1, 20, 20, 12, 11, 465, DateTimeKind.Local).AddTicks(5929), null, true, new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "CliniqueA", 30 });
+
+            migrationBuilder.InsertData(
+                table: "Cliniques",
+                columns: new[] { "CliniqueID", "AdresseID", "Courriel", "CreateurID", "DateCreation", "DateModification", "EstActive", "HeureFermeture", "HeureOuverture", "NomClinique", "TempsMoyenConsultation" },
+                values: new object[] { 2, 2, "Test2@test.com", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 1, 20, 20, 12, 11, 465, DateTimeKind.Local).AddTicks(5981), null, true, new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "CliniqueB", 30 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -337,6 +396,17 @@ namespace Clinique2000_DataAccess.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cliniques_AdresseID",
+                table: "Cliniques",
+                column: "AdresseID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cliniques_CreateurID",
+                table: "Cliniques",
+                column: "CreateurID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Consultations_PatientID",
@@ -406,10 +476,13 @@ namespace Clinique2000_DataAccess.Migrations
                 name: "ListeAttentes");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Cliniques");
 
             migrationBuilder.DropTable(
-                name: "Cliniques");
+                name: "Adresses");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

@@ -17,12 +17,69 @@ namespace Clinique2000_DataAccess.Data
                new Clinique()
                {
                    CliniqueID = 1,
-                   TempsMoyenConsultation = 30
+                   NomClinique = "CliniqueA",
+                   Courriel = "test@clinique2000.com",
+                   HeureOuverture = new TimeSpan(8, 0, 0),
+                   HeureFermeture = new TimeSpan(17, 0, 0),
+                   TempsMoyenConsultation = 30,
+                   EstActive = true,
+                   AdresseID = 1,
+                   NumTelephone = "(438) 333-5555",
+                   CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                   
+               },
+               new Clinique()
+               {
+                   CliniqueID = 2,
+                   NomClinique = "CliniqueB",
+                   Courriel = "Test2@test.com",
+                   HeureOuverture = new TimeSpan(8, 0, 0),
+                   HeureFermeture = new TimeSpan(17, 0, 0),
+                   TempsMoyenConsultation = 30,
+                   EstActive = true,
+                   AdresseID = 2,
+                   NumTelephone = "(438) 333-7777",
+                   CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
                }
-               );
+
+            );
 
             #endregion
+            #region Adresse 
+            builder.Entity<Adresse>().HasData(
+                new Adresse()
+                {
+                    AdresseID = 1,
+                    Numero = "7-756",
+                    Rue = "rue de la Clinique",
+                    Ville = "Montréal",
+                    Province = "Québec",
+                    Pays = "Canada",
+                    CodePostal = "H1H 1H1",
+                },
+                new Adresse()
+                {
+                    AdresseID = 2,
+                    Numero = "2-66",
+                    Rue = "rue de la Cegep",
+                    Ville = "Longueuil",
+                    Province = "Québec",
+                    Pays = "Canada",
+                    CodePostal = "A1A 1A1",
+                }
+            );
 
+            #endregion
+            builder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser()
+                {
+                    Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                    UserName = "bit@gmail.com",
+                    NormalizedUserName = "BIT@GMAIL.COM",
+                    Email = "bit@gmail.com",
+                    NormalizedEmail = "BIT@GMAIL.COM",
+                    EmailConfirmed = true,
+                });
         }
     }
 }

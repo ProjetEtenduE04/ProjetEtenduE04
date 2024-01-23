@@ -649,10 +649,11 @@ table td {
     }
 
 .custom-nav-link {
-    color:white;
+    color: white;
     text-decoration: none;
     position: relative;
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
 }
 
     .custom-nav-link:hover,
@@ -804,4 +805,36 @@ display: flex;
 }
 .champs-obligatoires  {
     color: red;
+}
+/*Login form*/
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+.google{
+    width:25px;
+    height:25px;
+}
+.custom-popover {
+    --bs-popover-max-width: 200px;
+    --bs-popover-border-color: #023373;
+    --bs-popover-header-bg: #132640;
+    --bs-popover-header-color: white;
+    --bs-popover-body-padding-x: 1rem;
+    --bs-popover-body-padding-y: .5rem;
+}
+.btnRound {
+    border: none; 
+    background-color: transparent; 
+    padding: 0;
+    cursor: pointer; 
+}
+.img-error {
+    max-width: 20rem;
+    margin-top:40px;
+    margin-bottom :15px;
 }

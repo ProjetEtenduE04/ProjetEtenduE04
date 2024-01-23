@@ -24,6 +24,7 @@ namespace Clinique2000_DataAccess.Data
         public DbSet<PatientACharge> PatientACharges { get; set; }
         public DbSet<PlageHoraire> PlagesHoraires { get; set; }
         public DbSet<Clinique> Cliniques { get; set; }
+        public DbSet<Adresse> Adresses { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public CliniqueDbContext(DbContextOptions<CliniqueDbContext> options) : base(options) { }
 
