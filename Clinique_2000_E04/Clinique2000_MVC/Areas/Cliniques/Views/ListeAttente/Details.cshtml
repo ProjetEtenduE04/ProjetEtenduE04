@@ -2,6 +2,49 @@
 
 <section id="heroDetails" class="d-flex align-items-center justify-content-center mb-2">
     <div class="listeattente-data">
+        <div class="row d-flex mb-2 justify-content-center align-content-center text-center"> 
+            <div class="col-md-12 mt-5">
+                <h1 class="text-center justify-content-center">Liste d'attente</h1>
+                <h1 class="text-center justify-content-center">@Model.ListeAttente.Clinique.NomClinique</h1>
+                <h2 class="text-center justify-content-center">@Model.ListeAttente.Clinique.Adresse.Numero,@Model.ListeAttente.Clinique.Adresse.Rue @Model.ListeAttente.Clinique.Adresse.Ville @Model.ListeAttente.Clinique.Adresse.CodePostal </h2>
+                
+            </div>
+        </div>
+        <div class="container-fluid heure-medecins">
+            <div class="heureActuelle card-details">
+                <p>Heure Actuelle</p>
+                <div id="watch"></div>
+            </div>
+            <div class="card-details"><p>Nombre de médecins: <div id="nb-medecins-dispo">@Model.ListeAttente.NbMedecinsDispo</div></p></div>
+
+
+            <div class="heure-date-liste">
+                <div class="card-details">
+                    <p>Effective le: </p>
+                    <div id="date-effectivite">
+                        @Model.ListeAttente.DateEffectivite.ToString("yyyy-MM-dd")
+                    </div>
+                </div>
+
+                <div class="card-details"><p>Ouvre à: </p><div id="heure-ouverture">@Model.ListeAttente.HeureOuverture.ToString("hh\\:mm")</div></div>
+                <div class="card-details"><p>Ferme à: </p><div id="heure-fermeture">@Model.ListeAttente.HeureFermeture.ToString("hh\\:mm")</div></div>
+            </div>
+
+        
+        </div>
+
+        
+        <div class="generer-plages-horaires">
+            <form class="my-3" asp-action="AjouterDesPlagesHoraires" asp-controller="ListeAttente" method="post">
+                <input type="hidden" name="id" value="@Model.ListeAttente.ListeAttenteID" />
+                <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") /> 
+            </form>
+            <a class="btn btn-secondaire btn-action my-3" asp-action="Index" asp-controller="Home" asp-area="" >Retour à l'accueil</a>
+        </div>
+    </div>
+</section>
+@* <section id="heroDetails" class="d-flex align-items-center justify-content-center mb-2">
+    <div class="listeattente-data">
         <div class="row d-flex mb-2 justify-content-center align-content-center text-center">
             <div class="col-md-12 mt-5">
                 <h1 class="text-center justify-content-center">Liste d'attente</h1>
@@ -30,12 +73,12 @@
         <div class="generer-plages-horaires">
             <form class="my-3" asp-action="AjouterDesPlagesHoraires" asp-controller="ListeAttente" method="post">
                 <input type="hidden" name="id" value="@Model.ListeAttente.ListeAttenteID" />
-                <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") /> 
+                <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") />
             </form>
-            <a class="btn btn-secondaire btn-action my-3" asp-action="Index" asp-controller="Home" asp-area="" >Retour à l'accueil</a>
+            <a class="btn btn-secondaire btn-action my-3" asp-action="Index" asp-controller="Home" asp-area="">Retour à l'accueil</a>
         </div>
     </div>
-</section>
+</section> *@
 
 
 @if (!ViewData.ModelState.IsValid)
