@@ -17,6 +17,7 @@ namespace Clinique2000_Services.Services
         private readonly CliniqueDbContext _context;
         private readonly IAdresseService _adresseService;
 
+
         public CliniqueService(
             CliniqueDbContext dbContext,
             IAdresseService adresseService
@@ -87,6 +88,15 @@ namespace Clinique2000_Services.Services
             return cliniqueTrouvee != null;
         }
 
+        /// <summary>
+        /// Vérifie l'existence d'une clinique en fonction de son identifiant de manière asynchrone.
+        /// </summary>
+        /// <param name="id"> L'identifiant de la clinique </param>
+        /// <returns>A été trouvée (true) ou non (false).</returns>
+        public async Task<bool> VerifierExistenceCliniqueParIdAsync(int? id)
+        {
+            return id != null && await ObtenirParIdAsync(id.Value) != null;
+        }
 
 
         /// <summary>
@@ -102,6 +112,57 @@ namespace Clinique2000_Services.Services
             return clinique.HeureOuverture < clinique.HeureFermeture;
         }
 
+        /// <summary>
+        /// Effectue une liste de vérifications pour une clinique, y compris la validation de l'existence par nom et par adresse e-mail,
+        /// ainsi que la vérification de la validité des heures d'ouverture.
+        /// </summary>
+        /// <param name="clinique">La clinique à vérifier.</param>
+        /// <exception cref="ValidationException">
+        ///     Levée si une validation échoue, par exemple:
+        ///     - Une clinique avec le même nom existe déjà.
+        ///     - Une clinique avec la même adresse e-mail existe déjà.
+        ///     - Les heures d'ouverture ne sont pas valides.
+        /// </exception>
+        public async Task ListeDeVerificationClinique(Clinique clinique)
+        {
+            if (await VerifierExistenceCliniqueParNomAsync(clinique.NomClinique))
+            {
+                throw new ValidationException("Une clinique avec le même nom existe déjà.");
+            }
+
+            if (await VerifierExistenceCliniqueParCourrielAsync(clinique.Courriel))
+            {
+                throw new ValidationException("Une clinique avec la même adresse e-mail existe déjà.");
+            }
+
+            if (!await VerifierSiHeureOuvertureValide(clinique))
+            {
+                throw new ValidationException("L'heure d'ouverture doit etre inferieure a l'heure de fermeture.");
+
+            }
+        }
+
+        public async Task ListeDeVerificationCliniqueEdit(Clinique clinique)
+        {
+
+            var cliniqueOriginale = await ObtenirParIdAsync(clinique.CliniqueID);
+
+            if (cliniqueOriginale !=null && clinique.NomClinique != cliniqueOriginale.NomClinique && await VerifierExistenceCliniqueParNomAsync(clinique.NomClinique))
+            {
+                throw new ValidationException("Une clinique avec le même nom existe déjà.");
+            }
+
+            if (cliniqueOriginale != null && clinique.Courriel != cliniqueOriginale.Courriel && await VerifierExistenceCliniqueParCourrielAsync(clinique.Courriel))
+            {
+                throw new ValidationException("Une clinique avec la même adresse e-mail existe déjà.");
+            }
+
+            if (!await VerifierSiHeureOuvertureValide(clinique))
+            {
+                throw new ValidationException("L'heure d'ouverture doit etre inferieure a l'heure de fermeture.");
+
+            }
+        }
 
 
         /// <summary>
@@ -120,21 +181,8 @@ namespace Clinique2000_Services.Services
         {
             var clinique = viewModel.Clinique;
             var adresse = viewModel.Adresse;
-            if (await VerifierExistenceCliniqueParNomAsync(clinique.NomClinique))
-            {
-                throw new ValidationException("Une clinique avec le même nom existe déjà.");
-            }
 
-            if (await VerifierExistenceCliniqueParCourrielAsync(clinique.Courriel))
-            {
-                throw new ValidationException("Une clinique avec la même adresse e-mail existe déjà.");
-            }
-
-            if (!await VerifierSiHeureOuvertureValide(clinique))
-            {
-                throw new ValidationException("L'heure d'ouverture doit etre inferieure a l'heure de fermeture.");
-
-            }
+            await ListeDeVerificationClinique(clinique);
             await _adresseService.VerifierCodePostalValideAsync(adresse.CodePostal);
 
             await _adresseService.CreerAsync(adresse);
@@ -147,8 +195,29 @@ namespace Clinique2000_Services.Services
             return cliniqueEnregistree;
         }
 
+        /// <summary>
+        /// Effectue la vérification de la clinique et met à jour les informations de la clinique et de son adresse associée.
+        /// </summary>
+        /// <param name="id">L'ID de la clinique à mettre à jour.</param>
+        /// <param name="viewModel">Le modèle de vue contenant les informations de la clinique et de l'adresse.</param>
+        /// <exception cref="ValidationException">
+        ///     Levée si une validation échoue, par exemple:
+        ///     - Une clinique avec le même nom existe déjà.
+        ///     - Une clinique avec la même adresse e-mail existe déjà.
+        ///     - Les heures d'ouverture ne sont pas valides.
+        ///     - Le format du code postal n'est pas valide.
+        /// </exception>
+        public async Task EditerCliniqueAsync(CliniqueAdresseVM viewModel)
+        {
+            var clinique = viewModel.Clinique;
+            var adresse = viewModel.Adresse;
 
+            await ListeDeVerificationClinique(clinique);
+            await _adresseService.VerifierCodePostalValideAsync(adresse.CodePostal);
 
+            await _adresseService.EditerAsync(adresse);
+            await EditerAsync(clinique);
+        }
 
     }
 }

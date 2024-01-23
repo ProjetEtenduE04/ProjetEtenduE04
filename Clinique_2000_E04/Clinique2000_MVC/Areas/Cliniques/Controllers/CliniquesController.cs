@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
@@ -56,6 +57,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         // GET: Cliniques/Create
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             //if (User.Identity.IsAuthenticated) //Utiliser temporairement, jusqu'à implémentation Role-based authorization
@@ -92,27 +94,35 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
 
         // GET: Cliniques/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || await _services.clinique.ObtenirToutAsync() == null)
+            try
             {
-                return View("NotFound");
+                if (!await _services.clinique.VerifierExistenceCliniqueParIdAsync(id))
+                {
+                    return View("NotFound");
+                }
+                var clinique = await _services.clinique.ObtenirParIdAsync(id);
+
+                if (clinique == null)
+                {
+                    return View("NotFound");
+                }
+
+                var adreesseClinique = await _services.adresse.ObtenirParIdAsync(clinique.AdresseID);
+
+                var cliniqueAdresseVM = new CliniqueAdresseVM()
+                {
+                    Clinique = clinique,
+                    Adresse = adreesseClinique
+                };
+                return View(cliniqueAdresseVM);
             }
-            var clinique = await _services.clinique.ObtenirParIdAsync(id);
-            var adreesseClinique = await _services.adresse.ObtenirParIdAsync(clinique.AdresseID);
-
-            var cliniqueAdresseVM = new CliniqueAdresseVM()
+            catch
             {
-                Clinique = clinique,
-                Adresse = adreesseClinique
-            };
-
-            if (clinique == null)
-            {
-                return View("NotFound");
+                return RedirectToAction(nameof(Index));
             }
-
-            return View(cliniqueAdresseVM);
         }
 
         // POST: Cliniques/Edit/5
@@ -124,32 +134,19 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 return View("NotFound");
             }
-
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    await _services.adresse.EditerAsync(cliniqueAdresseVM.Adresse);
-                    await _services.clinique.EditerAsync(cliniqueAdresseVM.Clinique);
-
-
+                if (ModelState.IsValid)
+                { 
+                    await _services.clinique.EditerCliniqueAsync(cliniqueAdresseVM);
+                    return RedirectToAction("Details", "Cliniques", new { id = cliniqueAdresseVM.Clinique.CliniqueID });
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    var cliniqueExiste = await _services.clinique.ObtenirParIdAsync(cliniqueAdresseVM.Clinique.CliniqueID);
-                    if (cliniqueExiste==null)
-                    {
-                        return View("NotFound");
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("Details", "Cliniques", new { id = cliniqueAdresseVM.Clinique.CliniqueID });
             }
-
-            return View(cliniqueAdresseVM.Clinique);
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+            }
+            return View(cliniqueAdresseVM);
         }
 
         // GET: Cliniques/Delete/5

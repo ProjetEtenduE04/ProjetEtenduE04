@@ -15,7 +15,10 @@ namespace Clinique2000_Services.IServices
         Task<Clinique?> ObtenirCliniqueParCourrielAsync(string courriel);
         Task<bool> VerifierExistenceCliniqueParNomAsync(string nomClinique);
         Task<bool> VerifierExistenceCliniqueParCourrielAsync(string courriel);
+        Task<bool> VerifierExistenceCliniqueParIdAsync(int? id);
+        Task ListeDeVerificationClinique(Clinique clinique);
         Task<bool> VerifierSiHeureOuvertureValide(Clinique clinique);
         Task<Clinique> EnregistrerCliniqueAsync(CliniqueAdresseVM viewModel);
+        Task EditerCliniqueAsync(CliniqueAdresseVM viewModel);
     }
 }

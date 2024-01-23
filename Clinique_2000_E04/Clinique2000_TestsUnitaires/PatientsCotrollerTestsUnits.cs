@@ -109,14 +109,15 @@ namespace Clinique2000_TestsUnitaires
 
             _userManagerMock.Setup(manager => manager.FindByEmailAsync("test@example.com")).ReturnsAsync(user);
             _servicesMock.Setup(service => service.patient.UserEstPatientAsync(user.Id)).ReturnsAsync(true);
+            _servicesMock.Setup(service => service.patient.GetPatientParUserIdAsync(user.Id)).ReturnsAsync(_patientsList.FirstOrDefault());
 
             // Act
             var result = await _patientsController.Create();
 
             // Assert
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectToActionResult.ActionName);
-            Assert.Equal("Home", redirectToActionResult.ControllerName);
+            Assert.Equal("Details", redirectToActionResult.ActionName);
+            Assert.Equal("Patients", redirectToActionResult.ControllerName);
         }
 
         /// <summary>

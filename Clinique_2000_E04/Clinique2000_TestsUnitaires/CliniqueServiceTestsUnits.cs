@@ -1,4 +1,4 @@
-using Clinique2000_Core.Models;
+﻿using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
@@ -12,11 +12,11 @@ using Xunit;
 
 namespace Clinique2000_TestsUnitaires
 {
-    public class CliniqueServiceTests_ObtenirCliniqueParNomAsync : IDisposable
+    public class CliniqueServiceTests : IDisposable
     {
         private readonly CliniqueDbContext _dbContext;
 
-        public CliniqueServiceTests_ObtenirCliniqueParNomAsync()
+        public CliniqueServiceTests()
         {
             _dbContext = CreateDbContext();
         }
@@ -26,7 +26,7 @@ namespace Clinique2000_TestsUnitaires
             _dbContext.Dispose();
         }
 
-        // D�finir la DB InMemory
+        // Définir la DB InMemory
 
         private DbContextOptions<CliniqueDbContext> SetUpInMemory(string uniqueName)
         {
@@ -68,7 +68,20 @@ namespace Clinique2000_TestsUnitaires
                             NumTelephone = "(438) 333-7777",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
                         }
-                   ); 
+
+                   );
+                if (!context.Adresses.Any())
+                    context.Adresses.AddRange(
+                        new Adresse()
+                        {
+                            AdresseID = 1,
+                            Numero = "7-756",
+                            Rue = "rue de la Clinique",
+                            Ville = "Montréal",
+                            Province = "Québec",
+                            Pays = "Canada",
+                            CodePostal = "H1H 1H1",
+                        });
                 context.SaveChanges();
             }
         }
@@ -257,7 +270,73 @@ namespace Clinique2000_TestsUnitaires
             Assert.False(result.Result);
         }
 
+        [Fact]
+        public async Task ListeDeVerificationClinique_CliniqueExistanteParNom_LeveValidationException()
+        {
+            // Arrange
+            var options = SetUpInMemory("ListeDeVerificationCliniqueTest");
+            var dbContext = new CliniqueDbContext(options);
 
+            // Mock pentru IAdresseService nu este necesar pentru acest test
+
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+
+            var existingClinique =  dbContext.Cliniques.FindAsync(1).Result;
+            existingClinique.NomClinique = "CliniqueB"; // Setăm același nume pentru a simula un conflict
+
+            var result =  cliniqueService.ListeDeVerificationClinique(existingClinique);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ValidationException>(() => cliniqueService.ListeDeVerificationClinique(existingClinique));
+        }
+        [Fact]
+        public async Task ListeDeVerificationClinique_CliniqueExistanteParCourriel_LeveValidationException()
+        {
+            // Arrange
+            var options = SetUpInMemory("ListeDeVerificationCliniqueTest");
+            var dbContext = new CliniqueDbContext(options);
+
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+
+            var existingClinique = await dbContext.Cliniques.FindAsync(1);
+            existingClinique.Courriel = "test@clinique2000.com"; // Setăm același email pentru a simula un conflict
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ValidationException>(() => cliniqueService.ListeDeVerificationClinique(existingClinique));
+        }
+
+        [Fact]
+        public async Task ListeDeVerificationClinique_HeureOuvertureNonValide_LeveValidationException()
+        {
+            // Arrange
+            var options = SetUpInMemory("ListeDeVerificationCliniqueTest");
+            var dbContext = new CliniqueDbContext(options);
+
+            var mockAdresseService = new Mock<IAdresseService>();
+            mockAdresseService.Setup(s => s.VerifierCodePostalValideAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var cliniqueService = new CliniqueService(dbContext, mockAdresseService.Object);
+
+            var newClinique = new Clinique
+            {
+                CliniqueID = 3,
+                NomClinique = "CliniqueC",
+                Courriel = "test@clinique2000.com",
+                HeureOuverture = new TimeSpan(18, 0, 0), // Setăm o oră de deschidere invalidă
+                HeureFermeture = new TimeSpan(19, 0, 0),
+                TempsMoyenConsultation = 30,
+                EstActive = true,
+                AdresseID = 3,
+                NumTelephone = "(438) 333-8888",
+                CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+            };
+
+            // Act
+            async Task Act() => await cliniqueService.ListeDeVerificationClinique(newClinique);
+
+            // Assert
+            await Assert.ThrowsAsync<ValidationException>(Act);
+        }
 
         [Fact]
         public async Task EnregistrerCliniqueAsync_ValidInput_ReturnsClinique()
@@ -272,14 +351,18 @@ namespace Clinique2000_TestsUnitaires
             {
                 Clinique = new Clinique
                 {
+                    CliniqueID = 4,
                     NomClinique = "NewClinique",
                     Courriel = "new@example.com",
                     CreateurID = "12345",
                     HeureOuverture = TimeSpan.FromHours(8),
-                    HeureFermeture = TimeSpan.FromHours(18)
+                    HeureFermeture = TimeSpan.FromHours(18),
+                    AdresseID = 4
+                    
                 },
                 Adresse = new Adresse
                 {
+                    AdresseID = 4,
                     Numero = "123",
                     Rue = "Main Street",
                     Ville = "City",
@@ -299,6 +382,78 @@ namespace Clinique2000_TestsUnitaires
             // Add more assertions as needed to verify the returned Clinique object and other conditions.
             dbContext.Dispose();
         }
+
+        [Fact]
+        public async Task EditerCliniqueAsync_ModifierClinique_ValidationException()
+        {
+            // Arrange
+            var options = SetUpInMemory("EditerCliniqueAsyncTest");
+            var dbContext = new CliniqueDbContext(options);
+
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+
+            var existingClinique = await dbContext.Cliniques.FindAsync(1);
+            existingClinique.NomClinique = "NouveauNom"; // Simulăm o modificare care ar declanșa o excepție
+
+            var viewModel = new CliniqueAdresseVM
+            {
+                Clinique = existingClinique,
+                Adresse = await dbContext.Adresses.FindAsync(existingClinique.AdresseID)
+            };
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ValidationException>(() => cliniqueService.EditerCliniqueAsync(viewModel));
+        }
+
+        [Fact]
+        public async Task EditerCliniqueAsync_ModifierClinique_CodePostalInvalide_ValidationException()
+        {
+            // Arrange
+            var options = SetUpInMemory("EditerCliniqueAsyncTest");
+            var dbContext = new CliniqueDbContext(options);
+
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+
+            var existingClinique = await dbContext.Cliniques.FindAsync(1);
+            var adresse = await dbContext.Adresses.FindAsync(existingClinique.AdresseID);
+            adresse.CodePostal = "CodPostalInvalid"; 
+
+            var viewModel = new CliniqueAdresseVM
+            {
+                Clinique = existingClinique,
+                Adresse = adresse
+            };
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ValidationException>(() => cliniqueService.EditerCliniqueAsync(viewModel));
+        }
+
+        [Fact]
+        public async Task EditerCliniqueAsync_ModifierClinique_Succes()
+        {
+            // Arrange
+            var options = SetUpInMemory("EditerCliniqueAsyncTest");
+            var dbContext = new CliniqueDbContext(options);
+
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+
+            var existingClinique = await dbContext.Cliniques.FindAsync(1);
+            existingClinique.NomClinique = "NouveauNom"; // Simulăm o modificare validă
+            existingClinique.Courriel = "test@ksd.com";
+            var viewModel = new CliniqueAdresseVM
+            {
+                Clinique = existingClinique,
+                Adresse = await dbContext.Adresses.FindAsync(existingClinique.AdresseID)
+            };
+
+            // Act
+            await cliniqueService.EditerCliniqueAsync(viewModel);
+
+            // Assert
+            var updatedClinique = await dbContext.Cliniques.FindAsync(1);
+            Assert.Equal("NouveauNom", updatedClinique.NomClinique);
+        }
+
 
         private CliniqueDbContext CreateDbContext()
         {
