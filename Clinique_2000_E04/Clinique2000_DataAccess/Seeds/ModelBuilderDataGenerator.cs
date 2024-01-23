@@ -16,15 +16,18 @@ namespace Clinique2000_DataAccess.Data
                new Adresse()
                {
                    AdresseID = 1,
+                   Numero = "123",
                    Rue = "123 Main Street",
                    Ville = "Montreal",
                    Province = "Quebec",
                    Pays = "Canada",
                    CodePostal = "H2X 1Y6"
+
                },
                     new Adresse()
                     {
                         AdresseID = 2,
+                        Numero = "456",
                         Rue = "Rue ABC",
                         Ville = "Brossard",
                         Province = "Quebec",
@@ -45,7 +48,10 @@ namespace Clinique2000_DataAccess.Data
                    HeureFermeture = new TimeSpan(18, 0, 0),
                    TempsMoyenConsultation = 30,
                    EstActive = true,
-                   AdresseID = 1
+                   AdresseID = 1,
+                   NumTelephone = "(438) 333-7777"
+
+
                },
                 new Clinique()
                 {
@@ -56,7 +62,8 @@ namespace Clinique2000_DataAccess.Data
                     HeureFermeture = new TimeSpan(17, 0, 0),
                     TempsMoyenConsultation = 45,
                     EstActive = false,
-                    AdresseID = 2
+                    AdresseID = 2,
+                    NumTelephone = "(438) 333-555",
                 }
             );
             #endregion

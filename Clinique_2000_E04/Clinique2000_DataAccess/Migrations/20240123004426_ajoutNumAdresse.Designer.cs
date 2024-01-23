@@ -4,6 +4,7 @@ using Clinique2000_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    partial class CliniqueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240123004426_ajoutNumAdresse")]
+    partial class ajoutNumAdresse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,12 +105,6 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime?>("DateCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModification")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("EstActive")
                         .HasColumnType("bit");
 
@@ -124,9 +120,6 @@ namespace Clinique2000_DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
-
-                    b.Property<string>("NumTelephone")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TempsMoyenConsultation")
                         .HasColumnType("int");
@@ -144,12 +137,10 @@ namespace Clinique2000_DataAccess.Migrations
                             CliniqueID = 1,
                             AdresseID = 1,
                             Courriel = "anieewon@gmail.com",
-                            DateCreation = new DateTime(2024, 1, 22, 19, 46, 20, 152, DateTimeKind.Local).AddTicks(8882),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 18, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             NomClinique = "Ma Clinique Générale",
-                            NumTelephone = "(438) 333-7777",
                             TempsMoyenConsultation = 30
                         },
                         new
@@ -157,12 +148,10 @@ namespace Clinique2000_DataAccess.Migrations
                             CliniqueID = 2,
                             AdresseID = 2,
                             Courriel = "nguyenhonganh.hn29@gmail.com",
-                            DateCreation = new DateTime(2024, 1, 22, 19, 46, 20, 152, DateTimeKind.Local).AddTicks(8929),
                             EstActive = false,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 9, 0, 0, 0),
                             NomClinique = "Apple CLinique",
-                            NumTelephone = "(438) 333-555",
                             TempsMoyenConsultation = 45
                         });
                 });
