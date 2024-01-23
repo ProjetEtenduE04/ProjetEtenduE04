@@ -578,7 +578,7 @@ divider-2 {
 .heure-date-liste {
     display: flex;
     flex-direction: row;
-    justify-content: safe center;
+    justify-content: center;
     align-items: center;
     gap: 12px
 }

@@ -14,7 +14,7 @@
                 <tr id="tableinterne" class="pb-0 mb-0">
                     <td class="ps-0 mb-0">
                         <!-- Affichez les détails de la consultation si nécessaire -->
-                        <div>@consultation.ConsultationID</div>
+                        @* <div>@consultation.ConsultationID</div> *@
                         <div>Medecin: </div>
                         <div>Patient: @Html.Raw(consultation.PatientID >= 0 && consultation.Patient != null ? $"{consultation.Patient.Prenom} {consultation.Patient.Nom}" : "")</div>
                     </td>
