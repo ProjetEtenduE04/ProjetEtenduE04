@@ -99,7 +99,14 @@ namespace Clinique2000_Services.Services
           
         }
 
-
+        /// <summary>
+        /// Cette methode Verifie s'il existe deja une liste d'attente dans la meme clinique pour la meme date.
+        /// </summary>
+        /// <param name="dateEffectivite"></param>
+        /// <param name="cliniqueID"></param>
+        /// <param name="listeAttenteID"></param>
+        /// <returns></returns>
+        /// <exception cref="ValidationException"></exception>
         public bool VerifierSiListeAttenteExisteMemeJourClinique(DateTime dateEffectivite, int cliniqueID, int? listeAttenteID = null)
         {
             var query = _context.ListeAttentes.Where(la => la.DateEffectivite == dateEffectivite && la.CliniqueID == cliniqueID);
@@ -116,7 +123,11 @@ namespace Clinique2000_Services.Services
              : false;
             }
         }
-
+        /// <summary>
+        /// Verifie le nombree de Medecins et l existance de la liste d'attente avent d'ajouter les plages horaires. 
+        /// </summary>
+        /// <param name="listeAttente"></param>
+        /// <returns></returns>
         public bool ListeAttenteIsValid(ListeAttente listeAttente)
         {
            
@@ -129,12 +140,6 @@ namespace Clinique2000_Services.Services
 
             return true;
         }
-
-
-
-
-
-
 
 
 
