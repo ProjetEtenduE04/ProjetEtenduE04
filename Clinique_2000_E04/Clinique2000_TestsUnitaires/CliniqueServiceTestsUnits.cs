@@ -143,9 +143,9 @@ namespace Clinique2000_TestsUnitaires
             // Act
             var resultClinique = await cliniqueService.ObtenirCliniqueParCourrielAsync("test@clinique2000.com");
 
-                // Assert
-                Assert.NotNull(resultClinique);
-                Assert.Equal("test@clinique2000.com", resultClinique.Courriel); 
+            // Assert
+            Assert.NotNull(resultClinique);
+            Assert.Equal("test@clinique2000.com", resultClinique.Courriel);
         }
 
         [Fact]
@@ -281,10 +281,10 @@ namespace Clinique2000_TestsUnitaires
 
             var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
 
-            var existingClinique =  dbContext.Cliniques.FindAsync(1).Result;
+            var existingClinique = dbContext.Cliniques.FindAsync(1).Result;
             existingClinique.NomClinique = "CliniqueB"; // Setăm același nume pentru a simula un conflict
 
-            var result =  cliniqueService.ListeDeVerificationClinique(existingClinique);
+            var result = cliniqueService.ListeDeVerificationClinique(existingClinique);
 
             // Act & Assert
             await Assert.ThrowsAsync<ValidationException>(() => cliniqueService.ListeDeVerificationClinique(existingClinique));
@@ -358,7 +358,7 @@ namespace Clinique2000_TestsUnitaires
                     HeureOuverture = TimeSpan.FromHours(8),
                     HeureFermeture = TimeSpan.FromHours(18),
                     AdresseID = 4
-                    
+
                 },
                 Adresse = new Adresse
                 {
@@ -416,7 +416,7 @@ namespace Clinique2000_TestsUnitaires
 
             var existingClinique = await dbContext.Cliniques.FindAsync(1);
             var adresse = await dbContext.Adresses.FindAsync(existingClinique.AdresseID);
-            adresse.CodePostal = "CodPostalInvalid"; 
+            adresse.CodePostal = "CodPostalInvalid";
 
             var viewModel = new CliniqueAdresseVM
             {
@@ -455,16 +455,6 @@ namespace Clinique2000_TestsUnitaires
         }
 
 
-        private CliniqueDbContext CreateDbContext()
-        {
-            var options = new DbContextOptionsBuilder<CliniqueDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
-                .Options;
-
-            var dbContext = new CliniqueDbContext(options);
-            dbContext.Database.EnsureCreated();
-            return dbContext;
-        }
         /// <summary>
         /// Teste le methode ListeAttentePourPatien, Le patient qui peut voir seulement les listes d'attentes sont ouvert
         /// </summary>
@@ -475,13 +465,27 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new CliniqueService(context);
+            var cliniqueService = new CliniqueService(context, Mock.Of<IAdresseService>());
 
             // Act
-            var result = await service.GetListeAttentePourPatientAsync(1, true);
+            var result = await cliniqueService.GetListeAttentePourPatientAsync(1, true);
 
             // Assert
             Assert.NotNull(result);
             Assert.True(result.All(la => la.Clinique.CliniqueID == 1 && la.IsOuverte == true));
             Assert.Equal(result, result.OrderBy(x => x.DateEffectivite).ToList());
         }
+
+
+        private CliniqueDbContext CreateDbContext()
+        {
+            var options = new DbContextOptionsBuilder<CliniqueDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+
+            var dbContext = new CliniqueDbContext(options);
+            dbContext.Database.EnsureCreated();
+            return dbContext;
+        }
+    }
+}

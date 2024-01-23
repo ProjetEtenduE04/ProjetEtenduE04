@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Clinique2000_MVC.Areas.Clinique.Controllers;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -224,6 +224,7 @@ namespace Clinique2000_TestsUnitaires
             _servicesMock.Verify(s => s.clinique.EnregistrerCliniqueAsync(It.IsAny<CliniqueAdresseVM>()), Times.Never);
 
         }
+
         /// <summary>
         /// Teste si la méthode IndexPourPatients renvoie une vue avec le modèle de type IEnumerable<Clinique>.
         /// </summary>
@@ -232,32 +233,31 @@ namespace Clinique2000_TestsUnitaires
         public async Task IndexPourPatients_ReturnsViewWithList()
         {
             // Arrange
-            _servicesMock.Setup(service => service.clinique.ObtenirToutAsync()).ReturnsAsync(_cliniqueListe);
+            _servicesMock.Setup(service => service.clinique.ObtenirToutAsync()).ReturnsAsync(_listeCliniques);
 
 
             // Act
-            var result = await _cliniqueController.IndexPourPatients();
+            var result = await _cliniqueControllerMock.IndexPourPatients();
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<IEnumerable<Clinique>>(viewResult.Model);
 
-            foreach (var clinique in _cliniqueListe)
-            Assert.Equal(_cliniqueListe.Count, model.Count());
-
+            Assert.Equal(_listeCliniques.Count, model.Count());
+            foreach (var clinique in _listeCliniques)
             {
                 Assert.Contains(model, c => c.CliniqueID == clinique.CliniqueID);
             }
         }
+
+
         /// <summary>
         /// 
         /// <returns></returns>
         /// </summary>
-
         [Fact]
-        {
         public async Task IndexPourPatients_ReturnsEmptyViewWhenNoClinics()
-            // Arrange
+        {  // Arrange
             var mockService = new Mock<IClinique2000Services>();
             var emptyCliniqueList = new List<Clinique>(); 
             var mockCliniqueService = new Mock<ICliniqueService>();
@@ -266,10 +266,9 @@ namespace Clinique2000_TestsUnitaires
 
             mockService.Setup(s => s.clinique).Returns(mockCliniqueService.Object);
 
-            var controller = new CliniquesController(mockService.Object);
 
             // Act
-            var result = await controller.IndexPourPatients();
+            var result = await _cliniqueControllerMock.IndexPourPatients();
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<IEnumerable<Clinique>>(viewResult.Model);

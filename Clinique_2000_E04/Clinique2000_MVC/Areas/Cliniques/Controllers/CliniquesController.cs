@@ -191,8 +191,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         //{
         //    return (_context.Cliniques?.Any(e => e.CliniqueID == id)).GetValueOrDefault();
         //}
-    }
-}
+
 
         public async Task<IActionResult> IndexPourPatients()
         {
@@ -204,6 +203,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             var activeClinics = allClinics.Where(clinic => clinic.EstActive);
             return View("IndexPourPatients", activeClinics);
         }
+
+
         public async Task<IActionResult> ListeAttentePourPatient(int clinicId, bool? isOuvert)
         {
             IList<ListeAttente> listeAttentePourPatient = await _services.clinique.GetListeAttentePourPatientAsync(clinicId, isOuvert);
@@ -215,3 +216,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             return View("ListeAttentePourPatient", listeAttentePourPatient);
         }
+    }
+}
+
+       
