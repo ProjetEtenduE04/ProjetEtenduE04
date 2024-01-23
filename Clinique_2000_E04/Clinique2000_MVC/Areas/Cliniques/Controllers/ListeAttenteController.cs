@@ -290,31 +290,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ReserverConsultation(int id)
-        {
-            try
-            {
-                await _services.consultation.ReserverConsultationAsync(id);
-                var consultation = await _services.consultation.ObtenirParIdAsync(id);
-                if (consultation == null)
-                {
-                    return NotFound();
-                }
-
-                return View("ReservationSuccess", consultation);
-            }
-            catch (ValidationException ex)
-            {
-                var consultation = await _services.consultation.ObtenirParIdAsync(id);
-                var listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
-
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View("Details", listeAttenteVM);
-            }
-        }
-
+    
 
         [HttpPost]
         [ValidateAntiForgeryToken]
