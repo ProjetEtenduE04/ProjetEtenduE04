@@ -84,6 +84,46 @@ namespace Clinique2000_DataAccess.Migrations
                             Province = "Québec",
                             Rue = "rue de la Cegep",
                             Ville = "Longueuil"
+                        },
+                        new
+                        {
+                            AdresseID = 3,
+                            CodePostal = "J1J 1J1",
+                            Numero = "123",
+                            Pays = "Canada",
+                            Province = "Québec",
+                            Rue = "rue de la Santé",
+                            Ville = "Sherbrooke"
+                        },
+                        new
+                        {
+                            AdresseID = 4,
+                            CodePostal = "L2L 2L2",
+                            Numero = "456",
+                            Pays = "Canada",
+                            Province = "Québec",
+                            Rue = "rue de l'Hôpital",
+                            Ville = "Laval"
+                        },
+                        new
+                        {
+                            AdresseID = 5,
+                            CodePostal = "G3G 3G3",
+                            Numero = "789",
+                            Pays = "Canada",
+                            Province = "Québec",
+                            Rue = "rue de la Thérapie",
+                            Ville = "Gatineau"
+                        },
+                        new
+                        {
+                            AdresseID = 6,
+                            CodePostal = "Q4Q 4Q4",
+                            Numero = "012",
+                            Pays = "Canada",
+                            Province = "Québec",
+                            Rue = "rue de la Médecine",
+                            Ville = "Québec"
                         });
                 });
 
@@ -151,7 +191,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 1,
                             Courriel = "test@clinique2000.com",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                            DateCreation = new DateTime(2024, 1, 23, 13, 41, 51, 577, DateTimeKind.Local).AddTicks(9405),
+                            DateCreation = new DateTime(2024, 1, 23, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(7987),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -165,12 +205,68 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 2,
                             Courriel = "Test2@test.com",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                            DateCreation = new DateTime(2024, 1, 23, 13, 41, 51, 577, DateTimeKind.Local).AddTicks(9444),
+                            DateCreation = new DateTime(2024, 1, 23, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8026),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             NomClinique = "CliniqueB",
                             NumTelephone = "(438) 333-7777",
+                            TempsMoyenConsultation = 30
+                        },
+                        new
+                        {
+                            CliniqueID = 3,
+                            AdresseID = 3,
+                            Courriel = "contact@clinique3.com",
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 23, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8035),
+                            EstActive = true,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            NomClinique = "Clinique3",
+                            NumTelephone = "(100) 100-1030",
+                            TempsMoyenConsultation = 30
+                        },
+                        new
+                        {
+                            CliniqueID = 4,
+                            AdresseID = 4,
+                            Courriel = "contact@clinique4.com",
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 23, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8041),
+                            EstActive = true,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            NomClinique = "Clinique4",
+                            NumTelephone = "(100) 100-1040",
+                            TempsMoyenConsultation = 30
+                        },
+                        new
+                        {
+                            CliniqueID = 5,
+                            AdresseID = 5,
+                            Courriel = "contact@clinique5.com",
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 23, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8047),
+                            EstActive = true,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            NomClinique = "Clinique5",
+                            NumTelephone = "(100) 100-1050",
+                            TempsMoyenConsultation = 30
+                        },
+                        new
+                        {
+                            CliniqueID = 6,
+                            AdresseID = 6,
+                            Courriel = "contact@clinique6.com",
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 23, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8053),
+                            EstActive = true,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            NomClinique = "Clinique6",
+                            NumTelephone = "(100) 100-1060",
                             TempsMoyenConsultation = 30
                         });
                 });
@@ -252,6 +348,272 @@ namespace Clinique2000_DataAccess.Migrations
                     b.HasIndex("CliniqueID");
 
                     b.ToTable("ListeAttentes");
+
+                    b.HasData(
+                        new
+                        {
+                            ListeAttenteID = 1,
+                            CliniqueID = 3,
+                            DateEffectivite = new DateTime(2024, 1, 24, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8067),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 2,
+                            CliniqueID = 3,
+                            DateEffectivite = new DateTime(2024, 1, 25, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8100),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 3,
+                            CliniqueID = 3,
+                            DateEffectivite = new DateTime(2024, 1, 26, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8109),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 4,
+                            CliniqueID = 3,
+                            DateEffectivite = new DateTime(2024, 1, 27, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8115),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 5,
+                            CliniqueID = 3,
+                            DateEffectivite = new DateTime(2024, 1, 28, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8121),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = false,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 6,
+                            CliniqueID = 3,
+                            DateEffectivite = new DateTime(2024, 1, 29, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8127),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = false,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 7,
+                            CliniqueID = 4,
+                            DateEffectivite = new DateTime(2024, 1, 24, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8133),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 8,
+                            CliniqueID = 4,
+                            DateEffectivite = new DateTime(2024, 1, 25, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8139),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 9,
+                            CliniqueID = 4,
+                            DateEffectivite = new DateTime(2024, 1, 26, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8145),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 10,
+                            CliniqueID = 4,
+                            DateEffectivite = new DateTime(2024, 1, 27, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8151),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 11,
+                            CliniqueID = 4,
+                            DateEffectivite = new DateTime(2024, 1, 28, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8157),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = false,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 12,
+                            CliniqueID = 4,
+                            DateEffectivite = new DateTime(2024, 1, 29, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8162),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = false,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 13,
+                            CliniqueID = 5,
+                            DateEffectivite = new DateTime(2024, 1, 24, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8168),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 14,
+                            CliniqueID = 5,
+                            DateEffectivite = new DateTime(2024, 1, 25, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8173),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 15,
+                            CliniqueID = 5,
+                            DateEffectivite = new DateTime(2024, 1, 26, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8179),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 16,
+                            CliniqueID = 5,
+                            DateEffectivite = new DateTime(2024, 1, 27, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8185),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 17,
+                            CliniqueID = 5,
+                            DateEffectivite = new DateTime(2024, 1, 28, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8191),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = false,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 18,
+                            CliniqueID = 5,
+                            DateEffectivite = new DateTime(2024, 1, 29, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8197),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = false,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 19,
+                            CliniqueID = 6,
+                            DateEffectivite = new DateTime(2024, 1, 24, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8203),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 20,
+                            CliniqueID = 6,
+                            DateEffectivite = new DateTime(2024, 1, 25, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8209),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 21,
+                            CliniqueID = 6,
+                            DateEffectivite = new DateTime(2024, 1, 26, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8214),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 22,
+                            CliniqueID = 6,
+                            DateEffectivite = new DateTime(2024, 1, 27, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8220),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = true,
+                            NbMedecinsDispo = 3
+                        },
+                        new
+                        {
+                            ListeAttenteID = 23,
+                            CliniqueID = 6,
+                            DateEffectivite = new DateTime(2024, 1, 28, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8226),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = false,
+                            NbMedecinsDispo = 2
+                        },
+                        new
+                        {
+                            ListeAttenteID = 24,
+                            CliniqueID = 6,
+                            DateEffectivite = new DateTime(2024, 1, 29, 15, 41, 52, 409, DateTimeKind.Local).AddTicks(8231),
+                            DureeConsultationMinutes = 30,
+                            HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
+                            HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
+                            IsOuverte = false,
+                            NbMedecinsDispo = 3
+                        });
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
@@ -301,6 +663,56 @@ namespace Clinique2000_DataAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("Patients");
+
+                    b.HasData(
+                        new
+                        {
+                            PatientId = 1,
+                            Age = 32,
+                            CodePostal = "A1A 1A1",
+                            DateDeNaissance = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Genre = "Genre1",
+                            NAM = "NAM1",
+                            Nom = "Patient1Nom",
+                            Prenom = "Patient1Prenom",
+                            UserId = "7cc96785-8933-4eac-8d7f-a289b28df223"
+                        },
+                        new
+                        {
+                            PatientId = 2,
+                            Age = 27,
+                            CodePostal = "B2B 2B2",
+                            DateDeNaissance = new DateTime(1995, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Genre = "Genre2",
+                            NAM = "NAM2",
+                            Nom = "Patient2Nom",
+                            Prenom = "Patient2Prenom",
+                            UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2"
+                        },
+                        new
+                        {
+                            PatientId = 3,
+                            Age = 36,
+                            CodePostal = "C3C 3C3",
+                            DateDeNaissance = new DateTime(1985, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Genre = "Genre3",
+                            NAM = "NAM3",
+                            Nom = "Patient3Nom",
+                            Prenom = "Patient3Prenom",
+                            UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3"
+                        },
+                        new
+                        {
+                            PatientId = 4,
+                            Age = 42,
+                            CodePostal = "D4D 4D4",
+                            DateDeNaissance = new DateTime(1980, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Genre = "Genre4",
+                            NAM = "NAM4",
+                            Nom = "Patient4Nom",
+                            Prenom = "Patient4Prenom",
+                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4"
+                        });
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.PatientACharge", b =>
@@ -585,16 +997,61 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bd768334-a290-4012-882e-21faa0b2d86b",
-                            Email = "bit@gmail.com",
+                            ConcurrencyStamp = "220dfedb-a041-45af-b79c-a631e386e854",
+                            Email = "patient1@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "BIT@GMAIL.COM",
-                            NormalizedUserName = "BIT@GMAIL.COM",
+                            NormalizedEmail = "PATIENT1@EXAMPLE.COM",
+                            NormalizedUserName = "PATIENT1@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "406772ea-fad8-4c49-a792-6c1363b4f1cd",
+                            SecurityStamp = "f24e6b29-53a1-4fe5-8197-2293f9e5d3f4",
                             TwoFactorEnabled = false,
-                            UserName = "bit@gmail.com"
+                            UserName = "patient1@example.com"
+                        },
+                        new
+                        {
+                            Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b1c1ac9b-3d28-451c-8486-f324f2fbd686",
+                            Email = "patient2@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PATIENT2@EXAMPLE.COM",
+                            NormalizedUserName = "PATIENT2@EXAMPLE.COM",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "cf0a3c45-b457-43dc-af80-f59bf737d205",
+                            TwoFactorEnabled = false,
+                            UserName = "patient2@example.com"
+                        },
+                        new
+                        {
+                            Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "734d1103-a140-4b74-a26c-933fbb15acc2",
+                            Email = "patient3@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PATIENT3@EXAMPLE.COM",
+                            NormalizedUserName = "PATIENT3@EXAMPLE.COM",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "2baf3e6e-6db2-4114-8118-b8f635c75b2c",
+                            TwoFactorEnabled = false,
+                            UserName = "patient3@example.com"
+                        },
+                        new
+                        {
+                            Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "fa990bfa-f350-4e37-8d9b-895bae7350f4",
+                            Email = "patient4@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PATIENT4@EXAMPLE.COM",
+                            NormalizedUserName = "PATIENT4@EXAMPLE.COM",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "9a3d64ba-6a09-4f9b-9f23-9c13e2ef3604",
+                            TwoFactorEnabled = false,
+                            UserName = "patient4@example.com"
                         });
                 });
 

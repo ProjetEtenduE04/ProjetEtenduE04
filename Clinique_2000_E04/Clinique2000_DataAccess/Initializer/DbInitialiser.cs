@@ -1,4 +1,5 @@
 ﻿using Clinique2000_DataAccess.Data;
+using Clinique2000_DataAccess.Seeds;
 using Google;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,7 +23,12 @@ namespace Clinique2000_DataAccess.Initializer
         {
             try
             {
-                if (_db.Database.GetPendingMigrations().Count() > 0) { _db.Database.Migrate(); }
+                if (_db.Database.GetPendingMigrations().Count() > 0)
+                {
+                    _db.Database.Migrate();
+                    //ModelBuilderDataGenerator.GenerateData();
+                }
+
             }
             catch (Exception ex) { }
 

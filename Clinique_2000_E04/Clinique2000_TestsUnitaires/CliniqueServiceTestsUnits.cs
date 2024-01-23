@@ -351,18 +351,18 @@ namespace Clinique2000_TestsUnitaires
             {
                 Clinique = new Clinique
                 {
-                    CliniqueID = 4,
+                    CliniqueID = int.MaxValue,
                     NomClinique = "NewClinique",
                     Courriel = "new@example.com",
                     CreateurID = "12345",
                     HeureOuverture = TimeSpan.FromHours(8),
                     HeureFermeture = TimeSpan.FromHours(18),
-                    AdresseID = 4
+                    AdresseID = int.MaxValue
 
                 },
                 Adresse = new Adresse
                 {
-                    AdresseID = 4,
+                    AdresseID = int.MaxValue,
                     Numero = "123",
                     Rue = "Main Street",
                     Ville = "City",

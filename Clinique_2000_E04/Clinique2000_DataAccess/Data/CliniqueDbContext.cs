@@ -1,6 +1,7 @@
 using Clinique2000_Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Clinique2000_DataAccess.Seeds;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,11 +39,12 @@ namespace Clinique2000_DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CliniqueDbContext).Assembly);
-            modelBuilder.GenerateData();
+
+            // Seed data using the HasData method
+            ModelBuilderDataGenerator.GenerateData(modelBuilder);
         }
 
 
