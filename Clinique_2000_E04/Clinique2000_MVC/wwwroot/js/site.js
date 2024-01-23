@@ -24,6 +24,8 @@ $(document).ready(function () {
 /*    $('#nam').inputmask('aaaa 9999 9999', { "onfocusout": function () { alert('le format nam n\'est pas valide.(ex:abcd 1234 5678)'); } });*/
     $('#NAM').inputmask('AAAA 9999 9999');
 
+    $('#numTelephoneClinique').inputmask('(999) 999-9999');
+
     //Fonction qui modifie la première lettre en majuscule de la valeur d'entrée
     $('.capitalize-first-letter').on('input', function () {
         // Obtenir la valeur actuelle
@@ -153,3 +155,8 @@ $(document).ready(function () {
 });
 
 ///=================================================
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+const popover = new bootstrap.Popover('.popover-dismiss', {
+    trigger: 'focus'
+})

@@ -18,7 +18,7 @@ namespace Clinique2000_TestsUnitaires
             SeedInMemoryStore(options);
             return options;
         }
-        //Preparer des valeurs 
+        //Preparer des valeurs  
         private void SeedInMemoryStore(DbContextOptions<CliniqueDbContext> options)
         {
             using (var context = new CliniqueDbContext(options))

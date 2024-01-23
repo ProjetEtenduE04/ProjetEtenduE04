@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-
+using System.Text.Json.Serialization;
+using Clinique2000_DataAccess.Initializer;
 
 var builder = WebApplication.CreateBuilder(args);
 //DbContext
@@ -48,8 +49,16 @@ builder.Services.AddScoped<IAuthenGoogleService, AuthenGoogleService>();
 builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
 builder.Services.AddScoped(typeof(ICliniqueService), typeof(CliniqueService));
 builder.Services.AddScoped(typeof(IAdresseService), typeof(AdresseService));
+builder.Services.AddScoped<ICliniqueService, CliniqueService>();
+builder.Services.AddScoped<IdbInitialiser, DbInitialiser>();
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
 #endregion
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    });
+
 
 var app = builder.Build();
 
@@ -68,6 +77,17 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IdbInitialiser>();
+        dbInitializer.Initialize();
+    }
+}
+
+SeedDatabase();
 
 app.MapControllerRoute(
     name: "areaRoute",

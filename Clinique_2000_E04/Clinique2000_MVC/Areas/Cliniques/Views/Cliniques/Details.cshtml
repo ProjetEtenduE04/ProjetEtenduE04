@@ -9,7 +9,7 @@
         <h1>Details</h1>
 
         <div>
-            <h4>Clinique</h4>
+            <h4>Clinique : @Model.NomClinique</h4>
             <hr />
             <dl class="row">
                 <dt class="col-sm-2">
@@ -23,6 +23,12 @@
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Courriel)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.NumTelephone)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NumTelephone)
                 </dd>
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.HeureOuverture)
@@ -52,12 +58,18 @@
                     @Html.DisplayNameFor(model => model.Adresse)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Adresse.CodePostal)
+                    @{
+                        // Concatène toutes les propriétés pertinentes de l'objet Adresse en une chaîne de caractères.
+                        string concatenatedAddress = $"{Model.Adresse.Numero} {Model.Adresse.Rue}, {Model.Adresse.Ville}, {Model.Adresse.Province}, {Model.Adresse.Pays}, {Model.Adresse.CodePostal}";
+
+                        // Afficher la chaîne concaténée
+                        @Html.DisplayFor(model => concatenatedAddress)
+                    }
                 </dd>
             </dl>
         </div>
         <div>
-            <a asp-action="Edit" asp-route-id="@Model?.CliniqueID" class="btn btn-create form-control">Edit</a> |
+            <a asp-action="Edit" asp-route-id="@Model?.CliniqueID" class="btn btn-create form-control" style="width:auto">Edit</a> |
             <a asp-action="Index" class="btn-reinitialiser">Back to List</a>
         </div>
     </div>

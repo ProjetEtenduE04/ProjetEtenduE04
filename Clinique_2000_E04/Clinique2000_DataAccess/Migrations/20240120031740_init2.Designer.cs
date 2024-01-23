@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
+<<<<<<<< HEAD:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240120031740_init2.Designer.cs
     [Migration("20240120031740_init2")]
     partial class init2
+========
+    [Migration("20240123031225_MergeFixINIT")]
+    partial class MergeFixINIT
+>>>>>>>> FCT_US239_Inscription_Clinique:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240123031225_MergeFixINIT.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,6 +136,9 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
+                    b.Property<string>("NumTelephone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TempsMoyenConsultation")
                         .HasColumnType("int");
 
@@ -149,12 +157,18 @@ namespace Clinique2000_DataAccess.Migrations
                             CliniqueID = 1,
                             AdresseID = 1,
                             Courriel = "test@clinique2000.com",
+<<<<<<<< HEAD:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240120031740_init2.Designer.cs
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
                             DateCreation = new DateTime(2024, 1, 19, 22, 17, 40, 482, DateTimeKind.Local).AddTicks(3242),
+========
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 22, 22, 12, 25, 94, DateTimeKind.Local).AddTicks(2605),
+>>>>>>>> FCT_US239_Inscription_Clinique:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240123031225_MergeFixINIT.Designer.cs
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             NomClinique = "CliniqueA",
+                            NumTelephone = "(438) 333-5555",
                             TempsMoyenConsultation = 30
                         },
                         new
@@ -162,12 +176,18 @@ namespace Clinique2000_DataAccess.Migrations
                             CliniqueID = 2,
                             AdresseID = 2,
                             Courriel = "Test2@test.com",
+<<<<<<<< HEAD:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240120031740_init2.Designer.cs
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
                             DateCreation = new DateTime(2024, 1, 19, 22, 17, 40, 482, DateTimeKind.Local).AddTicks(3381),
+========
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 22, 22, 12, 25, 94, DateTimeKind.Local).AddTicks(2652),
+>>>>>>>> FCT_US239_Inscription_Clinique:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240123031225_MergeFixINIT.Designer.cs
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             NomClinique = "CliniqueB",
+                            NumTelephone = "(438) 333-7777",
                             TempsMoyenConsultation = 30
                         });
                 });
@@ -582,14 +602,22 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
                             AccessFailedCount = 0,
+<<<<<<<< HEAD:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240120031740_init2.Designer.cs
                             ConcurrencyStamp = "636181b7-361f-4197-85ca-bc9edc93327a",
+========
+                            ConcurrencyStamp = "b3ea3d53-05f1-443a-9978-38833d553aa5",
+>>>>>>>> FCT_US239_Inscription_Clinique:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240123031225_MergeFixINIT.Designer.cs
                             Email = "bit@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "BIT@GMAIL.COM",
                             NormalizedUserName = "BIT@GMAIL.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<<< HEAD:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240120031740_init2.Designer.cs
                             SecurityStamp = "35fb0ad9-baaf-45aa-a0d4-e9bd7fd0a747",
+========
+                            SecurityStamp = "1031dfcf-273a-484e-b601-d652ecfc7aa3",
+>>>>>>>> FCT_US239_Inscription_Clinique:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240123031225_MergeFixINIT.Designer.cs
                             TwoFactorEnabled = false,
                             UserName = "bit@gmail.com"
                         });

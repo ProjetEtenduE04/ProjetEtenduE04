@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    [Migration("20240118014330_AjoutAdresseModificationClinique")]
-    partial class AjoutAdresseModificationClinique
+<<<<<<<< HEAD:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240120031740_init2.Designer.cs
+    [Migration("20240120031740_init2")]
+    partial class init2
+========
+    [Migration("20240123031225_MergeFixINIT")]
+    partial class MergeFixINIT
+>>>>>>>> FCT_US239_Inscription_Clinique:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240123031225_MergeFixINIT.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +41,11 @@ namespace Clinique2000_DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("nvarchar(7)");
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Pays")
                         .IsRequired()
@@ -66,18 +76,20 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             AdresseID = 1,
                             CodePostal = "H1H 1H1",
+                            Numero = "7-756",
                             Pays = "Canada",
                             Province = "Québec",
-                            Rue = "123 rue de la clinique",
+                            Rue = "rue de la Clinique",
                             Ville = "Montréal"
                         },
                         new
                         {
                             AdresseID = 2,
                             CodePostal = "A1A 1A1",
+                            Numero = "2-66",
                             Pays = "Canada",
                             Province = "Québec",
-                            Rue = "777 rue de la Cegep",
+                            Rue = "rue de la Cegep",
                             Ville = "Longueuil"
                         });
                 });
@@ -98,6 +110,16 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("CreateurID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("DateCreation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModification")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("EstActive")
                         .HasColumnType("bit");
 
@@ -114,6 +136,9 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
+                    b.Property<string>("NumTelephone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TempsMoyenConsultation")
                         .HasColumnType("int");
 
@@ -121,6 +146,8 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasIndex("AdresseID")
                         .IsUnique();
+
+                    b.HasIndex("CreateurID");
 
                     b.ToTable("Cliniques");
 
@@ -130,10 +157,18 @@ namespace Clinique2000_DataAccess.Migrations
                             CliniqueID = 1,
                             AdresseID = 1,
                             Courriel = "test@clinique2000.com",
+<<<<<<<< HEAD:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240120031740_init2.Designer.cs
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
+                            DateCreation = new DateTime(2024, 1, 19, 22, 17, 40, 482, DateTimeKind.Local).AddTicks(3242),
+========
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 22, 22, 12, 25, 94, DateTimeKind.Local).AddTicks(2605),
+>>>>>>>> FCT_US239_Inscription_Clinique:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240123031225_MergeFixINIT.Designer.cs
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             NomClinique = "CliniqueA",
+                            NumTelephone = "(438) 333-5555",
                             TempsMoyenConsultation = 30
                         },
                         new
@@ -141,10 +176,18 @@ namespace Clinique2000_DataAccess.Migrations
                             CliniqueID = 2,
                             AdresseID = 2,
                             Courriel = "Test2@test.com",
+<<<<<<<< HEAD:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240120031740_init2.Designer.cs
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df222",
+                            DateCreation = new DateTime(2024, 1, 19, 22, 17, 40, 482, DateTimeKind.Local).AddTicks(3381),
+========
+                            CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            DateCreation = new DateTime(2024, 1, 22, 22, 12, 25, 94, DateTimeKind.Local).AddTicks(2652),
+>>>>>>>> FCT_US239_Inscription_Clinique:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240123031225_MergeFixINIT.Designer.cs
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             NomClinique = "CliniqueB",
+                            NumTelephone = "(438) 333-7777",
                             TempsMoyenConsultation = 30
                         });
                 });
@@ -169,16 +212,21 @@ namespace Clinique2000_DataAccess.Migrations
                     b.Property<DateTime?>("HeureDateFinReele")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ListeAttenteID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PatientID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlageHoraireID")
+                    b.Property<int?>("PlageHoraireID")
                         .HasColumnType("int");
 
                     b.Property<int>("StatutConsultation")
                         .HasColumnType("int");
 
                     b.HasKey("ConsultationID");
+
+                    b.HasIndex("ListeAttenteID");
 
                     b.HasIndex("PatientID");
 
@@ -548,6 +596,31 @@ namespace Clinique2000_DataAccess.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            AccessFailedCount = 0,
+<<<<<<<< HEAD:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240120031740_init2.Designer.cs
+                            ConcurrencyStamp = "636181b7-361f-4197-85ca-bc9edc93327a",
+========
+                            ConcurrencyStamp = "b3ea3d53-05f1-443a-9978-38833d553aa5",
+>>>>>>>> FCT_US239_Inscription_Clinique:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240123031225_MergeFixINIT.Designer.cs
+                            Email = "bit@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "BIT@GMAIL.COM",
+                            NormalizedUserName = "BIT@GMAIL.COM",
+                            PhoneNumberConfirmed = false,
+<<<<<<<< HEAD:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240120031740_init2.Designer.cs
+                            SecurityStamp = "35fb0ad9-baaf-45aa-a0d4-e9bd7fd0a747",
+========
+                            SecurityStamp = "1031dfcf-273a-484e-b601-d652ecfc7aa3",
+>>>>>>>> FCT_US239_Inscription_Clinique:Clinique_2000_E04/Clinique2000_DataAccess/Migrations/20240123031225_MergeFixINIT.Designer.cs
+                            TwoFactorEnabled = false,
+                            UserName = "bit@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Clinique", b =>
@@ -558,20 +631,30 @@ namespace Clinique2000_DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Clinique2000_Core.Models.ApplicationUser", "Createur")
+                        .WithMany("Clinique")
+                        .HasForeignKey("CreateurID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Adresse");
+
+                    b.Navigation("Createur");
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Consultation", b =>
                 {
+                    b.HasOne("Clinique2000_Core.Models.ListeAttente", null)
+                        .WithMany("Consultations")
+                        .HasForeignKey("ListeAttenteID");
+
                     b.HasOne("Clinique2000_Core.Models.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("Consultations")
                         .HasForeignKey("PatientID");
 
                     b.HasOne("Clinique2000_Core.Models.PlageHoraire", "PlageHorarie")
                         .WithMany("Consultations")
-                        .HasForeignKey("PlageHoraireID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlageHoraireID");
 
                     b.Navigation("Patient");
 
@@ -686,11 +769,15 @@ namespace Clinique2000_DataAccess.Migrations
 
             modelBuilder.Entity("Clinique2000_Core.Models.ListeAttente", b =>
                 {
+                    b.Navigation("Consultations");
+
                     b.Navigation("PlagesHoraires");
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Patient", b =>
                 {
+                    b.Navigation("Consultations");
+
                     b.Navigation("PatientsACharge");
                 });
 
@@ -701,6 +788,8 @@ namespace Clinique2000_DataAccess.Migrations
 
             modelBuilder.Entity("Clinique2000_Core.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Clinique");
+
                     b.Navigation("Patient");
                 });
 #pragma warning restore 612, 618

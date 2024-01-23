@@ -110,7 +110,7 @@ namespace Clinique2000_TestsUnitaires
 
         /// <summary>
         /// Teste que l'action Details retourne une vue avec le bon objet ListeAttente pour un ID sp�cifique
-        /// </summary>
+        /// </summary>  
         /// <returns></returns>
         [Fact]
         public async Task Details_AvecIdValide_RetourneVueAvecListeAttenteSpecifique()

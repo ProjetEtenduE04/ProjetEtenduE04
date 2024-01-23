@@ -77,4 +77,11 @@
     <None Include="wwwroot\lib\DataTables\datatables.min.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Shared\_NavMenuPatients.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

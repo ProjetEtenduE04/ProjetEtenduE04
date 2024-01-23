@@ -1,7 +1,8 @@
-﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
+using Clinique2000_Services.Services;
 using Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
 
@@ -16,57 +18,55 @@ using System.Security.Claims;
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
     [Area("Cliniques")]
+    [Authorize]
     public class CliniquesController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         public IClinique2000Services _services { get; set; }
-        private readonly CliniqueDbContext _context;
 
         public CliniquesController(
             IClinique2000Services service,
-            UserManager<IdentityUser> userManager,
-            CliniqueDbContext context
+            UserManager<IdentityUser> userManager
+
             )
         {
             _services = service;
             _userManager = userManager;
-            _context = context;
         }
 
         // GET: Cliniques
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Cliniques.Include(c => c.Adresse);
-            return View(await applicationDbContext.ToListAsync());
+            var listeDesCliniques = await _services.clinique.ObtenirToutAsync();
+            return View(listeDesCliniques);
         }
 
         // GET: Cliniques/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Cliniques == null)
+            if (id == null || await _services.clinique.ObtenirToutAsync() == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
-            var clinique = await _context.Cliniques
-                .Include(c => c.Adresse)
-                .FirstOrDefaultAsync(m => m.CliniqueID == id);
+            var clinique = await _services.clinique.ObtenirParIdAsync(id);
+
             if (clinique == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(clinique);
         }
 
         // GET: Cliniques/Create
-        //[Authorize]
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                string courriel = User.FindFirstValue(ClaimTypes.Email);
-                var user = await _userManager.FindByEmailAsync(courriel);
+            //if (User.Identity.IsAuthenticated) //Utiliser temporairement, jusqu'à implémentation Role-based authorization
+            //{
+                string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
+                var user = await _userManager.FindByEmailAsync(courrielUserAuth);
 
                 var cliniqueModel = new CliniqueAdresseVM() { 
                     Clinique = new Clinique2000_Core.Models.Clinique() 
@@ -75,9 +75,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     };
 
                     return View(cliniqueModel);
-            }
+            //}
 
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
         }
 
         // POST: Cliniques/Create
@@ -97,26 +97,35 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
 
         // GET: Cliniques/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Cliniques == null)
+            try
             {
-                return NotFound();
-            }
-            var clinique = await _context.Cliniques.FindAsync(id);
-            var adreesseClinique = await _context.Adresses.FindAsync(clinique.AdresseID);
-            var cliniqueAdresseVM = new CliniqueAdresseVM()
-            {
-                Clinique = clinique,
-                Adresse = adreesseClinique
-            };
+                if (!await _services.clinique.VerifierExistenceCliniqueParIdAsync(id))
+                {
+                    return View("NotFound");
+                }
+                var clinique = await _services.clinique.ObtenirParIdAsync(id);
 
-            if (clinique == null)
-            {
-                return NotFound();
+                if (clinique == null)
+                {
+                    return View("NotFound");
+                }
+
+                var adreesseClinique = await _services.adresse.ObtenirParIdAsync(clinique.AdresseID);
+
+                var cliniqueAdresseVM = new CliniqueAdresseVM()
+                {
+                    Clinique = clinique,
+                    Adresse = adreesseClinique
+                };
+                return View(cliniqueAdresseVM);
             }
-            //ViewData["AdresseID"] = new SelectList(_context.Adresses, "AdresseID", "CodePostal", clinique.AdresseID);
-            return View(cliniqueAdresseVM);
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // POST: Cliniques/Edit/5
@@ -126,51 +135,38 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             if (id != cliniqueAdresseVM.Clinique.CliniqueID)
             {
-                return NotFound();
+                return View("NotFound");
             }
-
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(cliniqueAdresseVM.Adresse);
-                    _context.Update(cliniqueAdresseVM.Clinique);
-                    await _context.SaveChangesAsync();
+                if (ModelState.IsValid)
+                { 
+                    await _services.clinique.EditerCliniqueAsync(cliniqueAdresseVM);
+                    return RedirectToAction("Details", "Cliniques", new { id = cliniqueAdresseVM.Clinique.CliniqueID });
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CliniqueExists(cliniqueAdresseVM.Clinique.CliniqueID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("Details", "Cliniques", new { id = cliniqueAdresseVM.Clinique.CliniqueID });
             }
-            //ViewData["AdresseID"] = new SelectList(_context.Adresses, "AdresseID", "CodePostal", cliniqueAdresseVM.Clinique.AdresseID);
-            return View(cliniqueAdresseVM.Clinique);
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+            }
+            return View(cliniqueAdresseVM);
         }
 
         // GET: Cliniques/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Cliniques == null)
+            if (id == null || await _services.clinique.ObtenirToutAsync() == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
-            var clinique = await _context.Cliniques
-                .Include(c => c.Adresse)
-                .FirstOrDefaultAsync(m => m.CliniqueID == id);
-            if (clinique == null)
+            var cliniqueASupprimer = await _services.clinique.ObtenirParIdAsync(id);
+            if (cliniqueASupprimer == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
-            return View(clinique);
+            return View(cliniqueASupprimer);
         }
 
         // POST: Cliniques/Delete/5
@@ -178,23 +174,54 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Cliniques == null)
+            if (await _services.clinique.ObtenirToutAsync() == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Cliniques'  is null.");
+                return Problem("L'ensemble d'entités 'ApplicationDbContext.Cliniques' est nul.");
             }
-            var clinique = await _context.Cliniques.FindAsync(id);
-            if (clinique != null)
-            {
-                _context.Cliniques.Remove(clinique);
-            }
+            await _services.clinique.SupprimerAsync(id);
+            //var cliniqueASupprimer = await _services.clinique.ObtenirParIdAsync(id);
+            //if (cliniqueASupprimer != null)
+            //{
 
-            await _context.SaveChangesAsync();
+            //    _context.Cliniques.Remove(cliniqueASupprimer);
+            //}
+
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CliniqueExists(int id)
+        //private bool CliniqueExists(int id)
+        //{
+        //    return (_context.Cliniques?.Any(e => e.CliniqueID == id)).GetValueOrDefault();
+        //}
+
+
+        public async Task<IActionResult> IndexPourPatients()
         {
-            return (_context.Cliniques?.Any(e => e.CliniqueID == id)).GetValueOrDefault();
+            List<Clinique> allClinics = await _services.clinique.ObtenirToutAsync();
+
+            if (allClinics == null)
+            {
+                return View("IndexPourPatients", Enumerable.Empty<Clinique>());
+            }
+
+            var activeClinics = allClinics.Where(clinic => clinic.EstActive).ToList();
+            return View("IndexPourPatients", activeClinics);
+        }
+
+
+        public async Task<IActionResult> ListeAttentePourPatient(int clinicId, bool? isOuvert)
+        {
+            IList<ListeAttente> listeAttentePourPatient = await _services.clinique.GetListeAttentePourPatientAsync(clinicId, isOuvert);
+
+
+            string clinicName = _services.clinique.ObtenirParIdAsync(clinicId)?.Result?.NomClinique;
+
+            ViewBag.CliniqueName = clinicName;
+
+            return View("ListeAttentePourPatient", listeAttentePourPatient);
         }
     }
 }
+
+       
