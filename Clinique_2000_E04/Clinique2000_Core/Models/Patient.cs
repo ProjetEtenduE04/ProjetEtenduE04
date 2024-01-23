@@ -56,7 +56,7 @@ namespace Clinique2000_Core.Models
         public virtual List<PatientACharge>? PatientsACharge { get; set; }
 
         [ValidateNever]
-        public virtual List<Consultation> Consultations { get; set; }
+        public virtual List<Consultation>? Consultations { get; set; }
 
 
 
