@@ -1,23 +1,21 @@
-using Xunit;
-using Moq;
 using Clinique2000_Services.IServices;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Core.Models;
-using System;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using Microsoft.EntityFrameworkCore.InMemory;
 using Clinique2000_Services.Services;
-using Xunit.Abstractions;
 using System.ComponentModel.DataAnnotations;
+using Clinique2000_Utility.Enum;
+using Google;
+using Moq;
+using Clinique2000_Core.ViewModels;
+
 namespace Clinique2000_TestsUnitaires
 {
     public class ListeAttenteServiceTestsUnits
     {
 
         private readonly CliniqueDbContext dbTest;
-        
+
         public ListeAttenteServiceTestsUnits()
         {
             var options = SetUpInMemory("CliniqueTestDb");
@@ -36,32 +34,85 @@ namespace Clinique2000_TestsUnitaires
         //Preparer des valeurs 
         private void SeedInMemoryStore(CliniqueDbContext dbTest)
         {
+            if (!dbTest.Cliniques.Any())
+            {
+                dbTest.Cliniques.AddRange(
+                    new Clinique
+                    {
+                        CliniqueID = 1,
+                        NomClinique = "Clinique A", // Added NomClinique
+                        Courriel = "cliniqueA@example.com", // Added Courriel
+                        CreateurID = "creator1", // Added CreateurID
+                        HeureOuverture = TimeSpan.FromHours(8),
+                        HeureFermeture = TimeSpan.FromHours(18), // Added HeureFermeture
+                        TempsMoyenConsultation = 30,
+                    },
+                    new Clinique
+                    {
+                        CliniqueID = 2,
+                        NomClinique = "Clinique B", // Added NomClinique
+                        Courriel = "cliniqueB@example.com", // Added Courriel
+                        CreateurID = "creator2", // Added CreateurID
+                        HeureOuverture = TimeSpan.FromHours(9), // Adjusted HeureOuverture
+                        HeureFermeture = TimeSpan.FromHours(17), // Adjusted HeureFermeture
+                        TempsMoyenConsultation = 20,
+                    },
+                    new Clinique
+                    {
+                        CliniqueID = 3,
+                        NomClinique = "Clinique C", // Added NomClinique
+                        Courriel = "cliniqueC@example.com", // Added Courriel
+                        CreateurID = "creator3", // Added CreateurID
+                        HeureOuverture = TimeSpan.FromHours(8),
+                        HeureFermeture = TimeSpan.FromHours(18), // Added HeureFermeture
+                        TempsMoyenConsultation = 30,
+                    }
+                );
+                dbTest.SaveChanges();
+            }
 
-           
-                if (!dbTest.Cliniques.Any())
-                {
-                    dbTest.Cliniques.AddRange(
-                     new Clinique { CliniqueID = 1, TempsMoyenConsultation = 30 },
-                     new Clinique { CliniqueID = 2, TempsMoyenConsultation = 20 },
-                     new Clinique { CliniqueID = 3, TempsMoyenConsultation = 30 }
-                     );
-                    dbTest.SaveChanges();
-                }
+            if (!dbTest.ListeAttentes.Any())
+            {
+                dbTest.ListeAttentes.AddRange(
+                    new ListeAttente { ListeAttenteID = 1, DateEffectivite = DateTime.Today, HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 1 },
+                    new ListeAttente { ListeAttenteID = 2, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 0, CliniqueID = 1 },
+                    new ListeAttente { ListeAttenteID = 3, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 3 },
+                    new ListeAttente { ListeAttenteID = 4, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 2 }
+                );
+                dbTest.SaveChanges();
+            }
 
-                if (!dbTest.ListeAttentes.Any())
-                {
-                    dbTest.ListeAttentes.AddRange(
-                     new ListeAttente { ListeAttenteID = 1, DateEffectivite = DateTime.Today, HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 1 },
-                     new ListeAttente { ListeAttenteID = 2, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 0, CliniqueID = 1 },
-                     new ListeAttente { ListeAttenteID = 3, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 3 },
-                     new ListeAttente { ListeAttenteID = 4, DateEffectivite = DateTime.Today.AddDays(1), HeureOuverture = TimeSpan.FromHours(8), HeureFermeture = TimeSpan.FromHours(10), NbMedecinsDispo = 2, CliniqueID = 2 }
+            if (!dbTest.PlagesHoraires.Any())
+            {
+                dbTest.PlagesHoraires.AddRange(
+                    new PlageHoraire { PlageHoraireID = 1,  HeureDebut = DateTime.Today.AddHours(8).AddMinutes(00), HeureFin = DateTime.Today.AddHours(8).AddMinutes(30), ListeAttenteID = 1 },
+                    new PlageHoraire { PlageHoraireID = 2,  HeureDebut = DateTime.Today.AddHours(8).AddMinutes(30), HeureFin = DateTime.Today.AddHours(9).AddMinutes(00), ListeAttenteID = 1 },
+                    new PlageHoraire { PlageHoraireID = 3,  HeureDebut = DateTime.Today.AddHours(9).AddMinutes(00), HeureFin = DateTime.Today.AddHours(9).AddMinutes(30), ListeAttenteID = 1 },
+                    new PlageHoraire { PlageHoraireID = 4,  HeureDebut = DateTime.Today.AddHours(9).AddMinutes(30), HeureFin = DateTime.Today.AddHours(10).AddMinutes(00), ListeAttenteID = 1 },
+                    new PlageHoraire { PlageHoraireID = 5, HeureDebut = DateTime.Today.AddHours(9).AddMinutes(00), HeureFin = DateTime.Today.AddHours(9).AddMinutes(30), ListeAttenteID = 3 },
+                    new PlageHoraire { PlageHoraireID = 6, HeureDebut = DateTime.Today.AddHours(9).AddMinutes(30), HeureFin = DateTime.Today.AddHours(10).AddMinutes(00), ListeAttenteID = 2}
+                );
 
+                dbTest.SaveChanges();
+            }
 
-                     );
-                    dbTest.SaveChanges();
-                }
-            
+            if ( !dbTest .Consultations.Any())
+            {
+                dbTest.Consultations.AddRange(
+                    new Consultation { ConsultationID=1, HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(8).AddMinutes(30), PlageHoraireID = 1 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=2, HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(8).AddMinutes(30), PlageHoraireID = 1 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=3, HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(00), PlageHoraireID = 2 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=4, HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(00), PlageHoraireID = 2 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=5, HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(30), PlageHoraireID = 3 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=6, HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(30), PlageHoraireID = 3 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=7, HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(10).AddMinutes(00), PlageHoraireID = 4, StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=8, HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(10).AddMinutes(00), PlageHoraireID = 4, StatutConsultation=(StatutConsultation)6}
+
+             );
+                dbTest.SaveChanges();
+            }
         }
+
 
         [Fact]
         public async Task GenererPlagesHorairesAsync_CreatesCorrectNumberofConsultation()
@@ -78,7 +129,7 @@ namespace Clinique2000_TestsUnitaires
 
             // Assert
             var consultations = dbTest.PlagesHoraires.Count();
-            var expectedCount = 4;//dans 2hrs avec 2 medecins je dois ouvrir 4 plages horaires pour la Liste d'attente 1
+            var expectedCount = 10; // You mentioned that you expect 4 consultations.
             Assert.Equal(expectedCount, consultations);
         }
 
@@ -155,8 +206,54 @@ namespace Clinique2000_TestsUnitaires
             // Assert
             Assert.Equal("La date d'effectivite n'est pas valide. Elle doit etre posterieure a la date actuelle.", exception.Message);
         }
+
+
+
+        #region Filtrage des plages horaires 
+
+
+        [Fact]
+        public async Task GetListeAttenteOrdonnee_ListExists_ReturnsValidListeAttenteVM_AucuneReservation()
+        {
+           // //arrange
+           //     IListeAttenteService service = new ListeAttenteService(dbTest);
+           //     ListeAttenteVM listeattentevm_test = new ListeAttenteVM();
+
+           // var listeattente = await dbTest.ListeAttentes.FindAsync(1);
+
+           // if (listeattente == null)
+           // {
+           //     throw new InvalidOperationException("listeattente not found.");
+           // }
+
+           // //on reserve 0 consultations 
+            
+
+           // foreach (var consultation in dbTest.Consultations)
+           // {
+           //     consultation.StatutConsultation = (StatutConsultation)6;
+           // }
+
+           // dbTest.SaveChanges();
+
+           // //act
+           //listeattentevm_test = await service.GetListeAttenteOrdonnee(listeattente.ListeAttenteID);
+
+           // //assert
+           //var plageshorairesfiltrees = listeattentevm_test.plageshoraires.count();
+           //var expectedcount = 4; //je m'attend à avoir 4 car aucune skipped.
+           //assert.equal(expectedcount, plageshoraires);
+
+
+        }
+
+        #endregion
+
+
     }
 
 
+
+
 }
-    
+

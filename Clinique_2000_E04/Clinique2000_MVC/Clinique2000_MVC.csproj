@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <None Remove="appsettings.json~RF14ec06e2.TMP" />
+    <None Remove="Areas\Cliniques\Views\Cliniques\Edit.cshtml~RFcb7168d.TMP" />
     <None Remove="Areas\Patients\Views\Patients\NewFile.txt" />
   </ItemGroup>
 
@@ -47,9 +48,10 @@
   <ItemGroup>
     <Folder Include="Areas\Patients\Data\" />
     <Folder Include="Areas\Patients\Models\" />
+    <Folder Include="Areas\Patients\Views\Shared\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Areas\Clinique\Data\" />
-    <Folder Include="Areas\Clinique\Models\" />
+    <Folder Include="Areas\Cliniques\Data\" />
+    <Folder Include="Areas\Cliniques\Models\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -73,6 +75,13 @@
     <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\jquery.dataTables.min.js" />
     <None Include="wwwroot\lib\DataTables\datatables.js" />
     <None Include="wwwroot\lib\DataTables\datatables.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Shared\_NavMenuPatients.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,103 @@
+﻿@model Consultation
+@{
+    Layout = "_Layout";
+}
+@{
+    var isOuverteSelectList = new SelectList(new[]
+    {
+        new { Value = "StatutConsultation.DisponiblePourReservation", Text = "Disponible" },
+        new { Value = "StatutConsultation.EnAttente", Text = "Reservée" },
+        new { Value = "StatutConsultation.EnCours", Text = "En cours" },
+        new{ Value="StatutConsultation.Terminé", Text = "Terminé"},
+        new { Value ="StatutConsultation.Annullé", Text="Annulée"}
+    }, "Value", "Text");
+}
+
+<div>
+    <h1 class="h0 text-center" style="margin-top:50px;">Modifier la consultation</h1>
+    <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
+
+    <p class="p1">
+        Veuillez compléter ces informations <br />
+        <span class="p3" style="color:black">Les champs marqués d'un astérisque (<span class="champs-obligatoires">*</span>) doivent être renseignés.</span>
+    </p>
+</div>
+
+<div class="container">
+    <main role="main" class="pb-3">
+        <div class="container-fluid">
+            <div class="row justify-content-around">
+                <div class="col col-lg-10 col-xl-9">
+
+                    <form asp-area="Cliniques" asp-controller="Consultation" asp-action="Edit" method="post" enctype="multipart/form-data" class="m-4">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="ConsultationID">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                      <div class="form-group mb-3">
+                            <label asp-for="StatutConsultation" class="form-label">État <span class="champs-obligatoires"> *</span></label>
+                            @Html.DropDownListFor(model => model.StatutConsultation, isOuverteSelectList, new { @class = "form-control" })
+                            <span asp-validation-for="StatutConsultation" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="HeureDateDebutPrevue" class="form-label">Heure du debut prevue<span class="champs-obligatoires"> *</span></label>
+                            <input  asp-for="HeureDateDebutPrevue.TimeOfDay" type="time" class="form-control form-control-lg">
+                            <span asp-validation-for="HeureDateDebutPrevue" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label @*asp-for="HeureOuverture"*@ class="form-label">Medecin<span class="champs-obligatoires"> *</span></label>
+                            <input @*asp-for="HeureOuverture"*@ type="text" id="medecinEdit" class="form-control form-control-lg">
+                            <span @*asp-validation-for="HeureOuverture"*@ class="text-danger"></span>
+                        </div>
+
+
+                        @*<div class="form-group mb-3">
+                            <label asp-for="HeureOuverture" class="form-label">Heure d'ouverture<span class="champs-obligatoires"> *</span></label>
+                            <input asp-for="HeureOuverture" type="time" id="heureOuvertureEdit" class="form-control form-control-lg">
+                            <span asp-validation-for="HeureOuverture" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3" id="heureFermetureContainerEdit">
+                            <label asp-for="HeureFermeture" class="form-label">Heure de fermeture<span class="champs-obligatoires"> *</span></label>
+                            <input asp-for="HeureFermeture" type="time" class="form-control form-control-lg" id="heureFermetureEdit">
+                            <span asp-validation-for="HeureFermeture" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="NbMedecinsDispo" class="form-label">Nombre de médecins disponibles<span class="champs-obligatoires"> *</span></label>
+                            <input type="number" asp-for="NbMedecinsDispo" class="form-control form-control-lg" min="0" placeholder="Entrez le nombre de médecins disponibles">
+                            <span asp-validation-for="NbMedecinsDispo" class="text-danger"></span>
+                        </div>
+
+
+*@
+
+
+
+
+
+
+                        @*    <div class="form-group mb-3">
+                        <label asp-for="CliniqueID" class="form-label">ID de votre clinique :</label>
+                        <input asp-for="CliniqueID" type="number" class="form-control form-control-lg" min="0" placeholder="Entrez l'ID de votre clinique">
+                        <span asp-validation-for="CliniqueID" class="text-danger"></span>
+                        </div> *@
+
+
+                        <button type="submit" class="btn-create btn-lg">Modifier</button>
+                        <button type="reset" class="btn-reinitialiser btn-lg">Réinitialiser</button>
+                    </form>
+
+                    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+                    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

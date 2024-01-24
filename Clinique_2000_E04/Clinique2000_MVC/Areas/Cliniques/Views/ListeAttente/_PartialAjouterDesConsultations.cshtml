@@ -1,0 +1,33 @@
+@model IEnumerable<Clinique2000_Core.Models.Consultation>
+
+<div class="container ps-0">
+    @* <h2>Plages Horaires</h2> *@
+    <table class="table mb-0 pb-0">
+        <thead>
+            <tr>
+               @*  <th>Data</th> *@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var consultation in Model)
+            {
+                <tr id="tableinterne" class="pb-0 mb-0">
+                    <td class="ps-0 mb-0 col-4">
+                        <!-- Affichez les détails de la consultation si nécessaire -->
+                        @* <div>@consultation.ConsultationID</div> *@
+                        <div>Medecin: </div>
+                        <div>Patient: @Html.Raw(consultation.PatientID >= 0 && consultation.Patient != null ? $"{consultation.Patient.Prenom} {consultation.Patient.Nom}" : "")</div>
+                    </td>
+                    <td class="col-2">
+                        <!-- Utilisez un formulaire pour chaque bouton "Réserver" -->
+                        <form method="post" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="ReserverConsultation">
+                            <input type="hidden" name="id" value="@consultation.ConsultationID" />
+                            <input type="hidden" name="patientId" value="@consultation.PatientID" />
+                            <button type="submit" class="btn btn-success " @(consultation.PatientID >= 0 ? "disabled" : "")>Réserver</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

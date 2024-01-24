@@ -1,5 +1,6 @@
 using Clinique2000_Core.Models;
-using Clinique2000_MVC.Areas.Clinique.Controllers;
+using Clinique2000_Core.ViewModels;
+using Clinique2000_MVC.Areas.Cliniques.Controllers;
 using Clinique2000_MVC.Controllers;
 using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Mvc;
@@ -109,7 +110,7 @@ namespace Clinique2000_TestsUnitaires
 
         /// <summary>
         /// Teste que l'action Details retourne une vue avec le bon objet ListeAttente pour un ID sp�cifique
-        /// </summary>
+        /// </summary>  
         /// <returns></returns>
         [Fact]
         public async Task Details_AvecIdValide_RetourneVueAvecListeAttenteSpecifique()
@@ -126,7 +127,14 @@ namespace Clinique2000_TestsUnitaires
                 NbMedecinsDispo = 3,
                 DureeConsultationMinutes = 15,
                 CliniqueID = 101,
+                PlagesHoraires=new List<PlageHoraire>(),
             };
+
+            //var listeAttenteVMAttendue = new ListeAttenteVM
+            //{
+            //    ListeAttente = listeAttenteAttendue,
+            //    PlagesHoraires=listeAttenteAttendue.PlagesHoraires
+            //};
 
             mockService.Setup(s => s.listeAttente.ObtenirParIdAsync(1)).ReturnsAsync(listeAttenteAttendue);
 
@@ -136,9 +144,9 @@ namespace Clinique2000_TestsUnitaires
             var result = await controller.Details(1);
 
             // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsType<ListeAttente>(viewResult.Model);
-            Assert.Equal(listeAttenteAttendue, model);
+            var viewResult = Assert.IsType<ViewResult>(result);//devuelve type VM
+            var model = Assert.IsType<ListeAttenteVM>(viewResult.Model);
+            Assert.Equal(listeAttenteAttendue.ListeAttenteID, model.ListeAttente.ListeAttenteID);
         }
 
         /// <summary>

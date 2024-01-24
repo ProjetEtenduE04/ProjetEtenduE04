@@ -13,15 +13,17 @@
     <EmbeddedResource Remove="ViewModels\**" />
     <None Remove="Interfaces\**" />
     <None Remove="ViewModels\**" />
+    <None Remove="Models\ApplicationUser.cs~RF2f33c35.TMP" />
+    <Compile Include="ViewModels\CliniqueAdresseVM.cs" />
+    <Compile Include="ViewModels\ListeAttenteVM.cs" />
     <Folder Include="Interfaces\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.64.0.1869" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.34" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 

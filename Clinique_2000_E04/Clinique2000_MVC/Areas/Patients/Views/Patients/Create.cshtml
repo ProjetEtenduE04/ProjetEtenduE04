@@ -14,7 +14,7 @@
 
                 <p class="p1">
                     Veuillez compléter ces informations <br />
-                    <span class="p3" >Les champs marqués d'un astérisque (*) doivent être renseignés.</span>
+                    <span class="p3">Les champs marqués d'un astérisque (<span class="champs-obligatoires">*</span>) doivent être renseignés.</span>
                 </p>
             </div>
             
@@ -30,7 +30,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.Nom" class="form-label mt-3 mb-1">Nom<span class="champs-obligatoires"> *</span></label>
-                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Nom" id="nomPatient" placeholder="Exemple: Jhon">
+                        <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="@Model.Nom" id="nomPatient" placeholder="Exemple: Jhon">
                         <span asp-validation-for="@Model.Nom" class="text-danger"></span>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.Prenom" class="form-label mt-3 mb-1">Prenom<span class="champs-obligatoires"> *</span></label>
-                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Prenom" placeholder="Exemple: Smith">
+                        <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="@Model.Prenom" placeholder="Exemple: Smith">
                         <span asp-validation-for="@Model.Prenom" class="text-danger"></span>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6">
                         <label asp-for="@Model.Genre" class="form-label mt-3 mb-1"></label>
-                        <select class="form-select" asp-for="@Model.Genre" aria-label="Genre">
+                        <select class="form-select form-select-lg" asp-for="@Model.Genre" aria-label="Genre">
                             <option selected value="">Choisissez parmi les options proposées</option>
                             <option selected value="Féminine">Féminine</option>
                             <option selected value="Masculin">Masculin</option>
@@ -61,7 +61,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.NAM" class="form-label mt-3 mb-1">NAM<span class="champs-obligatoires"> *</span></label>
-                        <input type="text" class="form-control" asp-for="@Model.NAM" placeholder="Exemple: CULA-1234-5678">
+                        <input type="text" class="form-control form-control-lg" asp-for="@Model.NAM" placeholder="Exemple: CULA-1234-5678">
                         <span asp-validation-for="@Model.NAM" class="text-danger"></span>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         @{
                             string formattedDate = Model.DateDeNaissance == DateTime.MinValue ? null : Model.DateDeNaissance.ToString("yyyy-MM-dd");
                         }
-                        <input id="DateDeNaissance" class="form-control" asp-for="@Model.DateDeNaissance" value="@formattedDate" type="date" min="1900-01-01" max="@DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd")">
+                        <input id="DateDeNaissance" class="form-control form-control-lg" asp-for="@Model.DateDeNaissance" value="@formattedDate" type="date" min="1900-01-01" max="@DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd")">
                         <span asp-validation-for="@Model.DateDeNaissance" class="text-danger"></span>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="@Model.CodePostal" class="form-label mt-3 mb-1">Code Postal <span class="champs-obligatoires"> *</span></label>
-                        <input type="text" class="form-control" asp-for="@Model.CodePostal" placeholder="Exemple: J4K 2T4">
+                        <input type="text" class="form-control form-control-lg" asp-for="@Model.CodePostal" placeholder="Exemple: J4K 2T4">
                         <span asp-validation-for="@Model.CodePostal" class="text-danger"></span>
                     </div>
                 </div>

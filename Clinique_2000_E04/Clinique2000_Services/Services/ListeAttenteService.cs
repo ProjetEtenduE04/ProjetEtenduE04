@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Core.Models;
+using Clinique2000_Core.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Clinique2000_Utility.Enum;
 using System.ComponentModel.DataAnnotations;
@@ -98,7 +99,14 @@ namespace Clinique2000_Services.Services
           
         }
 
-
+        /// <summary>
+        /// Cette methode Verifie s'il existe deja une liste d'attente dans la meme clinique pour la meme date.
+        /// </summary>
+        /// <param name="dateEffectivite"></param>
+        /// <param name="cliniqueID"></param>
+        /// <param name="listeAttenteID"></param>
+        /// <returns></returns>
+        /// <exception cref="ValidationException"></exception>
         public bool VerifierSiListeAttenteExisteMemeJourClinique(DateTime dateEffectivite, int cliniqueID, int? listeAttenteID = null)
         {
             var query = _context.ListeAttentes.Where(la => la.DateEffectivite == dateEffectivite && la.CliniqueID == cliniqueID);
@@ -115,7 +123,11 @@ namespace Clinique2000_Services.Services
              : false;
             }
         }
-
+        /// <summary>
+        /// Verifie le nombree de Medecins et l existance de la liste d'attente avent d'ajouter les plages horaires. 
+        /// </summary>
+        /// <param name="listeAttente"></param>
+        /// <returns></returns>
         public bool ListeAttenteIsValid(ListeAttente listeAttente)
         {
            
@@ -128,9 +140,6 @@ namespace Clinique2000_Services.Services
 
             return true;
         }
-
-
-
 
 
 
@@ -176,7 +185,7 @@ namespace Clinique2000_Services.Services
             DateTime heureDebut = listeAttente.DateEffectivite.Date.Add(listeAttente.HeureOuverture);
             DateTime finService = listeAttente.DateEffectivite.Date.Add(listeAttente.HeureFermeture);
             PlageHoraire plageHoraire;
-            //Consultation consultation;
+            
             while (heureDebut < finService)
             {
                 DateTime nouvelleHeureFin = heureDebut.AddMinutes((double)listeAttente.Clinique.TempsMoyenConsultation);
@@ -199,6 +208,7 @@ namespace Clinique2000_Services.Services
                         StatutConsultation = StatutConsultation.DisponiblePourReservation,
                         PlageHoraireID = plageHoraire.PlageHoraireID,
                         PatientID = null,
+                        ///Salle=i++;
 
                     };
                     _context.Consultations.Add(consultation);
@@ -211,99 +221,52 @@ namespace Clinique2000_Services.Services
         }
 
 
-
-
-        //Consultation Logic
-
-
-        /// <summary>
-        /// Cette methode recupere un patient specifique par son ID
-        /// </summary>
-        /// <param name="PatientID"></param>
-        /// <returns> Patient specifique et ses infos </returns>
-        public async Task<Patient> RecupererInfosPatient(int PatientID)
+        public async Task<ListeAttenteVM> GetListeAttenteOrdonnee(int listeAttenteID)
         {
-            Patient patient = await _context.Patients.Where(x => x.PatientId == PatientID).FirstOrDefaultAsync();
-            if (patient == null)
+           var listeAttente = await _context.ListeAttentes
+                                    .FirstOrDefaultAsync(la => la.ListeAttenteID== listeAttenteID);
+            
+            if (listeAttente == null)
             {
-                throw new ArgumentNullException(nameof(patient));
+                throw new Exception("La liste d'attente n'existe pas");
             }
-            return patient;
+
+
+           var plagesHoraires = await _context.PlagesHoraires
+                                      .Where(ph=> ph.ListeAttenteID == listeAttenteID)
+                                      .OrderBy(ph => ph.PlageHoraireID)
+                                      //.SkipWhile(ph => ph.Consultations.All(c => c.StatutConsultation != StatutConsultation.DisponiblePourReservation))
+                                     
+                                      .ToListAsync();
+
+            
+            var index = plagesHoraires.FindIndex(ph => ph.Consultations.Any(c => c.StatutConsultation == StatutConsultation.DisponiblePourReservation));
+            if (index != -1)
+            {
+                plagesHoraires = plagesHoraires.Skip(index).ToList();
+            }
+
+
+
+            foreach (var plageHoraire in plagesHoraires)
+            {
+                plageHoraire.Consultations = await _context.Consultations
+                                                           .Where(c => c.PlageHoraireID == plageHoraire.PlageHoraireID)
+                                                           .OrderBy(c => c.ConsultationID)
+                                                           .ToListAsync();
+            }
+
+
+            var listeAttenteVM = new ListeAttenteVM
+            {
+                ListeAttente = listeAttente,
+                PlagesHoraires = plagesHoraires
+            };
+
+            return listeAttenteVM; 
         }
 
-        public Task ReserverConsultation(Consultation consultation, Patient patient)
-        {
-            throw new NotImplementedException();
-        }
 
-        ///// <summary>
-        ///// Cette methode s'occupe de cr�er une consultation
-        ///// </summary>
-        ///// <param name="patient"></param>
-        ///// <param name="plagehoraire"></param>
-        ///// <returns></returns>
-        //public async Task ReserverConsultation(Patient patient, PlageHoraire plagehoraire)
-        //{
-        //    var consultation = new Consultation();
-
-        //    if (PeutReserver(patient))    //On verifie ici que le patient n'a pas deja une consultation en attente.
-        //    {
-        //        //on cree la consultation
-        //        consultation.StatutConsultation = StatutConsultation.EnAttente;
-        //        consultation.Patient = patient;
-        //        consultation.HeureDateDebutPrevue = plagehoraire.Consultations.Where(x => x.Patient == patient).First().HeureDateDebutPrevue;
-        //        consultation.HeureDateFinPrevue = plagehoraire.Consultations.Where(x => x.Patient == patient).First().HeureDateFinPrevue;
-        //        consultation.HeureDateDebutReele = null;
-        //        consultation.HeureDateFinReele = null;
-
-        //        _context.Consultations.Add(consultation);
-        //        _context.SaveChanges();
-        //    }
-        //    throw new ValidationException("Une consultation est deja en attente. Veuillez annuller celle-ci afin d'en demander une nouvelle.");
-
-
-        //}
-
-          
-        ///// <summary>
-        ///// Cette methode recoit une consultation et un patient, assigne le patient a la consultation,
-         ///// </summary>  
-        ///// <param name="consultation"></param>
-        ///// <param name="patient"></param>
-        ///// <returns></returns>     
-        ///// <exception cref="ValidationException"></exception>
-        //public async Task ReserverConsultation(Consultation consultation,Patient patient/*,Medecin medecin*/)
-        //{
-
-        //    if (PeutReserver(consultation.Patient,consultation) && consultation.StatutConsultation==StatutConsultation.DisponiblePourReservation)    //On verifie ici que le patient n'a pas deja une consultation en attente, et que la Consultation est disponible
-        //    {          //        //on change le statut de la consultation a EnAttente
-        //        consultation.StatutConsultation = StatutConsultation.EnAttente;
-        //        consultation.Patient = patient;
-        //        /*consultation.medecin= medecin*/
-        //        consultation.HeureDateDebutReele = null;
-        //        consultation.HeureDateFinReele = null;
-        //        _context.Update(consultation);
-        //        _context.SaveChanges();
-        //    }
-        //    else
-        //    throw new ValidationException("Une consultation est deja en attente. Veuillez annuller celle-ci afin d'en demander une nouvelle.");
-
- 
-
-
-         /// <summary>    
-        /// Cette methode verifie si le patient a deja une demande de consultation en attente
-        /// </summary>
-        /// <param name="patient"></param>     
-        /// <returns> Si deja consultation en attente, retourne false, sinon, retourne true </returns>
-        //public bool PeutReserver(Patient patient, Consultation consultation)
-        //{
-        //    if(patient.consultation != null && consultation.StatutConsultation == StatutConsultation.DisponiblePourReservation)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
 
 
     }

@@ -16,6 +16,7 @@ namespace Clinique2000_Services.Services
         public PatientService(CliniqueDbContext context) : base(context)
         {
             _context = context;
+
         }
 
         /// <summary>
@@ -35,10 +36,10 @@ namespace Clinique2000_Services.Services
         }
 
         /// <summary>
-        /// Obtenir un patient de manière asynchrone par courrier électronique
+        /// Obtenir un patient de manière asynchrone par nom
         /// </summary>
-        /// <param name="courriel">courrier électronique</param>
-        /// <returns>Le patient correspond à l'adresse électronique fournie, s'il existe, sinon null.</returns>
+        /// <param name="courriel">Nom</param>
+        /// <returns>Le patient correspond au nom transmis, s'il existe, sinon null.</returns>
         public async Task<Patient?> ObtenirPatientParNomAsync(string nom)
         {
             if (nom == null)
@@ -127,10 +128,10 @@ namespace Clinique2000_Services.Services
         /// </summary>
         /// <param name="curriel">Courriel du patient authentifié pour vérification.</param>
         /// <returns>Vrai si le patient existe dans la base de données, sinon Faux.</returns>
-        public async Task<bool> VerifierExistencePatientParEmailAsync(string nom)
+        public async Task<bool> VerifierExistencePatientParNomAsync(string nom)
         {
-            var patientTrouve = await ObtenirPatientParNomAsync(nom);
-            return patientTrouve != null;
+            var patientTrouvee = await ObtenirPatientParNomAsync(nom);
+            return patientTrouvee != null;
         }
         #region Méthodes de création et d'édition, modulaires, séparée
         //public async Task<Patient> EnregistrerPatient(Patient patient)
@@ -245,6 +246,22 @@ namespace Clinique2000_Services.Services
             return await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
         }
 
+
+
+
+        /// <summary>
+        /// Récupère l'ID du patient en fonction de l'identifiant de l'utilisateur.
+        /// </summary>
+        /// <param name="userId">L'identifiant de l'utilisateur associé au patient.</param>
+        /// <returns>L'ID du patient correspondant à l'identifiant de l'utilisateur, ou 0 si non trouvé.</returns>
+        public async Task<int> GetPatientIdFromUserIdAsync(string userId)
+        {
+            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
+            return patient?.PatientId ?? 0; // Retourne 0 si aucun patient n'est trouvé
+        }
+
+
+
         /// <summary>
         /// Représente l'âge d'une personne en années, mois et jours.
         /// </summary>
@@ -333,6 +350,10 @@ namespace Clinique2000_Services.Services
                 }
                 return this;
             }
+
+
+
+
         }
     }
 }

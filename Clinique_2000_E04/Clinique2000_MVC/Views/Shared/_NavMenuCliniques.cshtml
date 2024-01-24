@@ -1,0 +1,39 @@
+@*DropDown Ajouter*@
+@*@if (this.User.IsInRole(AppConstants.AdminRole))*@
+@if (this.User.Identity.IsAuthenticated)
+{
+
+<a class="nav-link custom-nav-link" style="color:white" data-bs-toggle="dropdown" aria-expanded="false">
+            Clinique
+            <i class="fa-solid fa-square-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end text-center">
+
+            <li>
+                <a class="dropdown-item" asp-area="Cliniques" asp-controller="Cliniques" asp-action="Index">
+                Liste des cliniques&nbsp;&nbsp;&nbsp;
+                    <i class="fa-solid fa-list-ul"></i>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-area="Cliniques" asp-controller="Cliniques" asp-action="Create">
+                Inscrire une clinique&nbsp;
+                    <i class="fa-solid fa-notes-medical"></i>
+                </a>
+            </li>
+        <li>
+            <a class="dropdown-item" asp-area="Cliniques" asp-controller="Cliniques" asp-action="IndexPourPatients">
+                Cliniques � proximit�&nbsp;
+                <i class="fa-solid fa-location-dot"></i>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="Index">
+                Listes d'attente
+                <i class="fa-solid fa-list-ul"></i>
+            </a>
+        </li>
+         
+        </ul>
+
+}

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Clinique2000_Core.Models;
+using Clinique2000_Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinique2000_Services.IServices
@@ -18,13 +19,13 @@ namespace Clinique2000_Services.IServices
         bool VerifierSiNbMedecinsDisponibles(ListeAttente listeAttente);
         bool VerifierSiHeureOuvertureValide(ListeAttente listeAttente);
         bool VerifierSiDateEffectiviteValide(ListeAttente listeAttente);
-        Task ReserverConsultation(Consultation consultation, Patient patient);
 
         Task<ListeAttente> ModifierListeAttenteAsync(ListeAttente listeAttente);
-
         Task SupprimmerListeAttente(ListeAttente listeAttente);
-
         bool PeutSupprimmer(ListeAttente listeAttente);
+        Task<ListeAttenteVM> GetListeAttenteOrdonnee(int listeAttenteID);
+
+
 
 
     }

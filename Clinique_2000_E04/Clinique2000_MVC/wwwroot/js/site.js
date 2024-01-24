@@ -24,6 +24,8 @@ $(document).ready(function () {
 /*    $('#nam').inputmask('aaaa 9999 9999', { "onfocusout": function () { alert('le format nam n\'est pas valide.(ex:abcd 1234 5678)'); } });*/
     $('#NAM').inputmask('AAAA 9999 9999');
 
+    $('#numTelephoneClinique').inputmask('(999) 999-9999');
+
     //Fonction qui modifie la première lettre en majuscule de la valeur d'entrée
     $('.capitalize-first-letter').on('input', function () {
         // Obtenir la valeur actuelle
@@ -32,7 +34,7 @@ $(document).ready(function () {
         // Vérifier si la valeur contient au moins une lettre
         if (/[a-zA-Z]/.test(currentValue)) {
             // Formatage de la valeur pour que la première lettre soit en majuscule et le reste en minuscule
-            var formattedValue = currentValue.charAt(0).toUpperCase() + currentValue.slice(1).toLowerCase();
+            var formattedValue = currentValue.charAt(0).toUpperCase() + currentValue.slice(1);
 
             // Remettre la valeur formatée dans le champ de saisie
             $(this).val(formattedValue);
@@ -153,3 +155,8 @@ $(document).ready(function () {
 });
 
 ///=================================================
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+const popover = new bootstrap.Popover('.popover-dismiss', {
+    trigger: 'focus'
+})

@@ -18,7 +18,7 @@ namespace Clinique2000_TestsUnitaires
             SeedInMemoryStore(options);
             return options;
         }
-        //Preparer des valeurs 
+        //Preparer des valeurs  
         private void SeedInMemoryStore(DbContextOptions<CliniqueDbContext> options)
         {
             using (var context = new CliniqueDbContext(options))
@@ -310,8 +310,8 @@ namespace Clinique2000_TestsUnitaires
                 var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
                 var nomPatientFaux = "Alex";
                 // Act
-                var trueResult = await service.VerifierExistencePatientParEmailAsync(patientAChercher.Nom);
-                var falseResult = await service.VerifierExistencePatientParEmailAsync(nomPatientFaux);
+                var trueResult = await service.VerifierExistencePatientParNomAsync(patientAChercher.Nom);
+                var falseResult = await service.VerifierExistencePatientParNomAsync(nomPatientFaux);
 
                 // Assert
                 Assert.IsType<bool>(trueResult);

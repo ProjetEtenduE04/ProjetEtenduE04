@@ -1,6 +1,7 @@
 using Clinique2000_Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Clinique2000_DataAccess.Seeds;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,6 +25,7 @@ namespace Clinique2000_DataAccess.Data
         public DbSet<PatientACharge> PatientACharges { get; set; }
         public DbSet<PlageHoraire> PlagesHoraires { get; set; }
         public DbSet<Clinique> Cliniques { get; set; }
+        public DbSet<Adresse> Adresses { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public CliniqueDbContext(DbContextOptions<CliniqueDbContext> options) : base(options) { }
 
@@ -37,11 +39,12 @@ namespace Clinique2000_DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CliniqueDbContext).Assembly);
-            modelBuilder.GenerateData();
+
+            // Seed data using the HasData method
+            ModelBuilderDataGenerator.GenerateData(modelBuilder);
         }
 
 
