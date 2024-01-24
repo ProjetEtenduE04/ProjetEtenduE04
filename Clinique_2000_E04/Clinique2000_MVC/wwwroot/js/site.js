@@ -124,9 +124,16 @@ $(document).ready(function () {
         }
     }
 
+    // Make #heureFermeture editable only when #heureOuverture loses focus
+    $('#heureOuverture').blur(function () {
+        $('#heureFermeture').prop('disabled', false); // Enable the heureFermeture field
+    });
+
+    // Initially disable #heureFermeture field
+    $('#heureFermeture').prop('disabled', true);
+
     $('#heureOuverture, #heureFermeture').change(validateTimes);
 });
-
 
 
 ///edit
