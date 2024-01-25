@@ -22,7 +22,7 @@ public class DataImportService:IdataImportService
 public async Task ImporterDonneesDuFichierCSVasync(string filePath)
 {
     var adresses = await LireFichierCSVasync(filePath);
-    // Use BulkInsert to insert all addresses at once
+    // Utilise la librairie Bulk pour inserer les adresses d'un seul coup
     _context.BulkInsert(adresses);
 }
 
@@ -32,7 +32,7 @@ public async Task ImporterDonneesDuFichierCSVasync(string filePath)
         using (var reader = new StreamReader(filePath))
         {
             string line;
-            await reader.ReadLineAsync(); // Skip the header line
+            await reader.ReadLineAsync(); // Saute la premiere ligne
             while ((line = await reader.ReadLineAsync()) != null)
             {
                 var values = line.Split(',');

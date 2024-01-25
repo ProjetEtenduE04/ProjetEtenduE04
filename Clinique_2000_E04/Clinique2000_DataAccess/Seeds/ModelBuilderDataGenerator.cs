@@ -91,7 +91,7 @@ namespace Clinique2000_DataAccess.Seeds
                  NomClinique = "CliniqueA",
                  Courriel = "test@clinique2000.com",
                  HeureOuverture = new TimeSpan(8, 0, 0),
-                 HeureFermeture = new TimeSpan(17, 0, 0),
+                 HeureFermeture = new TimeSpan(16, 0, 0),
                  TempsMoyenConsultation = 30,
                  EstActive = true,
                  AdresseID = 1,
@@ -177,8 +177,8 @@ namespace Clinique2000_DataAccess.Seeds
                 IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(17, 0, 0),
-                NbMedecinsDispo = 2,
+                HeureFermeture = new TimeSpan(8,30, 0),
+                NbMedecinsDispo = 1,
                 DureeConsultationMinutes = 30,
             });
 

@@ -87,9 +87,9 @@ $(document).ready(function () {
                 "next": "Suivant",
                 "previous": "Précédent",
             },
-           
+            "order": [[5, 'asc']]
         }
-         "order": [[5, 'asc']]
+         
     });
 });
 //END DATATABLES
