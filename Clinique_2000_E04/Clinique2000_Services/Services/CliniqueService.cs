@@ -283,9 +283,9 @@ namespace Clinique2000_Services.Services
             }
            
             return cliniquesAvecDistance
-                 .OrderByDescending(cd => cd.Distance)
+                 .OrderBy(cd => cd.Distance)
                 .Where(x => x.Clinique.EstActive)
-                  .Take(3)
+                  .Take(5)
                 .ToList();
         }
 
