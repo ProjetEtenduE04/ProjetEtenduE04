@@ -64,7 +64,7 @@ namespace Clinique2000_Services.Services
                        Math.Cos(lat1) * Math.Cos(lat2) *
                        Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            return R * c * 1000; // Distance in meters
+            return Math.Round((R * c),2); // Distance in KM
         }
 
         private double ToRadians(double angle)

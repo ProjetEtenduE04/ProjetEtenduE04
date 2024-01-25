@@ -16,15 +16,18 @@ namespace Clinique2000_Services.Services
     {
         private readonly CliniqueDbContext _context;
         private readonly IAdresseService _adresseService;
+        private readonly IConsultationService _consultationService;
 
 
         public CliniqueService(
             CliniqueDbContext dbContext,
-            IAdresseService adresseService
+            IAdresseService adresseService,
+            IConsultationService consultationService
             ) : base(dbContext)
         {
             _context = dbContext;
             _adresseService = adresseService;
+            _consultationService = consultationService;
         }
 
 
@@ -157,7 +160,7 @@ namespace Clinique2000_Services.Services
 
             var cliniqueOriginale = await ObtenirParIdAsync(clinique.CliniqueID);
 
-            if (cliniqueOriginale !=null && clinique.NomClinique != cliniqueOriginale.NomClinique && await VerifierExistenceCliniqueParNomAsync(clinique.NomClinique))
+            if (cliniqueOriginale != null && clinique.NomClinique != cliniqueOriginale.NomClinique && await VerifierExistenceCliniqueParNomAsync(clinique.NomClinique))
             {
                 throw new ValidationException("Une clinique avec le même nom existe déjà.");
             }
@@ -262,5 +265,30 @@ namespace Clinique2000_Services.Services
             }
             return await query.ToListAsync();
         }
+
+
+        public async Task<IEnumerable<CliniqueDistanceVM>> ObtenirLes5CliniquesLesPlusProches()
+        {
+            var patientID = await _consultationService.ObtenirIdPatientAsync();
+            var patient = await _context.Patients.FirstOrDefaultAsync(x => x.PatientId == patientID);
+
+            List<CliniqueDistanceVM> cliniquesAvecDistance = new List<CliniqueDistanceVM>();
+
+            foreach (var clinique in _context.Cliniques)
+            {
+                double distance = await _adresseService.CalculerDistanceEntre2CodesPostaux(
+                    clinique.Adresse.CodePostal, patient.CodePostal);
+
+                cliniquesAvecDistance.Add(new CliniqueDistanceVM { Clinique = clinique, Distance = distance });
+            }
+           
+            return cliniquesAvecDistance
+                 .OrderBy(cd => cd.Distance)
+                .Where(x => x.Clinique.EstActive)
+                  .Take(5)
+                .ToList();
+        }
+
     }
+
 }

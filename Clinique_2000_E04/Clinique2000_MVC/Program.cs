@@ -53,7 +53,8 @@ builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
 builder.Services.AddTransient<DataImportService>();
 builder.Services.AddHostedService(provider =>
-    new DataImportBackgroundService(provider, @"C:\Users\6216948\Desktop\Clinique_2000\Clinique_2000_E04\Clinique2000_Utility\CodesPostauxQuebec\QuebecPostalCodes202312.csv"));
+   new DataImportBackgroundService(provider, @"Clinique2000_Utility\CodesPostauxQuebec\QuebecPostalCodes202312.csv"));
+
 #endregion
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>

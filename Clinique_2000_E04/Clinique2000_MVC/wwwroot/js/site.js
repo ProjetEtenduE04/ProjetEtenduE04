@@ -68,6 +68,32 @@ $(document).ready(function () {
 //END DATATABLES
 //==================================================
 
+//Start DATATABLE Distance
+//================================================== 
+$(document).ready(function () {
+    $('#dataTableDistance').DataTable({
+        "language": {
+            "decimal": ",",
+            "thousands": ".",
+            "lengthMenu": "Affichage de _MENU_ enregistrements par page",
+            "zeroRecords": "Rien trouvé… Désolé! ",
+            "info": "Affichage de la page _PAGE_ de _PAGES_",
+            "infoEmpty": "Aucun enregistrement disponible ",
+            "infoFiltered": "(filtré d’un maximum de _MAX_ enregistrement)",
+            "search": "Recherche: ",
+            "paginate": {
+                "first": "Première",
+                "last": "Dernière",
+                "next": "Suivant",
+                "previous": "Précédent",
+            },
+           
+        }
+         "order": [[5, 'asc']]
+    });
+});
+//END DATATABLES
+//==================================================
 
 //ListeAttenteForms HeureFermetureSeulementActiveLorsqueHeureOuvertureRemplieCreate
 ///=================================================

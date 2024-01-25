@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Clinique2000_Core.ViewModels
 {
-    public class CliniqueAdresseVM
+    public class CliniqueDistanceVM
     {
-        public Clinique Clinique { get; set; }
-        public Adresse Adresse { get; set; }
 
+        public Clinique Clinique { get; set; }
+
+        public double Distance { get; set; }
     }
 }

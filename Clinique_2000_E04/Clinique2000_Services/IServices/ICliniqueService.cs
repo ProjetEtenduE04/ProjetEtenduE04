@@ -21,5 +21,6 @@ namespace Clinique2000_Services.IServices
         Task<Clinique> EnregistrerCliniqueAsync(CliniqueAdresseVM viewModel);
         Task EditerCliniqueAsync(CliniqueAdresseVM viewModel);
         Task<IList<ListeAttente>> GetListeAttentePourPatientAsync(int clinicId, bool? isOuvert);
+        Task<IEnumerable<CliniqueDistanceVM>> ObtenirLes5CliniquesLesPlusProches();
     }
 }
