@@ -25,7 +25,7 @@ namespace Clinique2000_DataAccess.Seeds
                     Ville = "Montréal",
                     Province = "Québec",
                     Pays = "Canada",
-                    CodePostal = "H1H 1H1",
+                    CodePostal = "J4J 2W1",
 
                 },
                 new Adresse()
@@ -36,7 +36,7 @@ namespace Clinique2000_DataAccess.Seeds
                     Ville = "Longueuil",
                     Province = "Québec",
                     Pays = "Canada",
-                    CodePostal = "A1A 1A1",
+                    CodePostal = "J4G 1T2",
                 },
                  new Adresse()
                  {
@@ -46,38 +46,38 @@ namespace Clinique2000_DataAccess.Seeds
                      Ville = "Sherbrooke",
                      Province = "Québec",
                      Pays = "Canada",
-                     CodePostal = "J1J 1J1",
+                     CodePostal = "J3Y 8L2",
                  },
-    new Adresse()
-    {
-        AdresseID = 4,
-        Numero = "456",
-        Rue = "rue de l'Hôpital",
-        Ville = "Laval",
-        Province = "Québec",
-        Pays = "Canada",
-        CodePostal = "L2L 2L2",
-    },
-    new Adresse()
-    {
-        AdresseID = 5,
-        Numero = "789",
-        Rue = "rue de la Thérapie",
-        Ville = "Gatineau",
-        Province = "Québec",
-        Pays = "Canada",
-        CodePostal = "G3G 3G3",
-    },
-    new Adresse()
-    {
-        AdresseID = 6,
-        Numero = "012",
-        Rue = "rue de la Médecine",
-        Ville = "Québec",
-        Province = "Québec",
-        Pays = "Canada",
-        CodePostal = "Q4Q 4Q4",
-    }
+                    new Adresse()
+                    {
+                        AdresseID = 4,
+                        Numero = "456",
+                        Rue = "rue de l'Hôpital",
+                        Ville = "Laval",
+                        Province = "Québec",
+                        Pays = "Canada",
+                        CodePostal = "G1C 5G5",
+                    },
+                    new Adresse()
+                    {
+                        AdresseID = 5,
+                        Numero = "789",
+                        Rue = "rue de la Thérapie",
+                        Ville = "Gatineau",
+                        Province = "Québec",
+                        Pays = "Canada",
+                        CodePostal = "H1B 4T8",
+                    },
+                    new Adresse()
+                    {
+                        AdresseID = 6,
+                        Numero = "012",
+                        Rue = "rue de la Médecine",
+                        Ville = "Québec",
+                        Province = "Québec",
+                        Pays = "Canada",
+                        CodePostal = "H7X 1H1",
+                    }
             );
 
             #endregion

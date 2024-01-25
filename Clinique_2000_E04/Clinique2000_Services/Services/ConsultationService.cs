@@ -104,18 +104,18 @@ namespace Clinique2000_Services.Services
             return listeAttente != null && listeAttente.IsOuverte;
         }
 
-        private async Task<int> ObtenirIdPatientAsync()
+        public async Task<int> ObtenirIdPatientAsync()
         {
             var userId = ObtenirIdUtilisateur();
             return await ObtenirIdPatientDepuisUtilisateurAsync(userId);
         }
 
-        private string ObtenirIdUtilisateur()
+        public string ObtenirIdUtilisateur()
         {
             return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
 
-        private async Task<int> ObtenirIdPatientDepuisUtilisateurAsync(string userId)
+        public async Task<int> ObtenirIdPatientDepuisUtilisateurAsync(string userId)
         {
             var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
             return patient?.PatientId ?? 0; // Retourne 0 ou un ID de patient valide

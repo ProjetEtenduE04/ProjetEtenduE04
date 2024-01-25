@@ -202,10 +202,10 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             if (allClinics == null)
             {
-                return View("IndexPourPatients", Enumerable.Empty<Clinique>());
+                return View("IndexPourPatients"/*, Enumerable.Empty<Clinique>()*/);
             }
 
-            var activeClinics = allClinics.Where(clinic => clinic.EstActive).ToList();
+            var activeClinics = await _services.clinique.ObtenirLes5CliniquesLesPlusProches();
             return View("IndexPourPatients", activeClinics);
         }
 
@@ -215,7 +215,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             IList<ListeAttente> listeAttentePourPatient = await _services.clinique.GetListeAttentePourPatientAsync(clinicId, isOuvert);
 
 
-            string clinicName = _services.clinique.ObtenirParIdAsync(clinicId)?.Result?.NomClinique;
+            string clinicName =_services.clinique.ObtenirParIdAsync(clinicId)?.Result?.NomClinique;
 
             ViewBag.CliniqueName = clinicName;
 

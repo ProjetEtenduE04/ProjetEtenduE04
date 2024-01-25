@@ -92,7 +92,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var cliniqueService = new CliniqueService(context, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(context, Mock.Of<IAdresseService>(),Mock.Of<IConsultationService>());
             var clinicName = "CliniqueA";
             var expectedClinique = await context.Cliniques.FirstOrDefaultAsync();
 
@@ -108,7 +108,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task ObtenirCliniqueParNomAsync_NullName_ReturnsNull()
         {
             // Arrange
-            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
             string clinicName = null;
 
             // Act
@@ -122,7 +122,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task ObtenirCliniqueParNomAsync_NonExistentName_ReturnsNull()
         {
             // Arrange
-            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
             var clinicName = "NonExistentClinique";
 
             // Act
@@ -138,7 +138,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var cliniqueService = new CliniqueService(context, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(context, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
 
             // Act
             var resultClinique = await cliniqueService.ObtenirCliniqueParCourrielAsync("test@clinique2000.com");
@@ -152,7 +152,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task ObtenirCliniqueParCourrielAsync_NullCourriel_ReturnsNull()
         {
             // Arrange
-            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
             string courriel = null;
 
             // Act
@@ -166,7 +166,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task ObtenirCliniqueParCourrielAsync_NonExistentCourriel_ReturnsNull()
         {
             // Arrange
-            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
             var courriel = "NonExistent@example.com";
 
             // Act
@@ -180,7 +180,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task VerifierExistenceCliniqueParCourrielAsync_ExistingClinique_ReturnsTrue()
         {
             // Arrange
-            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
             var courriel = "test@example.com";
             var expectedClinique = new Clinique
             {
@@ -204,7 +204,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task VerifierExistenceCliniqueParCourrielAsync_NonExistentClinique_ReturnsFalse()
         {
             // Arrange
-            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
             var courriel = "nonexistent@example.com";
 
             // Act
@@ -218,7 +218,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task VerifierExistenceCliniqueParCourrielAsync_NullCourriel_ReturnsFalse()
         {
             // Arrange
-            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
             string courriel = null;
 
             // Act
@@ -232,7 +232,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task VerifierSiHeureOuvertureValide_ValidOpeningHours_ReturnsTrue()
         {
             // Arrange
-            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
             var clinique = new Clinique
             {
                 NomClinique = "TestClinique",
@@ -253,7 +253,7 @@ namespace Clinique2000_TestsUnitaires
         public void VerifierSiHeureOuvertureValide_InvalidOpeningHours_ReturnsFalse()
         {
             // Arrange
-            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(_dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
             var clinique = new Clinique
             {
                 NomClinique = "TestClinique",
@@ -279,7 +279,7 @@ namespace Clinique2000_TestsUnitaires
 
             // Mock pentru IAdresseService nu este necesar pentru acest test
 
-            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
 
             var existingClinique = dbContext.Cliniques.FindAsync(1).Result;
             existingClinique.NomClinique = "CliniqueB"; // Setăm același nume pentru a simula un conflict
@@ -296,7 +296,7 @@ namespace Clinique2000_TestsUnitaires
             var options = SetUpInMemory("ListeDeVerificationCliniqueTest");
             var dbContext = new CliniqueDbContext(options);
 
-            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
 
             var existingClinique = await dbContext.Cliniques.FindAsync(1);
             existingClinique.Courriel = "test@clinique2000.com"; // Setăm același email pentru a simula un conflict
@@ -315,7 +315,7 @@ namespace Clinique2000_TestsUnitaires
             var mockAdresseService = new Mock<IAdresseService>();
             mockAdresseService.Setup(s => s.VerifierCodePostalValideAsync(It.IsAny<string>())).ReturnsAsync(true);
 
-            var cliniqueService = new CliniqueService(dbContext, mockAdresseService.Object);
+            var cliniqueService = new CliniqueService(dbContext, mockAdresseService.Object, Mock.Of<IConsultationService>());
 
             var newClinique = new Clinique
             {
@@ -346,7 +346,7 @@ namespace Clinique2000_TestsUnitaires
             var adresseService = new Mock<IAdresseService>();
             adresseService.Setup(s => s.VerifierCodePostalValideAsync(It.IsAny<string>())).ReturnsAsync(true);
 
-            var cliniqueService = new CliniqueService(dbContext, adresseService.Object);
+            var cliniqueService = new CliniqueService(dbContext, adresseService.Object, Mock.Of<IConsultationService>());
             var viewModel = new CliniqueAdresseVM
             {
                 Clinique = new Clinique
@@ -390,7 +390,7 @@ namespace Clinique2000_TestsUnitaires
             var options = SetUpInMemory("EditerCliniqueAsyncTest");
             var dbContext = new CliniqueDbContext(options);
 
-            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
 
             var existingClinique = await dbContext.Cliniques.FindAsync(1);
             existingClinique.NomClinique = "NouveauNom"; // Simulăm o modificare care ar declanșa o excepție
@@ -412,7 +412,7 @@ namespace Clinique2000_TestsUnitaires
             var options = SetUpInMemory("EditerCliniqueAsyncTest");
             var dbContext = new CliniqueDbContext(options);
 
-            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
 
             var existingClinique = await dbContext.Cliniques.FindAsync(1);
             var adresse = await dbContext.Adresses.FindAsync(existingClinique.AdresseID);
@@ -435,7 +435,7 @@ namespace Clinique2000_TestsUnitaires
             var options = SetUpInMemory("EditerCliniqueAsyncTest");
             var dbContext = new CliniqueDbContext(options);
 
-            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
 
             var existingClinique = await dbContext.Cliniques.FindAsync(1);
             existingClinique.NomClinique = "NouveauNom"; // Simulăm o modificare validă
@@ -465,7 +465,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var cliniqueService = new CliniqueService(context, Mock.Of<IAdresseService>());
+            var cliniqueService = new CliniqueService(context, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
 
             // Act
             var result = await cliniqueService.GetListeAttentePourPatientAsync(1, true);
