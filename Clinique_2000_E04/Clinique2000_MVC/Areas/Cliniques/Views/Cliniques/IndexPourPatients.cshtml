@@ -5,9 +5,9 @@
 }
 
 <div class="container">
-    <h1 class="text-center" style="margin: 50px 0">Liste de Cliniques à proximité</h1>
+    <h1 class="text-center" style="margin: 50px 0px">Liste de Cliniques à proximité</h1>
 
-    <div class="table-responsive-sm mx-auto">
+    <div class="table-responsive-sm mx-auto mb-5">
         <table class="table stripe hover order-column" id="dataTableDistance">
             <thead>
                 <tr>
@@ -34,7 +34,7 @@
                         <td>@Html.DisplayFor(modelItem => item.Clinique.HeureFermeture)</td>
                         <td>@Html.DisplayFor(modelItem => item.Clinique.EstActive)</td> *@
                         <td>@Html.DisplayFor(modelItem => item.HeureProchaineConsultation)</td>
-                        <td>≈@Html.DisplayFor(modelItem => item.Distance) km</td>
+                        <td>@Html.DisplayFor(modelItem => item.Distance)</td>
                         <td>@concatenatedAddress</td>
                         <td class="clinic-row" data-clinic-id="@item.Clinique.CliniqueID">
                             @if (listeAttenteId != null)

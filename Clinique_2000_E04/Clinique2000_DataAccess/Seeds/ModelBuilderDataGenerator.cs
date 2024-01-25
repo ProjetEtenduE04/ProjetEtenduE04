@@ -20,63 +20,63 @@ namespace Clinique2000_DataAccess.Seeds
                 new Adresse()
                 {
                     AdresseID = 1,
-                    Numero = "7-756",
-                    Rue = "rue de la Clinique",
-                    Ville = "Montréal",
+                    Numero = "505",
+                    Rue = "Rue Adoncour",
+                    Ville = "Longueuil",
                     Province = "Québec",
                     Pays = "Canada",
-                    CodePostal = "J4J 2W1",
+                    CodePostal = "J4G 2M6",
 
                 },
                 new Adresse()
                 {
                     AdresseID = 2,
-                    Numero = "2-66",
-                    Rue = "rue de la Cegep",
+                    Numero = "1615",
+                    Rue = "Blvd Jacques-Cartier",
                     Ville = "Longueuil",
                     Province = "Québec",
                     Pays = "Canada",
-                    CodePostal = "J4G 1T2",
+                    CodePostal = "J4M 2X1",
                 },
-                 new Adresse()
-                 {
-                     AdresseID = 3,
-                     Numero = "123",
-                     Rue = "rue de la Santé",
-                     Ville = "Sherbrooke",
-                     Province = "Québec",
-                     Pays = "Canada",
-                     CodePostal = "J3Y 8L2",
-                 },
-                    new Adresse()
-                    {
-                        AdresseID = 4,
-                        Numero = "456",
-                        Rue = "rue de l'Hôpital",
-                        Ville = "Laval",
-                        Province = "Québec",
-                        Pays = "Canada",
-                        CodePostal = "G1C 5G5",
-                    },
-                    new Adresse()
-                    {
-                        AdresseID = 5,
-                        Numero = "789",
-                        Rue = "rue de la Thérapie",
-                        Ville = "Gatineau",
-                        Province = "Québec",
-                        Pays = "Canada",
-                        CodePostal = "H1B 4T8",
-                    },
-                    new Adresse()
-                    {
-                        AdresseID = 6,
-                        Numero = "012",
-                        Rue = "rue de la Médecine",
-                        Ville = "Québec",
-                        Province = "Québec",
-                        Pays = "Canada",
-                        CodePostal = "H7X 1H1",
+                new Adresse()
+                {
+                    AdresseID = 3,
+                    Numero = "1144",
+                    Rue = "Rue Saint-Laurent",
+                    Ville = "Longueuil",
+                    Province = "Québec",
+                    Pays = "Canada",
+                    CodePostal = "J4K 1E2",
+                },
+                new Adresse()
+                {
+                    AdresseID = 4,
+                    Numero = "3141",
+                    Rue = "Blvd Taschereau",
+                    Ville = "Longueuil",
+                    Province = "Québec",
+                    Pays = "Canada",
+                    CodePostal = "J4V 2H2",
+                },
+                new Adresse()
+                {
+                    AdresseID = 5,
+                    Numero = "895",
+                    Rue = "Rue De la Gauchetière",
+                    Ville = "Montreal",
+                    Province = "Québec",
+                    Pays = "Canada",
+                    CodePostal = "H3B 4G1",
+                },
+                new Adresse()
+                {
+                    AdresseID = 6,
+                    Numero = "5580",
+                    Rue = " Ch. de Chambly B",
+                    Ville = "Saint-Hubert",
+                    Province = "Québec",
+                    Pays = "Canada",
+                    CodePostal = "J3Y 3P5",
                     }
             );
 
@@ -88,87 +88,83 @@ namespace Clinique2000_DataAccess.Seeds
              new Clinique()
              {
                  CliniqueID = 1,
-                 NomClinique = "CliniqueA",
-                 Courriel = "test@clinique2000.com",
+                 NomClinique = "Clinique Adoncour",
+                 Courriel = "contact@adoncour.ca",
                  HeureOuverture = new TimeSpan(8, 0, 0),
-                 HeureFermeture = new TimeSpan(16, 0, 0),
+                 HeureFermeture = new TimeSpan(17, 0, 0),
                  TempsMoyenConsultation = 30,
                  EstActive = true,
                  AdresseID = 1,
-                 NumTelephone = "(438) 333-5555",
+                 NumTelephone = "(450) 646-4445",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
 
              },
              new Clinique()
              {
                  CliniqueID = 2,
-                 NomClinique = "CliniqueB",
-                 Courriel = "Test2@test.com",
+                 NomClinique = "Clinique Pierre-Boucher",
+                 Courriel = "contact@pboucher.ca",
                  HeureOuverture = new TimeSpan(8, 0, 0),
-                 HeureFermeture = new TimeSpan(17, 0, 0),
+                 HeureFermeture = new TimeSpan(22, 0, 0),
                  TempsMoyenConsultation = 30,
                  EstActive = true,
                  AdresseID = 2,
-                 NumTelephone = "(438) 333-7777",
+                 NumTelephone = "(450) 468-6223",
+                 CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+             },
+             new Clinique()
+             {
+                 CliniqueID = 3,
+                 NomClinique = "Clinique Medicale Urgence Camu",
+                 Courriel = "contact@camu.ca",
+                 HeureOuverture = new TimeSpan(8, 0, 0),
+                 HeureFermeture = new TimeSpan(18, 0, 0),
+                 TempsMoyenConsultation = 20,
+                 EstActive = true,
+                 AdresseID = 3,
+                 NumTelephone = "(450) 679-4333",
+                 CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223"
+             },
+             new Clinique()
+             {
+                 CliniqueID = 4,
+                 NomClinique = "Medical Clinic GMF La Cigogne",
+                 Courriel = "contact@cigogne.ca",
+                 HeureOuverture = new TimeSpan(8, 0, 0),
+                 HeureFermeture = new TimeSpan(20, 0, 0),
+                 TempsMoyenConsultation = 40,
+                 EstActive = true,
+                 AdresseID = 4,
+                 NumTelephone = "(450) 466-7892",
+                 CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+             },
+             new Clinique()
+             {
+                 CliniqueID = 5,
+                 NomClinique = "Clinique Medicale en Route",
+                 Courriel = "contact@cmenroute.ca",
+                 HeureOuverture = new TimeSpan(8, 0, 0),
+                 HeureFermeture = new TimeSpan(16, 0, 0),
+                 TempsMoyenConsultation = 10,
+                 EstActive = true,
+                 AdresseID = 5,
+                 NumTelephone = "(514) 954-1444",
+                 CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+             },
+             new Clinique()
+             {
+                 CliniqueID = 6,
+                 NomClinique = "Centre Médical Chambly Latour",
+                 Courriel = "contact@chambly.com",
+                 HeureOuverture = new TimeSpan(8, 0, 0),
+                 HeureFermeture = new TimeSpan(16, 0, 0),
+                 TempsMoyenConsultation = 15,
+                 EstActive = true,
+                 AdresseID = 6,
+                 NumTelephone = "(450) 926-2236",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
              }
-
           );
-
-
-
-            builder.Entity<Clinique>().HasData(new Clinique()
-            {
-                CliniqueID = 3,
-                NomClinique = "Clinique3",
-                Courriel = "contact@clinique3.com",
-                HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(17, 0, 0),
-                TempsMoyenConsultation = 30,
-                EstActive = true,
-                AdresseID = 3,
-                NumTelephone = "(100) 100-1030",
-                CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-            });
-            builder.Entity<Clinique>().HasData(new Clinique()
-            {
-                CliniqueID = 4,
-                NomClinique = "Clinique4",
-                Courriel = "contact@clinique4.com",
-                HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(17, 0, 0),
-                TempsMoyenConsultation = 30,
-                EstActive = true,
-                AdresseID = 4,
-                NumTelephone = "(100) 100-1040",
-                CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-            });
-            builder.Entity<Clinique>().HasData(new Clinique()
-            {
-                CliniqueID = 5,
-                NomClinique = "Clinique5",
-                Courriel = "contact@clinique5.com",
-                HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(17, 0, 0),
-                TempsMoyenConsultation = 30,
-                EstActive = true,
-                AdresseID = 5,
-                NumTelephone = "(100) 100-1050",
-                CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-            });
-            builder.Entity<Clinique>().HasData(new Clinique()
-            {
-                CliniqueID = 6,
-                NomClinique = "Clinique6",
-                Courriel = "contact@clinique6.com",
-                HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(17, 0, 0),
-                TempsMoyenConsultation = 30,
-                EstActive = true,
-                AdresseID = 6,
-                NumTelephone = "(100) 100-1060",
-                CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-            });
             #endregion
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
