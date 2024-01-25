@@ -44,14 +44,16 @@ builder.Services.AddHttpContextAccessor();
 #region Servivces
 builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBaseAsync<>));
 builder.Services.AddScoped<IClinique2000Services, Clinique2000Services>();
+builder.Services.AddScoped<ICliniqueService, CliniqueService>();
+builder.Services.AddScoped<IdbInitialiser, DbInitialiser>();
+builder.Services.AddScoped<IAdresseService, AdresseService>();
 builder.Services.AddScoped<IListeAttenteService, ListeAttenteService>();
 builder.Services.AddScoped<IAuthenGoogleService, AuthenGoogleService>();
 builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
-builder.Services.AddScoped(typeof(ICliniqueService), typeof(CliniqueService));
-builder.Services.AddScoped(typeof(IAdresseService), typeof(AdresseService));
-builder.Services.AddScoped<ICliniqueService, CliniqueService>();
-builder.Services.AddScoped<IdbInitialiser, DbInitialiser>();
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
+builder.Services.AddTransient<DataImportService>();
+builder.Services.AddHostedService(provider =>
+    new DataImportBackgroundService(provider, @"C:\Users\6216948\Desktop\Clinique_2000\Clinique_2000_E04\Clinique2000_Utility\CodesPostauxQuebec\QuebecPostalCodes202312.csv"));
 #endregion
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>

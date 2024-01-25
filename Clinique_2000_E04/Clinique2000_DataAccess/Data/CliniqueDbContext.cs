@@ -16,9 +16,9 @@ namespace Clinique2000_DataAccess.Data
     {
         // Définissez ici les DbSets pour vos entités.
         // public DbSet<Entity> TableName { get ; set ; }
-        
-       
 
+
+        public DbSet<AdressesQuebecDTO> AdressesQuebec { get; set; }
         public DbSet<ListeAttente> ListeAttentes { get; set; }
         public DbSet<Consultation> Consultations { get; set; }
         public DbSet<Patient> Patients { get; set; }
