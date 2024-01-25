@@ -9,6 +9,13 @@ namespace Clinique2000_Utility.Constants
         public const int AgeMajorite = 14;
 
         public static string CsvFilePath = @"M:\Projet\Clone\Clinique_2000\Clinique_2000_E04\Clinique2000_Utility\CodesPostauxQuebec\QuebecPostalCodes202312.csv";
+
+        //Rôles
+        public const string SuperAdminRole = "SuperAdmin";
+        public const string AAdminCliniqueRole = "AdminClinique";
+        public const string MedicinRole = "Medecin";
+        public const string PacientRole = "Pacient";
+
     }
 }
 

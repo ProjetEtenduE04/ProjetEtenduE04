@@ -166,10 +166,11 @@ namespace Clinique2000_DataAccess.Seeds
              }
           );
             #endregion
+            #region ListeAttente
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 1,
-                CliniqueID = 3, // You can set the CliniqueID here if needed, otherwise remove this line
+                CliniqueID = 1, // You can set the CliniqueID here if needed, otherwise remove this line
                 IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
@@ -181,9 +182,9 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 2,
-                CliniqueID = 3, // You can set the CliniqueID here if needed, otherwise remove this line
+                CliniqueID = 2, // You can set the CliniqueID here if needed, otherwise remove this line
                 IsOuverte = true,
-                DateEffectivite = DateTime.Now.AddDays(2),
+                DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
@@ -195,7 +196,7 @@ namespace Clinique2000_DataAccess.Seeds
                 ListeAttenteID = 3,
                 CliniqueID = 3, // You can set the CliniqueID here if needed, otherwise remove this line
                 IsOuverte = true,
-                DateEffectivite = DateTime.Now.AddDays(3),
+                DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
@@ -205,9 +206,9 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 4,
-                CliniqueID = 3, // You can set the CliniqueID here if needed, otherwise remove this line
+                CliniqueID = 4, // You can set the CliniqueID here if needed, otherwise remove this line
                 IsOuverte = true,
-                DateEffectivite = DateTime.Now.AddDays(4),
+                DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
@@ -217,32 +218,7 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 5,
-                CliniqueID = 3, // You can set the CliniqueID here if needed, otherwise remove this line
-                IsOuverte = false,
-                DateEffectivite = DateTime.Now.AddDays(5),
-                HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(17, 0, 0),
-                NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
-            });
-
-            builder.Entity<ListeAttente>().HasData(new ListeAttente()
-            {
-                ListeAttenteID = 6,
-                CliniqueID = 3, // You can set the CliniqueID here if needed, otherwise remove this line
-                IsOuverte = false,
-                DateEffectivite = DateTime.Now.AddDays(6),
-                HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(17, 0, 0),
-                NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
-            });
-
-            // Generate 6 ListeAttente objects for Clinique with CliniqueID 4
-            builder.Entity<ListeAttente>().HasData(new ListeAttente()
-            {
-                ListeAttenteID = 7,
-                CliniqueID = 4,
+                CliniqueID = 5, // You can set the CliniqueID here if needed, otherwise remove this line
                 IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
@@ -253,8 +229,33 @@ namespace Clinique2000_DataAccess.Seeds
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
+                ListeAttenteID = 6,
+                CliniqueID =6, // You can set the CliniqueID here if needed, otherwise remove this line
+                IsOuverte = true,
+                DateEffectivite = DateTime.Now.AddDays(1),
+                HeureOuverture = new TimeSpan(8, 0, 0),
+                HeureFermeture = new TimeSpan(17, 0, 0),
+                NbMedecinsDispo = 3,
+                DureeConsultationMinutes = 30,
+            });
+
+            // Generate 6 ListeAttente objects for Clinique with CliniqueID 4
+            builder.Entity<ListeAttente>().HasData(new ListeAttente()
+            {
+                ListeAttenteID = 7,
+                CliniqueID = 1,
+                IsOuverte = true,
+                DateEffectivite = DateTime.Now.AddDays(2),
+                HeureOuverture = new TimeSpan(8, 0, 0),
+                HeureFermeture = new TimeSpan(17, 0, 0),
+                NbMedecinsDispo = 2,
+                DureeConsultationMinutes = 30,
+            });
+
+            builder.Entity<ListeAttente>().HasData(new ListeAttente()
+            {
                 ListeAttenteID = 8,
-                CliniqueID = 4,
+                CliniqueID = 2,
                 IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(2),
                 HeureOuverture = new TimeSpan(8, 0, 0),
@@ -266,9 +267,9 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 9,
-                CliniqueID = 4,
+                CliniqueID = 3,
                 IsOuverte = true,
-                DateEffectivite = DateTime.Now.AddDays(3),
+                DateEffectivite = DateTime.Now.AddDays(2),
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
@@ -316,7 +317,7 @@ namespace Clinique2000_DataAccess.Seeds
                 ListeAttenteID = 13,
                 CliniqueID = 5,
                 IsOuverte = true,
-                DateEffectivite = DateTime.Now.AddDays(1),
+                DateEffectivite = DateTime.Now.AddDays(3),
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
@@ -326,9 +327,9 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 14,
-                CliniqueID = 5,
+                CliniqueID = 6,
                 IsOuverte = true,
-                DateEffectivite = DateTime.Now.AddDays(2),
+                DateEffectivite = DateTime.Now.AddDays(4),
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
@@ -338,7 +339,7 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 15,
-                CliniqueID = 5,
+                CliniqueID = 1,
                 IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(3),
                 HeureOuverture = new TimeSpan(8, 0, 0),
@@ -456,8 +457,8 @@ namespace Clinique2000_DataAccess.Seeds
                 NbMedecinsDispo = 3,
                 DureeConsultationMinutes = 30,
             });
-
-
+            #endregion
+            #region ApplicationUser
             // Create ApplicationUser objects
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
@@ -505,11 +506,11 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Patient>().HasData(new Patient()
             {
                 PatientId = 1,
-                Nom = "Patient1Nom",
-                Prenom = "Patient1Prenom",
-                Genre = "Genre1",
-                NAM = "NAM1",
-                CodePostal = "A1A 1A1",
+                Nom = "Eastwood",
+                Prenom = "Clint",
+                Genre = "Masculin",
+                NAM = "EASC 2342 4332",
+                CodePostal = "J4J 1Z4",
                 DateDeNaissance = new DateTime(1990, 1, 1),
                 Age = 32,
                 UserId = "7cc96785-8933-4eac-8d7f-a289b28df223" // Replace with the corresponding UserId
@@ -518,11 +519,11 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Patient>().HasData(new Patient()
             {
                 PatientId = 2,
-                Nom = "Patient2Nom",
-                Prenom = "Patient2Prenom",
-                Genre = "Genre2",
-                NAM = "NAM2",
-                CodePostal = "B2B 2B2",
+                Nom = "Blunt",
+                Prenom = "Emily",
+                Genre = "Féminine",
+                NAM = "BLUE 4232 4332",
+                CodePostal = "J4J 1V2",
                 DateDeNaissance = new DateTime(1995, 5, 5),
                 Age = 27,
                 UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2" // Replace with the corresponding UserId
@@ -531,11 +532,11 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Patient>().HasData(new Patient()
             {
                 PatientId = 3,
-                Nom = "Patient3Nom",
-                Prenom = "Patient3Prenom",
-                Genre = "Genre3",
-                NAM = "NAM3",
-                CodePostal = "C3C 3C3",
+                Nom = "Brando",
+                Prenom = "Marlon",
+                Genre = "Masculin",
+                NAM = "MARB 3244 2233",
+                CodePostal = "J4J 1G4",
                 DateDeNaissance = new DateTime(1985, 10, 10),
                 Age = 36,
                 UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3" // Replace with the corresponding UserId
@@ -544,15 +545,16 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Patient>().HasData(new Patient()
             {
                 PatientId = 4,
-                Nom = "Patient4Nom",
-                Prenom = "Patient4Prenom",
-                Genre = "Genre4",
-                NAM = "NAM4",
-                CodePostal = "D4D 4D4",
+                Nom = "Portman",
+                Prenom = "Natalie",
+                Genre = "Féminine",
+                NAM = "PORT 3443 3433",
+                CodePostal = "J4J 1H6",
                 DateDeNaissance = new DateTime(1980, 8, 8),
                 Age = 42,
                 UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4" // Replace with the corresponding UserId
             });
+            #endregion          
         }
     }
 }

@@ -63,21 +63,17 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            //if (User.Identity.IsAuthenticated) //Utiliser temporairement, jusqu'à implémentation Role-based authorization
-            //{
                 string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
                 var user = await _userManager.FindByEmailAsync(courrielUserAuth);
 
-                var cliniqueModel = new CliniqueAdresseVM() { 
-                    Clinique = new Clinique2000_Core.Models.Clinique() 
+                var cliniqueModel = new CliniqueAdresseVM() 
+                { 
+                    Clinique = new Clinique() 
                     { 
-                        CreateurID = user.Id} 
-                    };
-
-                    return View(cliniqueModel);
-            //}
-
-            //return RedirectToAction(nameof(Index));
+                        CreateurID = user.Id
+                    } 
+                };
+                return View(cliniqueModel);
         }
 
         // POST: Cliniques/Create
@@ -190,23 +186,22 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //private bool CliniqueExists(int id)
-        //{
-        //    return (_context.Cliniques?.Any(e => e.CliniqueID == id)).GetValueOrDefault();
-        //}
-
-
-        public async Task<IActionResult> IndexPourPatients()
+        public async Task<IActionResult> IndexCliniquesAProximite()
         {
+            bool userEstPatient = await _services.patient.UserAuthEstPatientAsync();
+            if (!userEstPatient)
+            {
+                return RedirectToAction("Create", "Patients", new { area = "Patients" });
+            }
             List<Clinique> allClinics = await _services.clinique.ObtenirToutAsync();
 
             if (allClinics == null)
             {
-                return View("IndexPourPatients"/*, Enumerable.Empty<Clinique>()*/);
+                return View("IndexCliniquesAProximite");
             }
 
             var activeClinics = await _services.clinique.ObtenirLes5CliniquesLesPlusProches();
-            return View("IndexPourPatients", activeClinics);
+            return View("IndexCliniquesAProximite", activeClinics);
         }
 
 

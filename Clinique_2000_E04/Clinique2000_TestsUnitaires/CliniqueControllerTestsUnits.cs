@@ -237,7 +237,7 @@ namespace Clinique2000_TestsUnitaires
 
 
             // Act
-            var result = await _cliniqueControllerMock.IndexPourPatients();
+            var result = await _cliniqueControllerMock.IndexCliniquesAProximite();
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -262,7 +262,7 @@ namespace Clinique2000_TestsUnitaires
             _servicesMock.Setup(s => s.clinique.ObtenirToutAsync()).ReturnsAsync(emptyCliniqueList);
 
             // Act 
-            var result = await _cliniqueControllerMock.IndexPourPatients();
+            var result = await _cliniqueControllerMock.IndexCliniquesAProximite();
 
             // Assert 
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -289,7 +289,7 @@ namespace Clinique2000_TestsUnitaires
             _servicesMock.Setup(service => service.clinique.ObtenirToutAsync()).ReturnsAsync(activeClinicsList);
 
             // Act
-            var result = await _cliniqueControllerMock.IndexPourPatients();
+            var result = await _cliniqueControllerMock.IndexCliniquesAProximite();
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);

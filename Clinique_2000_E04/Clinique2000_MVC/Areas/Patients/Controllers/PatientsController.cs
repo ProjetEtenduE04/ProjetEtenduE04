@@ -54,8 +54,6 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // GET: PatientsController/Create
         public async Task<IActionResult> Create()
         {
-            //if (User.Identity.IsAuthenticated) // temporaire, à appliquer role-base Authorization
-            //{
                 string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
                 var user = await _userManager.FindByEmailAsync(courrielUserAuth);
                 bool estPatient = await _services.patient.UserEstPatientAsync(user.Id);
@@ -71,9 +69,6 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 }
                 var patient = await _services.patient.GetPatientParUserIdAsync(user.Id);
                 return RedirectToAction("Details", "Patients", new { id = patient.PatientId });
-            //}
-
-            //return RedirectToAction("Index", "Home");
         }
 
         // POST: Patients/Create
