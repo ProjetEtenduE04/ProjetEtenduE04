@@ -1,5 +1,6 @@
 ﻿using Clinique2000_Core.Models;
 using Clinique2000_Services.IServices;
+using Clinique2000_Utility.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +70,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
                     return View(patientModel);
                 }
+                TempData[AppConstants.Info] = $"Vous êtes déjà inscrit comme patient.";
                 var patient = await _services.patient.GetPatientParUserIdAsync(user.Id);
                 return RedirectToAction("Details", "Patients", new { id = patient.PatientId });
             //}

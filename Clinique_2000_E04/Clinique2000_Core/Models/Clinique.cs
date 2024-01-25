@@ -16,7 +16,7 @@ namespace Clinique2000_Core.Models
 
         [Display(Name = "Nom de la Clinique")]
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        [StringLength(25, MinimumLength = 2, ErrorMessage = "Ce champ doit avoir entre 2 et 25 caractères.")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Ce champ doit avoir entre 2 et 25 caractères.")]
         public string NomClinique { get; set; }
 
         [Display(Name = "Courriel")]
