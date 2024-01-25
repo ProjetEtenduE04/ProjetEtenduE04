@@ -268,6 +268,42 @@ namespace Clinique2000_Services.Services
 
 
 
+        public async Task<ListeAttenteVM> GetListeSalleAttenteOrdonnee(int listeAttenteID)
+        {
+            var listeAttente = await _context.ListeAttentes
+                                    .FirstOrDefaultAsync(la => la.ListeAttenteID == listeAttenteID);
 
+            if (listeAttente == null)
+            {
+                throw new Exception("La liste d'attente n'existe pas");
+            }
+
+
+            var plagesHoraires = await _context.PlagesHoraires
+                                       .Where(ph => ph.ListeAttenteID == listeAttenteID).ToListAsync();
+
+
+           List<Consultation> consultations = await _context.Consultations
+                                                           .Where(c => c.PlageHorarie.ListeAttenteID == listeAttenteID && c.StatutConsultation == StatutConsultation.EnAttente)
+                                                           .OrderBy(c => c.ConsultationID)
+                                                           .ToListAsync();
+        
+           
+
+            var listeSalleAttente = new ListeAttenteVM
+            {
+                ListeAttente = listeAttente,
+                PlagesHoraires = plagesHoraires,
+                Consultations=consultations
+                
+            };
+
+            return listeSalleAttente;
+
+
+
+
+
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace Clinique2000_Core.ViewModels
     {
         public ListeAttente ListeAttente { get; set; }
         public List<PlageHoraire>? PlagesHoraires { get; set; }
+        public List<Consultation> Consultations { get; set; }
     }
 
 

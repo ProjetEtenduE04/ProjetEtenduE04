@@ -22,10 +22,12 @@
             Inscrivez-vous pour un Rendez-Vous
         </a>
 
-        <a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="TestReservationSuccess" id="rv" class="ms-0 px-3 btn-create">
+        @*<a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="TestReservationSuccess" id="rv" class="ms-0 px-3 btn-create">
             test reservation
-        </a>
- 
+        </a>*@
+            <a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="IndexlisteSalleAttente" asp-route-listeAttenteID=1 id="rv" class="ms-0 px-3 btn-create">
+                Voir Liste Salle d'attente'
+            </a>
     </div>
 
 </div>
