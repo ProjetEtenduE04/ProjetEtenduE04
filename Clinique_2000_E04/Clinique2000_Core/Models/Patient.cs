@@ -46,6 +46,10 @@ namespace Clinique2000_Core.Models
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         public int Age { get; set; }
 
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
+
         [ForeignKey("UserId")]
         public string UserId { get; set; }
 

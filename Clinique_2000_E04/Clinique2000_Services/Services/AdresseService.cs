@@ -1,4 +1,5 @@
 ﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Microsoft.EntityFrameworkCore;
@@ -46,7 +47,7 @@ namespace Clinique2000_Services.Services
             return CalculerDistance(location1.Latitude, location1.Longitude, location2.Latitude, location2.Longitude);
         }
 
-        public async Task<AdressesQuebecDTO> GetLocationByPostalCodeAsync(string postalCode)
+        public async Task<AdressesQuebecVM> GetLocationByPostalCodeAsync(string postalCode)
         {
             return await _context.AdressesQuebec.FirstOrDefaultAsync(a => a.PostalCode == postalCode);
         }
