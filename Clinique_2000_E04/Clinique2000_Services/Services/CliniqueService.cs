@@ -267,29 +267,26 @@ namespace Clinique2000_Services.Services
         }
 
 
-        public async Task<IEnumerable<Clinique>> ObtenirLes5CliniquesLesPlusProches()
+        public async Task<IEnumerable<CliniqueDistanceVM>> ObtenirLes5CliniquesLesPlusProches()
         {
             var patientID = await _consultationService.ObtenirIdPatientAsync();
             var patient = await _context.Patients.FirstOrDefaultAsync(x => x.PatientId == patientID);
 
-            var cliniquesAvecDistanceVM = new List<(Clinique clinique, double distance)>();
+            List<CliniqueDistanceVM> cliniquesAvecDistance = new List<CliniqueDistanceVM>();
 
             foreach (var clinique in _context.Cliniques)
             {
                 double distance = await _adresseService.CalculerDistanceEntre2CodesPostaux(
                     clinique.Adresse.CodePostal, patient.CodePostal);
 
-                cliniquesAvecDistanceVM.Add((clinique, distance));
+                cliniquesAvecDistance.Add(new CliniqueDistanceVM { Clinique = clinique, Distance = distance });
             }
-
-            IEnumerable<Clinique> lesPlusProchesCliniques = cliniquesAvecDistanceVM
-                .Where(x=>x.clinique.EstActive)
-                .OrderBy(cd => cd.distance)
-                .Take(5)
-                .Select(cd => cd.clinique)
+           
+            return cliniquesAvecDistance
+                 .OrderByDescending(cd => cd.Distance)
+                .Where(x => x.Clinique.EstActive)
+                  .Take(3)
                 .ToList();
-
-            return lesPlusProchesCliniques;
         }
 
     }
