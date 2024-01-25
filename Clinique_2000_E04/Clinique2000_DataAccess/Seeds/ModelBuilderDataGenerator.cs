@@ -171,23 +171,23 @@ namespace Clinique2000_DataAccess.Seeds
             {
                 ListeAttenteID = 1,
                 CliniqueID = 1, // You can set the CliniqueID here if needed, otherwise remove this line
-                IsOuverte = true,
+                IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(8,30, 0),
-                NbMedecinsDispo = 1,
+                HeureFermeture = new TimeSpan(17, 0, 0),
+                NbMedecinsDispo = 2,
                 DureeConsultationMinutes = 30,
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 2,
-                CliniqueID = 2, // You can set the CliniqueID here if needed, otherwise remove this line
+                CliniqueID = 1, // You can set the CliniqueID here if needed, otherwise remove this line
                 IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(17, 0, 0),
-                NbMedecinsDispo = 3,
+                HeureFermeture = new TimeSpan(8, 30, 0),
+                NbMedecinsDispo = 1,
                 DureeConsultationMinutes = 30,
             });
 
