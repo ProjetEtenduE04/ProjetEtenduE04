@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
 namespace Clinique2000_MVC.Areas.Patients.Controllers
@@ -88,14 +89,20 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 if (ModelState.IsValid)
                 {
                     await _services.patient.EnregistrerOuModifierPatient(patient);
+                    TempData[AppConstants.Success] = $"Vous avez créé avec succès le dossier du patient.";
                     return RedirectToAction(nameof(Index));
                 }
+                TempData[AppConstants.Error] = $"Les champs obligatoires n'ont pas été remplis correctement";
                 return View(patient);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("Error", ex.Message);
+                TempData[AppConstants.Error] = $"Eroare ${ex.Message}";
+                return View(patient);
             }
+
+
         }
 
         // GET: PatientsController/Edit/5
@@ -115,8 +122,10 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 }
                 return View(patient);
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError("Error", ex.Message);
+                TempData[AppConstants.Error] = $"Eroare ${ex.Message}";
                 return RedirectToAction(nameof(Index));
             }
         }
