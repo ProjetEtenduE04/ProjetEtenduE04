@@ -35,6 +35,13 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             return View("Index", listeDePatients);
         }
 
+        public async Task<IActionResult> TestSalleAttente()
+        {
+            //return View(); 
+            var listeDePatients = await _services.patient.ObtenirToutAsync();
+
+            return View("TestSalleAttente", listeDePatients);
+        }
         // GET: PatientsController/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Patient>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container ">
+    <h1 class="text-center" style="margin:50px 0">Salle d'attente</h1>
+
+
+    <div class="table-responsive-sm mx-auto">
+        <table class="table stripe hover order-column  ">
+            <thead>
+                <tr>
+                    <th>
+                        Queue
+                    </th>
+                    <th>
+                        Patient
+                    </th>
+                    <th>
+                        Heure Prevu RDV
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int queueNumber = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @queueNumber
+                        </td>
+
+                        <td>
+                            @item.Prenom, @item.Nom[0]
+                        </td>
+                        <td>
+                            14h
+                        </td>
+
+                    </tr>
+                    queueNumber++;
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <p>
+            Update: @DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy")
+        </p>
+    </div>
+</div>

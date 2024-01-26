@@ -391,6 +391,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
         public  async Task<IActionResult> IndexlisteSalleAttente(int listeAttenteID)
         {
+
             ListeAttenteVM listeSalleAttenteVM = new ListeAttenteVM();
             if (listeAttenteID > 0)
             {
@@ -400,15 +401,11 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     return NotFound();
                 }
                 return View(listeSalleAttenteVM);
-
             }
             else
-           
-
-
-
-            return View("NotFound");
-
+            {
+                return View("NotFound");
+            }
         }
 
     }

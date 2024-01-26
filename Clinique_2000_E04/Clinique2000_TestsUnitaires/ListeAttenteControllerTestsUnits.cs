@@ -3,6 +3,7 @@ using Clinique2000_Core.ViewModels;
 using Clinique2000_MVC.Areas.Cliniques.Controllers;
 using Clinique2000_MVC.Controllers;
 using Clinique2000_Services.IServices;
+using Clinique2000_Utility.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Moq;
@@ -428,6 +429,93 @@ namespace Clinique2000_TestsUnitaires
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Equal(listeAttente, viewResult.Model);
+        }
+
+      
+            [Fact]
+            public async Task IndexlisteSalleAttente_WithValidListeAttenteID_ReturnsViewWithModel()
+            {
+                // Arrange
+                int validListeAttenteID = 1;
+                var mockService = new Mock<IClinique2000Services>();
+                var mockListeAttenteService = new Mock<IListeAttenteService>();
+                var mockContext = new Mock<ListeAttente>(); 
+
+                var expectedListeSalleAttenteVM = new ListeAttenteVM
+                {
+                  ListeAttente = new ListeAttente
+                        {
+                            ListeAttenteID = 1,
+                            IsOuverte = true,
+                            DateEffectivite = DateTime.Now.AddDays(5),
+                            HeureOuverture = new TimeSpan(9, 0, 0),
+                            HeureFermeture = new TimeSpan(17, 0, 0),
+                            NbMedecinsDispo = 5,
+                            DureeConsultationMinutes = 30,
+                            CliniqueID = 1
+                        },
+                    PlagesHoraires = new List<PlageHoraire>
+                        {
+                            new PlageHoraire
+                            {
+                                PlageHoraireID = 1,
+                                HeureDebut = DateTime.Now.AddHours(9),
+                                HeureFin = DateTime.Now.AddHours(10),
+                                ListeAttenteID = 1,
+           
+                            },
+                        },
+                    Consultations = new List<Consultation>
+                    {
+                        new Consultation
+                            {
+                                ConsultationID = 1,
+                                HeureDateDebutPrevue = DateTime.Now.AddHours(9),
+                                HeureDateFinPrevue = DateTime.Now.AddHours(9).AddMinutes(30),
+                                HeureDateDebutReele = null,
+                                HeureDateFinReele = null,
+                                StatutConsultation = StatutConsultation.DisponiblePourReservation,
+                                PlageHoraireID = 1,
+                                PatientID = null
+                            }
+                    }
+                };
+
+                mockListeAttenteService.Setup(s => s.GetListeSalleAttenteOrdonnee(validListeAttenteID)).ReturnsAsync(expectedListeSalleAttenteVM);
+                mockService.Setup(s => s.listeAttente).Returns(mockListeAttenteService.Object);
+
+                var controller = new ListeAttenteController(mockService.Object);
+
+                // Act
+                var result = await controller.IndexlisteSalleAttente(validListeAttenteID);
+
+                // Assert
+                var viewResult = Assert.IsType<ViewResult>(result);
+                var model = Assert.IsType<ListeAttenteVM>(viewResult.Model);
+                Assert.Equal(expectedListeSalleAttenteVM, model);
+            }
+
+            [Fact]
+            public async Task IndexlisteSalleAttente_WithInvalidListeAttenteID_ReturnsNotFound()
+            {
+                // Arrange
+                int invalidListeAttenteID = -1;
+                var mockService = new Mock<IClinique2000Services>();
+                var mockListeAttenteService = new Mock<IListeAttenteService>();
+                var mockContext = new Mock<ListeAttente>(); 
+
+            mockListeAttenteService.Setup(s => s.GetListeSalleAttenteOrdonnee(invalidListeAttenteID)).ReturnsAsync((ListeAttenteVM)null);
+
+
+            var controller = new ListeAttenteController(mockService.Object);
+
+                // Act
+                var result = await controller.IndexlisteSalleAttente(invalidListeAttenteID);
+
+                // Assert
+               // Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
+
         }
 
 
