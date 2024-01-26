@@ -51,7 +51,7 @@ namespace Clinique2000_Services.Services
             return await _context.AdressesQuebec.FirstOrDefaultAsync(a => a.PostalCode == postalCode);
         }
 
-        private double CalculerDistance(double lat1, double lon1, double lat2, double lon2)
+        public double CalculerDistance(double lat1, double lon1, double lat2, double lon2)
         {
             double R = 6371; // Radius of the Earth in kilometers
             double dLat = ToRadians(lat2 - lat1);
@@ -66,7 +66,7 @@ namespace Clinique2000_Services.Services
             return Math.Round((R * c),2); // Distance in KM
         }
 
-        private double ToRadians(double angle)
+        public double ToRadians(double angle)
         {
             return Math.PI * angle / 180.0;
         }

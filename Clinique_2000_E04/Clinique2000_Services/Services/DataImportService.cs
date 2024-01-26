@@ -26,7 +26,7 @@ public async Task ImporterDonneesDuFichierCSVasync(string filePath)
     _context.BulkInsert(adresses);
 }
 
-    private async Task<List<AdressesQuebec>> LireFichierCSVasync(string filePath)
+    public async Task<List<AdressesQuebec>> LireFichierCSVasync(string filePath)
     {
         var adresses = new List<AdressesQuebec>();
         using (var reader = new StreamReader(filePath))
