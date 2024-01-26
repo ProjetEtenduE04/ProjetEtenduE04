@@ -226,31 +226,6 @@ namespace Clinique2000_TestsUnitaires
         }
 
         /// <summary>
-        /// Teste si la méthode IndexPourPatients renvoie une vue avec le modèle de type IEnumerable<Clinique>.
-        /// </summary>
-        /// <returns></returns>
-        [Fact]
-        public async Task IndexPourPatients_ReturnsViewWithList()
-        {
-            // Arrange
-            _servicesMock.Setup(service => service.clinique.ObtenirToutAsync()).ReturnsAsync(_listeCliniques);
-
-
-            // Act
-            var result = await _cliniqueControllerMock.IndexCliniquesAProximite();
-
-            // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Clinique>>(viewResult.Model);
-
-            Assert.Equal(_listeCliniques.Count, model.Count());
-            foreach (var clinique in _listeCliniques)
-            {
-                Assert.Contains(model, c => c.CliniqueID == clinique.CliniqueID);
-            }
-        }
-
-        /// <summary>
         /// Verifie si la méthode IndexPourPatients renvoie une vue vide lorsque la liste des cliniques est vide.
         /// </summary>
         /// <returns></returns>
@@ -259,16 +234,15 @@ namespace Clinique2000_TestsUnitaires
         {
             // Arrange 
             var emptyCliniqueList = new List<Clinique>();
-            _servicesMock.Setup(s => s.clinique.ObtenirToutAsync()).ReturnsAsync(emptyCliniqueList);
+            _servicesMock.Setup(s => s.patient.UserAuthEstPatientAsync()).ReturnsAsync(true);
+            _servicesMock.Setup(s => s.clinique.ObtenirToutAsync()).ReturnsAsync((List<Clinique>)null);
 
             // Act 
             var result = await _cliniqueControllerMock.IndexCliniquesAProximite();
 
             // Assert 
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<CliniqueDistanceVM>>(viewResult.Model);
-
-            Assert.Empty(model);
+            Assert.Null(viewResult.Model);
         }
 
         /// <summary>
@@ -279,26 +253,37 @@ namespace Clinique2000_TestsUnitaires
         public async Task IndexPourPatients_ReturnsCorrectViewWithActiveClinics()
         {
             // Arrange
-            var activeClinicsList = new List<Clinique>
-            {
-                new Clinique { CliniqueID = 1, NomClinique = "Clinic1", EstActive = true },
-                new Clinique { CliniqueID = 2, NomClinique = "Clinic2", EstActive = true }
-                // Adăugați alți clinici activi, după nevoie
-            };
+            var mockCliniqueList = new List<CliniqueDistanceVM>
+    {
+        new CliniqueDistanceVM
+        {
+            Clinique = new Clinique { CliniqueID = 1, NomClinique = "Clinic1", EstActive = true },
+            Distance = 10.0 // Example distance
+        },
+        new CliniqueDistanceVM
+        {
+            Clinique = new Clinique { CliniqueID = 2, NomClinique = "Clinic2", EstActive = true },
+            Distance = 20.0 // Example distance
+        }
+        // Add more active clinics as needed
+    };
 
-            _servicesMock.Setup(service => service.clinique.ObtenirToutAsync()).ReturnsAsync(activeClinicsList);
+            _servicesMock.Setup(s => s.patient.UserAuthEstPatientAsync()).ReturnsAsync(true);
+            _servicesMock.Setup(s => s.clinique.ObtenirToutAsync()).ReturnsAsync(new List<Clinique>());
+            _servicesMock.Setup(s => s.clinique.ObtenirLes5CliniquesLesPlusProches()).ReturnsAsync(mockCliniqueList);
 
             // Act
             var result = await _cliniqueControllerMock.IndexCliniquesAProximite();
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("IndexPourPatients", viewResult.ViewName);
+            var model = Assert.IsAssignableFrom<IEnumerable<CliniqueDistanceVM>>(viewResult.Model);
 
-            var model = Assert.IsAssignableFrom<IEnumerable<Clinique>>(viewResult.Model);
-            Assert.Equal(activeClinicsList.Count, model.Count());
-            Assert.All(model, clinic => Assert.True(clinic.EstActive));
+            Assert.Equal("IndexCliniquesAProximite", viewResult.ViewName);
+            Assert.NotNull(model);
+            Assert.Equal(mockCliniqueList.Count, model.Count());
         }
+
 
         [Fact]
         public async Task ListeAttentePourPatient_ReturnsCorrectView()

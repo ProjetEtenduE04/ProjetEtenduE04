@@ -200,7 +200,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 return View("IndexCliniquesAProximite");
             }
 
-            var activeClinics = await _services.clinique.ObtenirLes5CliniquesLesPlusProches();
+            IEnumerable<CliniqueDistanceVM> activeClinics = await _services.clinique.ObtenirLes5CliniquesLesPlusProches();
             return View("IndexCliniquesAProximite", activeClinics);
         }
 
