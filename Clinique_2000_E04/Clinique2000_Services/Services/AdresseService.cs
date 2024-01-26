@@ -47,7 +47,7 @@ namespace Clinique2000_Services.Services
             return CalculerDistance(location1.Latitude, location1.Longitude, location2.Latitude, location2.Longitude);
         }
 
-        public async Task<AdressesQuebecVM> GetLocationByPostalCodeAsync(string postalCode)
+        public async Task<AdressesQuebec> GetLocationByPostalCodeAsync(string postalCode)
         {
             return await _context.AdressesQuebec.FirstOrDefaultAsync(a => a.PostalCode == postalCode);
         }

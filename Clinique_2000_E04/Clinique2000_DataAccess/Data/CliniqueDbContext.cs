@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Clinique2000_Core.ViewModels;
 
 namespace Clinique2000_DataAccess.Data
 {
@@ -18,7 +17,7 @@ namespace Clinique2000_DataAccess.Data
         // public DbSet<Entity> TableName { get ; set ; }
 
 
-        public DbSet<AdressesQuebecVM> AdressesQuebec { get; set; }
+        public DbSet<AdressesQuebec> AdressesQuebec { get; set; }
         public DbSet<ListeAttente> ListeAttentes { get; set; }
         public DbSet<Consultation> Consultations { get; set; }
         public DbSet<Patient> Patients { get; set; }
