@@ -300,10 +300,6 @@ namespace Clinique2000_Services.Services
 
             return listeSalleAttente;
 
-
-
-
-
         }
     }
 }

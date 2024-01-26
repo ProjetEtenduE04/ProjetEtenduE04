@@ -248,12 +248,30 @@ namespace Clinique2000_TestsUnitaires
         }
 
         #endregion
+        [Fact]
+        public async Task GetListeSalleAttenteOrdonnee_WithValidListeAttenteID_ReturnsListeAttenteVM()
+        {
+            // Arrange
+            var options = SetUpInMemory("CliniqueTestDb");
+            var dbTest = new CliniqueDbContext(options);
+            SeedInMemoryStore(dbTest);
 
+            IListeAttenteService service = new ListeAttenteService(dbTest);
+            var listeAttenteId = 1;
 
-    }
+            // Act
+            var result = await service.GetListeSalleAttenteOrdonnee(listeAttenteId);
 
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<ListeAttenteVM>(result);
 
+        }
+
+        }
 
 
 }
+
+
 
