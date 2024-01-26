@@ -81,16 +81,22 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CliniqueAdresseVM viewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var cliniqueEnregistre = await _services.clinique.EnregistrerCliniqueAsync(viewModel);
+                if (ModelState.IsValid)
+                {
+                    var cliniqueEnregistre = await _services.clinique.EnregistrerCliniqueAsync(viewModel);
 
-                return RedirectToAction("Details", "Cliniques", new { id = cliniqueEnregistre.CliniqueID });
+                    return RedirectToAction("Details", "Cliniques", new { id = cliniqueEnregistre.CliniqueID });
+                }
+                return View(viewModel);
             }
-
-            return View(viewModel);
+            catch(ValidationException ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+                return View(viewModel);
+            }
         }
-
 
         // GET: Cliniques/Edit/5
         [HttpGet]
@@ -140,12 +146,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     await _services.clinique.EditerCliniqueAsync(cliniqueAdresseVM);
                     return RedirectToAction("Details", "Cliniques", new { id = cliniqueAdresseVM.Clinique.CliniqueID });
                 }
+                return View(cliniqueAdresseVM);
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError("Error", ex.Message);
+                return View(cliniqueAdresseVM);
             }
-            return View(cliniqueAdresseVM);
         }
 
         // GET: Cliniques/Delete/5
@@ -175,14 +182,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 return Problem("L'ensemble d'entités 'ApplicationDbContext.Cliniques' est nul.");
             }
             await _services.clinique.SupprimerAsync(id);
-            //var cliniqueASupprimer = await _services.clinique.ObtenirParIdAsync(id);
-            //if (cliniqueASupprimer != null)
-            //{
 
-            //    _context.Cliniques.Remove(cliniqueASupprimer);
-            //}
-
-            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

@@ -28,8 +28,13 @@ namespace Clinique2000_Services.Services
             {
                 throw new ValidationException("Le format du code postal n'est pas valide (Ex: A1A 1A1).");
             }
+            var codePostalExist = await _context.AdressesQuebec.AnyAsync(a => a.PostalCode == codePostal);
+            if(!codePostalExist)
+            {
+                throw new ValidationException("Le code postal n'existe pas, saisir un vrai code postal");
+            }
 
-            return true;
+            return codePostalExist;
         }
 
 

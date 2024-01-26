@@ -226,7 +226,7 @@ namespace Clinique2000_Services.Services
             var clinique = viewModel.Clinique;
             var adresse = viewModel.Adresse;
 
-            await ListeDeVerificationClinique(clinique);
+            await ListeDeVerificationCliniqueEdit(clinique);
             await _adresseService.VerifierCodePostalValideAsync(adresse.CodePostal);
 
             await _adresseService.EditerAsync(adresse);

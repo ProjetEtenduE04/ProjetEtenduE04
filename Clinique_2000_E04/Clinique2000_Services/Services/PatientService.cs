@@ -16,12 +16,17 @@ namespace Clinique2000_Services.Services
         private readonly CliniqueDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAdresseService _adresseService;
 
-        public PatientService(CliniqueDbContext context, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor) : base(context)
+        public PatientService(CliniqueDbContext context,
+                UserManager<IdentityUser> userManager,
+                IHttpContextAccessor httpContextAccessor,
+                IAdresseService adresseService) : base(context)
         {
             _context = context;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
+            _adresseService = adresseService;
 
         }
 
@@ -217,6 +222,9 @@ namespace Clinique2000_Services.Services
                 throw new Exception("Vous devez être majeur pour vous inscrire.");
             }
             patient.Age = ageExact.Annees;
+
+            await _adresseService.VerifierCodePostalValideAsync(patient.CodePostal);
+
             if (patient.PatientId != 0)
             {
                 var existingPatient = await ObtenirParIdAsync(patient.PatientId);
