@@ -285,7 +285,9 @@ namespace Clinique2000_Services.Services
 
            List<Consultation> consultations = await _context.Consultations
                                                            .Where(c => c.PlageHorarie.ListeAttenteID == listeAttenteID && c.StatutConsultation == StatutConsultation.EnAttente)
-                                                           .OrderBy(c => c.ConsultationID)
+                                                           .OrderBy(c => c.HeureDateDebutPrevue)
+                                                           .ThenBy(c => c.Patient.Prenom)
+                                                           .ThenBy(c => c.Patient.Nom)
                                                            .ToListAsync();
         
            
