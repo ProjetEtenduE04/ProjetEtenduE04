@@ -230,7 +230,7 @@ namespace Clinique2000_TestsUnitaires
         /// </summary>
         /// <returns></returns>
         [Fact]
-        public async Task IndexPourPatients_ReturnsEmptyViewWhenNoClinics()
+        public async Task IndexPourPatients_ReturnsUneVueVideSansCliniques()
         {
             // Arrange 
             var emptyCliniqueList = new List<Clinique>();
@@ -250,7 +250,7 @@ namespace Clinique2000_TestsUnitaires
         /// </summary>
         /// <returns></returns>
         [Fact]
-        public async Task IndexPourPatients_ReturnsCorrectViewWithActiveClinics()
+        public async Task IndexPourPatients_RetourneLaVueApproprieeAvecCliniques()
         {
             // Arrange
             var mockCliniqueList = new List<CliniqueDistanceVM>
@@ -265,7 +265,7 @@ namespace Clinique2000_TestsUnitaires
             Clinique = new Clinique { CliniqueID = 2, NomClinique = "Clinic2", EstActive = true },
             Distance = 20.0 // Example distance
         }
-        // Add more active clinics as needed
+      
     };
 
             _servicesMock.Setup(s => s.patient.UserAuthEstPatientAsync()).ReturnsAsync(true);
@@ -286,7 +286,7 @@ namespace Clinique2000_TestsUnitaires
 
 
         [Fact]
-        public async Task ListeAttentePourPatient_ReturnsCorrectView()
+        public async Task ListeAttentePourPatient_RetourneLaVueAppropriee()
         {
             // Arrange
             var clinicId = 1;

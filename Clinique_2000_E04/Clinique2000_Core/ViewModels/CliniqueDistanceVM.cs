@@ -15,7 +15,7 @@ namespace Clinique2000_Core.ViewModels
 
         public double Distance { get; set; }
 
-        [Display(Name ="Consultation disponible dès")]
+        [Display(Name = "Réservez une consultation dès")]
         [DataType(DataType.Time)]
         public DateTime? HeureProchaineConsultation { get; set; }
     }
