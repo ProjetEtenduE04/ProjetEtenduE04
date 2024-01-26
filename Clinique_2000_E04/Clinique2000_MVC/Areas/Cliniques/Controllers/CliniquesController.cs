@@ -179,21 +179,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 return Problem("L'ensemble d'entités 'ApplicationDbContext.Cliniques' est nul.");
             }
             await _services.clinique.SupprimerAsync(id);
-            //var cliniqueASupprimer = await _services.clinique.ObtenirParIdAsync(id);
-            //if (cliniqueASupprimer != null)
-            //{
-
-            //    _context.Cliniques.Remove(cliniqueASupprimer);
-            //}
-
-            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        //private bool CliniqueExists(int id)
-        //{
-        //    return (_context.Cliniques?.Any(e => e.CliniqueID == id)).GetValueOrDefault();
-        //}
 
 
         public async Task<IActionResult> IndexPourPatients()

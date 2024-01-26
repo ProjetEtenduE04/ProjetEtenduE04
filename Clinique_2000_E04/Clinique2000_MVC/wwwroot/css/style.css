@@ -80,8 +80,8 @@
 
 .row {
     border: 1px solid rgb(39, 255, 93);
-}
-    */
+}*/
+    /**/
 /*----------------Style de police-------------*/
 /* H0 Montserrat 48*/
 * {
@@ -1118,6 +1118,15 @@ table td {
     max-width: 20rem;
     margin-top:40px;
     margin-bottom :15px;
+}
+/*nav menu dropdown*/
+.dropdown-item {
+    width: 210px;
+    font-family: Mukta, sans-serif;
+    font-style: normal;
+}
+.dropdown-item:active {
+    background: #023b6d;
 }
 
 
