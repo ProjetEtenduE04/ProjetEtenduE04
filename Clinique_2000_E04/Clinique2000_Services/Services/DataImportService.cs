@@ -1,4 +1,4 @@
-﻿using Clinique2000_Core.ViewModels;
+﻿using Clinique2000_Core.Models;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using EFCore.BulkExtensions;
@@ -26,9 +26,9 @@ public async Task ImporterDonneesDuFichierCSVasync(string filePath)
     _context.BulkInsert(adresses);
 }
 
-    private async Task<List<AdressesQuebecVM>> LireFichierCSVasync(string filePath)
+    private async Task<List<AdressesQuebec>> LireFichierCSVasync(string filePath)
     {
-        var adresses = new List<AdressesQuebecVM>();
+        var adresses = new List<AdressesQuebec>();
         using (var reader = new StreamReader(filePath))
         {
             string line;
@@ -38,7 +38,7 @@ public async Task ImporterDonneesDuFichierCSVasync(string filePath)
                 var values = line.Split(',');
                 if (values.Length >= 6)
                 {
-                    var adresse = new AdressesQuebecVM
+                    var adresse = new AdressesQuebec
                     {
                         PostalCode = values[0],
                         City = values[1],

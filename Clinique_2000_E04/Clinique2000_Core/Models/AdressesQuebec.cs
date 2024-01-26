@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clinique2000_Core.ViewModels
+namespace Clinique2000_Core.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("AdressesQuebec")] // Replace with your actual table name
-    public class AdressesQuebecVM
+    public class AdressesQuebec
     {
         [Key]
         public int Id { get; set; } // Primary key, if you have one in your table

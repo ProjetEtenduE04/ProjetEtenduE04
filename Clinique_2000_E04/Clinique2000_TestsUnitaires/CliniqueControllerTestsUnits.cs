@@ -266,7 +266,7 @@ namespace Clinique2000_TestsUnitaires
 
             // Assert 
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Clinique>>(viewResult.Model);
+            var model = Assert.IsAssignableFrom<IEnumerable<CliniqueDistanceVM>>(viewResult.Model);
 
             Assert.Empty(model);
         }
