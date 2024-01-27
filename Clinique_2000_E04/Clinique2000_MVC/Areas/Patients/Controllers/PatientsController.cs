@@ -1,6 +1,7 @@
-﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_Services.IServices;
+using Clinique2000_Utility.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +70,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
                     return View(patientModel);
                 }
+                TempData[AppConstants.Info] = $"Vous êtes déjà inscrit comme patient.";
                 var patient = await _services.patient.GetPatientParUserIdAsync(user.Id);
                 return RedirectToAction("Details", "Patients", new { id = patient.PatientId });
         }
@@ -83,15 +85,20 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 if (ModelState.IsValid)
                 {
                     await _services.patient.EnregistrerOuModifierPatient(patient);
+                    TempData[AppConstants.Success] = $"Vous avez créé avec succès le dossier du patient.";
                     return RedirectToAction(nameof(Index));
                 }
+                TempData[AppConstants.Error] = $"Les champs obligatoires n'ont pas été remplis correctement";
                 return View(patient);
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("Error", ex.Message);
+                TempData[AppConstants.Error] = $"Eroare ${ex.Message}";
                 return View(patient);
             }
+
+
         }
 
         // GET: PatientsController/Edit/5
@@ -111,8 +118,10 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 }
                 return View(patient);
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError("Error", ex.Message);
+                TempData[AppConstants.Error] = $"Eroare ${ex.Message}";
                 return RedirectToAction(nameof(Index));
             }
         }

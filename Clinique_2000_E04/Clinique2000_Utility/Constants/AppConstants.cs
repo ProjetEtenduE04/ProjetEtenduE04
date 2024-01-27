@@ -1,4 +1,4 @@
-﻿
+
 namespace Clinique2000_Utility.Constants
 {
     public static class AppConstants
