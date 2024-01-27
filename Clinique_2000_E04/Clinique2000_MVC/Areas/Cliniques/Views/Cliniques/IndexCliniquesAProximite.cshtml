@@ -1,0 +1,105 @@
+﻿@model IEnumerable<CliniqueDistanceVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<!-- Page modale explication calcul distance -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="text-center">
+            <h2>Distance</h2>
+            <p>La distance en kilomètres affichée pour chaque clinique de cette liste est approximative.</p>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-auto">
+            <h1 class="" style="margin: 50px 0px">Cliniques à proximité</h1>
+        </div>
+        <div class="col-auto">
+           
+        </div>
+    </div>
+
+
+
+
+
+    <div class="table-responsive-sm mx-auto mb-5">
+        <table class="table stripe hover order-column" id="dataTableDistance">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Clinique.NomClinique)</th>
+                    @*      <th>@Html.DisplayNameFor(model => model.Clinique.HeureOuverture)</th>
+                    <th>@Html.DisplayNameFor(model => model.Clinique.HeureFermeture)</th>
+                    <th>@Html.DisplayNameFor(model => model.Clinique.EstActive)</th> *@
+                    <th>@Html.DisplayNameFor(model => model.HeureProchaineConsultation)</th>
+                    <th class="justify-content-center align-items-center">
+                        @Html.DisplayNameFor(model => model.Distance) (kilomètres)
+                        <i id="openModalBtn" style="  color: #023373;" class="fa-solid fa-circle-info fa-lg"></i>
+                    </th>
+                    <th>@Html.DisplayNameFor(model => model.Clinique.Adresse)</th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var listeAttenteId = item.Clinique.ListeAttente.Where(x => x.CliniqueID == item.Clinique.CliniqueID && x.IsOuverte).FirstOrDefault()?.ListeAttenteID;
+                    string concatenatedAddress = $"{item.Clinique.Adresse.Numero} {item.Clinique.Adresse.Rue}, {item.Clinique.Adresse.Ville}, {item.Clinique.Adresse.Province}, {item.Clinique.Adresse.Pays}, {item.Clinique.Adresse.CodePostal}";
+
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Clinique.NomClinique)</td>
+                        @*   <td>@Html.DisplayFor(modelItem => item.Clinique.HeureOuverture)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Clinique.HeureFermeture)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Clinique.EstActive)</td> *@
+                        <td>@Html.DisplayFor(modelItem => item.HeureProchaineConsultation)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Distance)</td>
+                        <td>@concatenatedAddress</td>
+                        <td class="clinic-row" data-clinic-id="@item.Clinique.CliniqueID">
+                            @if (listeAttenteId != null)
+                            {
+                                <a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="Details" asp-route-id="@listeAttenteId" class="btn btn-secondaire btn-sm" style="width:auto">Voir la liste d'attente</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="waitingListsContainer"></div>
+
+<script>
+    // Get modal element
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("openModalBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

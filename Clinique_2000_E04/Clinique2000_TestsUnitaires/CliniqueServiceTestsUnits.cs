@@ -80,7 +80,7 @@ namespace Clinique2000_TestsUnitaires
                             Ville = "Montréal",
                             Province = "Québec",
                             Pays = "Canada",
-                            CodePostal = "H1H 1H1",
+                            CodePostal = "J3Y 7C6",
                         });
                 context.SaveChanges();
             }
@@ -393,13 +393,14 @@ namespace Clinique2000_TestsUnitaires
             var cliniqueService = new CliniqueService(dbContext, Mock.Of<IAdresseService>(), Mock.Of<IConsultationService>());
 
             var existingClinique = await dbContext.Cliniques.FindAsync(1);
-            existingClinique.NomClinique = "NouveauNom"; // Simulăm o modificare care ar declanșa o excepție
+            existingClinique.NomClinique = "CliniqueB"; 
 
             var viewModel = new CliniqueAdresseVM
             {
                 Clinique = existingClinique,
                 Adresse = await dbContext.Adresses.FindAsync(existingClinique.AdresseID)
             };
+            viewModel.Adresse.CodePostal = "A3A 3A3";
 
             // Act & Assert
             await Assert.ThrowsAsync<ValidationException>(() => cliniqueService.EditerCliniqueAsync(viewModel));

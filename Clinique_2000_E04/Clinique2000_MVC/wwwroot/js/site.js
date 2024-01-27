@@ -72,6 +72,7 @@ $(document).ready(function () {
 //================================================== 
 $(document).ready(function () {
     $('#dataTableDistance').DataTable({
+        "order": [],
         "language": {
             "decimal": ",",
             "thousands": ".",
@@ -87,9 +88,7 @@ $(document).ready(function () {
                 "next": "Suivant",
                 "previous": "Précédent",
             },
-           
-        }
-         "order": [[5, 'asc']]
+        }        
     });
 });
 //END DATATABLES

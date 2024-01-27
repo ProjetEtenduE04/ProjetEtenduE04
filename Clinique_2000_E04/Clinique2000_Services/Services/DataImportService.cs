@@ -1,4 +1,4 @@
-﻿using Clinique2000_Core.ViewModels;
+﻿using Clinique2000_Core.Models;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using EFCore.BulkExtensions;
@@ -22,23 +22,23 @@ public class DataImportService:IdataImportService
 public async Task ImporterDonneesDuFichierCSVasync(string filePath)
 {
     var adresses = await LireFichierCSVasync(filePath);
-    // Use BulkInsert to insert all addresses at once
+    // Utilise la librairie Bulk pour inserer les adresses d'un seul coup
     _context.BulkInsert(adresses);
 }
 
-    private async Task<List<AdressesQuebecVM>> LireFichierCSVasync(string filePath)
+    public async Task<List<AdressesQuebec>> LireFichierCSVasync(string filePath)
     {
-        var adresses = new List<AdressesQuebecVM>();
+        var adresses = new List<AdressesQuebec>();
         using (var reader = new StreamReader(filePath))
         {
             string line;
-            await reader.ReadLineAsync(); // Skip the header line
+            await reader.ReadLineAsync(); // Saute la premiere ligne
             while ((line = await reader.ReadLineAsync()) != null)
             {
                 var values = line.Split(',');
                 if (values.Length >= 6)
                 {
-                    var adresse = new AdressesQuebecVM
+                    var adresse = new AdressesQuebec
                     {
                         PostalCode = values[0],
                         City = values[1],

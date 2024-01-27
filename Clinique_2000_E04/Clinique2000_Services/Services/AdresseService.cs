@@ -1,5 +1,4 @@
 ﻿using Clinique2000_Core.Models;
-using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Microsoft.EntityFrameworkCore;
@@ -29,8 +28,13 @@ namespace Clinique2000_Services.Services
             {
                 throw new ValidationException("Le format du code postal n'est pas valide (Ex: A1A 1A1).");
             }
+            var codePostalExist = await _context.AdressesQuebec.AnyAsync(a => a.PostalCode == codePostal);
+            if(!codePostalExist)
+            {
+                throw new ValidationException("Le code postal n'existe pas, saisir un vrai code postal");
+            }
 
-            return true;
+            return codePostalExist;
         }
 
 
@@ -47,12 +51,12 @@ namespace Clinique2000_Services.Services
             return CalculerDistance(location1.Latitude, location1.Longitude, location2.Latitude, location2.Longitude);
         }
 
-        public async Task<AdressesQuebecVM> GetLocationByPostalCodeAsync(string postalCode)
+        public async Task<AdressesQuebec> GetLocationByPostalCodeAsync(string postalCode)
         {
             return await _context.AdressesQuebec.FirstOrDefaultAsync(a => a.PostalCode == postalCode);
         }
 
-        private double CalculerDistance(double lat1, double lon1, double lat2, double lon2)
+        public double CalculerDistance(double lat1, double lon1, double lat2, double lon2)
         {
             double R = 6371; // Radius of the Earth in kilometers
             double dLat = ToRadians(lat2 - lat1);
@@ -67,7 +71,7 @@ namespace Clinique2000_Services.Services
             return Math.Round((R * c),2); // Distance in KM
         }
 
-        private double ToRadians(double angle)
+        public double ToRadians(double angle)
         {
             return Math.PI * angle / 180.0;
         }

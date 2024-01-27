@@ -1,5 +1,4 @@
 ﻿using Clinique2000_Core.Models;
-using Clinique2000_Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,6 @@ namespace Clinique2000_Services.IServices
     {
         Task<bool> VerifierCodePostalValideAsync(string codePostal);
         Task<double> CalculerDistanceEntre2CodesPostaux(string postalCode1, string postalCode2);
-        Task<AdressesQuebecVM> GetLocationByPostalCodeAsync(string postalCode);
+        Task<AdressesQuebec> GetLocationByPostalCodeAsync(string postalCode);
     }
 }

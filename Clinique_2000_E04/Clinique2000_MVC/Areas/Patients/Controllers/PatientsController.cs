@@ -1,10 +1,12 @@
 ﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.ViewModels;
 using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
 namespace Clinique2000_MVC.Areas.Patients.Controllers
@@ -54,13 +56,11 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // GET: PatientsController/Create
         public async Task<IActionResult> Create()
         {
-            //if (User.Identity.IsAuthenticated) // temporaire, à appliquer role-base Authorization
-            //{
                 string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
                 var user = await _userManager.FindByEmailAsync(courrielUserAuth);
-                bool isPatient = await _services.patient.UserEstPatientAsync(user.Id);
+                bool estPatient = await _services.patient.UserEstPatientAsync(user.Id);
 
-                if (!isPatient)
+                if (!estPatient)
                 {
                     var patientModel = new Patient
                     {
@@ -71,9 +71,6 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 }
                 var patient = await _services.patient.GetPatientParUserIdAsync(user.Id);
                 return RedirectToAction("Details", "Patients", new { id = patient.PatientId });
-            //}
-
-            //return RedirectToAction("Index", "Home");
         }
 
         // POST: Patients/Create
@@ -90,9 +87,10 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 }
                 return View(patient);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("Error", ex.Message);
+                return View(patient);
             }
         }
 
@@ -152,9 +150,10 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 }
                 return View(patient);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("Error", ex.Message);
+                return View(patient);
             }
         }
 
@@ -197,8 +196,9 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError("Error", ex.Message);
                 return View();
             }
         }

@@ -2,6 +2,7 @@ using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
+using Clinique2000_Utility.Enum;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -225,7 +226,7 @@ namespace Clinique2000_Services.Services
             var clinique = viewModel.Clinique;
             var adresse = viewModel.Adresse;
 
-            await ListeDeVerificationClinique(clinique);
+            await ListeDeVerificationCliniqueEdit(clinique);
             await _adresseService.VerifierCodePostalValideAsync(adresse.CodePostal);
 
             await _adresseService.EditerAsync(adresse);
@@ -276,18 +277,39 @@ namespace Clinique2000_Services.Services
 
             foreach (var clinique in _context.Cliniques)
             {
-                double distance = await _adresseService.CalculerDistanceEntre2CodesPostaux(
-                    clinique.Adresse.CodePostal, patient.CodePostal);
+                bool aListeAttenteOuverteAvecConsultations = _context.ListeAttentes
+                    .Any(la => la.CliniqueID == clinique.CliniqueID &&
+                               la.IsOuverte &&
+                               la.PlagesHoraires.Any(ph => ph.Consultations.Any(c => c.StatutConsultation == StatutConsultation.DisponiblePourReservation)));
 
-                cliniquesAvecDistance.Add(new CliniqueDistanceVM { Clinique = clinique, Distance = distance });
+                if (aListeAttenteOuverteAvecConsultations)
+                {
+                    double distance = await _adresseService.CalculerDistanceEntre2CodesPostaux(
+                        clinique.Adresse.CodePostal, patient.CodePostal);
+
+                    var prochainePlageHoraire = _context.PlagesHoraires
+                        .Include(ph => ph.Consultations)
+                        .Where(ph => ph.ListeAttente.CliniqueID == clinique.CliniqueID &&
+                                     ph.Consultations.Any(c => c.StatutConsultation == StatutConsultation.DisponiblePourReservation))
+                        .OrderBy(ph => ph.HeureDebut)
+                        .FirstOrDefault();
+
+                    cliniquesAvecDistance.Add(new CliniqueDistanceVM
+                    {
+                        Clinique = clinique,
+                        Distance = distance,
+                        HeureProchaineConsultation = prochainePlageHoraire?.HeureDebut
+                    });
+                }
             }
-           
+
             return cliniquesAvecDistance
-                 .OrderBy(cd => cd.Distance)
-                .Where(x => x.Clinique.EstActive)
-                  .Take(5)
-                .ToList();
+                    .OrderBy(cd => cd.Distance)
+                    .Where(x => x.Clinique.EstActive)
+                    .Take(5)
+                    .ToList();
         }
+
 
     }
 

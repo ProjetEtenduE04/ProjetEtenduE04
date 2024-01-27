@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Text.Json.Serialization;
 using Clinique2000_DataAccess.Initializer;
+using Microsoft.IdentityModel.Tokens;
+using Clinique2000_Utility.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 //DbContext
@@ -53,7 +55,7 @@ builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
 builder.Services.AddTransient<DataImportService>();
 builder.Services.AddHostedService(provider =>
-   new DataImportBackgroundService(provider, @"Clinique2000_Utility\CodesPostauxQuebec\QuebecPostalCodes202312.csv"));
+    new DataImportBackgroundService(provider, AppConstants.CsvFilePath));
 
 #endregion
 builder.Services.AddControllersWithViews()

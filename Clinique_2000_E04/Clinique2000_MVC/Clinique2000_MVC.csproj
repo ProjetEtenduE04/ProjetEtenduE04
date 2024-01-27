@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.Development.json~RF26d765c.TMP" />
     <None Remove="appsettings.json~RF14ec06e2.TMP" />
     <None Remove="Areas\Cliniques\Views\Cliniques\Edit.cshtml~RFcb7168d.TMP" />
     <None Remove="Areas\Patients\Views\Patients\NewFile.txt" />
