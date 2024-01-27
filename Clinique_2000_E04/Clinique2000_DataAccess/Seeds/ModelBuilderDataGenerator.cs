@@ -23,7 +23,7 @@ namespace Clinique2000_DataAccess.Seeds
                     Numero = "505",
                     Rue = "Rue Adoncour",
                     Ville = "Longueuil",
-                    Province = "Qu�bec",
+                    Province = "Québec",
                     Pays = "Canada",
                     CodePostal = "J4G 2M6",
 
@@ -34,7 +34,7 @@ namespace Clinique2000_DataAccess.Seeds
                     Numero = "1615",
                     Rue = "Blvd Jacques-Cartier",
                     Ville = "Longueuil",
-                    Province = "Qu�bec",
+                    Province = "Québec",
                     Pays = "Canada",
                     CodePostal = "J4M 2X1",
                 },
@@ -44,7 +44,7 @@ namespace Clinique2000_DataAccess.Seeds
                     Numero = "1144",
                     Rue = "Rue Saint-Laurent",
                     Ville = "Longueuil",
-                    Province = "Qu�bec",
+                    Province = "Québec",
                     Pays = "Canada",
                     CodePostal = "J4K 1E2",
                 },
@@ -54,7 +54,7 @@ namespace Clinique2000_DataAccess.Seeds
                     Numero = "3141",
                     Rue = "Blvd Taschereau",
                     Ville = "Longueuil",
-                    Province = "Qu�bec",
+                    Province = "Québec",
                     Pays = "Canada",
                     CodePostal = "J4V 2H2",
                 },
@@ -62,9 +62,9 @@ namespace Clinique2000_DataAccess.Seeds
                 {
                     AdresseID = 5,
                     Numero = "895",
-                    Rue = "Rue De la Gaucheti�re",
+                    Rue = "Rue De la Gauchetiére",
                     Ville = "Montreal",
-                    Province = "Qu�bec",
+                    Province = "Québec",
                     Pays = "Canada",
                     CodePostal = "H3B 4G1",
                 },
@@ -74,7 +74,7 @@ namespace Clinique2000_DataAccess.Seeds
                     Numero = "5580",
                     Rue = " Ch. de Chambly B",
                     Ville = "Saint-Hubert",
-                    Province = "Qu�bec",
+                    Province = "Québec",
                     Pays = "Canada",
                     CodePostal = "J3Y 3P5",
                     }
@@ -154,7 +154,7 @@ namespace Clinique2000_DataAccess.Seeds
              new Clinique()
              {
                  CliniqueID = 6,
-                 NomClinique = "Centre M�dical Chambly Latour",
+                 NomClinique = "Centre Médical Chambly Latour",
                  Courriel = "contact@chambly.com",
                  HeureOuverture = new TimeSpan(8, 0, 0),
                  HeureFermeture = new TimeSpan(16, 0, 0),
@@ -171,7 +171,7 @@ namespace Clinique2000_DataAccess.Seeds
             {
                 ListeAttenteID = 1,
                 CliniqueID = 1, // You can set the CliniqueID here if needed, otherwise remove this line
- �������������� IsOuverte = true,
+                IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
@@ -458,7 +458,7 @@ namespace Clinique2000_DataAccess.Seeds
                 DureeConsultationMinutes = 30,
             });
             #endregion
-            #region ApplicationUser
+            #region ApplicationUser / Patients
             // Create ApplicationUser objects
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
@@ -521,7 +521,7 @@ namespace Clinique2000_DataAccess.Seeds
                 PatientId = 2,
                 Nom = "Blunt",
                 Prenom = "Emily",
-                Genre = "F�minine",
+                Genre = "Féminin",
                 NAM = "BLUE 4232 4332",
                 CodePostal = "J4J 1V2",
                 DateDeNaissance = new DateTime(1995, 5, 5),
@@ -547,7 +547,7 @@ namespace Clinique2000_DataAccess.Seeds
                 PatientId = 4,
                 Nom = "Portman",
                 Prenom = "Natalie",
-                Genre = "F�minine",
+                Genre = "Féminin",
                 NAM = "PORT 3443 3433",
                 CodePostal = "J4J 1H6",
                 DateDeNaissance = new DateTime(1980, 8, 8),
