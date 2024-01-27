@@ -1119,6 +1119,11 @@ table td {
     margin-top:40px;
     margin-bottom :15px;
 }
+
+.margin-container-index{
+    margin-top:60px;
+    margin-bottom: 60px;
+}
 /*nav menu dropdown*/
 .dropdown-item {
     width: 210px;
@@ -1284,10 +1289,12 @@ table td {
         background-position: 100% 50%;
     }
 }
-.card-header {
+
+/*Card header styles*/
+.card-header-datatables {
     background: linear-gradient(91deg, #023373 0%, rgba(65, 142, 242, 0.80) 38.56%, rgba(255, 255, 255, 0.00) 102.51%);
 }
-.card-header-ainmated {
+.card-header-animated {
     display: flex;
     align-items: center;
 
@@ -1323,4 +1330,25 @@ table td {
     100% {
         background-position: 0% 50%;
     }
+}
+/* petits boutons ronds pour la suppression, l'édition et les détails (index)*/
+.btn-circle {
+    border-radius: 100%;
+    height: 2.5rem;
+    width: 2.5rem;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-sm > .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+.btn-circle.btn-sm, .btn-group-sm > .btn-circle.btn {
+    height: 1.8rem;
+    width: 1.8rem;
+    font-size: 0.75rem;
 }

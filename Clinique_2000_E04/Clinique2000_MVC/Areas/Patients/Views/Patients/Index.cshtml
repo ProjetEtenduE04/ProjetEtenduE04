@@ -4,8 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="" >
-    <h1 class="text-center" style="margin:50px 0">Liste de patients</h1>
+<div class="margin-container-index">
+    <h1 class="text-center">Liste de patients</h1>
 
     <div class="row">
         <div class="col-1"></div>
@@ -18,8 +18,8 @@
         </div>
         <div class="col-10">
             <div class="card mb-4">
-                <div class="card-header h4 text-light">
-                    <i class="fa-solid fa-hospital-user" style="color: #fff;"></i>
+                <div class="card-header card-header-datatables h4 text-light">
+                    <i class="fa-solid fa-hospital-user me-1" style="color: #fff;"></i>
                     Patients enregistrés
                 </div>
                 <div class="card-body">
@@ -82,10 +82,15 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.UserId)
                                         </td>
-                                        <td>
+@*                                        <td>
                                             <a asp-action="Edit" asp-route-id="@item.PatientId">Edit</a> |
                                             <a asp-action="Details" asp-route-id="@item.PatientId">Details</a> |
                                             <a asp-action="Delete" asp-route-id="@item.PatientId">Delete</a>
+                                        </td>*@
+                                        <td class="" style="width: 100px;">
+                                            <a class="btn btn-warning btn-circle btn-sm" asp-action="Edit" asp-route-id="@item.PatientId"><i class="fa-solid fa-pen"></i></a>
+                                            <a class="btn btn-info btn-circle btn-sm" asp-action="Details" asp-route-id="@item.PatientId"><i class="fa-solid fa-info fa-lg"></i></a>
+                                            <a class="btn btn-danger btn-circle btn-sm" asp-action="Delete" asp-route-id="@item.PatientId"> <i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 }
