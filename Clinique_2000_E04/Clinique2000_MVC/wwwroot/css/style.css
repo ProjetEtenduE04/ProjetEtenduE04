@@ -1103,7 +1103,7 @@ table td {
 .custom-popover {
     --bs-popover-max-width: 200px;
     --bs-popover-border-color: #023373;
-    --bs-popover-header-bg: #132640;
+    --bs-popover-header-bg: #023b6d;
     --bs-popover-header-color: white;
     --bs-popover-body-padding-x: 1rem;
     --bs-popover-body-padding-y: .5rem;
@@ -1118,6 +1118,11 @@ table td {
     max-width: 20rem;
     margin-top:40px;
     margin-bottom :15px;
+}
+
+.margin-container-index{
+    margin-top:60px;
+    margin-bottom: 60px;
 }
 /*nav menu dropdown*/
 .dropdown-item {
@@ -1274,3 +1279,76 @@ table td {
         text-decoration: none;
         cursor: pointer;
     }
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/*Card header styles*/
+.card-header-datatables {
+    background: linear-gradient(91deg, #023373 0%, rgba(65, 142, 242, 0.80) 38.56%, rgba(255, 255, 255, 0.00) 102.51%);
+}
+.card-header-animated {
+    display: flex;
+    align-items: center;
+
+    background-size: 300% 300%;
+    background-image: linear-gradient(-45deg, #b7d6ff 0%, #b3c8e4 25%, #fff 51%, #b2dbff 100%);
+    -webkit-animation: AnimateBG 20s ease infinite;
+    animation: AnimateBG 20s ease infinite;
+}
+
+@-webkit-keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+/* petits boutons ronds pour la suppression, l'édition et les détails (index)*/
+.btn-circle {
+    border-radius: 100%;
+    height: 2.5rem;
+    width: 2.5rem;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-sm > .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+.btn-circle.btn-sm, .btn-group-sm > .btn-circle.btn {
+    height: 1.8rem;
+    width: 1.8rem;
+    font-size: 0.75rem;
+}

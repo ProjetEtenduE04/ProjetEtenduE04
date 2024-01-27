@@ -9,12 +9,19 @@ namespace Clinique2000_Utility.Constants
         public const int AgeMajorite = 14;
 
         public static string CsvFilePath =
-         @"D:\Clinique2000\Clinique_2000\Clinique_2000_E04\Clinique2000_Utility\CodesPostauxQuebec\QuebecPostalCodes202312.csv";
-         //@"M:\Projet\Clone\Clinique_2000\Clinique_2000_E04\Clinique2000_Utility\CodesPostauxQuebec\QuebecPostalCodes202312.csv";
+        //@"D:\Clinique2000\Clinique_2000\Clinique_2000_E04\Clinique2000_Utility\CodesPostauxQuebec\QuebecPostalCodes202312.csv";
+        @"M:\Projet\Clone\Clinique_2000\Clinique_2000_E04\Clinique2000_Utility\CodesPostauxQuebec\QuebecPostalCodes202312.csv";
+
+        /// <summary> 
+        /// Toastr Messages  
+        /// </summary> 
+        public const string Success = "Success";
+        public const string Error = "Error";
+        public const string Info = "Info";
 
         //Rôles
         public const string SuperAdminRole = "SuperAdmin";
-        public const string AAdminCliniqueRole = "AdminClinique";
+        public const string AdminCliniqueRole = "AdminClinique";
         public const string MedicinRole = "Medecin";
         public const string PacientRole = "Pacient";
 

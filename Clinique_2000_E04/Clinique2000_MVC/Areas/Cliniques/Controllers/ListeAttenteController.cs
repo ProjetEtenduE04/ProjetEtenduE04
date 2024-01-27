@@ -26,7 +26,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
 
         /// <summary>
-        /// Obtient tout les listes d'Attente ordered par date d'effectivit� ,
+        /// Obtient tout les listes d'Attente ordered par date d'effectivité ,
         /// qui sont pertinantes a la receptionniste
         /// , puis les renvoie a la vue.
         /// </summary>
@@ -141,7 +141,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 {
                     listeAttente.CliniqueID = 2;
                     await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
-                    //valeur hardcod�
+                    //valeur hardcodé
                   
 
 
@@ -190,7 +190,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //hardcod�
+                    //hardcodé
                     listeAttente.CliniqueID = 1;
 
 

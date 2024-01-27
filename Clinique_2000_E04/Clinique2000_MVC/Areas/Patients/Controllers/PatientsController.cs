@@ -32,7 +32,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // GET: PatientsController
         public async Task<IActionResult> Index()
         {
-            //return View(); 
+
             var listeDePatients = await _services.patient.ObtenirToutAsync();
 
             return View("Index", listeDePatients);
@@ -46,9 +46,12 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             {
                 return View("NotFound");
             }
+
             var patientDetails = await _services.patient.ObtenirParIdAsync(id);
+
             if (patientDetails == null)
             {
+                TempData[AppConstants.Info] = $"Désolé, mais le patient n'a pas été trouvé dans notre base de données.";
                 return View("NotFound");
             }
             return View(patientDetails);
@@ -67,10 +70,12 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                     {
                         UserId = user.Id
                     };
-
+                    TempData[AppConstants.Info] = $"Pour bénéficier de tous nos services, veuillez créer un dossier patient.";
                     return View(patientModel);
                 }
+
                 TempData[AppConstants.Info] = $"Vous êtes déjà inscrit comme patient.";
+
                 var patient = await _services.patient.GetPatientParUserIdAsync(user.Id);
                 return RedirectToAction("Details", "Patients", new { id = patient.PatientId });
         }
@@ -85,20 +90,22 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 if (ModelState.IsValid)
                 {
                     await _services.patient.EnregistrerOuModifierPatient(patient);
+
                     TempData[AppConstants.Success] = $"Vous avez créé avec succès le dossier du patient.";
+
                     return RedirectToAction(nameof(Index));
                 }
+
                 TempData[AppConstants.Error] = $"Les champs obligatoires n'ont pas été remplis correctement";
+
                 return View(patient);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("Error", ex.Message);
-                TempData[AppConstants.Error] = $"Eroare ${ex.Message}";
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
                 return View(patient);
             }
-
-
         }
 
         // GET: PatientsController/Edit/5
@@ -114,14 +121,15 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
                 if (patient == null)
                 {
+                    TempData[AppConstants.Info] = $"Désolé, mais le patient n'a pas été trouvé dans notre base de données.";
                     return View("NotFound");
                 }
                 return View(patient);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("Error", ex.Message);
-                TempData[AppConstants.Error] = $"Eroare ${ex.Message}";
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -140,6 +148,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    var patientInit = await _services.patient.ObtenirPatientParNAMAsync(patient.NAM);
                     try
                     {
                         await _services.patient.EnregistrerOuModifierPatient(patient);
@@ -152,16 +161,20 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                         }
                         else
                         {
+                            TempData[AppConstants.Error] = $"Conflit de concurrence: les données ont été modifiées par une autre opération depuis le dernier chargement.";
                             throw;
                         }
                     }
+                    TempData[AppConstants.Success] = $"Les données du patient {patientInit.Nom} {patientInit.Prenom} ont été modifiées avec succès";
                     return RedirectToAction(nameof(Index));
                 }
+                TempData[AppConstants.Error] = $"Les champs obligatoires n'ont pas été remplis correctement";
                 return View(patient);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("Error", ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur {ex.Message}";
                 return View(patient);
             }
         }
@@ -182,10 +195,15 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                     return View(patient);
                 }
                 else
+                {
+                    TempData[AppConstants.Info] = $"Désolé, mais le patient n'a pas été trouvé dans notre base de données.";
                     return View("NotFound");
+                }
             }
-            catch
+            catch(Exception ex)
             {
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -203,11 +221,13 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 {
                     await _services.patient.SupprimerAsync(patientId);
                 }
+                TempData[AppConstants.Success] = $"Le dossier du patient {patient.Nom} {patient.Prenom} a été supprimé avec succès.";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("Error", ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
                 return View();
             }
         }
