@@ -691,9 +691,7 @@ divider-2 {
     height: 100%;
 }
 
-#watch {
-    /*border-radius: 10px;*/
-    /*box-shadow: 0 5px 15px rgba(0,0,0,0.1);*/
+#heroDetails #watch {
     padding: 10px;
     margin: 0px;
     font-size: 3em;
@@ -1351,4 +1349,40 @@ table td {
     height: 1.8rem;
     width: 1.8rem;
     font-size: 0.75rem;
+}
+
+/*Liste Salle Attente*/
+#copyright2 {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    gap:20px;
+    background: #2567bd;
+    padding: 0 50px;
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+}
+
+#copyright2 #watch {
+    flex:1;
+    padding: 10px;
+    margin: 0px;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: end;
+    display: inline-block;
+    z-index: 999;
+    position: relative;
+    width:fit-content;
+   
+}
+
+#salle attente {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }

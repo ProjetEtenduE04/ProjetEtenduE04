@@ -1,0 +1,87 @@
+@model Clinique2000_Core.ViewModels.ListeAttenteVM
+
+@{
+    Layout = "_LayoutSalleAttente";
+}
+
+@{
+    int contador = 1;
+}
+
+
+<section id="salle-attente">
+   
+    <h1 class="text-center justify-content-center d-block my-5">@Model.ListeAttente.Clinique.NomClinique</h1>
+
+    <a class="text-center justify-content-center d-block my-5" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="ChangerConsultationStatut" asp-route-consultaionID=@Model.Consultations[0].ConsultationID> Passer le prochain patient</a>
+    
+
+
+<div class="container">
+        <table class="table mb-2 pb-0 mx-5" id="dataTable">
+            <thead>
+                <tr class="row-7">
+                    <th class="col-1 text-center me-5">
+                        Ordre
+                    </th>
+                    <th class="col-2 text-start ms-5">
+                        Patient
+                    </th>
+
+                    <th class="col-2 text-center">
+                        Heure de consultation
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var consultation in Model.Consultations)
+
+                {
+                    <tr class="row-7">
+                        <td class="col-1 text-center me-5">
+                            @(contador++)
+                        </td>
+
+                        <td class="col-2 text-start ms-5">
+                            @consultation.Patient.Prenom @consultation.Patient.Nom[0].
+                        </td>
+
+                        <td class="col-2 text-center">
+                            @consultation.HeureDateDebutPrevue.ToString("HH:mm")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+@*<script>
+    document.addEventListener('DOMContentLoaded', function () {
+       
+        function actualiserContenu() {
+            console.log("Tentative de mise jour du contenu...");
+            fetch('https://localhost:7240/Cliniques/ListeAttente/IndexlisteSalleAttente?listeAttenteID=1')
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (html) {
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(html, "text/html");
+                    var nouveauContenu = doc.querySelector('#salle-attente').innerHTML;
+
+                    document.getElementById('salle-attente').innerHTML = nouveauContenu;
+                   
+                    $('#dataTable').DataTable({});
+                })
+                .catch(function (err) {
+                    console.warn('Erreur lors du chargement de la section :', err);
+                });
+        }
+
+        
+        setInterval(actualiserContenu, 6000);
+        actualiserContenu();
+    });
+</script> *@ 

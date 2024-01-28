@@ -389,7 +389,32 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             return View("ReservationSuccess", consultation);
         }
 
+        public  async Task<IActionResult> IndexlisteSalleAttente(int listeAttenteID)
+        {
+            ListeAttenteVM listeSalleAttenteVM = new ListeAttenteVM();
+            if (listeAttenteID > 0)
+            {
+                listeSalleAttenteVM = await _services.listeAttente.GetListeSalleAttenteOrdonnee(listeAttenteID);
+                if (listeSalleAttenteVM == null)
+                {
+                    return NotFound();
+                }
+                return View(listeSalleAttenteVM);
 
+            }
+            else
+           
+            return View("NotFound");
 
+        }
+
+        public async Task<IActionResult>  ChangerConsultationStatut(int consultaionID)
+        {
+            var ListeSalleAttenteVM = await _services.listeAttente.ChangerStatutConsultation(consultaionID);
+           
+
+           return View("IndexlisteSalleAttente",ListeSalleAttenteVM);
+
+        }
     }
 }

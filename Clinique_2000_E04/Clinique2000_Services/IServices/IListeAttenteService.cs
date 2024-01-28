@@ -24,9 +24,7 @@ namespace Clinique2000_Services.IServices
         Task SupprimmerListeAttente(ListeAttente listeAttente);
         bool PeutSupprimmer(ListeAttente listeAttente);
         Task<ListeAttenteVM> GetListeAttenteOrdonnee(int listeAttenteID);
-
-
-
-
+        Task<ListeAttenteVM> GetListeSalleAttenteOrdonnee(int listeAttenteID);
+        Task<ListeAttenteVM> ChangerStatutConsultation(int consultaionID);
     }
 }

@@ -144,7 +144,7 @@ namespace Clinique2000_TestsUnitaires
             var result = await controller.Details(1);
 
             // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);//devuelve type VM
+            var viewResult = Assert.IsType<ViewResult>(result);//retourne type VM
             var model = Assert.IsType<ListeAttenteVM>(viewResult.Model);
             Assert.Equal(listeAttenteAttendue.ListeAttenteID, model.ListeAttente.ListeAttenteID);
         }
