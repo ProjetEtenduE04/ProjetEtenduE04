@@ -853,6 +853,9 @@ namespace Clinique2000_DataAccess.Seeds
                 NAM = "PORT 3443 3433",
                 CodePostal = "J4J 1H6",
                 DateDeNaissance = new DateTime(1980, 8, 8),
+                Age = 44,
+                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4"
+            });
 
             builder.Entity<Patient>().HasData(new Patient()
             {

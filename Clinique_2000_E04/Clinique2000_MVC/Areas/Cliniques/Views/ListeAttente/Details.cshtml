@@ -37,7 +37,7 @@
         <div class="generer-plages-horaires">
             <form class="my-3" asp-action="AjouterDesPlagesHoraires" asp-controller="ListeAttente" method="post">
                 <input type="hidden" name="id" value="@Model.ListeAttente.ListeAttenteID" />
-                <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") /> 
+                <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "" : "d-none") /> 
             </form>
             <a class="btn btn-secondaire btn-action my-3" asp-action="Index" asp-controller="Home" asp-area="" >Retour à l'accueil</a>
         </div>
