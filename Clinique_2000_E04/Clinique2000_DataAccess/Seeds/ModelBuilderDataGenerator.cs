@@ -89,7 +89,7 @@ namespace Clinique2000_DataAccess.Seeds
              new Clinique()
              {
                  CliniqueID = 1,
-                 NomClinique = "CliniqueA",
+                 NomClinique = "Clinique Médicale Horizon",
                  Courriel = "test@clinique2000.com",
                  HeureOuverture = new TimeSpan(8, 0, 0),
                  HeureFermeture = new TimeSpan(17, 0, 0),

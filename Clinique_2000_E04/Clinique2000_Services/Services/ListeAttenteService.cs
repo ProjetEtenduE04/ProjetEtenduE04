@@ -38,7 +38,8 @@ namespace Clinique2000_Services.Services
             {
                 throw new ValidationException("La liste n'est pas valide");
             }
-            else {
+            else
+            {
                 await CreerAsync(listeAttente);
                 return listeAttente;
             }
@@ -80,7 +81,7 @@ namespace Clinique2000_Services.Services
                 return true;
             else
                 return false;
-  
+
         }
 
 
@@ -94,9 +95,9 @@ namespace Clinique2000_Services.Services
         public async Task SupprimmerListeAttente(ListeAttente listeAttente)
         {
 
-             _context.ListeAttentes.Remove(listeAttente);
+            _context.ListeAttentes.Remove(listeAttente);
             await _context.SaveChangesAsync();
-          
+
         }
 
         /// <summary>
@@ -130,9 +131,9 @@ namespace Clinique2000_Services.Services
         /// <returns></returns>
         public bool ListeAttenteIsValid(ListeAttente listeAttente)
         {
-           
-                if (!VerifierSiListeAttenteEstCree(listeAttente) ||
-                !VerifierSiNbMedecinsDisponibles(listeAttente))
+
+            if (!VerifierSiListeAttenteEstCree(listeAttente) ||
+            !VerifierSiNbMedecinsDisponibles(listeAttente))
             {
                 return false;
             }
@@ -185,7 +186,7 @@ namespace Clinique2000_Services.Services
             DateTime heureDebut = listeAttente.DateEffectivite.Date.Add(listeAttente.HeureOuverture);
             DateTime finService = listeAttente.DateEffectivite.Date.Add(listeAttente.HeureFermeture);
             PlageHoraire plageHoraire;
-            
+
             while (heureDebut < finService)
             {
                 DateTime nouvelleHeureFin = heureDebut.AddMinutes((double)listeAttente.Clinique.TempsMoyenConsultation);
@@ -193,7 +194,7 @@ namespace Clinique2000_Services.Services
                 {
                     HeureDebut = heureDebut,
                     HeureFin = nouvelleHeureFin,
-                    ListeAttente= listeAttente
+                    ListeAttente = listeAttente
 
                 };
                 _context.PlagesHoraires.Add(plageHoraire);
@@ -223,23 +224,23 @@ namespace Clinique2000_Services.Services
 
         public async Task<ListeAttenteVM> GetListeAttenteOrdonnee(int listeAttenteID)
         {
-           var listeAttente = await _context.ListeAttentes
-                                    .FirstOrDefaultAsync(la => la.ListeAttenteID== listeAttenteID);
-            
+            var listeAttente = await _context.ListeAttentes
+                                     .FirstOrDefaultAsync(la => la.ListeAttenteID == listeAttenteID);
+
             if (listeAttente == null)
             {
                 throw new Exception("La liste d'attente n'existe pas");
             }
 
 
-           var plagesHoraires = await _context.PlagesHoraires
-                                      .Where(ph=> ph.ListeAttenteID == listeAttenteID)
-                                      .OrderBy(ph => ph.PlageHoraireID)
-                                      //.SkipWhile(ph => ph.Consultations.All(c => c.StatutConsultation != StatutConsultation.DisponiblePourReservation))
-                                     
-                                      .ToListAsync();
+            var plagesHoraires = await _context.PlagesHoraires
+                                       .Where(ph => ph.ListeAttenteID == listeAttenteID)
+                                       .OrderBy(ph => ph.PlageHoraireID)
+                                       //.SkipWhile(ph => ph.Consultations.All(c => c.StatutConsultation != StatutConsultation.DisponiblePourReservation))
 
-            
+                                       .ToListAsync();
+
+
             var index = plagesHoraires.FindIndex(ph => ph.Consultations.Any(c => c.StatutConsultation == StatutConsultation.DisponiblePourReservation));
             if (index != -1)
             {
@@ -263,7 +264,7 @@ namespace Clinique2000_Services.Services
                 PlagesHoraires = plagesHoraires
             };
 
-            return listeAttenteVM; 
+            return listeAttenteVM;
         }
 
 
@@ -283,21 +284,21 @@ namespace Clinique2000_Services.Services
                                        .Where(ph => ph.ListeAttenteID == listeAttenteID).ToListAsync();
 
 
-           List<Consultation> consultations = await _context.Consultations
-                                                           .Where(c => c.PlageHorarie.ListeAttenteID == listeAttenteID && c.StatutConsultation == StatutConsultation.EnAttente)
-                                                           .OrderBy(c => c.HeureDateDebutPrevue)
-                                                           .ThenBy(c => c.Patient.Prenom)
-                                                           .ThenBy(c => c.Patient.Nom)
-                                                           .ToListAsync();
-        
-           
+            List<Consultation> consultations = await _context.Consultations
+                                                            .Where(c => c.PlageHorarie.ListeAttenteID == listeAttenteID && c.StatutConsultation == StatutConsultation.EnAttente)
+                                                            .OrderBy(c => c.HeureDateDebutPrevue)
+                                                            .ThenBy(c => c.Patient.Prenom)
+                                                            .ThenBy(c => c.Patient.Nom)
+                                                            .ToListAsync();
+
+
 
             var listeSalleAttente = new ListeAttenteVM
             {
                 ListeAttente = listeAttente,
                 PlagesHoraires = plagesHoraires,
-                Consultations=consultations
-                
+                Consultations = consultations
+
             };
 
             return listeSalleAttente;
@@ -307,5 +308,27 @@ namespace Clinique2000_Services.Services
 
 
         }
+
+
+        public async Task<ListeAttenteVM> ChangerStatutConsultation(int consultaionID)
+        {
+            Consultation consultation =  _context.Consultations.FirstOrDefault(c=>c.ConsultationID == consultaionID);
+
+            if (consultation != null)
+            {
+                consultation.StatutConsultation = StatutConsultation.EnCours;
+                await _context.SaveChangesAsync();
+
+                ListeAttenteVM nouvelleListeAttenteVM= await GetListeSalleAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
+                return nouvelleListeAttenteVM;
+                
+            }
+            
+            return null;
+
+        }
+    
     }
+
+
 }

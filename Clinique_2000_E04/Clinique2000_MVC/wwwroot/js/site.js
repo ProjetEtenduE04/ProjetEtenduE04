@@ -159,4 +159,40 @@ const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 const popover = new bootstrap.Popover('.popover-dismiss', {
     trigger: 'focus'
-})
+});
+//function actualiserHeure() {
+//    console.log("Mise a jour heure site ok");
+//    var now = new Date();
+//    var hour = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
+//    document.getElementById('watch').innerText = hour;
+//}
+//setInterval(actualiserHeure, 6000);
+//actualiserHeure();
+//document.addEventListener('DOMContentLoaded', function () {
+
+//    function actualiserContenu() {
+//        console.log("Mise a jour site ok");
+//        fetch('https://localhost:7240/Cliniques/ListeAttente/IndexlisteSalleAttente?listeAttenteID=1')
+//            .then(function (response) {
+//                return response.text();
+//            })
+//            .then(function (html) {
+//                var parser = new DOMParser();
+//                var doc = parser.parseFromString(html, "text/html");
+//                var nouveauContenu = doc.querySelector('#salle-attente').innerHTML;
+
+//                document.getElementById('salle-attente').innerHTML = nouveauContenu;
+
+//                $('#dataTable').DataTable({});
+//            })
+//            .catch(function (err) {
+//                console.warn('Erreur lors du chargement de la section :', err);
+//            });
+//    }
+
+
+//    setInterval(actualiserContenu, 6000);
+
+//});
+
+//actualiserHeure();
