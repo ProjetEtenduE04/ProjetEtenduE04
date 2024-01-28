@@ -6,6 +6,7 @@ using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -126,6 +127,11 @@ namespace Clinique2000_TestsUnitaires
         public async Task Details_AvecInvalidId_RenvoieNotFoundResult()
         {
             // Arrange
+            //mock tempData
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            _cliniqueControllerMock.TempData = tempDataMock.Object;
+
             int? invalidClinicId = null;
             _servicesMock.Setup(s => s.clinique.ObtenirToutAsync()).ReturnsAsync(_listeCliniques);
 
@@ -176,6 +182,10 @@ namespace Clinique2000_TestsUnitaires
         public async Task Create_Post_ModelStateValid_EnregistreCliniqueEtRedirigeVersDetails()
         {
             // Arrange
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            _cliniqueControllerMock.TempData = tempDataMock.Object;
+
             var viewModel = new CliniqueAdresseVM
             {
                 Clinique = _listeCliniques.FirstOrDefault(),
@@ -204,6 +214,11 @@ namespace Clinique2000_TestsUnitaires
         public async Task Create_PostModeWithInvalidModel_RenvoieVueAvecMemeModele()
         {
             // Arrange
+            //mock tempData
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            _cliniqueControllerMock.TempData = tempDataMock.Object;
+
             var viewModel = new CliniqueAdresseVM
             {
                 Clinique = _listeCliniques.FirstOrDefault(),
@@ -253,20 +268,25 @@ namespace Clinique2000_TestsUnitaires
         public async Task IndexPourPatients_RetourneLaVueApproprieeAvecCliniques()
         {
             // Arrange
+            //mock tempData
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            _cliniqueControllerMock.TempData = tempDataMock.Object;
+
             var mockCliniqueList = new List<CliniqueDistanceVM>
-    {
-        new CliniqueDistanceVM
-        {
-            Clinique = new Clinique { CliniqueID = 1, NomClinique = "Clinic1", EstActive = true },
-            Distance = 10.0 // Example distance
-        },
-        new CliniqueDistanceVM
-        {
-            Clinique = new Clinique { CliniqueID = 2, NomClinique = "Clinic2", EstActive = true },
-            Distance = 20.0 // Example distance
-        }
+            {
+                new CliniqueDistanceVM
+                {
+                    Clinique = new Clinique { CliniqueID = 1, NomClinique = "Clinic1", EstActive = true },
+                    Distance = 10.0 // Example distance
+                },
+                new CliniqueDistanceVM
+                {
+                    Clinique = new Clinique { CliniqueID = 2, NomClinique = "Clinic2", EstActive = true },
+                    Distance = 20.0 // Example distance
+                }
       
-    };
+            };
 
             _servicesMock.Setup(s => s.patient.UserAuthEstPatientAsync()).ReturnsAsync(true);
             _servicesMock.Setup(s => s.clinique.ObtenirToutAsync()).ReturnsAsync(new List<Clinique>());

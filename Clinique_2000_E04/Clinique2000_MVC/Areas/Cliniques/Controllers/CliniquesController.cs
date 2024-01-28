@@ -46,6 +46,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             if (id == null || await _services.clinique.ObtenirToutAsync() == null)
             {
+                TempData[AppConstants.Warning] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
                 return View("NotFound");
             }
 
@@ -53,7 +54,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             if (clinique == null)
             {
-                TempData[AppConstants.Info] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
+                TempData[AppConstants.Warning] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
                 return View("NotFound");
             }
 
@@ -121,7 +122,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
                 if (clinique == null)
                 {
-                    TempData[AppConstants.Info] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
+                    TempData[AppConstants.Warning] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
                     return View("NotFound");
                 }
 
@@ -182,16 +183,18 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 if (id == null || await _services.clinique.ObtenirToutAsync() == null)
                 {
+                    TempData[AppConstants.Warning] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
                     return View("NotFound");
                 }
 
                 var cliniqueASupprimer = await _services.clinique.ObtenirParIdAsync(id);
                 if (cliniqueASupprimer == null)
                 {
-                    TempData[AppConstants.Info] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
+                    TempData[AppConstants.Warning] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
                     return View("NotFound");
-                }
+                } 
 
+                TempData[AppConstants.Warning] = $"Vous êtes sûr de vouloir supprimer cette clinique?";
                 return View(cliniqueASupprimer);
             }
             catch (Exception ex)
