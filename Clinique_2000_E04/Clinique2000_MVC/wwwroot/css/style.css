@@ -1329,6 +1329,26 @@ table td {
         background-position: 0% 50%;
     }
 }
+
+.animated-text {
+    font-size: 36px;
+    font-weight: bold;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(90deg, #afe7ff, #1fffc4, #9FE2FF);
+    background-size: 200% 100%;
+    animation: gradientAnimation 10s linear infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
 /* petits boutons ronds pour la suppression, l'édition et les détails (index)*/
 .btn-circle {
     border-radius: 100%;
@@ -1386,3 +1406,51 @@ table td {
     align-items: center;
     height: 100vh;
 }
+/*DATATABLES STYLE CUSTOM*/
+.green-rows {
+    background-color: #66D9A3; /* sau culoarea verde dorită */
+}
+/*Start : Styles pour la montre et la page ListeSalleDAttente */
+/*---------------------*/
+.font-color-clock{
+  background: linear-gradient(to bottom,#2980b9,#2c3e50);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.content-clock div {
+    padding: 5px 0;
+    right: 115px;
+}
+
+.timeDiv{
+  position: relative;
+}
+
+#time{
+  text-shadow: 0 0 55px #2980b9;
+  font-size: 4.5rem;
+}
+
+#med{
+  position:absolute;
+  top: 15px;
+  right: -35px;
+}
+
+.dayDiv{
+  display:inline;
+  margin-right :20px
+}
+
+.dayDiv span{
+  font-size: 0.9rem;
+  opacity: 0.4;
+  margin:0 3px;
+}
+.date-complet {
+    margin-right:22px
+}
+/*End : Styles pour la montre et la page ListeSalleDAttente */
+/*---------------------*/
