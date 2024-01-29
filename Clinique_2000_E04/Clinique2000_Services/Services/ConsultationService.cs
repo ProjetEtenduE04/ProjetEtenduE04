@@ -57,8 +57,36 @@ namespace Clinique2000_Services.Services
             consultation.PatientID = patientId;
             consultation.StatutConsultation = StatutConsultation.EnAttente;
 
+            await VerifierSiConsultationsSontToutReserves(consultation.PlageHorarie.ListeAttenteID);
+
             await _context.SaveChangesAsync();
+
         }
+
+        /// <summary>
+        /// Verifie si la liste dattente doit etre fermee ou non en consequence du statut des consultations
+        /// </summary>
+        /// <param name="listeattenteid"></param>
+        /// <returns>true si tout les consultations sont reserves
+        /// false si ils le sont pas tous</returns>
+        public async Task<bool> VerifierSiConsultationsSontToutReserves(int listeattenteid)
+        {
+
+            ListeAttente listeAttente = _context.ListeAttentes.Where(x => x.ListeAttenteID == listeattenteid).FirstOrDefaultAsync().Result;
+
+            if (listeAttente.Consultations.Any(x => x.StatutConsultation != StatutConsultation.DisponiblePourReservation))
+            {
+                listeAttente.IsOuverte = false;
+            }
+            else
+            {
+                listeAttente.IsOuverte = true;
+            }
+
+            return true;
+        }
+
+
 
         /// <summary>
         /// Récupère de manière asynchrone la plage horaire et la liste d'attente associées à un identifiant de consultation donné.

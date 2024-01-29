@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Clinique2000_Services.IServices
 {
-    public interface IConsultationService:IServiceBaseAsync<Consultation>
+    public interface IConsultationService : IServiceBaseAsync<Consultation>
     {
         Task ReserverConsultationAsync(int consultationId);
         Task<(PlageHoraire, ListeAttente)> ObtenirPlageHoraireEtListeAttenteAsync(int consultationId);
@@ -16,5 +16,7 @@ namespace Clinique2000_Services.IServices
         string ObtenirIdUtilisateur();
         Task<int> ObtenirIdPatientDepuisUtilisateurAsync(string userId);
         Task<bool> PatientAConsultationPlanifieeAsync(int patientId);
+
+        Task<bool> VerifierSiConsultationsSontToutReserves(int listeattenteid);
     }
 }
