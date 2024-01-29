@@ -99,6 +99,9 @@
                 <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "" : "d-none") /> 
             </form>
             <a class="btn btn-secondaire btn-action my-3" asp-action="Index" asp-controller="Home" asp-area="" >Retour à l'accueil</a>
+            <a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="IndexlisteSalleAttente" asp-route-listeAttenteID=1 id="rv" class="ms-0 px-3 btn-create">
+                Voir Liste Salle d'attente'
+            </a>
         </div>
     </div>
 </section>
