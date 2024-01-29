@@ -1,4 +1,7 @@
 @using System.Security.Claims;
+@using Clinique2000_MVC.Models;
+@using Clinique2000_Utility.Enum
+@model Patient;
 
 
 
@@ -6,6 +9,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var estConnecte = User.Identity.IsAuthenticated;
+    var estPatient = Model != null;
+    
 }
 
 <section class="hero-home" data-aos="fade-up">
@@ -32,11 +37,27 @@
                 <p>Vous pouvez facilement vous connecter a notre systeme avec un simple clic <br />
                     avec votre compte gmail. Simple et secour. </p>
             }
-            else if (estConnecte)
+            else if (estConnecte && !estPatient)
             {  <a asp-area="Patients" asp-controller="Patients" asp-action="Create" class="btn btn-create ms-0 px-3">
                     Inscrivez-vous pour un Rendez-Vous
                 </a>
             }
+            else if (estConnecte && estPatient)
+            {
+                var aRendezVous = Model.Consultations.Any(p => p.StatutConsultation == StatutConsultation.EnAttente);
+                if (!aRendezVous)
+                {
+                    <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="IndexCliniquesAProximite" class="btn btn-create ms-0 px-3">
+                        Prendre un Rendez-Vous
+                </a>
+                }
+                else{
+                    <a asp-area="Patients" asp-controller="Patients" asp-action="Create" class="btn btn-create ms-0 px-3">
+                        Voir votre Rendez-Vous
+                    </a>
+                }
+            }
+            
         </div>
     </div>
 </section>

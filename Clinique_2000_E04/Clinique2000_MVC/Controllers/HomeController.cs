@@ -1,7 +1,9 @@
+using Clinique2000_Core.Models;
 using Clinique2000_MVC.Models;
 using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Clinique2000_MVC.Controllers
 {
@@ -15,10 +17,22 @@ namespace Clinique2000_MVC.Controllers
             _services = services;
         }
 
-        public IActionResult Index(int? id)
+        public async Task<IActionResult> Index()
         {
-            return View();
-              
+           
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return View();
+                }
+
+                var estPatient = await _services.patient.GetPatientParUserIdAsync(userId);
+                if (estPatient == null)
+                {
+                    return View();
+                }
+
+                return View(estPatient);
         }
 
         public IActionResult Privacy()
