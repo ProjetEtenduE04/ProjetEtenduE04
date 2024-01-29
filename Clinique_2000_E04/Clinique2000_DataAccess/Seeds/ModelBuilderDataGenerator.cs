@@ -171,14 +171,14 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 1,
-                CliniqueID = 1, // You can set the CliniqueID here if needed, otherwise remove this line
-                IsOuverte = true,
+                CliniqueID = 1,
+                IsOuverte = false,
                 DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
                 DureeConsultationMinutes = 30,
-            });
+            }); 
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {

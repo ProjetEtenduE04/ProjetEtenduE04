@@ -57,7 +57,7 @@ namespace Clinique2000_Services.Services
             consultation.PatientID = patientId;
             consultation.StatutConsultation = StatutConsultation.EnAttente;
 
-            //await VerifierSiConsultationsSontToutReserves(consultation.PlageHorarie.ListeAttenteID);
+            await VerifierSiConsultationsSontToutReserves(consultation.PlageHorarie.ListeAttenteID);
 
             await _context.SaveChangesAsync();
 
