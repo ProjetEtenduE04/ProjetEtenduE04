@@ -1418,6 +1418,13 @@ table td {
   background-clip: text;
   -webkit-background-clip: text;
 }
+.font-color-clock-white {
+    background: linear-gradient(to bottom,#fff,#f1ffff);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-family:"Mukta"
+}
 
 .content-clock div {
     padding: 5px 0;
