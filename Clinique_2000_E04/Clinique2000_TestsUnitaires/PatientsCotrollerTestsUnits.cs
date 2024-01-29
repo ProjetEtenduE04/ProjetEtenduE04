@@ -160,14 +160,16 @@ namespace Clinique2000_TestsUnitaires
         public async Task Create_Post_ModelStateInvalid_ReturnsView()
         {
             // Arrange
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            _patientsController.TempData = tempDataMock.Object;
+
             var patientInvalid = _patientsList.FirstOrDefault();
             patientInvalid.DateDeNaissance = DateTime.Now;
 
             _patientsController.ModelState.AddModelError("Error", "Model State est invalide");
 
-            var tempDataMock = new Mock<ITempDataDictionary>();
-            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("valoareMockata");
-            _patientsController.TempData = tempDataMock.Object;
+
             // Act
             var result = await _patientsController.Create(patientInvalid);
 
@@ -223,7 +225,9 @@ namespace Clinique2000_TestsUnitaires
         public async Task Edit_Get_ReturnsNotFound_LorsqueIdNull()
         {
             // Arrange
-
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            _patientsController.TempData = tempDataMock.Object;
             // Act
             var result = await _patientsController.Edit(null);
 
@@ -239,6 +243,10 @@ namespace Clinique2000_TestsUnitaires
         public async Task Edit_ReturnNotFound_Lorsque_PatientEstNull()
         {
             // Arrange
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            _patientsController.TempData = tempDataMock.Object;
+
             int id = 1;
             var patient = _patientsList.FirstOrDefault();
             _servicesMock.Setup(service => service.patient.ObtenirParIdAsync(id)).ReturnsAsync((Patient)null);

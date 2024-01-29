@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
+using Clinique2000_Utility.Constants;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
@@ -74,7 +75,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 Consultation consultation = await _services.consultation.ObtenirParIdAsync(id);
                 return View(consultation);
             }
-            return NotFound();
+            TempData[AppConstants.Warning] = $"Désolé, mais la Consultation n'a pas été trouvée.";
+            return View("NotFound");
 
         }
 
@@ -236,11 +238,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 //await _services.consultation.GenererPlagesHorairesAsync(ID);
 
                 model = await _services.consultation.ObtenirParIdAsync(ID);
-
+                TempData[AppConstants.Success] = $"Les plages horaires ont été générées avec succès.";
                 return View("Details", model);
 
             }
-            return NotFound();
+            TempData[AppConstants.Warning] = $"Désolé, mais la consultation n'a pas été trouvée.";
+            return View("NotFound");
         }
 
 
