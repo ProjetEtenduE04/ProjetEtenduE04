@@ -36,7 +36,7 @@ namespace Clinique2000_TestsUnitaires
                             HeureOuverture = new TimeSpan(9, 0, 0),
                             HeureFermeture = new TimeSpan(17, 0, 0),
                             NbMedecinsDispo = 5,
-                            DureeConsultationMinutes = 30,
+                            //DureeConsultationMinutes = 30,
                             CliniqueID = 1
                         },
                         new ListeAttente
@@ -47,7 +47,7 @@ namespace Clinique2000_TestsUnitaires
                             HeureOuverture = new TimeSpan(8, 30, 0),
                             HeureFermeture = new TimeSpan(16, 30, 0),
                             NbMedecinsDispo = 4,
-                            DureeConsultationMinutes = 45,
+                            //DureeConsultationMinutes = 45,
                             CliniqueID = 2
                         }
                     };
@@ -127,7 +127,7 @@ namespace Clinique2000_TestsUnitaires
                 HeureOuverture = new TimeSpan(9, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 15,
+                //DureeConsultationMinutes = 15,
                 CliniqueID = 101,
                 PlagesHoraires=new List<PlageHoraire>(),
             };
@@ -171,7 +171,7 @@ namespace Clinique2000_TestsUnitaires
                 HeureOuverture = new TimeSpan(9, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 15,
+                //DureeConsultationMinutes = 15,
                 CliniqueID = 101,
             };
 
@@ -206,7 +206,7 @@ namespace Clinique2000_TestsUnitaires
                 HeureOuverture = new TimeSpan(9, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 5,
-                DureeConsultationMinutes = 30,
+                //DureeConsultationMinutes = 30,
             };
             mockService.Setup(s => s.listeAttente.ObtenirParIdAsync(1)).ReturnsAsync(listeAttenteTest);
 
@@ -236,7 +236,7 @@ namespace Clinique2000_TestsUnitaires
                 HeureOuverture = new TimeSpan(9, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 5,
-                DureeConsultationMinutes = 30,
+                //DureeConsultationMinutes = 30,
             };
             // Set up the mock to return a completed Task<ListeAttente> with the listeAttente entity
             mockService.Setup(s => s.listeAttente.EditerAsync(listeAttente)).Returns(Task.FromResult(listeAttente));
@@ -331,7 +331,7 @@ namespace Clinique2000_TestsUnitaires
                 HeureOuverture = new TimeSpan(9, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 5,
-                DureeConsultationMinutes = 30,
+                //DureeConsultationMinutes = 30,
                 CliniqueID = 1,
             };
 
@@ -365,7 +365,7 @@ namespace Clinique2000_TestsUnitaires
                 HeureOuverture = new TimeSpan(9, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 5,
-                DureeConsultationMinutes = 30,
+                //DureeConsultationMinutes = 30,
                 CliniqueID = 1,
             };
             var mockService = new Mock<IClinique2000Services>();

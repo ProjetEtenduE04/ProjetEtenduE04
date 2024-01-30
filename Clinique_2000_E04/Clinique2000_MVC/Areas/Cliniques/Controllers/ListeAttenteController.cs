@@ -312,7 +312,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     return View("NotFound");
                 }
 
-                TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.HeureDateDebutPrevue.ToShortDateString()} à {consultation.HeureDateDebutPrevue.ToShortTimeString()}";
+                TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHorarie.HeureDebut.ToShortDateString()} à {consultation.PlageHorarie.HeureDebut.ToShortTimeString()}";
                 return View("ReservationSuccess", consultation);
             }
             catch (ValidationException ex)
@@ -360,7 +360,6 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 HeureOuverture = new TimeSpan(8, 0, 0), // Ejemplo: 8:00 AM
                 HeureFermeture = new TimeSpan(17, 0, 0), // Ejemplo: 5:00 PM
                 NbMedecinsDispo = 5,
-                DureeConsultationMinutes = 30,
                 CliniqueID = clinique.CliniqueID,
                 Clinique = clinique
                 
@@ -369,7 +368,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             
             var plageHoraire = new PlageHoraire
             {
-                PlageHoraireID = 1, // ID ficticio
+                PlageHoraireID = 1, 
                 HeureDebut = new DateTime(2024, 1, 19, 9, 0, 0),
                 HeureFin = new DateTime(2024, 1, 19, 9, 30, 0),
                 ListeAttenteID = listeAttente.ListeAttenteID,
@@ -378,12 +377,10 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             var consultation = new Consultation
             {
-                ConsultationID = 1, // ID ficticio
-                HeureDateDebutPrevue = plageHoraire.HeureDebut,
-                HeureDateFinPrevue = plageHoraire.HeureFin,
+                ConsultationID = 1, 
                 PlageHoraireID = plageHoraire.PlageHoraireID,
                 PlageHorarie = plageHoraire,
-                PatientID = 1, // ID ficticio
+                PatientID = 1, 
                 Patient = new Patient
                 {
                     Nom = "Emond",
@@ -391,10 +388,10 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 },
              
                
-                // Añade aquí otras propiedades necesarias para Consultation
+                
             };
 
-            TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.HeureDateDebutPrevue.ToShortDateString()} à {consultation.HeureDateDebutPrevue.ToShortTimeString()}";
+            TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHorarie.HeureDebut.ToShortDateString()} à {consultation.PlageHorarie.HeureDebut.ToShortTimeString()}";
             return View("ReservationSuccess", consultation);
         }
 

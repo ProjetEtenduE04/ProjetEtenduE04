@@ -204,8 +204,8 @@ namespace Clinique2000_Services.Services
                 {
                     Consultation consultation = new Consultation
                     {
-                        HeureDateDebutPrevue = heureDebut,
-                        HeureDateFinPrevue = nouvelleHeureFin,
+                        //HeureDateDebutPrevue = heureDebut,
+                        //HeureDateFinPrevue = nouvelleHeureFin,
                         StatutConsultation = StatutConsultation.DisponiblePourReservation,
                         PlageHoraireID = plageHoraire.PlageHoraireID,
                         PatientID = null,
@@ -286,7 +286,7 @@ namespace Clinique2000_Services.Services
 
             List<Consultation> consultations = await _context.Consultations
                                                             .Where(c => c.PlageHorarie.ListeAttenteID == listeAttenteID && c.StatutConsultation == StatutConsultation.EnAttente)
-                                                            .OrderBy(c => c.HeureDateDebutPrevue)
+                                                            .OrderBy(c => c.PlageHorarie.HeureDebut)
                                                             .ThenBy(c => c.Patient.Prenom)
                                                             .ThenBy(c => c.Patient.Nom)
                                                             .ToListAsync();

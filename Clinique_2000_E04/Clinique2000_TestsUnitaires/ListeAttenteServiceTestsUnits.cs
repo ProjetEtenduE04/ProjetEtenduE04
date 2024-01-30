@@ -99,14 +99,14 @@ namespace Clinique2000_TestsUnitaires
             if ( !dbTest .Consultations.Any())
             {
                 dbTest.Consultations.AddRange(
-                    new Consultation { ConsultationID=1, HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(8).AddMinutes(30), PlageHoraireID = 1 , StatutConsultation=(StatutConsultation)6},
-                    new Consultation { ConsultationID=2, HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(8).AddMinutes(30), PlageHoraireID = 1 , StatutConsultation=(StatutConsultation)6},
-                    new Consultation { ConsultationID=3, HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(00), PlageHoraireID = 2 , StatutConsultation=(StatutConsultation)6},
-                    new Consultation { ConsultationID=4, HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(00), PlageHoraireID = 2 , StatutConsultation=(StatutConsultation)6},
-                    new Consultation { ConsultationID=5, HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(30), PlageHoraireID = 3 , StatutConsultation=(StatutConsultation)6},
-                    new Consultation { ConsultationID=6, HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(30), PlageHoraireID = 3 , StatutConsultation=(StatutConsultation)6},
-                    new Consultation { ConsultationID=7, HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(10).AddMinutes(00), PlageHoraireID = 4, StatutConsultation=(StatutConsultation)6},
-                    new Consultation { ConsultationID=8, HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(10).AddMinutes(00), PlageHoraireID = 4, StatutConsultation=(StatutConsultation)6}
+                    new Consultation { ConsultationID=1, /*HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(8).AddMinutes(30), */PlageHoraireID = 1 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=2, /*HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(8).AddMinutes(30), */PlageHoraireID = 1 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=3, /*HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(00), */PlageHoraireID = 2 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=4, /*HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(00), */PlageHoraireID = 2 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=5, /*HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(30), */PlageHoraireID = 3 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=6, /*HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(00), HeureDateFinPrevue = DateTime.Today.AddHours(9).AddMinutes(30), */PlageHoraireID = 3 , StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=7, /*HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(10).AddMinutes(00),*/ PlageHoraireID = 4, StatutConsultation=(StatutConsultation)6},
+                    new Consultation { ConsultationID=8, /*HeureDateDebutPrevue = DateTime.Today.AddHours(9).AddMinutes(30), HeureDateFinPrevue = DateTime.Today.AddHours(10).AddMinutes(00),*/ PlageHoraireID = 4, StatutConsultation=(StatutConsultation)6}
 
              );
                 dbTest.SaveChanges();

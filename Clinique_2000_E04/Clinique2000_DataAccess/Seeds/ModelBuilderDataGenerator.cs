@@ -92,7 +92,7 @@ namespace Clinique2000_DataAccess.Seeds
                  NomClinique = "Clinique Adoncour",
                  Courriel = "contact@adoncour.ca",
                  HeureOuverture = new TimeSpan(8, 0, 0),
-                 HeureFermeture = new TimeSpan(17, 0, 0),
+                 HeureFermeture = new TimeSpan(15, 0, 0),
                  TempsMoyenConsultation = 30,
                  EstActive = true,
                  AdresseID = 1,
@@ -172,12 +172,12 @@ namespace Clinique2000_DataAccess.Seeds
             {
                 ListeAttenteID = 1,
                 CliniqueID = 1,
-                IsOuverte = false,
+                IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(17, 0, 0),
+                HeureFermeture = new TimeSpan(14, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             }); 
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -189,7 +189,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(8, 30, 0),
                 NbMedecinsDispo = 1,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -201,7 +201,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -213,7 +213,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -225,7 +225,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -237,20 +237,20 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
 
             // Generate 6 ListeAttente objects for Clinique with CliniqueID 4
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 7,
-                CliniqueID = 1,
+                CliniqueID = 2,
                 IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(2),
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -262,7 +262,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -274,7 +274,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -286,7 +286,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -298,7 +298,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -310,7 +310,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
             // Generate 6 ListeAttente objects for Clinique with CliniqueID 5
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -322,7 +322,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -334,19 +334,19 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
                 ListeAttenteID = 15,
                 CliniqueID = 1,
-                IsOuverte = true,
+                IsOuverte = false,
                 DateEffectivite = DateTime.Now.AddDays(3),
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -358,7 +358,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -370,7 +370,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -382,7 +382,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
 
 
@@ -396,7 +396,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -408,7 +408,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -420,7 +420,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -432,7 +432,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -444,7 +444,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
-                DureeConsultationMinutes = 30,
+                
             });
 
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
@@ -456,7 +456,7 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 3,
-                DureeConsultationMinutes = 30,
+                
             });
             #endregion ListeAttente
 
@@ -550,15 +550,31 @@ namespace Clinique2000_DataAccess.Seeds
                 ListeAttenteID = 1,
             });
 
-            builder.Entity<PlageHoraire>().HasData(new PlageHoraire()
-            {
-                PlageHoraireID = 12,
-                HeureDebut = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
-                HeureFin = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
-                ListeAttenteID = 1,
-            });
+            //builder.Entity<PlageHoraire>().HasData(new PlageHoraire()
+            //{
+            //    PlageHoraireID = 12,
+            //    HeureDebut = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
+            //    HeureFin = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
+            //    ListeAttenteID = 1,
+            //});
 
+            //builder.Entity<PlageHoraire>().HasData(new PlageHoraire()
+            //{
+            //    PlageHoraireID = 13,
+            //    HeureDebut = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
+            //    HeureFin = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(30),
+            //    ListeAttenteID = 1,
+            //});
 
+            //builder.Entity<PlageHoraire>().HasData(new PlageHoraire()
+            //{
+            //    PlageHoraireID = 14,
+            //    HeureDebut = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(30),
+            //    HeureFin = DateTime.Now.AddDays(1).Date.AddHours(15).AddMinutes(00),
+            //    ListeAttenteID = 1,
+            //});
+
+           
             #endregion PlageHoraire
 
             #region ApplicationUser
@@ -1098,8 +1114,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 1,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(00),
-                HeureDateFinPrevue= DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(00),
+                //HeureDateFinPrevue= DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 1,
                 PatientID = 1,
@@ -1107,8 +1123,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 2,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 1,
                 PatientID = 2,
@@ -1116,8 +1132,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 3,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 2,
                 PatientID = 3,
@@ -1125,8 +1141,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 4,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 2,
                 PatientID = 4,
@@ -1134,8 +1150,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 5,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 3,
                 PatientID = 5,
@@ -1143,8 +1159,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 6,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 3,
                 PatientID = 6,
@@ -1153,8 +1169,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 7,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 4,
                 PatientID = 7,
@@ -1163,8 +1179,8 @@ namespace Clinique2000_DataAccess.Seeds
                 builder.Entity<Consultation>().HasData(new Consultation()
                 {
                 ConsultationID = 8,
-                    HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
-                    HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
+                    //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
+                    //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
                     StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 4,
                 PatientID = 8,
@@ -1173,8 +1189,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 9,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 5,
                 PatientID = 9,
@@ -1183,40 +1199,40 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 10,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 6,
+                PlageHoraireID = 5,
                 PatientID = 10,
             });
 
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 11,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 7,
+                PlageHoraireID = 6,
                 PatientID = 11,
             });
 
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 12,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 7,
+                PlageHoraireID = 6,
                 PatientID = 12,
             });
 
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 13,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 8,
+                PlageHoraireID = 7,
                 PatientID = 13,
             });
 
@@ -1224,87 +1240,114 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 14,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 8,
+                PlageHoraireID = 7,
                 PatientID = 14,
             });
 
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 15,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 9,
+                PlageHoraireID = 8,
                 PatientID = 15,
             });
 
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 16,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 9,
+                PlageHoraireID = 8,
                 PatientID = 16,
             });
 
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 17,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 10,
+                PlageHoraireID = 9,
                 PatientID = 17,
             });
 
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 18,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 10,
+                PlageHoraireID = 9,
                 PatientID = 18,
             });
 
                 builder.Entity<Consultation>().HasData(new Consultation()
                 {
                 ConsultationID = 19,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
                     StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 11,
+                PlageHoraireID = 10,
                 PatientID = 19,
             });
 
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 20,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 11,
+                PlageHoraireID = 10,
                 PatientID = 20,
             });
 
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 21,
-                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
-                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
-                PlageHoraireID = 12,
+                PlageHoraireID = 11,
                 PatientID = 21,
             });
 
+            builder.Entity<Consultation>().HasData(new Consultation()
+            {
+                ConsultationID = 22,
+                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
+                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
+                StatutConsultation = StatutConsultation.DisponiblePourReservation,
+                PlageHoraireID = 11,
+               
+            });
+            //builder.Entity<Consultation>().HasData(new Consultation()
+            //{
+            //    ConsultationID = 23,
+            //    //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
+            //    //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(30),
+            //    StatutConsultation = StatutConsultation.DisponiblePourReservation,
+            //    PlageHoraireID = 12,
+                
+            //});
 
+            //builder.Entity<Consultation>().HasData(new Consultation()
+            //{
+            //    ConsultationID = 24,
+            //    //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
+            //    //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(30),
+            //    StatutConsultation = StatutConsultation.DisponiblePourReservation,
+            //    PlageHoraireID = 12,
+                
+            //});
             #endregion Consultation
 
-       
+
         }
     }
 }

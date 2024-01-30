@@ -19,13 +19,13 @@ namespace Clinique2000_Core.Models
         [Key]
         public int ConsultationID { get; set; }
 
-        [Display(Name = "Date et heure prévue")]
-        [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        public DateTime HeureDateDebutPrevue { get; set; }
+        //[Display(Name = "Date et heure prévue")]
+        //[Required(ErrorMessage = "Ce champ est obligatoire.")]
+        //public DateTime HeureDateDebutPrevue { get; set; }
 
-        [Display(Name = "Date et heure de fin prévue ")]
-        [Required(ErrorMessage = "Ce champ est obligatoire.")]
-        public DateTime HeureDateFinPrevue { get; set; }                                  
+        //[Display(Name = "Date et heure de fin prévue ")]
+        //[Required(ErrorMessage = "Ce champ est obligatoire.")]
+        //public DateTime HeureDateFinPrevue { get; set; }                                  
 
 
         public DateTime? HeureDateDebutReele { get; set; }
