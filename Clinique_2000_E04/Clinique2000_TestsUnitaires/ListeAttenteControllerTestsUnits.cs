@@ -5,8 +5,10 @@ using Clinique2000_MVC.Controllers;
 using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Clinique2000_TestsUnitaires
@@ -157,7 +159,7 @@ namespace Clinique2000_TestsUnitaires
         /// </summary>
         /// <returns></returns>
         [Fact]
-        public async Task Details_AvecIdInvalide_RetourneNotFound()
+        public async Task Details_AvecIdInvalide_RetourneViewNotFound()
         {
             // Arrange
             var mockService = new Mock<IClinique2000Services>();
@@ -177,11 +179,16 @@ namespace Clinique2000_TestsUnitaires
 
             var controller = new ListeAttenteController(mockService.Object);
 
+            //mock tempData
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            controller.TempData = tempDataMock.Object;
+
             // Act
             var result = await controller.Details(listeAttenteAttendue.ListeAttenteID);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
 
@@ -235,6 +242,12 @@ namespace Clinique2000_TestsUnitaires
             mockService.Setup(s => s.listeAttente.EditerAsync(listeAttente)).Returns(Task.FromResult(listeAttente));
 
             var controller = new ListeAttenteController(mockService.Object);
+
+            //mock tempData
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            controller.TempData = tempDataMock.Object;
+
             controller.ModelState.Clear();
 
             // Act
@@ -256,6 +269,12 @@ namespace Clinique2000_TestsUnitaires
             var listeAttente = new ListeAttente();
 
             var controller = new ListeAttenteController(mockService.Object);
+
+            //mock tempData
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            controller.TempData = tempDataMock.Object;
+
             controller.ModelState.AddModelError("Error", "Erreur de mod�le"); // Rendre le ModelState invalide
 
             // Act
@@ -298,6 +317,11 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var mockService = new Mock<IClinique2000Services>();
             var controller = new ListeAttenteController(mockService.Object);
+
+            //mock tempData
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            controller.TempData = tempDataMock.Object;
 
             var validListeAttente = new ListeAttente
             {
@@ -347,6 +371,11 @@ namespace Clinique2000_TestsUnitaires
             var mockService = new Mock<IClinique2000Services>();
             var controller = new ListeAttenteController(mockService.Object);
 
+            //mock tempData
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            controller.TempData = tempDataMock.Object;
+
             mockService.Setup(s => s.listeAttente.ObtenirParIdAsync(validId)).ReturnsAsync(expectedModel);
 
             // Act
@@ -363,19 +392,25 @@ namespace Clinique2000_TestsUnitaires
 
         // Test : V�rifie que l'action GET Delete renvoie un r�sultat NotFound lorsque un ID invalide est fourni
         [Fact]
-        public async Task Delete_Get_IdInvalide_RetourneNotFound()
+        public async Task Delete_Get_IdInvalide_RetourneViewNotFound()
         {
             // Arrange
             var invalidId = -1;
             var mockService = new Mock<IClinique2000Services>();
             var controller = new ListeAttenteController(mockService.Object);
+
+            //mock tempData
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            controller.TempData = tempDataMock.Object;
+
             mockService.Setup(s => s.listeAttente.ObtenirParIdAsync(invalidId)).ReturnsAsync((ListeAttente)null);
 
             // Act
             var result = await controller.Delete(invalidId);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
         /// <summary>
@@ -391,6 +426,12 @@ namespace Clinique2000_TestsUnitaires
             mockServices.Setup(s => s.listeAttente).Returns(mockListeAttenteService.Object);
 
             var controller = new ListeAttenteController(mockServices.Object);
+
+            //mock tempData
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
+            controller.TempData = tempDataMock.Object;
+
             var listeAttenteToDelete = new ListeAttente { ListeAttenteID = 1 };
 
             mockListeAttenteService.Setup(s => s.PeutSupprimmer(It.IsAny<ListeAttente>())).Returns(true);

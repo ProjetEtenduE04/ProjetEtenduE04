@@ -69,7 +69,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 Consultation consultation = await _services.consultation.ObtenirParIdAsync(id);
                 return View(consultation);
             }
-            return NotFound();
+            TempData[AppConstants.Warning] = $"D�sol�, mais la Consultation n'a pas �t� trouv�e.";
+            return View("NotFound");
 
         }
 
@@ -231,11 +232,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 //await _services.consultation.GenererPlagesHorairesAsync(ID);
 
                 model = await _services.consultation.ObtenirParIdAsync(ID);
-
+                TempData[AppConstants.Success] = $"Les plages horaires ont �t� g�n�r�es avec succ�s.";
                 return View("Details", model);
 
             }
-            return NotFound();
+            TempData[AppConstants.Warning] = $"D�sol�, mais la consultation n'a pas �t� trouv�e.";
+            return View("NotFound");
         }
 
 

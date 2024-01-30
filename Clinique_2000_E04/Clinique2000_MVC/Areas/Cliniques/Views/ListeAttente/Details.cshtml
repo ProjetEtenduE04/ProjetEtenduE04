@@ -1,16 +1,75 @@
 @model Clinique2000_Core.ViewModels.ListeAttenteVM
 
+
 <section id="heroDetails" class="d-flex align-items-center justify-content-center mb-2">
+
     <div class="listeattente-data">
-        <div class="row d-flex mb-2 justify-content-center align-content-center text-center"> 
-            <div class="col-md-12 mt-5">
+        <div class="row d-flex my-5 justify-content-center align-content-center text-center"> 
+            <div class="col-8 mt-5">
                 <h1 class="text-center justify-content-center">Liste d'attente</h1>
                 <h1 class="text-center justify-content-center">@Model.ListeAttente.Clinique.NomClinique</h1>
                 <h2 class="text-center justify-content-center">@Model.ListeAttente.Clinique.Adresse.Numero, @Model.ListeAttente.Clinique.Adresse.Rue @Model.ListeAttente.Clinique.Adresse.Ville @Model.ListeAttente.Clinique.Adresse.CodePostal </h2>
                 
             </div>
         </div>
-        <div class="container-fluid heure-medecins">
+        <!-- Facts Start -->
+        <div class="container-fluid facts py-5 pt-lg-0">
+            <div class="container py-5 pt-lg-0">
+                <div class="row gx-0">
+                    <div class="col-lg-4 wow zoomIn" data-wow-delay="0.1s">
+                        <div class="bg-primary shadow d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+@*                            <div class="bg-white d-flex align-items-center justify-content-center rounded mb-2" style="width: 60px; height: 60px;">
+                                <i class="fa fa-users text-primary"></i>
+
+                            </div>*@
+                            <div class="ps-4">
+@*                                <h5 class="text-white mb-0">Happy Clients</h5>*@
+@*                                <h1 class="text-white mb-0" data-toggle="counter-up">Heure actuelle           </h1>*@
+                                <div class="timeDiv ">
+                                    <span class="font-color-clock-white" id="time"></span>
+                                    <span class="font-color-clock-white" id="sec"></span>
+                                    <span class="font-color-clock-white" id="med"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow zoomIn" data-wow-delay="0.3s">
+                        <div class="bg-light shadow d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+@*                            <div class="bg-primary d-flex align-items-center justify-content-center rounded mb-2" style="width: 60px; height: 60px;">
+                                <i class="fa fa-check text-white"></i>
+                            </div>*@
+                            <div class="ps-4">
+                                <h5 class="text-primary mb-0">Effective le:</h5>
+                                <h2 class="mb-0" data-toggle="counter-up">@Model.ListeAttente.DateEffectivite.ToString("yyyy-MM-dd")</h2>
+                                <div class="row">
+                                     <div class="col-6">
+                                        <h5 class="text-primary mb-0">Ouvre à:</h5>
+                                        <h2 class="mb-0" data-toggle="counter-up">@Model.ListeAttente.HeureOuverture.ToString("hh\\:mm")</h2>
+                                     </div>
+                                    <div class="col-6">
+                                        <h5 class="text-primary mb-0">Ferme à:</h5>
+                                        <h2 class="mb-0" data-toggle="counter-up">@Model.ListeAttente.HeureFermeture.ToString("hh\\:mm")</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow zoomIn" data-wow-delay="0.6s">
+                        <div class="bg-primary shadow d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                            <div class="bg-white d-flex align-items-center justify-content-center rounded mb-2" style="width: 60px; height: 60px;">
+                                <i class="fa-solid fa-stethoscope fa-2xl" style="color: #0d6efd;"></i>
+                            </div>
+                            <div class="ps-4">
+                                <h5 class="text-white mb-0">Nombre de médecins: </h5>
+                                <h1 class="text-white mb-0" data-toggle="counter-up">@Model.ListeAttente.NbMedecinsDispo</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Facts Start -->
+@*        <div class="container-fluid heure-medecins">
             <div class="heureActuelle card-details">
                 <p>Heure Actuelle</p>
                 <div id="watch"></div>
@@ -31,7 +90,7 @@
             </div>
 
         
-        </div>
+        </div>*@
 
         
         <div class="generer-plages-horaires">
@@ -40,6 +99,9 @@
                 <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "" : "d-none") /> 
             </form>
             <a class="btn btn-secondaire btn-action my-3" asp-action="Index" asp-controller="Home" asp-area="" >Retour à l'accueil</a>
+            <a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="IndexlisteSalleAttente" asp-route-listeAttenteID=1 id="rv" class="ms-0 px-3 btn-create">
+                Voir Liste Salle d'attente'
+            </a>
         </div>
     </div>
 </section>

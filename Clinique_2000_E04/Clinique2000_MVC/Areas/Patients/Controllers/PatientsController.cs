@@ -44,6 +44,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
             if (id == null || await _services.patient.ObtenirToutAsync() == null)
             {
+                TempData[AppConstants.Warning] = $"Désolé, mais le patient n'a pas été trouvé dans notre base de données.";
                 return View("NotFound");
             }
 
@@ -115,6 +116,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             {
                 if (id == null || await _services.patient.ObtenirToutAsync() == null)
                 {
+                    TempData[AppConstants.Warning] = $"Désolé, mais le patient n'a pas été trouvé dans notre base de données.";
                     return View("NotFound");
                 }
                 var patient = await _services.patient.ObtenirParIdAsync(id);
