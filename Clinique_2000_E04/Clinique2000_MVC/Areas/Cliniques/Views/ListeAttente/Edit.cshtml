@@ -49,11 +49,12 @@
                             <span asp-validation-for="HeureOuverture" class="text-danger"></span>
                         </div>
 
-                        <div class="form-group mb-3" id="heureFermetureContainerEdit">
+                        <div class="form-group mb-3">
                             <label asp-for="HeureFermeture" class="form-label">Heure de fermeture<span class="champs-obligatoires"> *</span></label>
-                            <input asp-for="HeureFermeture" type="time" class="form-control form-control-lg" id="heureFermetureEdit">
+                            <input asp-for="HeureFermeture" type="time" id="heureFermetureEdit" class="form-control form-control-lg">
                             <span asp-validation-for="HeureFermeture" class="text-danger"></span>
                         </div>
+
 
                         <div class="form-group mb-3">
                             <label asp-for="NbMedecinsDispo" class="form-label">Nombre de médecins disponibles<span class="champs-obligatoires"> *</span></label>
@@ -82,3 +83,23 @@
         </div>
     </main>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#heureOuvertureEdit').on('change', function () {
+            // Clear heureFermeture when heureOuverture changes
+            $('#heureFermetureEdit').val('');
+        });
+
+        $('#heureFermetureEdit').on('blur', function () {
+            var openingTime = $('#heureOuvertureEdit').val();
+            var closingTime = $(this).val();
+
+            if (openingTime && closingTime && closingTime < openingTime) {
+                alert("L'heure de fermeture ne peut pas être antérieure à l'heure d'ouverture.");
+                $(this).val('').focus(); // Clear and refocus heureFermeture
+            }
+        });
+    });
+</script>

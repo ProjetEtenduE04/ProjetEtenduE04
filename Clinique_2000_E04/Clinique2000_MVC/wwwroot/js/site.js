@@ -143,94 +143,94 @@ $(document).ready(function () {
 //ListeAttenteForms HeureFermetureSeulementActiveLorsqueHeureOuvertureRemplieCreate
 ///=================================================
 
-$(document).ready(function () {
-    $('#heureOuverture').on('input', function () {
-        var heureOuvertureValue = $(this).val();
-        if (heureOuvertureValue) {
-            $('#heureFermetureContainer').show();
-        } else {
-            $('#heureFermetureContainer').hide();
-        }
-    });
-});
+//$(document).ready(function () {
+//    $('#heureOuverture').on('blur', function () {
+//        var heureOuvertureValue = $(this).val();
+//        if (heureOuvertureValue) {
+//            $('#heureFermetureContainer').show();
+//        } else {
+//            $('#heureFermetureContainer').hide();
+//        }
+//    });
+//});
 
 ///=================================================
 
 
 
-//ListeAttenteForms HeureFermetureSeulementActiveLorsqueHeureOuvertureRemplieEdit
-///=================================================
-$(document).ready(function () {
-    $('#heureOuvertureEdit').on('input', function () {
-        // Reset and require re-entry of HeureFermeture when HeureOuverture changes
-        $('#heureFermetureEdit').val('');
-    });
-});
+////ListeAttenteForms HeureFermetureSeulementActiveLorsqueHeureOuvertureRemplieEdit
+/////=================================================
+//$(document).ready(function () {
+//    $('#heureOuvertureEdit').on('input', function () {
+//        // Reset and require re-entry of HeureFermeture when HeureOuverture changes
+//        $('#heureFermetureEdit').val('');
+//    });
+//});
 
-///=================================================
-
-
-
-//ListeAttenteForms-HeureFermeturePlusGrandeHeureOuverture
-///=================================================
-///create
-$(document).ready(function () {
-    function convertTimeToMinutes(time) {
-        var [hours, minutes] = time.split(':').map(Number);
-        return hours * 60 + minutes;
-    }
-
-    function validateTimes() {
-        var heureOuverture = $('#heureOuverture').val();
-        var heureFermeture = $('#heureFermeture').val();
-
-        if (heureOuverture && heureFermeture) {
-            var ouvertureMinutes = convertTimeToMinutes(heureOuverture);
-            var fermetureMinutes = convertTimeToMinutes(heureFermeture);
-
-            if (fermetureMinutes <= ouvertureMinutes) {
-                alert("L'heure de fermeture doit être supérieure à l'heure d'ouverture.");
-                $('#heureFermeture').val(''); // Reset the heureFermeture field
-            }
-        }
-    }
-
-    // Make #heureFermeture editable only when #heureOuverture loses focus
-    $('#heureOuverture').blur(function () {
-        $('#heureFermeture').prop('disabled', false); // Enable the heureFermeture field
-    });
-
-    // Initially disable #heureFermeture field
-    $('#heureFermeture').prop('disabled', true);
-
-    $('#heureOuverture, #heureFermeture').change(validateTimes);
-});
+/////=================================================
 
 
-///edit
-$(document).ready(function () {
-    function convertTimeToMinutes(time) {
-        var [hours, minutes] = time.split(':').map(Number);
-        return hours * 60 + minutes;
-    }
 
-    function validateTimes() {
-        var heureOuverture = $('#heureOuvertureEdit').val();
-        var heureFermeture = $('#heureFermetureEdit').val();
+////ListeAttenteForms-HeureFermeturePlusGrandeHeureOuverture
+/////=================================================
+/////create
+//$(document).ready(function () {
+//    function convertTimeToMinutes(time) {
+//        var [hours, minutes] = time.split(':').map(Number);
+//        return hours * 60 + minutes;
+//    }
 
-        if (heureOuverture && heureFermeture) {
-            var ouvertureMinutes = convertTimeToMinutes(heureOuverture);
-            var fermetureMinutes = convertTimeToMinutes(heureFermeture);
+//    function validateTimes() {
+//        var heureOuverture = $('#heureOuverture').val();
+//        var heureFermeture = $('#heureFermeture').val();
 
-            if (fermetureMinutes <= ouvertureMinutes) {
-                alert("L'heure de fermeture doit être supérieure à l'heure d'ouverture.");
-                $('#heureFermetureEdit').val(''); // Reset the heureFermetureEdit field
-            }
-        }
-    }
+//        if (heureOuverture && heureFermeture) {
+//            var ouvertureMinutes = convertTimeToMinutes(heureOuverture);
+//            var fermetureMinutes = convertTimeToMinutes(heureFermeture);
 
-    $('#heureOuvertureEdit, #heureFermetureEdit').change(validateTimes);
-});
+//            if (fermetureMinutes <= ouvertureMinutes) {
+//                alert("L'heure de fermeture doit être supérieure à l'heure d'ouverture.");
+//                $('#heureFermeture').val(''); // Reset the heureFermeture field
+//            }
+//        }
+//    }
+
+//    // Make #heureFermeture editable only when #heureOuverture loses focus
+//    $('#heureOuverture').blur(function () {
+//        $('#heureFermeture').prop('disabled', false); // Enable the heureFermeture field
+//    });
+
+//    // Initially disable #heureFermeture field
+//    $('#heureFermeture').prop('disabled', true);
+
+//    $('#heureOuverture, #heureFermeture').change(validateTimes);
+//});
+
+
+/////edit
+//$(document).ready(function () {
+//    function convertTimeToMinutes(time) {
+//        var [hours, minutes] = time.split(':').map(Number);
+//        return hours * 60 + minutes;
+//    }
+
+//    function validateTimes() {
+//        var heureOuverture = $('#heureOuvertureEdit').val();
+//        var heureFermeture = $('#heureFermetureEdit').val();
+
+//        if (heureOuverture && heureFermeture) {
+//            var ouvertureMinutes = convertTimeToMinutes(heureOuverture);
+//            var fermetureMinutes = convertTimeToMinutes(heureFermeture);
+
+//            if (fermetureMinutes <= ouvertureMinutes) {
+//                alert("L'heure de fermeture doit être supérieure à l'heure d'ouverture.");
+//                $('#heureFermetureEdit').val(''); // Reset the heureFermetureEdit field
+//            }
+//        }
+//    }
+
+//    $('#heureOuvertureEdit, #heureFermetureEdit').change(validateTimes);
+//});
 
 ///=================================================
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
@@ -274,3 +274,6 @@ const popover = new bootstrap.Popover('.popover-dismiss', {
 //});
 
 //actualiserHeure();
+
+
+//
