@@ -1,4 +1,6 @@
 @using System.Security.Claims;
+@using Clinique2000_Utility.Enum;
+@model Patient;
 
 
 
@@ -6,6 +8,9 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var estConnecte = User.Identity.IsAuthenticated;
+    var estPatient = Model != null;
+    var aRendezVous = false;
+
 }
 
 <section class="hero-home" data-aos="fade-up">
@@ -23,7 +28,7 @@
                 <form id="external-account" asp-area="Identity" asp-page="/Account/ExternalLogin" asp-route-returnUrl="@Url.Content("~/")" method="post" class="form-horizontal">
                     <div>
                         <button type="submit" class="btn btn-create ms-0 px-3" name="provider" value="Google" title="Log in using your Google account">
-                            Connexion
+                            Vous Connecter  
                             <i class="fa-solid fa-right-to-bracket"></i>
                         </button>
                     </div>
@@ -32,11 +37,30 @@
                 <p>Vous pouvez facilement vous connecter a notre systeme avec un simple clic <br />
                     avec votre compte gmail. Simple et secour. </p>
             }
-            else if (estConnecte)
+            else if (estConnecte && !estPatient)
             {  <a asp-area="Patients" asp-controller="Patients" asp-action="Create" class="btn btn-create ms-0 px-3">
                     Inscrivez-vous pour un Rendez-Vous
                 </a>
             }
+            else if (estConnecte && estPatient)
+            {
+               
+                aRendezVous = Model.Consultations.Any(c=>c.StatutConsultation==StatutConsultation.EnAttente);
+               
+                @if (!aRendezVous )
+                {
+                    <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="IndexCliniquesAProximite" class="btn btn-create ms-0 px-3">
+                    Prendre un Rendez-Vous
+                   </a>
+                }
+                else if (aRendezVous)
+                {
+                    <a asp-area="Patients" asp-controller="Patients" asp-action="Details"  asp-route-id="@Model.PatientId" class="btn btn-create ms-0 px-3">
+                       Voir mon Rendez-Vous
+                    </a>
+                }
+            }
+           
         </div>
     </div>
 </section>
