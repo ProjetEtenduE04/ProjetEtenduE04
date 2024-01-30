@@ -211,49 +211,79 @@ namespace Clinique2000_TestsUnitaires
 
         #region Filtrage des plages horaires 
 
-
         [Fact]
         public async Task GetListeAttenteOrdonnee_ListExists_ReturnsValidListeAttenteVM_AucuneReservation()
         {
-           // //arrange
-           //     IListeAttenteService service = new ListeAttenteService(dbTest);
-           //     ListeAttenteVM listeattentevm_test = new ListeAttenteVM();
-
-           // var listeattente = await dbTest.ListeAttentes.FindAsync(1);
-
-           // if (listeattente == null)
-           // {
-           //     throw new InvalidOperationException("listeattente not found.");
-           // }
-
-           // //on reserve 0 consultations 
-            
-
-           // foreach (var consultation in dbTest.Consultations)
-           // {
-           //     consultation.StatutConsultation = (StatutConsultation)6;
-           // }
-
-           // dbTest.SaveChanges();
-
-           // //act
-           //listeattentevm_test = await service.GetListeAttenteOrdonnee(listeattente.ListeAttenteID);
-
-           // //assert
-           //var plageshorairesfiltrees = listeattentevm_test.plageshoraires.count();
-           //var expectedcount = 4; //je m'attend à avoir 4 car aucune skipped.
-           //assert.equal(expectedcount, plageshoraires);
-
-
+            // Arrange
+            IListeAttenteService service = new ListeAttenteService(dbTest);
+            ListeAttenteVM listeattentevm_test = new ListeAttenteVM();
+            var listeattente = await dbTest.ListeAttentes.FindAsync(1);
+            if (listeattente == null)
+            {
+                throw new InvalidOperationException("listeattente not found.");
+            }
+            // On réserve 0 consultations 
+            foreach (var consultation in dbTest.Consultations)
+            {
+                consultation.StatutConsultation = (StatutConsultation)5;
+            }
+            dbTest.SaveChanges();
+            // Act
+            listeattentevm_test = await service.GetListeAttenteOrdonnee(listeattente.ListeAttenteID);
+            // Assert
+            var plageshorairesfiltrees = listeattentevm_test.PlagesHoraires.Count();
+            var expectedcount = 8; // Je m'attends à avoir 4 car aucune réservation.
+            Assert.Equal(expectedcount, plageshorairesfiltrees);
         }
-
         #endregion
+        [Fact]
+        public async Task GetListeAttenteOrdonnee_ValidListeAttenteID_ReturnsListeAttenteVM_WithConsultations()
+        {
+            // Arrange
+            IListeAttenteService service = new ListeAttenteService(dbTest);
+            ListeAttenteVM listeAttenteVM_test = new ListeAttenteVM();
+            var listeattente = await dbTest.ListeAttentes.FindAsync(1);
+            var plageHoraireID = 2;
+
+            var plagesHoraires = await dbTest.PlagesHoraires.ToListAsync();
+            var consultations = await dbTest.Consultations.ToListAsync();
+
+            // Filter PlagesHoraires based on consultations
+            //var plagesHorairesFiltrees = plagesHoraires
+            //    .Where(ph => consultations.Any(c => c.PlageHoraireID == ph.PlageHoraireID && c.StatutConsultation == (StatutConsultation)2))
+            //    .ToList();
+
+            var newConsultation = new Consultation
+            {
+                HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Today.AddHours(8).AddMinutes(30),
+                PlageHoraireID = plageHoraireID,
+                StatutConsultation = StatutConsultation.EnCours
+            };
+
+            dbTest.Consultations.Add(newConsultation);
+            dbTest.SaveChanges();
+
+            // Act
+            listeAttenteVM_test = await service.GetListeAttenteOrdonnee(listeattente.ListeAttenteID);
+
+            // Assert
+            Assert.NotNull(listeAttenteVM_test);
+            Assert.NotNull(listeAttenteVM_test.ListeAttente);
+            Assert.NotNull(listeAttenteVM_test.PlagesHoraires);
+            Assert.NotEmpty(listeAttenteVM_test.PlagesHoraires);
+
+
+            var plageshorairesfiltrees = listeAttenteVM_test.PlagesHoraires.Count();
+            var expectedcount = 8;
+            Assert.Equal(expectedcount, plageshorairesfiltrees);
+        }
 
 
     }
-
-
-
-
 }
+
+
+
+
 
