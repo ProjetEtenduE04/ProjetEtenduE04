@@ -57,7 +57,7 @@ namespace Clinique2000_Services.Services
             consultation.PatientID = patientId;
             consultation.StatutConsultation = StatutConsultation.EnAttente;
 
-            await VerifierSiConsultationsSontToutReserves(consultation.PlageHorarie.ListeAttenteID);
+            await FermerOuLaisserOuverteListeAttente(consultation.PlageHorarie.ListeAttenteID);
 
             await _context.SaveChangesAsync();
 
@@ -69,21 +69,21 @@ namespace Clinique2000_Services.Services
         /// <param name="listeattenteid"></param>
         /// <returns>true si tout les consultations sont reserves
         /// false si ils le sont pas tous</returns>
-        public async Task<bool> VerifierSiConsultationsSontToutReserves(int listeattenteid)
+        public async Task FermerOuLaisserOuverteListeAttente(int listeattenteid)
         {
 
-            ListeAttente listeAttente = _context.ListeAttentes.Where(x => x.ListeAttenteID == listeattenteid).FirstOrDefaultAsync().Result;
+            ListeAttente listeAttente = await _context.ListeAttentes.FindAsync(listeattenteid);
 
-            if (listeAttente.Consultations.Any(x => x.StatutConsultation != StatutConsultation.DisponiblePourReservation))
-            {
-                listeAttente.IsOuverte = false;
-            }
-            else
+            if (listeAttente.Consultations.Any(x => x.StatutConsultation == StatutConsultation.DisponiblePourReservation))
             {
                 listeAttente.IsOuverte = true;
             }
+            else
+            {
+                listeAttente.IsOuverte = false;
+            }
 
-            return true;
+         
         }
 
 

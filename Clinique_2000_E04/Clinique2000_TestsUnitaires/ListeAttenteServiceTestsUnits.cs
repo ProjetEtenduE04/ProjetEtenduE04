@@ -255,8 +255,8 @@ namespace Clinique2000_TestsUnitaires
 
             var newConsultation = new Consultation
             {
-                HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(00),
-                HeureDateFinPrevue = DateTime.Today.AddHours(8).AddMinutes(30),
+                //HeureDateDebutPrevue = DateTime.Today.AddHours(8).AddMinutes(00),
+                //HeureDateFinPrevue = DateTime.Today.AddHours(8).AddMinutes(30),
                 PlageHoraireID = plageHoraireID,
                 StatutConsultation = StatutConsultation.EnCours
             };
