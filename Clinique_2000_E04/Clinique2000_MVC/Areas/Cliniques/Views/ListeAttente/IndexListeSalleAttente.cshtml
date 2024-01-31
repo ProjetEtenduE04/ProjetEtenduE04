@@ -1,4 +1,4 @@
-@model Clinique2000_Core.ViewModels.ListeAttenteVM
+Ôªø@model Clinique2000_Core.ViewModels.ListeAttenteVM
 
 @{
     Layout = "_LayoutSalleAttente";
@@ -16,7 +16,7 @@
         Passer le prochain patient
     </a>
 </div>
-<div class="table-responsive mx-auto id="SalleAttenteTable>
+<div class="table-responsive mx-auto" id="SalleAttenteTable">
     <table class="table hover align-middle" id="dataTableSalleDAttente">
         <thead>
             <tr class="">
@@ -36,7 +36,7 @@
             @foreach (var consultation in Model.Consultations)
 
             {
-                @*Ne fonctionne pas en raison des styles de table de date prÈdÈfinis ‡ modifier s'il y a du temps.*@
+                @*Ne fonctionne pas en raison des styles de table de date pr√©d√©finis √† modifier s'il y a du temps.*@
                 <tr class="@(contador == 1 ? "green-rows" : "") ">
     
                     <td class="text-center  col-4">
@@ -67,4 +67,10 @@
         </tbody>
     </table>
 </div>
+<script>
+    // Func»õia pentru refresh la fiecare 60 de secunde
+    setInterval(function () {
+        location.reload();
+    }, 60000);
+</script>
                 

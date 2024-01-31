@@ -9,7 +9,6 @@
 //actualiserHeure();
 
 
-
 //document.addEventListener('DOMContentLoaded', function () {
 
 //    function actualiserContenu() {
@@ -97,11 +96,6 @@
 
 
 
-
-
-
-
-
 //function actualiserContenu() {
 //    console.log("Mise à jour satisfaisante du contenu...");
 //    $.ajax({
@@ -154,18 +148,17 @@
 //    table.draw();
 //initDataTableSalleDAttente();
 //}
-actualiserHeure();
-actualiserContenu();
+//actualiserHeure();
+/*actualiserContenu();*/
 
 $('#PasserPatient').on('click', function (e) {
     e.preventDefault();
     var consultationID = $(this).data('consultationid');
-    
     console.log(consultationID);
-   
+
 
     $.ajax({
-        url: "/Cliniques/ListeAttente/ChangerStatutConsultation?ConsultationID="+ consultationID, 
+        url: "/Cliniques/ListeAttente/ChangerStatutConsultation?ConsultationID=" + consultationID,
         method: 'POST',
         dataType: 'json',
         data: { consultationID: consultationID },
@@ -185,13 +178,12 @@ $('#PasserPatient').on('click', function (e) {
 
 
 
-
-function actualiserHeure() {
-    console.log("Mise à jour satisfaisante heure");
-    var now = new Date();
-    var hour = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
-    $('#watch').text(hour);
-}
+//function actualiserHeure() {
+//    console.log("Mise à jour satisfaisante heure");
+//    var now = new Date();
+//    var hour = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
+//    $('#watch').text(hour);
+//}
 
 function actualiserContenu() {
     console.log("Mise à jour satisfaisante du contenu...");
@@ -203,7 +195,6 @@ function actualiserContenu() {
             if (response && response.data && Array.isArray(response.data)) {
                 console.log(response);
             }
-            
             ////var table = $('#dataTableSalleDAttente').DataTable();
             ////if ($.fn.DataTable.isDataTable('#dataTableSalleDAttente')) {
             ////    table.destroy();
@@ -222,8 +213,8 @@ function actualiserContenu() {
 
 
             //table.draw();
-initDataTableSalleDAttente();
-          
+/*            initDataTableSalleDAttente();*/
+
 
         },
         error: function (error) {
@@ -233,21 +224,20 @@ initDataTableSalleDAttente();
 
 };
 
-actualiserHeure();
-actualiserContenu();
+//actualiserHeure();
+//actualiserContenu();
 
 
-$(document).ready(function () {
-    setInterval(function () {
-        actualiserHeure();
-        actualiserContenu();
-    }, 60000);
-    
-});
+//$(document).ready(function () {
+//    setInterval(function () {
+///*        actualiserHeure();*/
+//        actualiserContenu();
+//    }, 60000);
+//});
 
 //Start DATATABLE
 //==================================================
-function initDataTableSalleDAttente() {
+/*function initDataTableSalleDAttente() {*/
     $('#dataTableSalleDAttente').DataTable({
         searching: false,
         ordering: false,
@@ -270,15 +260,9 @@ function initDataTableSalleDAttente() {
             }
         }
     });
-}
+/*}*/
 //END DATATABLES
 //==================================================
-
-//$(document).ready(function () {
-//    setInterval(actualiserHeure, 60000);
-//    actualiserHeure();
-//    actualiserContenu();
-//});
 
 //Start Montre/Clock
 //==================================================
