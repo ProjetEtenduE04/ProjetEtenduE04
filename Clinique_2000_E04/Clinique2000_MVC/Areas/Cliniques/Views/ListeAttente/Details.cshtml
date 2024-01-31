@@ -98,10 +98,12 @@
                 <input type="hidden" name="id" value="@Model.ListeAttente.ListeAttenteID" />
                 <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") /> 
             </form>
-            <a class="btn btn-secondaire btn-action my-3" asp-action="Index" asp-controller="Home" asp-area="" >Retour à l'accueil</a>
             <a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="IndexlisteSalleAttente" asp-route-listeAttenteID=1 id="rv" class="ms-0 px-3 btn-create">
-                Voir Liste Salle d'attente'
+                Voir Liste Salle d'attente
             </a>
+            @*<a class="btn btn-secondaire btn-action my-3" asp-action="Index" asp-controller="Home" asp-area="">Retour à l'accueil</a>*@
+            <a asp-action="Index" class="btn-reinitialiser" asp-controller="Home" asp-area="">Retour à l'accueil</a>
+
         </div>
     </div>
 </section>
@@ -116,8 +118,8 @@
 } *@
 
 <div class="container mt-3">
-    <div class="liste-attente-info mb-0 mt-2">
-        <div>
+    <div class="liste-attente-info mb-0 mt-2" >
+        <div style="margin-bottom:40px">
             <partial name="_PartialAjouterDesPlagesHoraires" for="@Model.PlagesHoraires" />
         </div>
     </div>
