@@ -40,6 +40,152 @@
 //actualiserContenu();
 
 
+//function actualiserHeure() {
+//    console.log("Mise à jour satisfaisante heure");
+//    var now = new Date();
+//    var hour = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
+//    $('#watch').text(hour);
+//}
+
+//function actualiserContenu() {
+//    console.log("Contenu bien mis a jour")
+//     window.location.reload();
+//}
+
+//$('#PasserPatient').on('click', function (e) {
+//    e.preventDefault();
+
+//    $.ajax({
+//        url: '/Cliniques/ListeAttente/IndexSalleAttente/IndexListeSalleAttente?listeAttenteID=1',
+//        method: 'GET',
+//        dataType: 'json',
+//        success: function (response) {
+//            if (response.success && response.data && response.data.consultations) {
+//                var consultations = response.data.consultations;
+//                var table = $('#dataTableSalleDAttente').DataTable();
+//                table.clear();
+
+//                $.each(consultations, function (index, consultation) {
+//                    if (consultation.patient && consultation.plagesHoraires) {
+//                        var ordre = index + 1;
+//                        var nomPatient = consultation.patient.prenom + ' ' + consultation.patient.nom.charAt(0) + '.';
+//                        var heureDebut = consultation.plagesHoraires[0].heureDebut;
+
+//                        table.row.add([
+//                            ordre,
+//                            nomPatient,
+//                            heureDebut
+//                        ]);
+//                    }
+//                });
+
+//                table.draw();
+//                initDataTableSalleDAttente();
+//            } else {
+//                console.error("Erreur lors du chargement des données");
+//            }
+//        },
+//        error: function (error) {
+//            console.error("Error en la solicitud AJAX", error);
+//        }
+//    });
+//});
+
+
+
+
+
+
+
+
+
+
+
+
+//function actualiserContenu() {
+//    console.log("Mise à jour satisfaisante du contenu...");
+//    $.ajax({
+//        url: 'https://localhost:7240/Cliniques/ListeAttente/IndexlisteSalleAttente?listeAttenteID=1',
+//        method: 'GET',
+//        dataType: 'JSON',
+//        success: function () {
+//            var nouveauContenu = $('<div>').html(html).find('#salle-attente').html();
+//            $('#salle-attente').html(nouveauContenu);
+
+//            // Inițializează DataTable aici, după ce datele au fost încărcate
+//            initDataTableSalleDAttente();
+//        },
+//        error: function (err) {
+//            console.warn('Erreur lors du chargement de la section :', err);
+//        }
+//    });
+//}
+
+//function actualizarTabla() {
+//    $.ajax({
+//        url: 'https://localhost:7240/Cliniques/ListeAttente/IndexlisteSalleAttente?listeAttenteID=1',
+//        method: 'GET',
+//        data: { listeAttenteID: tuListeAttenteID },
+//        dataType: 'json',
+//        success: function (response) {
+//            // Aquí llamas a una función que actualiza la tabla con los nuevos datos
+//            remplirAvecNouveauxDonnees(response);
+//        },
+//        error: function (error) {
+//            console.error("Error al actualizar la tabla: ", error);
+//        }
+//    });
+//}
+
+//// MEthode pour remplir la table avec les nouvelles données
+//function remplirAvecNouveauxDonnees(donnees) {
+//    var table = $('#dataTableSalleDAttente').DataTable();
+//    table.clear();
+
+//    $.each(donnees.consultations, function (index, consultation) {
+//        // Asumiendo que 'consultation' tiene las propiedades que necesitas
+//        table.row.add([
+//            index + 1, // Orden
+//            consultation.patient.prenom + ' ' + consultation.patient.nom.charAt(0), // Nombre e inicial
+//            new Date(consultation.plageHoraire.heureDebut).toLocaleTimeString() // Hora de inicio
+//        ]);
+//    });
+
+//    table.draw();
+//initDataTableSalleDAttente();
+//}
+actualiserHeure();
+actualiserContenu();
+
+$('#PasserPatient').on('click', function (e) {
+    e.preventDefault();
+    var consultationID = $(this).data('consultationid');
+    
+    console.log(consultationID);
+   
+
+    $.ajax({
+        url: "/Cliniques/ListeAttente/ChangerStatutConsultation?ConsultationID="+ consultationID, 
+        method: 'POST',
+        dataType: 'json',
+        data: { consultationID: consultationID },
+        success: function (response) {
+            if (response.success) {
+                console.log("Changement de status correct", response);
+
+            } else {
+                console.error("Erreur lors du chargement de statut");
+            }
+        },
+        error: function (error) {
+            console.error("Error en la solicitud AJAX", error);
+        }
+    });
+});
+
+
+
+
 function actualiserHeure() {
     console.log("Mise à jour satisfaisante heure");
     var now = new Date();
@@ -47,42 +193,58 @@ function actualiserHeure() {
     $('#watch').text(hour);
 }
 
-
-$('#PasserPatient').on('click', function (e) {
-    e.preventDefault();
-    var consultaionID = Cli
-    $.ajax({
-        url: '/Cliniques/ListeAttente/ChangerConsultationStatut?consultaionID=' + consultaionID,
-        method: 'POST',
-        success: function (response) {
-            
-        },
-        error: function (error) {
-            console.error("Error al cambiar el estado del paciente", error);
-        }
-    });
-});
-
-
-
 function actualiserContenu() {
     console.log("Mise à jour satisfaisante du contenu...");
     $.ajax({
-        url: 'https://localhost:7240/Cliniques/ListeAttente/IndexlisteSalleAttente?listeAttenteID=1',
+        url: '/Cliniques/ListeAttente/IndexlisteSalleAttente?listeAttenteID=1',
         method: 'GET',
-        dataType: 'html',
-        success: function (html) {
-            var nouveauContenu = $('<div>').html(html).find('#salle-attente').html();
-            $('#salle-attente').html(nouveauContenu);
+        /*dataType: 'json',*/
+        success: function (response) {
+            if (response && response.data && Array.isArray(response.data)) {
+                console.log(response);
+            }
+            
+            ////var table = $('#dataTableSalleDAttente').DataTable();
+            ////if ($.fn.DataTable.isDataTable('#dataTableSalleDAttente')) {
+            ////    table.destroy();
+            ////}
+            ////var table = $('#dataTableSalleDAttente').DataTable();
+            //$.each(response.data, function (index, consultation) {
+            //    console.log("Mise à jour satisfaisante du contenu2...");
+            //    table.row.add([
 
-            // Inițializează DataTable aici, după ce datele au fost încărcate
-            initDataTableSalleDAttente();
+            //        index + 1,
+            //        consultation.patient.prenom + ' ' + consultation.patient.nom.charAt(0) + '.',
+            //        consultation.plagesHoraires[0].heureDebut
+
+            //    ]);
+            //});
+
+
+            //table.draw();
+initDataTableSalleDAttente();
+          
+
         },
-        error: function (err) {
-            console.warn('Erreur lors du chargement de la section :', err);
+        error: function (error) {
+            console.error("Error en la solicitud AJAX", error);
         }
     });
-}
+
+};
+
+actualiserHeure();
+actualiserContenu();
+
+
+$(document).ready(function () {
+    setInterval(function () {
+        actualiserHeure();
+        actualiserContenu();
+    }, 60000);
+    
+});
+
 //Start DATATABLE
 //==================================================
 function initDataTableSalleDAttente() {
@@ -112,11 +274,11 @@ function initDataTableSalleDAttente() {
 //END DATATABLES
 //==================================================
 
-$(document).ready(function () {
-    setInterval(actualiserHeure, 60000);
-    actualiserHeure();
-    actualiserContenu();
-});
+//$(document).ready(function () {
+//    setInterval(actualiserHeure, 60000);
+//    actualiserHeure();
+//    actualiserContenu();
+//});
 
 //Start Montre/Clock
 //==================================================

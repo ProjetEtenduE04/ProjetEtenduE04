@@ -1,7 +1,9 @@
 @*DropDown Ajouter*@
 @*@if (this.User.IsInRole(AppConstants.AdminRole))*@
-@if (this.User.Identity.IsAuthenticated)
-{
+
+@*if (this.User.Identity.IsAuthenticated) *@
+
+@{
     var btnTitre1 = "Liste des cliniques";
     var btnTitre2 = "Inscrire une clinique";
     var btnTitre3 = "Cliniques à proximité";

@@ -7,15 +7,16 @@
 @{
     int contador = 1;
 }
+@* asp-area="Cliniques" asp-controller="ListeAttente"
+       asp-action="ChangerStatutConsultation"
+       asp-route-consultaionID=@Model.Consultations[0].ConsultationID  *@
 <div class="col-6" style="display: flex;margin:20px 0">
-    <a  id="PasserPatient"class="text-center justify-content-center d-block my-5"
-       asp-area="Cliniques" asp-controller="ListeAttente"
-       asp-action="ChangerConsultationStatut"
-       asp-route-consultaionID=@Model.Consultations[0].ConsultationID>
+    <a id="PasserPatient" type="button" class="text-center justify-content-center d-block my-5" 
+       data-consultationid="@Model.Consultations[0].ConsultationID " >
         Passer le prochain patient
     </a>
 </div>
-<div class="table-responsive mx-auto">
+<div class="table-responsive mx-auto id="SalleAttenteTable>
     <table class="table hover align-middle" id="dataTableSalleDAttente">
         <thead>
             <tr class="">

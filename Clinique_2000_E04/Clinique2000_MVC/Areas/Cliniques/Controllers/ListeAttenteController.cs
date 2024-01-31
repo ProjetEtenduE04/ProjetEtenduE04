@@ -448,13 +448,17 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             }
 
         }
-
-        public async Task<IActionResult>  ChangerConsultationStatut(int consultaionID)
+        [HttpPost]
+        public async Task<IActionResult> ChangerStatutConsultation(int consultationID)
         {
-            var ListeSalleAttenteVM = await _services.listeAttente.ChangerStatutConsultation(consultaionID);
+            var ListeSalleAttenteVM = await _services.listeAttente.ChangerStatutConsultation(consultationID);
 
-
-            return Json(new { success = true });
+            if (ListeSalleAttenteVM == null)
+            {
+                TempData[AppConstants.Warning] = $"Désolé, mais aucune consultation avec l'identifiant {consultationID} n'a été trouvée.";
+                return View("NotFound");
+            }
+            return Json(new { success = true, data = ListeSalleAttenteVM });
 
         }
     }
