@@ -1,4 +1,4 @@
-﻿@model Consultation
+@model Consultation
 
 @{
     ViewData["Title"] = "Index";
@@ -38,8 +38,8 @@
                         @Html.AntiForgeryToken()
 
                         <div class="confirmation-bouttons mt-3 mb-4">
-                            <button type="submit" id="rescheduleButton" class="btn btn-create">Confirmer</button>
-                            <a id="cancelButton" class="btn btn-reinitialiser" disabled>Annuler le RDV</a>
+                            <button type="submit" id="rescheduleButton" class="button-green-action">Confirmer</button>
+                            <a id="cancelButton" class="button-white-action" disabled>Annuler le RDV</a>
                         </div>
                     </form>
                 </div>

@@ -1,7 +1,8 @@
-﻿@model Patient
+@model Patient
 
 @{
     ViewData["Title"] = "Details";
+    var btnText = "Modifier";
 }
 
 <div class="container" style="max-width: 1080px; margin-top: 50px;">
@@ -61,8 +62,16 @@
             </dd>
         </dl>
     </div>
-    <div style="margin-bottom:40px">
-        <a asp-action="Edit" asp-route-id="@Model?.PatientId" class="btn btn-create form-control" style="width:auto">Edit</a> |
-        <a asp-action="Index" class="btn-reinitialiser">Retour à la liste</a>
+    <div>
+        <div class="row justify-content-center text-center">
+            <div class="col col-md-8 col-xl-6 mb-2 mt-4">
+                <a asp-action="Edit" asp-route-id="@Model?.PatientId" class="button-green-action form-control" style="width:auto">@btnText</a>
+            </div>
+        </div>
+        <div class="row justify-content-center text-center">
+            <div class="col col-md-8 col-xl-6 mb-2 mt-2">
+                <a asp-action="Index" class="smBtn button-white-action">Retour à la liste</a>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 @model ListeAttente
 @{
     Layout = "_Layout";
+    var btnText = "Modifier la liste";
 }
 @{
     var isOuverteSelectList = new SelectList(new[]
@@ -67,12 +68,21 @@
                             <input asp-for="CliniqueID" type="number" class="form-control form-control-lg" min="0" placeholder="Entrez l'ID de votre clinique">
                             <span asp-validation-for="CliniqueID" class="text-danger"></span>
                         </div> *@
-                        
 
-                        <button type="submit" class="btn-create btn-lg">Modifier</button>
-                        <button type="reset" class="btn-reinitialiser btn-lg">Réinitialiser</button>
-                        <a asp-action="Index" class="btn-reinitialiser">Retour à la liste</a>
+                        <!--EditBTN-->
+                        <div class="row justify-content-center text-center">
+                            <div class="col col-md-8 col-xl-6 mb-2 mt-4">
+                                <partial name="_SubmitButtonPartial" model="@btnText" />
+                            </div>
+                        </div>
+                        <div class="row justify-content-center text-center">
+                            <div class="col col-md-8 col-xl-6 my-2">
+                                <partial name="_ResetButtonPartial" />
+                            </div>
+                        </div>
 
+                        @*<button type="submit" class="btn-create btn-lg">Modifier</button>
+                        <button type="reset" class="btn-reinitialiser btn-lg">Réinitialiser</button>*@
                     </form>
 
                     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

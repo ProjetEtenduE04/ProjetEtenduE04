@@ -12,7 +12,7 @@
                     <h2>@ViewData["Title"]</h2>
                 </div>
                 <div class="col text-end">
-                    <button class="btn btn-create" onclick="location.href='@Url.Action("Create")'">Créer une liste d'attente</button>
+                    <button class="smBtn button-green-action" onclick="location.href='@Url.Action("Create")'">Créer une liste d'attente</button>
                     <i onclick="location.href='@Url.Action("index")'" class="my-icon fa-solid fa-file fa-lg"></i>
                 </div>
             </div>
@@ -30,12 +30,22 @@
                     {
                         <tr>
                             <td>@Html.DisplayFor(modelItem => liste.DateEffectivite)</td>
-                            <td style="color: @(liste.IsOuverte ? "green" : "red");">
+@*                            <td style="color: @(liste.IsOuverte ? "green" : "red");">
                                 @(liste.IsOuverte ? "Ouverte" : "Fermée")
+                            </td>*@
+                            <td >
+                                @if (liste.IsOuverte)
+                                {
+                                    <span class="badge rounded-pill text-bg-success">Ouverte</span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill text-bg-danger">Fermée</span>
+                                }
                             </td>
                             <td>
 
-                                @Html.ActionLink("Détails","Details","ListeAttente", new { controller = "Listeattente", Action = "details", id = liste.ListeAttenteID }, new { @class = "btn-secondaire btn-sm" })
+                                @Html.ActionLink("Détails","Details","ListeAttente", new { controller = "Listeattente", Action = "details", id = liste.ListeAttenteID }, new { @class = "smBtn button-white-action" })
                                
                             </td>
                         </tr>

@@ -22,7 +22,7 @@
                         <form asp-action="ShowReservationConfirmation" asp-controller="ListeAttente" asp-route-id="@consultation.ConsultationID" asp-area="Cliniques" method="get">
                             <input type="hidden" name="id" value="@consultation.ConsultationID" />
                             <input type="hidden" name="patientId" value="@consultation.PatientID" />
-                            <button type="submit" class="btn btn-success"
+                            <button type="submit" class="button-green-action "
                             @(consultation.StatutConsultation != Clinique2000_Utility.Enum.StatutConsultation.DisponiblePourReservation ? "disabled" : "")>
                                 Reserver
                             </button>
