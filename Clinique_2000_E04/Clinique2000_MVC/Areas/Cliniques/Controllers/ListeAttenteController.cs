@@ -295,8 +295,41 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             return View("Details", listeAttenteVM);  
         }
 
-
     
+
+        [HttpGet]
+        public async Task<ActionResult> ShowReservationConfirmation(int id)
+        {
+            var consultation = await _services.consultation.ObtenirParIdAsync(id);
+            var listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
+            try
+            {
+              
+                if (consultation == null)
+                {
+                    TempData[AppConstants.Warning] = "Désolé, mais aucune consultation n'a été trouvée.";
+                    return View("Details", listeAttenteVM);
+                }
+                var patientId = await _services.consultation.ObtenirIdPatientAsync();
+                // Check if the patient already has a consultation scheduled
+                if (await _services.consultation.PatientAConsultationPlanifieeAsync(patientId))
+                {
+                    TempData[AppConstants.Warning] = "Vous avez déjà une consultation planifiée.";
+                    return View("Details", listeAttenteVM);
+                }
+
+                return View("ReservationSuccess", consultation);
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+                return View("Details", listeAttenteVM);
+            }
+        }
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -313,16 +346,14 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 }
 
                 TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHorarie.HeureDebut.ToShortDateString()} à {consultation.PlageHorarie.HeureDebut.ToShortTimeString()}";
-                return View("ReservationSuccess", consultation);
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
             catch (ValidationException ex)
             {
-                var consultation = await _services.consultation.ObtenirParIdAsync(id);
-                var listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
-
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
                 TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
-                return View("Details", listeAttenteVM);
+
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
         }
 
