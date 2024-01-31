@@ -83,7 +83,6 @@ namespace Clinique2000_Services.Services
                 listeAttente.IsOuverte = false;
             }
 
-         
         }
 
 
