@@ -111,13 +111,6 @@
     height: 130px;
 }
 
-.hero-home {
-    background: url(../images/hero-bg.jpg) no-repeat top center;
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    margin-bottom: 0px;
-}
 
 /* H1 Montserrat 38*/
 h1 {
@@ -384,7 +377,255 @@ divider-2 {
 /* ---- bouton -formulaire----
     ================================================== 
 */
-.btn-create {
+/*Large-green*/
+.button-green-action {
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #66D9A3 0, #19b154 100%);
+    border: 0;
+    border-radius: 10px;
+    box-shadow: rgba(36, 66, 35, .4) 0 2px 4px,rgba(58, 118, 48, .3) 0 7px 13px -3px,rgba(54, 106, 22, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "Montserrat",monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .35s,transform .35s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+    .button-green-action:focus {
+        box-shadow: #1C8C6C 0 0 0 1.5px inset, rgba(36, 66, 35, .4) 0 2px 4px, rgba(58, 118, 48, .3) 0 7px 13px -3px, #33a05D 0 -3px 0 inset;
+    }
+
+    .button-green-action:hover {
+        box-shadow: rgba(36, 66, 35, .4) 0 4px 8px, rgba(58, 118, 48, .3) 0 7px 13px -3px, #2b6c13 0 -3px 0 inset;
+        transform: translateY(-2px);
+        color: #d1e9dc
+    }
+
+    .button-green-action:active {
+        box-shadow: #17ad51 0 3px 7px inset;
+        transform: translateY(2px);
+    }
+.button-green-action {
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #66D9A3 0, #19b154 100%);
+    border: 0;
+    border-radius: 10px;
+    box-shadow: rgba(36, 66, 35, .4) 0 2px 4px,rgba(58, 118, 48, .3) 0 7px 13px -3px,rgba(54, 106, 22, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "Montserrat",monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .35s,transform .35s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+    .button-green-action:focus {
+        box-shadow: #1C8C6C 0 0 0 1.5px inset, rgba(36, 66, 35, .4) 0 2px 4px, rgba(58, 118, 48, .3) 0 7px 13px -3px, #33a05D 0 -3px 0 inset;
+    }
+
+    .button-green-action:hover {
+        box-shadow: rgba(36, 66, 35, .4) 0 4px 8px, rgba(58, 118, 48, .3) 0 7px 13px -3px, #2b6c13 0 -3px 0 inset;
+        transform: translateY(-2px);
+        color: #d1e9dc
+    }
+
+    .button-green-action:active {
+        box-shadow: #17ad51 0 3px 7px inset;
+        transform: translateY(2px);
+    }
+
+.button-red-action {
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #F56638 0, #ef1e17 100%);
+    border: 0;
+    border-radius: 10px;
+    box-shadow: rgba(86, 46, 46, .4) 0 2px 4px,rgba(118, 52, 48, .3) 0 7px 13px -3px,rgba(106, 47, 22, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "Montserrat",monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .35s,transform .35s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+    .button-red-action:focus {
+        box-shadow: #8c311c 0 0 0 1.5px inset, rgba(86, 46, 46, .4) 0 2px 4px, rgba(118, 52, 48, .3) 0 7px 13px -3px, #a04e33 0 -3px 0 inset;
+    }
+
+    .button-red-action:hover {
+        box-shadow: rgba(86, 46, 46, .4) 0 4px 8px, rgba(106, 47, 22, .5) 0 7px 13px -3px, #6c231e 0 -3px 0 inset;
+        color:#fcdede;
+        transform: translateY(-2px);
+    }
+
+    .button-red-action:active {
+        box-shadow: #ad2917 0 3px 7px inset;
+        transform: translateY(2px);
+    }
+
+
+.button-white-action {
+    align-items: center;
+    appearance: none;
+    background-color: #FCFCFD;
+    border-radius: 10px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "Montserrat",monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-style:normal;
+    font-weight:500;
+    font-size: 16px;
+}
+
+    .button-white-action:focus {
+        box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    }
+
+    .button-white-action:hover {
+        box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+        transform: translateY(-2px);
+    }
+
+    .button-white-action:active {
+        box-shadow: #D6D6E7 0 3px 7px inset;
+        transform: translateY(2px);
+    }
+
+.button-blue-action {
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    border: 0;
+    border-radius: 10px;
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "Montserrat",monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.button-blue-action:focus {
+    box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.button-blue-action:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.button-blue-action:active {
+    box-shadow: #3c4fe0 0 3px 7px inset;
+    transform: translateY(2px);
+}
+
+.smBtn.button-green-action,
+.smBtn.button-red-action,
+.smBtn.button-white-action,
+.smBtn.button-blue-action {
+    height: 38px;
+}
+    /*end btn*/
+    .btn-create {
     border-radius: 20px;
     gap: 3px;
     align-items: flex-start;
@@ -404,6 +645,15 @@ divider-2 {
     cursor: pointer;
 }
 
+.card-3d {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajustează aceste valori după preferințe */
+    transition: box-shadow 0.3s ease; /* Efect de tranziție pentru o schimbare mai lină a umbrei */
+}
+
+    .card-3d:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Umbra mai intensă la hover */
+    }
+
 #rv {
     align-self: baseline;
     margin-left: 10px;
@@ -422,9 +672,6 @@ divider-2 {
 }
 
 
-.hero-home a {
-    margin-top: 20px;
-}
 
 .btn-reinitialiser {
     border-radius: 20px;
@@ -520,18 +767,18 @@ divider-2 {
 
 /*Liste d attente*/
 #heroDetails {
-    position: relative;
+/*    position: relative;*/
     /*width: 100vw;
     height: 50vh;*/
-    overflow: visible;
+/*    overflow: visible;*/
  /*   background: url(../images/hero3.jpg) no-repeat;*/
-    background-size: cover;
-    background-position: center;
-    backdrop-filter: blur(10px);
-    opacity: 0.8;
-    padding: 0;
-    width: 100%;
-    height: fit-content;
+/*    background-size: cover;*/
+/*    background-position: center;*/
+/*    backdrop-filter: blur(10px);*/
+/*    opacity: 0.8;*/
+/*    padding: 0;*/
+/*    width: 100%;*/
+/*    height: fit-content;*/
     /* background-size: cover;
     margin-bottom: 0px;*/
 }
@@ -584,13 +831,13 @@ divider-2 {
 }
 
 .generer-plages-horaires {
-    display: flex;
+/*    display: flex;
     flex-direction: row;
     justify-content: center;
     margin: 30px 0px;
-    padding: 10px;
+    padding: 10px;*/
 }
-
+/*
 
     .generer-plages-horaires .btn {
         margin: 0px 10px;
@@ -604,7 +851,7 @@ divider-2 {
         padding: 10px 10px;
         text-align: center;
         line-height: 20px;
-    }
+    }*/
 
 
 #heroDetails h4, p, hr {
@@ -632,20 +879,27 @@ divider-2 {
 }
 
 .hero-home {
-    height: fit-content;
-    width: 100vw;
+    background: url(../images/hero-bg.jpg) no-repeat top center;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    margin-bottom: 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
+    width:100%;
 }
+
+.hero-home a {
+    margin-top: 20px;
+}
+
 
 .hero-home-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin:50px auto;
-    
     gap: 20px;
     width: fit-content;
 }

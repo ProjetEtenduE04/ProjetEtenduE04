@@ -1,6 +1,7 @@
 @model ListeAttente;
 @{
     Layout = "_Layout";
+    var btnText = "Créer la liste d'attente";
 }
 
 @{
@@ -68,10 +69,17 @@
                             <span asp-validation-for="NbMedecinsDispo" class="text-danger"></span>
                         </div>
 
-                        <button type="submit" class="btn-create btn-lg">Créer</button>
-                        <button type="reset" class="btn-reinitialiser btn-lg">Réinitialiser</button>
-                        <a asp-action="Index" class="btn-reinitialiser">Retour à la liste</a>
-
+                        <!--CreateBTN-->
+                        <div class="row justify-content-center text-center">
+                            <div class="col col-md-8 col-xl-6 mb-2 mt-4">
+                                <partial name="_SubmitButtonPartial" model="@btnText" />
+                            </div>
+                        </div>
+                        <div class="row justify-content-center text-center">
+                            <div class="col col-md-8 col-xl-6 my-2">
+                                <partial name="_ResetButtonPartial" />
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

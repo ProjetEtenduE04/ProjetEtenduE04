@@ -13,7 +13,7 @@
 
 }
 
-<section class="hero-home" data-aos="fade-up">
+<section class="hero-home row g-0" data-aos="fade-up">
     <div class="container-fluid hero-home-content">
         <div class="hero-text">
             <h1 class="text-left">Votre santé, notre priorité :<br>Clinique2000 à votre écoute.</h1>
@@ -27,7 +27,7 @@
             {
                 <form id="external-account" asp-area="Identity" asp-page="/Account/ExternalLogin" asp-route-returnUrl="@Url.Content("~/")" method="post" class="form-horizontal">
                     <div>
-                        <button type="submit" class="btn btn-create ms-0 px-3" name="provider" value="Google" title="Log in using your Google account">
+                        <button type="submit" class="btn button-green-action ms-0 px-3" name="provider" value="Google" title="Log in using your Google account">
                             Vous Connecter  
                             <i class="fa-solid fa-right-to-bracket"></i>
                         </button>
@@ -38,7 +38,8 @@
                     avec votre compte gmail. Simple et secour. </p>
             }
             else if (estConnecte && !estPatient)
-            {  <a asp-area="Patients" asp-controller="Patients" asp-action="Create" class="btn btn-create ms-0 px-3">
+            {
+                <a asp-area="Patients" asp-controller="Patients" asp-action="Create" class="btn button-green-action ms-0 px-3">
                     Inscrivez-vous pour un Rendez-Vous
                 </a>
             }
@@ -49,13 +50,13 @@
                
                 @if (!aRendezVous )
                 {
-                    <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="IndexCliniquesAProximite" class="btn btn-create ms-0 px-3">
+                    <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="IndexCliniquesAProximite" class="btn button-green-action ms-0 px-3">
                     Prendre un Rendez-Vous
                    </a>
                 }
                 else if (aRendezVous)
                 {
-                    <a asp-area="Patients" asp-controller="Patients" asp-action="Details"  asp-route-id="@Model.PatientId" class="btn btn-create ms-0 px-3">
+                    <a asp-area="Patients" asp-controller="Patients" asp-action="Details" asp-route-id="@Model.PatientId" class="btn button-green-action ms-0 px-3">
                        Voir mon Rendez-Vous
                     </a>
                 }
@@ -69,6 +70,31 @@
     test reservation
     </a>*@
 </section>
+@*<section class="section about">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4 col-sm-6">
+                <div class="about-img">
+                    <img src="/images/img-1.jpg" alt="" class="img-fluid">
+                    <img src="/images/img-2.jpg.jpg" alt="" class="img-fluid mt-4">
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="about-img mt-4 mt-lg-0">
+                    <img src="/images/img-3.jpg" alt="" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="about-content pl-4 mt-4 mt-lg-0">
+                    <h2 class="title-color">Personal care <br>& healthy living</h2>
+                    <p class="mt-4 mb-5">We provide best leading medicle service Nulla perferendis veniam deleniti ipsum officia dolores repellat laudantium obcaecati neque.</p>
+
+                    <a href="service.html" class="btn btn-main-2 btn-round-full btn-icon">Services<i class="icofont-simple-right ml-3"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>*@
 
 
 @* @{
