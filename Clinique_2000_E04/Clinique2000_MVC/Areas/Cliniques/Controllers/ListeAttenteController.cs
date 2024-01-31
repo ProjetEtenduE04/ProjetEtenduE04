@@ -421,9 +421,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         public async Task<IActionResult>  ChangerConsultationStatut(int consultaionID)
         {
             var ListeSalleAttenteVM = await _services.listeAttente.ChangerStatutConsultation(consultaionID);
-           
 
-           return View("IndexlisteSalleAttente",ListeSalleAttenteVM);
+
+            return Json(new { success = true });
 
         }
     }

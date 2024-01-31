@@ -47,6 +47,24 @@ function actualiserHeure() {
     $('#watch').text(hour);
 }
 
+
+$('#PasserPatient').on('click', function (e) {
+    e.preventDefault();
+    var consultaionID = Cli
+    $.ajax({
+        url: '/Cliniques/ListeAttente/ChangerConsultationStatut?consultaionID=' + consultaionID,
+        method: 'POST',
+        success: function (response) {
+            
+        },
+        error: function (error) {
+            console.error("Error al cambiar el estado del paciente", error);
+        }
+    });
+});
+
+
+
 function actualiserContenu() {
     console.log("Mise à jour satisfaisante du contenu...");
     $.ajax({
