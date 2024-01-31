@@ -94,7 +94,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
                     TempData[AppConstants.Success] = $"Vous avez créé avec succès le dossier du patient.";
 
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("IndexCliniquesAProximite", "Cliniques", new { area = "Cliniques" });
                 }
 
                 TempData[AppConstants.Error] = $"Les champs obligatoires n'ont pas été remplis correctement";
