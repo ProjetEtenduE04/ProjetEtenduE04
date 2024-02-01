@@ -53,9 +53,9 @@ builder.Services.AddScoped<IListeAttenteService, ListeAttenteService>();
 builder.Services.AddScoped<IAuthenGoogleService, AuthenGoogleService>();
 builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
-builder.Services.AddTransient<DataImportService>();
-builder.Services.AddHostedService(provider =>
-    new DataImportBackgroundService(provider, AppConstants.CsvFilePath));
+//builder.Services.AddTransient<DataImportService>();
+//builder.Services.AddHostedService(provider =>
+//    new DataImportBackgroundService(provider, AppConstants.CsvFilePath));
 
 #endregion
 builder.Services.AddControllersWithViews()
