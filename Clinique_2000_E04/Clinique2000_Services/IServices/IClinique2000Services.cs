@@ -1,3 +1,4 @@
+using Clinique2000_Services.Services;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Clinique2000_Services.IServices
         public IConsultationService consultation { get; }
         public ICliniqueService clinique { get; }
         public IAdresseService adresse { get; }
+        public IEmployesCliniqueService employesClinique { get; }
     }
     
 }

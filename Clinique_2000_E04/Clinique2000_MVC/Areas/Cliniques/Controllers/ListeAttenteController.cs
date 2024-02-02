@@ -479,7 +479,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         //}
 
         [HttpPost]
-        public async Task<IActionResult> ChangerStatutConsultation(int consultationID)
+        public async Task<IActionResult> ChangerStatutConsultation(int consultationID, int employesID)
         {
             var ListeSalleAttenteVM = await _services.listeAttente.ChangerStatutConsultation(consultationID);
 
@@ -488,8 +488,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 TempData[AppConstants.Warning] = $"Désolé, mais aucune consultation avec l'identifiant {consultationID} n'a été trouvée.";
                 return View("NotFound");
             }
-            return Json(new { success = true, data = ListeSalleAttenteVM });
 
+            //return Json(new { success = true, data = ListeSalleAttenteVM });
+            return RedirectToAction("Details","EmployesCliniques", new { id = employesID });
         }
     }
 }

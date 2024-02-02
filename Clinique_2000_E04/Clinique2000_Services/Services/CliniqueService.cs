@@ -18,17 +18,20 @@ namespace Clinique2000_Services.Services
         private readonly CliniqueDbContext _context;
         private readonly IAdresseService _adresseService;
         private readonly IConsultationService _consultationService;
+       
 
 
         public CliniqueService(
             CliniqueDbContext dbContext,
             IAdresseService adresseService,
             IConsultationService consultationService
+            
             ) : base(dbContext)
         {
             _context = dbContext;
             _adresseService = adresseService;
             _consultationService = consultationService;
+          
         }
 
 

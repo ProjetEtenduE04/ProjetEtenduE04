@@ -56,6 +56,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Cliniques\Views\EmployesCliniques\Create.cshtml" />
+    <None Include="Areas\Cliniques\Views\EmployesCliniques\Delete.cshtml" />
+    <None Include="Areas\Cliniques\Views\EmployesCliniques\Details.cshtml" />
+    <None Include="Areas\Cliniques\Views\EmployesCliniques\Edit.cshtml" />
+    <None Include="Areas\Cliniques\Views\EmployesCliniques\Index.cshtml" />
     <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap.js" />
     <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap.min.js" />
     <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap4.js" />

@@ -316,8 +316,17 @@ namespace Clinique2000_Services.Services
 
             if (consultation != null)
             {
-                consultation.StatutConsultation = StatutConsultation.EnCours;
-                await _context.SaveChangesAsync();
+                if(consultation.StatutConsultation == StatutConsultation.EnAttente)
+                {
+                    consultation.StatutConsultation = StatutConsultation.EnCours;
+                    await _context.SaveChangesAsync();
+                }
+                else if (consultation.StatutConsultation == StatutConsultation.EnCours)
+                {
+                    consultation.StatutConsultation = StatutConsultation.Terminé;
+                    await _context.SaveChangesAsync();
+                }
+               
 
                 ListeAttenteVM nouvelleListeAttenteVM= await GetListeSalleAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
                 return nouvelleListeAttenteVM;

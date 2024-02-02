@@ -16,13 +16,24 @@ namespace Clinique2000_Core.Models
        public int EmployeCliniqueID { get; set; }
 
         [Required]
+        [Display(Name = "Nom")]
         public string EmployeCliniqueNom { get; set; }
+
+
         [Required]
+        [Display(Name = "Prenom")]
         public string EmployeCliniquePrenom { get; set; }
+
+
         [Required]
+        [Display(Name = "Courriel")]
         public string EmployeCliniqueCourriel { get; set; }
+
+
         [Required]
+        [Display(Name = "Position")]
         public EmployeCliniquePosition EmployeCliniquePosition { get;set; }//place que l'employeur occupe dans la clnique 
+
 
         [ForeignKey("User")]
         public  string? UserID { get; set; }

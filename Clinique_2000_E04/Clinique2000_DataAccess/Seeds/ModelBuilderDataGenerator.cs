@@ -1354,14 +1354,23 @@ namespace Clinique2000_DataAccess.Seeds
                 EmployeCliniqueID = 1,
                 EmployeCliniqueNom = "Tremblay",
                 EmployeCliniquePrenom = "Mark",
-                EmployeCliniqueCourriel = "marktremblay123456@gmail.com",
+                EmployeCliniqueCourriel = "numcliniquetest@gmail.com",
                 EmployeCliniquePosition  = EmployeCliniquePosition.Medecin,
                 CliniqueID = 1,
 
-
-
             }) ;
-            
+
+            builder.Entity<EmployesClinique>().HasData(new EmployesClinique()
+            {
+                EmployeCliniqueID = 2,
+                EmployeCliniqueNom = "Dubois",
+                EmployeCliniquePrenom = "Monique",
+                EmployeCliniqueCourriel = "testproject2132@gmail.com",
+                EmployeCliniquePosition = EmployeCliniquePosition.Medecin,
+                CliniqueID = 1,
+
+            });
+
 
 
             #endregion
