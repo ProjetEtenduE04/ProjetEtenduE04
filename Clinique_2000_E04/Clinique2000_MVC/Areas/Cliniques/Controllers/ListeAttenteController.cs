@@ -448,6 +448,36 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             }
 
         }
+
+        //public async Task<IActionResult> DataSalleAttente(int listeAttenteID)
+        //{
+        //    Console.WriteLine("Se ajunge la DataSalleAttente");
+
+        //    try
+        //    {
+        //        ListeAttenteVM listeSalleAttenteVM = await _services.listeAttente.GetListeSalleAttenteOrdonnee(listeAttenteID);
+
+        //        if (listeSalleAttenteVM == null)
+        //        {
+        //            TempData[AppConstants.Warning] = $"Désolé, mais aucune liste d'attente avec l'identifiant {listeAttenteID} n'a été trouvée.";
+        //            return View("NotFound");
+        //        }
+
+        //        if (HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+        //        {
+        //            // Este o solicitare Ajax
+        //            return PartialView("IndeListeSalleAttente", listeSalleAttenteVM);
+        //        }
+
+        //        return View(listeSalleAttenteVM);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Eroare în DataSalleAttente: {ex.Message}");
+        //        throw; // aruncă excepția pentru a o vedea în consola browser-ului
+        //    }
+        //}
+
         [HttpPost]
         public async Task<IActionResult> ChangerStatutConsultation(int consultationID)
         {
