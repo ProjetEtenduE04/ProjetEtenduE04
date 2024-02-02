@@ -17,4 +17,12 @@ namespace Clinique2000_Utility.Enum
         DisponiblePourReservation, //la consultation est disponible pour reservation
 
     }
+    public enum EmployeCliniquePosition
+    {
+        Medecin,
+        Receptionniste, 
+        AdminClinique,   
+        Autre, 
+
+    }
 }

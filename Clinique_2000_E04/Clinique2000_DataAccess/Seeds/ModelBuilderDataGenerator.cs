@@ -7,6 +7,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Intrinsics.X86;
 using Clinique2000_Utility.Enum;
+using Microsoft.AspNetCore.Razor.Language.Intermediate;
 
 namespace Clinique2000_DataAccess.Seeds
 {
@@ -1333,7 +1334,7 @@ namespace Clinique2000_DataAccess.Seeds
             //    //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(30),
             //    StatutConsultation = StatutConsultation.DisponiblePourReservation,
             //    PlageHoraireID = 12,
-                
+
             //});
 
             //builder.Entity<Consultation>().HasData(new Consultation()
@@ -1343,11 +1344,27 @@ namespace Clinique2000_DataAccess.Seeds
             //    //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(30),
             //    StatutConsultation = StatutConsultation.DisponiblePourReservation,
             //    PlageHoraireID = 12,
-                
+
             //});
             #endregion Consultation
 
+            #region EmployesClinique
+            builder.Entity<EmployesClinique>().HasData(new EmployesClinique()
+            {
+                EmployeCliniqueID = 1,
+                EmployeCliniqueNom = "Tremblay",
+                EmployeCliniquePrenom = "Mark",
+                EmployeCliniqueCourriel = "marktremblay123456@gmail.com",
+                EmployeCliniquePosition  = EmployeCliniquePosition.Medecin,
+                CliniqueID = 1,
 
+
+
+            }) ;
+            
+
+
+            #endregion
         }
     }
 }

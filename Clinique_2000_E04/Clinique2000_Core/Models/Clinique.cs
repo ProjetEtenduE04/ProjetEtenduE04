@@ -72,5 +72,8 @@ namespace Clinique2000_Core.Models
         [ValidateNever]
         public virtual ApplicationUser Createur { get; set; }
 
+       
+        [ValidateNever]
+        public virtual ICollection<EmployesClinique> EmployesCliniques { get; set; }
     }
 }
