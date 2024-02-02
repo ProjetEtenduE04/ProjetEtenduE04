@@ -4,85 +4,103 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="container " >
-    <h1 class="text-center" style="margin:50px 0">Liste de patients</h1>
+<div class="margin-container-index">
+    <h1 class="text-center">Liste de patients</h1>
 
     <div class="row">
-        <div class="col-md-6" style="display: flex;margin:20px 0">
-            <p>
-                <a asp-action="IndexPourPatients" asp-controller="Cliniques" asp-area="Cliniques" class="btn btn-create form-control" style="width:auto">Liste des cliniques</a>
-
-                <a asp-action="Create" class="btn btn-create form-control" style="width:auto">Créer un nouveau patient</a>
-            </p>
+        <div class="col-1"></div>
+        <div class="col-6" style="display: flex;margin:20px 0">
+            <a asp-action="Create" class=" button-green-action form-control" style="width:auto">Ajouter un patient</a>
         </div>
     </div>
-    <div class="table-responsive-sm mx-auto">
-        <table class="table stripe hover order-column  " id="dataTable">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Nom)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Prenom)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Genre)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.NAM)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CodePostal)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DateDeNaissance)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Age)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.UserId)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nom)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Prenom)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Genre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NAM)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CodePostal)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateDeNaissance)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Age)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UserId)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.PatientId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.PatientId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.PatientId">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div class="row" >
+        <div class="col-1">
+        </div>
+        <div class="col-10">
+            <div class="card mb-4">
+                <div class="card-header card-header-datatables h4 text-light">
+                    <i class="fa-solid fa-hospital-user me-1" style="color: #fff;"></i>
+                    Patients enregistrés
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive mx-auto">
+                        <table class="table  hover order-column  " id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Nom)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Prenom)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Genre)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NAM)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CodePostal)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DateDeNaissance)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Age)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.UserId)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nom)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Prenom)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Genre)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NAM)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CodePostal)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DateDeNaissance)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Age)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UserId)
+                                        </td>
+@*                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.PatientId">Edit</a> |
+                                            <a asp-action="Details" asp-route-id="@item.PatientId">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.PatientId">Delete</a>
+                                        </td>*@
+                                        <td class="" style="width: 100px;">
+                                            <a class="btn btn-warning btn-circle btn-sm" asp-action="Edit" asp-route-id="@item.PatientId"><i class="fa-solid fa-pen"></i></a>
+                                            <a class="btn btn-info btn-circle btn-sm" asp-action="Details" asp-route-id="@item.PatientId"><i class="fa-solid fa-info fa-lg"></i></a>
+                                            <a class="btn btn-danger btn-circle btn-sm" asp-action="Delete" asp-route-id="@item.PatientId"> <i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+        </div>
     </div>
 </div>

@@ -16,5 +16,6 @@ namespace Clinique2000_Services.IServices
         Task<Patient> GetPatientParUserIdAsync(string userId);
         Task<bool> VerifierExistencePatientParNomAsync(string nom);
         Task<Patient?> ObtenirPatientParNomAsync(string curriel);
+        Task<bool> UserAuthEstPatientAsync();
     }
 }

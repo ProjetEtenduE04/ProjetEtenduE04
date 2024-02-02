@@ -43,6 +43,10 @@ namespace Clinique2000_Core.Models
         [StringLength(7, MinimumLength = 7, ErrorMessage = "Ce champ doit avoir exactement 7 caractères.")]
         public string CodePostal { get; set; }
 
+        //public double Latitude { get; set; }
+
+        //public double Longitude { get; set; }
+
         [ValidateNever]
         public virtual Clinique Clinique { get; set; }
     }

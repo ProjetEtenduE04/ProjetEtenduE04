@@ -11,5 +11,6 @@ namespace Clinique2000_Core.ViewModels
     {
         public Clinique Clinique { get; set; }
         public Adresse Adresse { get; set; }
+
     }
 }

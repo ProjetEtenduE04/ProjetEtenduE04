@@ -3,19 +3,30 @@ using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Utility.Constants;
 using Clinique2000_Utility.CustomAttributesValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Clinique2000_Services.Services
 {
     public class PatientService : ServiceBaseAsync<Patient>, IPatientService
     {
         private readonly CliniqueDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAdresseService _adresseService;
 
-        public PatientService(CliniqueDbContext context) : base(context)
+        public PatientService(CliniqueDbContext context,
+                UserManager<IdentityUser> userManager,
+                IHttpContextAccessor httpContextAccessor,
+                IAdresseService adresseService) : base(context)
         {
             _context = context;
+            _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
+            _adresseService = adresseService;
 
         }
 
@@ -211,6 +222,9 @@ namespace Clinique2000_Services.Services
                 throw new Exception("Vous devez être majeur pour vous inscrire.");
             }
             patient.Age = ageExact.Annees;
+
+            await _adresseService.VerifierCodePostalValideAsync(patient.CodePostal);
+
             if (patient.PatientId != 0)
             {
                 var existingPatient = await ObtenirParIdAsync(patient.PatientId);
@@ -246,7 +260,17 @@ namespace Clinique2000_Services.Services
             return await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
         }
 
+        /// <summary>
+        /// Vérifie si un utilisateur authentifié est enregistré en tant que patient.
+        /// </summary>
+        /// <returns>True si l'utilisateur est enregistré en tant que patient, sinon False. </returns>
+        public async Task<bool> UserAuthEstPatientAsync()
+        {
+            string courrielUserAuth = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var user = await _userManager.FindByEmailAsync(courrielUserAuth);
 
+            return await UserEstPatientAsync(user.Id);
+        }
 
 
         /// <summary>

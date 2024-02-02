@@ -46,7 +46,7 @@ namespace Clinique2000_Core.Models
         public int NbMedecinsDispo { get; set; }
 
 
-        public int? DureeConsultationMinutes { get; set; }
+        //public int? DureeConsultationMinutes { get; set; }
 
 
 

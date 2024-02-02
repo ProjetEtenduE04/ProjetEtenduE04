@@ -1,4 +1,4 @@
-﻿@model Consultation
+@model Consultation
 
 @{
     ViewData["Title"] = "Index";
@@ -9,13 +9,13 @@
             <div class="col col-lg-10 col-xl-9 d-flex justify-content-center">
                 <div id="confirmation">
                     <h1 class="h0 mb-5" style="margin-top:20px">Confirmation de <br />Rendez-Vous</h1>
-                    <p class="mt-3 ms-2">Patient <strong><span id="patientName">@Model.Patient.Prenom @Model.Patient.Nom</span></strong>, voici les détails de votre prochaine visite :</p>
+                    <p class="mt-3 ms-2">Voici les détails de votre prochaine visite :</p>
                  @*   <p>Nous sommes heureux de confirmer que votre rendez-vous a été fixé avec succès. >*@
                         @*<p class="m-1">Voici les détails de votre prochaine visite :</p>*@
                     <ul class ="details-rdv m-1 ms-2">
                         <li><strong>Clinique <span id="clinicName">@Model.PlageHorarie.ListeAttente.Clinique.NomClinique</span></strong></li>
                         <li><strong> Date: </strong><span id="appointmentDate"> @Model.PlageHorarie.ListeAttente.DateEffectivite.Date.ToString("dddd yyyy-MM-dd")</span></li>
-                        <li><strong>Heure:</strong> <span id="appointmentTime">@Model.HeureDateDebutPrevue.ToString("HH:mm")</span></li>    
+                        <li><strong>Heure:</strong> <span id="appointmentTime">@Model.PlageHorarie.HeureDebut.ToString("HH:mm")</span></li>    
                     </ul>
 @*                    <p>Si vous avez des questions ou besoin d'assistance, n'hésitez pas à contacter la clinique :</p>
                     *@  <ul class="adresse m-1 ms-2">
@@ -34,10 +34,14 @@
                         <li><strong>Téléphone:</strong> <span id="clinicPhone">NumTelephone</span></li>
                         <li><strong>Email: </strong><span id="clinicEmail">@Model.PlageHorarie.ListeAttente.Clinique.Courriel</span></li>
                     </ul>
-                    <div class="confirmation-bouttons mt-3 mb-4">
-                        <a id="rescheduleButton" class=" btn btn-create " asp-action="Index" asp-controller="Home" asp-area="">Confirmer le RDV</a>
-                        <a id="cancelButton" class="btn btn-reinitialiser" disabled>Annuler le RDV</a>
-                    </div>
+                    <form asp-action="ReserverConsultation" asp-controller="ListeAttente" asp-area="Cliniques" asp-route-id="@Model.ConsultationID" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="confirmation-bouttons mt-3 mb-4">
+                            <button type="submit" id="rescheduleButton" class="button-green-action">Confirmer</button>
+                            <a id="cancelButton" class="button-white-action" disabled>Annuler le RDV</a>
+                        </div>
+                    </form>
                 </div>
              </div>
         </div>

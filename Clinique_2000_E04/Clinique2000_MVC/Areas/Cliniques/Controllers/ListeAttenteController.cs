@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
 using Clinique2000_Utility.Enum;
+using Clinique2000_Utility.Constants;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
@@ -26,7 +27,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
 
         /// <summary>
-        /// Obtient tout les listes d'Attente ordered par date d'effectivit� ,
+        /// Obtient tout les listes d'Attente ordered par date d'effectivité ,
         /// qui sont pertinantes a la receptionniste
         /// , puis les renvoie a la vue.
         /// </summary>
@@ -69,14 +70,15 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id >= 0)
             {
                ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
                if (listeAttente == null)
-                { 
-                    return NotFound();
+                {
+                    TempData[AppConstants.Warning] = $"Désolé, mais aucune liste d'attente avec l'identifiant {id} n'a été trouvée.";
+                    return View("NotFound");
                 }
 
                var plagesHoraires = listeAttente.PlagesHoraires?? new List<PlageHoraire>();
@@ -87,8 +89,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 };
                 return View(listeAttenteVM);
             }
-
-            return NotFound();
+            TempData[AppConstants.Warning] = $"Désolé, mais aucune liste d'attente n'a été trouvée.";
+            return View("NotFound");
         }
 
 
@@ -101,19 +103,27 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         public async Task<ActionResult> DetailsOrdonnes(int id)
         {
             ListeAttenteVM listeAttenteVM = new ListeAttenteVM();
-
-            if (id >= 0)
+            try
             {
-               listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(id);
-                if (listeAttenteVM == null)
+                if (id >= 0)
                 {
-                    return NotFound();
+                    listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(id);
+                    if (listeAttenteVM == null)
+                    {
+                        TempData[AppConstants.Warning] = $"Désolé, mais aucune liste d'attente avec l'identifiant {id} n'a été trouvée.";
+                        return View("NotFound");
+                    }
+                    return View("Details", listeAttenteVM);
                 }
-                return View("Details",listeAttenteVM);
+                TempData[AppConstants.Warning] = $"Désolé, mais aucune liste d'attente n'a été trouvée.";
+                return View("NotFound");
             }
-
-            return NotFound();
- 
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+                return View("NotFound");
+            }
         }
 
 
@@ -141,36 +151,25 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 {
                     listeAttente.CliniqueID = 2;
                     await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
-                    //valeur hardcod�
-                  
-
-
+                    TempData[AppConstants.Success] = $"Vous avez créé avec succès la liste d'attente";
                     return RedirectToAction("Index");
                 }
             }
-            catch(ValidationException ex)
+            catch(Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
             }
-         
-
 
             return View("create", listeAttente);
         }
 
-
-          
-        
-
-        [HttpGet]
         // GET: ListeAttenteController/Edit/5
+        [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-
             ListeAttente list = await _services.listeAttente.ObtenirParIdAsync(id);
             return View(list);
-
-
         }
 
         // POST: ListeAttenteController/Edit/5
@@ -190,20 +189,20 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //hardcod�
+                    //hardcodé
                     listeAttente.CliniqueID = 1;
 
-
                     await _services.listeAttente.ModifierListeAttenteAsync(listeAttente);
+                    TempData[AppConstants.Success] = $"Les données de la liste d'attente ont été modifiées avec succès.";
                     return RedirectToAction("Index");
                 }
+                TempData[AppConstants.Error] = $"Les champs obligatoires n'ont pas été remplis correctement";
             }
-            catch(ValidationException ex)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur {ex.Message}";
             }
-       
-
             return View(listeAttente);
         }
 
@@ -220,10 +219,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             if (id >= 0)
             {
                 ListeAttente listeattente = _services.listeAttente.ObtenirParIdAsync(id).Result;
+                TempData[AppConstants.Warning] = $"Vous êtes sûr de vouloir supprimer la liste d'attente ??";
                 return View("Delete", listeattente);
             }
-            return NotFound();
-         
+            TempData[AppConstants.Warning] = $"Désolé, mais aucune liste d'attente avec l'identifiant {id} n'a été trouvée.";
+            return View("NotFound");
+
         }
 
 
@@ -246,11 +247,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     if (!_services.listeAttente.PeutSupprimmer(listeAttente))
                     {
                         ModelState.AddModelError("", "Cette liste d'attente ne peut etre supprimee.");
+                        TempData[AppConstants.Error] = $"Cette liste d'attente ne peut etre supprimee.";
                         return View(listeAttente);
                     }
                     else
                     {
                         await _services.listeAttente.SupprimmerListeAttente(listeAttente);
+                        TempData[AppConstants.Success] = $"La liste d'attente de la clinique a été supprimée avec succès.";
                         return RedirectToAction("index");
                     }
                 }
@@ -258,6 +261,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 {
                     // Log the exception details as needed
                     ModelState.AddModelError("", "Une erreur s'est produite lors de la suppression : " + ex.Message);
+                    TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
                     return View(listeAttente);
                 }
             }
@@ -286,11 +290,46 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     ListeAttente = listeAttente,
                     PlagesHoraires = listeAttente.PlagesHoraires.OrderBy(ph => ph.PlageHoraireID).ToList()
                 };
-                return View("Details", listeAttenteVM);  
+
+            TempData[AppConstants.Success] = $"Les plages horaires ont été générées avec succès";
+            return View("Details", listeAttenteVM);  
+        }
+
+    
+
+        [HttpGet]
+        public async Task<ActionResult> ShowReservationConfirmation(int id)
+        {
+            var consultation = await _services.consultation.ObtenirParIdAsync(id);
+            var listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
+            try
+            {
+              
+                if (consultation == null)
+                {
+                    TempData[AppConstants.Warning] = "Désolé, mais aucune consultation n'a été trouvée.";
+                    return View("Details", listeAttenteVM);
+                }
+                var patientId = await _services.consultation.ObtenirIdPatientAsync();
+                // Check if the patient already has a consultation scheduled
+                if (await _services.consultation.PatientAConsultationPlanifieeAsync(patientId))
+                {
+                    TempData[AppConstants.Warning] = "Vous avez déjà une consultation planifiée.";
+                    return View("Details", listeAttenteVM);
+                }
+
+                return View("ReservationSuccess", consultation);
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+                return View("Details", listeAttenteVM);
+            }
         }
 
 
-    
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -302,18 +341,19 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 var consultation = await _services.consultation.ObtenirParIdAsync(id);
                 if (consultation == null)
                 {
-                    return NotFound();
+                    TempData[AppConstants.Warning] = $"Désolé, mais aucune consultation avec l'identifiant {id} n'a été trouvée.";
+                    return View("NotFound");
                 }
 
-                return View("ReservationSuccess", consultation);
+                TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHorarie.HeureDebut.ToShortDateString()} à {consultation.PlageHorarie.HeureDebut.ToShortTimeString()}";
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
             catch (ValidationException ex)
             {
-                var consultation = await _services.consultation.ObtenirParIdAsync(id);
-                var listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
 
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View("Details", listeAttenteVM);
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
         }
 
@@ -351,7 +391,6 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 HeureOuverture = new TimeSpan(8, 0, 0), // Ejemplo: 8:00 AM
                 HeureFermeture = new TimeSpan(17, 0, 0), // Ejemplo: 5:00 PM
                 NbMedecinsDispo = 5,
-                DureeConsultationMinutes = 30,
                 CliniqueID = clinique.CliniqueID,
                 Clinique = clinique
                 
@@ -360,7 +399,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             
             var plageHoraire = new PlageHoraire
             {
-                PlageHoraireID = 1, // ID ficticio
+                PlageHoraireID = 1, 
                 HeureDebut = new DateTime(2024, 1, 19, 9, 0, 0),
                 HeureFin = new DateTime(2024, 1, 19, 9, 30, 0),
                 ListeAttenteID = listeAttente.ListeAttenteID,
@@ -369,12 +408,10 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             var consultation = new Consultation
             {
-                ConsultationID = 1, // ID ficticio
-                HeureDateDebutPrevue = plageHoraire.HeureDebut,
-                HeureDateFinPrevue = plageHoraire.HeureFin,
+                ConsultationID = 1, 
                 PlageHoraireID = plageHoraire.PlageHoraireID,
                 PlageHorarie = plageHoraire,
-                PatientID = 1, // ID ficticio
+                PatientID = 1, 
                 Patient = new Patient
                 {
                     Nom = "Emond",
@@ -382,14 +419,77 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 },
              
                
-                // Añade aquí otras propiedades necesarias para Consultation
+                
             };
 
-           
+            TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHorarie.HeureDebut.ToShortDateString()} à {consultation.PlageHorarie.HeureDebut.ToShortTimeString()}";
             return View("ReservationSuccess", consultation);
         }
 
+        public  async Task<IActionResult> IndexlisteSalleAttente(int listeAttenteID)
+        {
+            ListeAttenteVM listeSalleAttenteVM = new ListeAttenteVM();
+            if (listeAttenteID > 0)
+            {
+                listeSalleAttenteVM = await _services.listeAttente.GetListeSalleAttenteOrdonnee(listeAttenteID);
+                if (listeSalleAttenteVM == null)
+                {
+                    TempData[AppConstants.Warning] = $"Désolé, mais aucune liste d'attente avec l'identifiant {listeAttenteID} n'a été trouvée.";
+                    return View("NotFound");
+                }
 
+                return View(listeSalleAttenteVM);
 
+            }
+            else
+            {
+                TempData[AppConstants.Warning] = $"Désolé, mais aucune liste d'attente avec l'identifiant {listeAttenteID} n'a été trouvée.";
+                return View("NotFound");
+            }
+
+        }
+
+        //public async Task<IActionResult> DataSalleAttente(int listeAttenteID)
+        //{
+        //    Console.WriteLine("Se ajunge la DataSalleAttente");
+
+        //    try
+        //    {
+        //        ListeAttenteVM listeSalleAttenteVM = await _services.listeAttente.GetListeSalleAttenteOrdonnee(listeAttenteID);
+
+        //        if (listeSalleAttenteVM == null)
+        //        {
+        //            TempData[AppConstants.Warning] = $"Désolé, mais aucune liste d'attente avec l'identifiant {listeAttenteID} n'a été trouvée.";
+        //            return View("NotFound");
+        //        }
+
+        //        if (HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+        //        {
+        //            // Este o solicitare Ajax
+        //            return PartialView("IndeListeSalleAttente", listeSalleAttenteVM);
+        //        }
+
+        //        return View(listeSalleAttenteVM);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Eroare în DataSalleAttente: {ex.Message}");
+        //        throw; // aruncă excepția pentru a o vedea în consola browser-ului
+        //    }
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> ChangerStatutConsultation(int consultationID)
+        {
+            var ListeSalleAttenteVM = await _services.listeAttente.ChangerStatutConsultation(consultationID);
+
+            if (ListeSalleAttenteVM == null)
+            {
+                TempData[AppConstants.Warning] = $"Désolé, mais aucune consultation avec l'identifiant {consultationID} n'a été trouvée.";
+                return View("NotFound");
+            }
+            return Json(new { success = true, data = ListeSalleAttenteVM });
+
+        }
     }
 }

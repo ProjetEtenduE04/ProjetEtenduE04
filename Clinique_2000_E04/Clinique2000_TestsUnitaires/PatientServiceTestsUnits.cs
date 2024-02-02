@@ -2,6 +2,8 @@
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -11,6 +13,16 @@ namespace Clinique2000_TestsUnitaires
     public class PatientServiceTestsUnits
     {
         // Définir la DB InMemory
+        private readonly Mock<IHttpContextAccessor> _httpContextAccessorMock;
+        private readonly Mock<UserManager<IdentityUser>> _userManagerMock;
+        private readonly Mock<IAdresseService> _AdresseServiceMock;
+
+        public PatientServiceTestsUnits()
+        {
+            _httpContextAccessorMock = new Mock<IHttpContextAccessor>();
+            _userManagerMock = new Mock<UserManager<IdentityUser>>(Mock.Of<IUserStore<IdentityUser>>(), null, null, null, null, null, null, null, null);
+            _AdresseServiceMock = new Mock<IAdresseService>();
+        }
 
         private DbContextOptions<CliniqueDbContext> SetUpInMemory(string uniqueName)
         {
@@ -64,7 +76,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new PatientService(context);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
             var dateFuture = DateTime.Now.AddDays(1);
 
@@ -87,7 +99,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new PatientService(context);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
             var dateValide = new DateTime(annee, mois, jour);
 
@@ -105,7 +117,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new PatientService(context);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
             var dateOfBirth = new DateTime(2000, 2, 29); // Une année bissextile
 
@@ -126,7 +138,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new PatientService(context);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
             var dateOfBirth = new DateTime(1999, 4, 15); // Année ordinaire
 
@@ -150,7 +162,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new PatientService(context);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
             // Act
             var result = service.EstMajeurAge(age);
@@ -172,7 +184,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new PatientService(context);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
             // Act
             var result = service.EstMajeurAge(age);
@@ -192,7 +204,7 @@ namespace Clinique2000_TestsUnitaires
 
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new PatientService(context);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
             // Act
             var result = service.EstMajeurAge(age);
@@ -213,7 +225,7 @@ namespace Clinique2000_TestsUnitaires
 
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new PatientService(context);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
             // Act
             var result = service.EstMajeurDateDeNaissance(dateNeeHier);
@@ -233,7 +245,7 @@ namespace Clinique2000_TestsUnitaires
 
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new PatientService(context);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
             // Act
             var result = service.EstMajeurDateDeNaissance(age14Ans);
@@ -253,7 +265,7 @@ namespace Clinique2000_TestsUnitaires
 
             var options = SetUpInMemory("moq_db");
             using var context = new CliniqueDbContext(options);
-            var service = new PatientService(context);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
             // Act
             var result = service.EstMajeurDateDeNaissance(age20Ans);
@@ -277,7 +289,8 @@ namespace Clinique2000_TestsUnitaires
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("VerifierExistencePatientParNAM_ReturnPatient")))
             {
                 // Arrange
-                IPatientService service = new PatientService(dbTest);
+                var service = new PatientService(dbTest, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
+
                 var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
                 var namPatientFaux = "xxxx12345674";
                 // Act
@@ -306,7 +319,8 @@ namespace Clinique2000_TestsUnitaires
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("VerifierExistencePatientParNomAsync_ReturnTrueOrFalse")))
             {
                 // Arrange
-                IPatientService service = new PatientService(dbTest);
+                var service = new PatientService(dbTest, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
+
                 var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
                 var nomPatientFaux = "Alex";
                 // Act
@@ -336,7 +350,8 @@ namespace Clinique2000_TestsUnitaires
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("ObtenirPatientParNAMAsync_ReturnPatientIfExists")))
             {
                 // Arrange
-                IPatientService service = new PatientService(dbTest);
+                var service = new PatientService(dbTest, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
+
                 var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
 
                 var namPatientFaux = "xxxx12345674";
@@ -365,7 +380,8 @@ namespace Clinique2000_TestsUnitaires
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("ObtenirPatientParNomAsync_ReturnPatientIfExists")))
             {
                 // Arrange
-                IPatientService service = new PatientService(dbTest);
+                var service = new PatientService(dbTest, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
+
                 var patientAChercher = await dbTest.Patients.LastOrDefaultAsync();
 
                 var nomlPatientFaux = "Alexei";
@@ -393,7 +409,8 @@ namespace Clinique2000_TestsUnitaires
 
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_NAMExist_ThrowsException")))
             {
-                IPatientService service = new PatientService(dbTest);
+                var service = new PatientService(dbTest, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
+
                 var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
 
                 var namExistent = patientInscris.NAM;
@@ -419,7 +436,8 @@ namespace Clinique2000_TestsUnitaires
 
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_DateDeNaissanceInvalide_ThrowsArgumentEception")))
             {
-                IPatientService service = new PatientService(dbTest);
+                var service = new PatientService(dbTest, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
+
                 var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
 
                 var nouveauNAM = "ABCD12345678";
@@ -445,7 +463,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("TestExistingPatientModificationSuccess")))
             {
-                IPatientService service = new PatientService(dbTest);
+                var service = new PatientService(dbTest, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
 
                 var initPatient = await dbTest.Patients.FindAsync(1);
 
@@ -470,7 +488,8 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("TestExistingPatientModificationSuccess")))
             {
-                IPatientService service = new PatientService(dbTest);
+                var service = new PatientService(dbTest, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
+
 
                 var initPatient = await dbTest.Patients.FindAsync(1);
 
@@ -494,7 +513,8 @@ namespace Clinique2000_TestsUnitaires
 
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_EstMineur_ThrowsException")))
             {
-                IPatientService service = new PatientService(dbTest);
+                var service = new PatientService(dbTest, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
+
                 var patientInscris = await dbTest.Patients.LastOrDefaultAsync();
 
                 var nouveauNAM = "ABCD12345678";
@@ -520,7 +540,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             using (var dbTest = new CliniqueDbContext(SetUpInMemory("EnregistrerPatient_CorrectRegistration_NoExceptionThrown")))
             {
-                IPatientService service = new PatientService(dbTest);
+                var service = new PatientService(dbTest, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
                 var patientAEnregistrer = new Patient
                 {
                     Nom = "TEST",

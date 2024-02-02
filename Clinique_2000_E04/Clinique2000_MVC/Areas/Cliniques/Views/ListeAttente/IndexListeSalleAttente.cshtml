@@ -1,0 +1,77 @@
+﻿@model Clinique2000_Core.ViewModels.ListeAttenteVM
+
+@{
+    Layout = "_LayoutSalleAttente";
+}
+
+@{
+    int contador = 1;
+}
+@* asp-area="Cliniques" asp-controller="ListeAttente"
+       asp-action="ChangerStatutConsultation"
+       asp-route-consultaionID=@Model.Consultations[0].ConsultationID  *@
+@*<div class="col-6" style="display: flex;margin:20px 0">
+    <a id="PasserPatient" type="button" class="text-center justify-content-center d-block my-5" 
+       data-consultationid="@Model.Consultations[0].ConsultationID " >
+        Passer le prochain patient
+    </a>
+</div>*@
+<div class="table-responsive mx-auto" id="SalleAttenteTable">
+    <table class="table hover align-middle">
+    <table class="table hover align-middle">
+        <thead>
+            <tr class="">
+                <th class="text-center col-4">
+                    <h2>Ordre</h2>
+                </th>
+                <th class="text-center  col-4">
+                    <h2>Patient</h2>
+                </th>
+
+                <th class="text-center  col-4">
+                    <h2>Heure de consultation</h2>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var consultation in Model.Consultations)
+
+            {
+                @*Ne fonctionne pas en raison des styles de table de date prédéfinis à modifier s'il y a du temps.*@
+                <tr class="@(contador == 1 ? "green-rows" : "") ">
+    
+                    <td class="text-center  col-4">
+                        @if(contador==1)
+                        {
+                            <button class="btn btn-lg btn-success btn-circle">
+                                @(contador++)
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-lg btn-outline-secondary btn-circle">
+                                @(contador++)
+                            </button>
+                        }
+
+                    </td>
+
+                    <td class="text-center col-4">
+                        <h4>@consultation.Patient.Prenom @consultation.Patient.Nom[0]</h4>
+                    </td>
+
+                    <td class=" text-center col-4">
+                        <h4>@consultation.PlageHorarie.HeureDebut.ToString("HH:mm")</h4>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    // Funcția pentru refresh la fiecare 60 de secunde
+    setInterval(function () {
+        location.reload();
+    }, 60000);
+</script>
+                

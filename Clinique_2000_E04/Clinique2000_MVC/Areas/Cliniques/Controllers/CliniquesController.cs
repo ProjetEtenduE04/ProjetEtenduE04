@@ -3,6 +3,7 @@ using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
+using Clinique2000_Utility.Constants;
 using Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +28,6 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         public CliniquesController(
             IClinique2000Services service,
             UserManager<IdentityUser> userManager
-
             )
         {
             _services = service;
@@ -46,6 +46,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             if (id == null || await _services.clinique.ObtenirToutAsync() == null)
             {
+                TempData[AppConstants.Warning] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
                 return View("NotFound");
             }
 
@@ -53,6 +54,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             if (clinique == null)
             {
+                TempData[AppConstants.Warning] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
                 return View("NotFound");
             }
 
@@ -63,21 +65,18 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            //if (User.Identity.IsAuthenticated) //Utiliser temporairement, jusqu'à implémentation Role-based authorization
-            //{
-                string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
-                var user = await _userManager.FindByEmailAsync(courrielUserAuth);
+            string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
+            var user = await _userManager.FindByEmailAsync(courrielUserAuth);
 
-                var cliniqueModel = new CliniqueAdresseVM() { 
-                    Clinique = new Clinique2000_Core.Models.Clinique() 
-                    { 
-                        CreateurID = user.Id} 
-                    };
+            var cliniqueModel = new CliniqueAdresseVM() 
+            { 
+                Clinique = new Clinique() 
+                { 
+                    CreateurID = user.Id
+                } 
+            };
 
-                    return View(cliniqueModel);
-            //}
-
-            //return RedirectToAction(nameof(Index));
+            return View(cliniqueModel);
         }
 
         // POST: Cliniques/Create
@@ -85,16 +84,29 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CliniqueAdresseVM viewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var cliniqueEnregistre = await _services.clinique.EnregistrerCliniqueAsync(viewModel);
+                if (ModelState.IsValid)
+                {
+                    var cliniqueEnregistre = await _services.clinique.EnregistrerCliniqueAsync(viewModel);
 
-                return RedirectToAction("Details", "Cliniques", new { id = cliniqueEnregistre.CliniqueID });
+                    TempData[AppConstants.Success] = $"Vous avez enregistré avec succès la clinique  {cliniqueEnregistre.NomClinique}";
+
+                    return RedirectToAction("Details", "Cliniques", new { id = cliniqueEnregistre.CliniqueID });
+                }
+
+                TempData[AppConstants.Error] = $"Les champs obligatoires n'ont pas été remplis correctement";
+                
+                return View(viewModel);
             }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
 
-            return View(viewModel);
+                return View(viewModel);
+            }
         }
-
 
         // GET: Cliniques/Edit/5
         [HttpGet]
@@ -110,6 +122,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
                 if (clinique == null)
                 {
+                    TempData[AppConstants.Warning] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
                     return View("NotFound");
                 }
 
@@ -122,8 +135,11 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 };
                 return View(cliniqueAdresseVM);
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -142,31 +158,51 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 if (ModelState.IsValid)
                 { 
                     await _services.clinique.EditerCliniqueAsync(cliniqueAdresseVM);
+
+                    TempData[AppConstants.Success] = $"Les données de la clinique {cliniqueAdresseVM.Clinique.NomClinique} ont été modifiées avec succès";
+
                     return RedirectToAction("Details", "Cliniques", new { id = cliniqueAdresseVM.Clinique.CliniqueID });
                 }
+
+                TempData[AppConstants.Error] = $"Les champs obligatoires n'ont pas été remplis correctement";
+                return View(cliniqueAdresseVM);
             }
-            catch (ValidationException ex)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("Error", ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur {ex.Message}";
+
+                return View(cliniqueAdresseVM);
             }
-            return View(cliniqueAdresseVM);
         }
 
         // GET: Cliniques/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || await _services.clinique.ObtenirToutAsync() == null)
+            try
             {
-                return View("NotFound");
-            }
+                if (id == null || await _services.clinique.ObtenirToutAsync() == null)
+                {
+                    TempData[AppConstants.Warning] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
+                    return View("NotFound");
+                }
 
-            var cliniqueASupprimer = await _services.clinique.ObtenirParIdAsync(id);
-            if (cliniqueASupprimer == null)
+                var cliniqueASupprimer = await _services.clinique.ObtenirParIdAsync(id);
+                if (cliniqueASupprimer == null)
+                {
+                    TempData[AppConstants.Warning] = $"Désolé, mais la clinique n'a pas été trouvée dans notre base de données.";
+                    return View("NotFound");
+                } 
+
+                TempData[AppConstants.Warning] = $"Vous êtes sûr de vouloir supprimer cette clinique?";
+                return View(cliniqueASupprimer);
+            }
+            catch (Exception ex)
             {
-                return View("NotFound");
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+                return RedirectToAction(nameof(Index));
             }
-
-            return View(cliniqueASupprimer);
         }
 
         // POST: Cliniques/Delete/5
@@ -174,39 +210,53 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (await _services.clinique.ObtenirToutAsync() == null)
+            try
             {
-                return Problem("L'ensemble d'entités 'ApplicationDbContext.Cliniques' est nul.");
+                if (await _services.clinique.ObtenirToutAsync() == null)
+                {
+                    TempData[AppConstants.Error] = $"L'ensemble d'entités 'ApplicationDbContext.Cliniques' est nul.";
+                    return Problem("Error");
+                }
+                var clinique = await _services.clinique.ObtenirParIdAsync(id);
+                if(clinique != null)
+                {
+                    await _services.clinique.SupprimerAsync(id);
+                    TempData[AppConstants.Success] = $"Le dossier de la clinique {clinique.NomClinique} a été supprimé avec succès.";
+                }
+                return RedirectToAction(nameof(Index));
             }
-            await _services.clinique.SupprimerAsync(id);
-            //var cliniqueASupprimer = await _services.clinique.ObtenirParIdAsync(id);
-            //if (cliniqueASupprimer != null)
-            //{
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+                return RedirectToAction(nameof(Index));
 
-            //    _context.Cliniques.Remove(cliniqueASupprimer);
-            //}
-
-            //await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            }          
         }
 
-        //private bool CliniqueExists(int id)
-        //{
-        //    return (_context.Cliniques?.Any(e => e.CliniqueID == id)).GetValueOrDefault();
-        //}
-
-
-        public async Task<IActionResult> IndexPourPatients()
+        public async Task<IActionResult> IndexCliniquesAProximite()
         {
+            bool userEstPatient = await _services.patient.UserAuthEstPatientAsync();
+            if (!userEstPatient)
+            {
+                TempData[AppConstants.Info] = $"Vous devez être un patient pour accéder à cette page.";
+                return RedirectToAction("Create", "Patients", new { area = "Patients" });
+            }
             List<Clinique> allClinics = await _services.clinique.ObtenirToutAsync();
 
             if (allClinics == null)
             {
-                return View("IndexPourPatients", Enumerable.Empty<Clinique>());
+                return View("IndexCliniquesAProximite");
             }
 
-            var activeClinics = allClinics.Where(clinic => clinic.EstActive).ToList();
-            return View("IndexPourPatients", activeClinics);
+            IEnumerable<CliniqueDistanceVM> activeClinics = await _services.clinique.ObtenirLes5CliniquesLesPlusProches();
+
+            if(activeClinics.Count() > 0)
+                TempData[AppConstants.Info] = $"Voici les cliniques les plus proches de chez vous avec des rendez-vous disponibles ";
+            else
+                TempData[AppConstants.Info] = $"Malheureusement, il n'y a pas de clinique RDV disponible pour le moment.";
+
+            return View("IndexCliniquesAProximite", activeClinics);
         }
 
 
@@ -215,7 +265,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             IList<ListeAttente> listeAttentePourPatient = await _services.clinique.GetListeAttentePourPatientAsync(clinicId, isOuvert);
 
 
-            string clinicName = _services.clinique.ObtenirParIdAsync(clinicId)?.Result?.NomClinique;
+            string clinicName =_services.clinique.ObtenirParIdAsync(clinicId)?.Result?.NomClinique;
 
             ViewBag.CliniqueName = clinicName;
 

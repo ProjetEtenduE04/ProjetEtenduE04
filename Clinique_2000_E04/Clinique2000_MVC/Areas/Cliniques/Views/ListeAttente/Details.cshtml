@@ -1,96 +1,110 @@
 @model Clinique2000_Core.ViewModels.ListeAttenteVM
 
+
 <section id="heroDetails" class="d-flex align-items-center justify-content-center mb-2">
+
     <div class="listeattente-data">
-        <div class="row d-flex mb-2 justify-content-center align-content-center text-center"> 
-            <div class="col-md-12 mt-5">
+        <div class="row d-flex my-5 justify-content-center align-content-center text-center"> 
+            <div class="col-8 mt-5">
                 <h1 class="text-center justify-content-center">Liste d'attente</h1>
                 <h1 class="text-center justify-content-center">@Model.ListeAttente.Clinique.NomClinique</h1>
                 <h2 class="text-center justify-content-center">@Model.ListeAttente.Clinique.Adresse.Numero, @Model.ListeAttente.Clinique.Adresse.Rue @Model.ListeAttente.Clinique.Adresse.Ville @Model.ListeAttente.Clinique.Adresse.CodePostal </h2>
                 
             </div>
         </div>
-        <div class="container-fluid heure-medecins">
-            <div class="heureActuelle card-details">
-                <p>Heure Actuelle</p>
-                <div id="watch"></div>
-            </div>
-            <div class="card-details"><p>Nombre de médecins: <div id="nb-medecins-dispo">@Model.ListeAttente.NbMedecinsDispo</div></p></div>
-
-
-            <div class="heure-date-liste">
-                <div class="card-details">
-                    <p>Effective le: </p>
-                    <div id="date-effectivite">
-                        @Model.ListeAttente.DateEffectivite.ToString("yyyy-MM-dd")
+        <!-- Facts Start -->
+        <div class="container-fluid facts py-5 pt-lg-0">
+            <div class="container py-5 pt-lg-0">
+                <div class="row gx-0">
+                    <div class="col-lg-4 wow zoomIn" data-wow-delay="0.1s">
+                        <div class="bg-primary shadow d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                            <div class="ps-4">
+                                <div class="timeDiv ">
+                                    <span class="font-color-clock-white" id="time"></span>
+                                    <span class="font-color-clock-white" id="sec"></span>
+                                    <span class="font-color-clock-white" id="med"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow zoomIn" data-wow-delay="0.3s">
+                        <div class="bg-light shadow d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                            <div class="ps-4">
+                                <h5 class="text-primary mb-0">Effective le:</h5>
+                                <h2 class="mb-0" data-toggle="counter-up">@Model.ListeAttente.DateEffectivite.ToString("yyyy-MM-dd")</h2>
+                                <div class="row">
+                                     <div class="col-6">
+                                        <h5 class="text-primary mb-0">Ouvre à:</h5>
+                                        <h2 class="mb-0" data-toggle="counter-up">@Model.ListeAttente.HeureOuverture.ToString("hh\\:mm")</h2>
+                                     </div>
+                                    <div class="col-6">
+                                        <h5 class="text-primary mb-0">Ferme à:</h5>
+                                        <h2 class="mb-0" data-toggle="counter-up">@Model.ListeAttente.HeureFermeture.ToString("hh\\:mm")</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow zoomIn" data-wow-delay="0.6s">
+                        <div class="bg-primary shadow d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                            <div class="bg-white d-flex align-items-center justify-content-center rounded mb-2" style="width: 60px; height: 60px;">
+                                <i class="fa-solid fa-stethoscope fa-2xl" style="color: #0d6efd;"></i>
+                            </div>
+                            <div class="ps-4">
+                                <h5 class="text-white mb-0">Nombre de médecins: </h5>
+                                <h1 class="text-white mb-0" data-toggle="counter-up">@Model.ListeAttente.NbMedecinsDispo</h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="card-details"><p>Ouvre à: </p><div id="heure-ouverture">@Model.ListeAttente.HeureOuverture.ToString("hh\\:mm")</div></div>
-                <div class="card-details"><p>Ferme à: </p><div id="heure-fermeture">@Model.ListeAttente.HeureFermeture.ToString("hh\\:mm")</div></div>
             </div>
-
-        
         </div>
-
         
-        <div class="generer-plages-horaires">
-            <form class="my-3" asp-action="AjouterDesPlagesHoraires" asp-controller="ListeAttente" method="post">
-                <input type="hidden" name="id" value="@Model.ListeAttente.ListeAttenteID" />
-                <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") /> 
-            </form>
-            <a class="btn btn-secondaire btn-action my-3" asp-action="Index" asp-controller="Home" asp-area="" >Retour à l'accueil</a>
+        <div class="row justify-content-center text-center m-2">
+            <div class="col-sm-8 col-lg-3">
+                <form  asp-action="AjouterDesPlagesHoraires" asp-controller="ListeAttente" method="post">
+                    <input type="hidden" name="id" value="@Model.ListeAttente.ListeAttenteID" />
+                    <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn button-green-action " @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") />
+                </form>
+            </div>
+            <div class="col-sm-8 col-lg-3">
+                <a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="IndexlisteSalleAttente" asp-route-listeAttenteID=1 class="button-blue-action">
+                    Voir Liste Salle d'attente
+                </a>
+            </div>         
+        </div>
+        <div class="row justify-content-center text-center">
+            <div class="col-sm-8 col-lg-3">
+                <a class="smBtn button-white-action" asp-action="Index" asp-controller="Home" asp-area="">Retour à l'accueil</a> 
+@*                <form asp-action="ChangerStatutConsultation" asp-controller="ListeAttente" asp-area="Cliniques" method="post">
+                    <input asp-for="@Model.ListeAttente.Consultations.FirstOrDefault().ConsultationID " value="1" class="form-control" type="hidden"/>
+                    <button type="submit" class="smBtn button-white-action" id="PasserPatient" data-consultationid=1>Passer le prochain patient</button>
+                </form>
+                <a id="PasserPatient" type="button" class="text-center justify-content-center d-block my-5"
+                   data-consultationid=1>
+                    Passer le prochain patient
+                </a>*@
+            </div> 
+            
+@*            <div class="col-sm-8 col-lg-3">
+
+            </div>*@
         </div>
     </div>
 </section>
-@* <section id="heroDetails" class="d-flex align-items-center justify-content-center mb-2">
-    <div class="listeattente-data">
-        <div class="row d-flex mb-2 justify-content-center align-content-center text-center">
-            <div class="col-md-12 mt-5">
-                <h1 class="text-center justify-content-center">Liste d'attente</h1>
-            </div>
-        </div>
-        <div class="container-fluid heure-medecins">
-            <div class="heureActuelle card-details">
-                <p>Heure Actuelle</p>
-                <div id="watch"></div>
-            </div>
-            <div class="card-details"><p>Nombre de médecins: <div id="nb-medecins-dispo">@Model.ListeAttente.NbMedecinsDispo</div></p></div>
-        </div>
-
-        <div class="heure-date-liste">
-            <div class="card-details">
-                <p>Effective le: </p>
-                <div id="date-effectivite">
-                    @Model.ListeAttente.DateEffectivite.ToString("yyyy-MM-dd")
-                </div>
-            </div>
-
-            <div class="card-details"><p>Ouvre à: </p><div id="heure-ouverture">@Model.ListeAttente.HeureOuverture.ToString("hh\\:mm")</div></div>
-            <div class="card-details"><p>Ferme à: </p><div id="heure-fermeture">@Model.ListeAttente.HeureFermeture.ToString("hh\\:mm")</div></div>
-        </div>
-
-        <div class="generer-plages-horaires">
-            <form class="my-3" asp-action="AjouterDesPlagesHoraires" asp-controller="ListeAttente" method="post">
-                <input type="hidden" name="id" value="@Model.ListeAttente.ListeAttenteID" />
-                <input id="btn-ph" type="submit" value="Generer plages horaire" class="btn btn-success btn-action" @(Model.PlagesHoraires?.Count > 0 ? "disabled" : "") />
-            </form>
-            <a class="btn btn-secondaire btn-action my-3" asp-action="Index" asp-controller="Home" asp-area="">Retour à l'accueil</a>
-        </div>
-    </div>
-</section> *@
 
 
-@if (!ViewData.ModelState.IsValid)
+
+@* @if (!ViewData.ModelState.IsValid)
 {
     <div class="validation-error-box" style="margin-top: 20px; background-color: #ffdddd; border-left: 6px solid #f44336; padding: 15px;">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     </div>
-}
+} *@
 
 <div class="container mt-3">
-    <div class="liste-attente-info mb-0 mt-2">
-        <div>
+    <div class="liste-attente-info mb-0 mt-2" >
+        <div style="margin-bottom:40px">
             <partial name="_PartialAjouterDesPlagesHoraires" for="@Model.PlagesHoraires" />
         </div>
     </div>
@@ -98,14 +112,3 @@
 
 
 
-
-<script>
-    function actualiserHeure() {
-        var now = new Date();
-        var hour = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
-        document.getElementById('watch').innerText = hour;
-    }
-
-    setInterval(actualiserHeure, 1000);
-    actualiserHeure();
-</script>

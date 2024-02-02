@@ -113,8 +113,8 @@ namespace Clinique2000_TestsUnitaires
     var consultationPlanned = new Consultation
     {
         ConsultationID = 2,
-        HeureDateDebutPrevue = DateTime.Now.AddHours(2),
-        HeureDateFinPrevue = DateTime.Now.AddHours(3),
+        //HeureDateDebutPrevue = DateTime.Now.AddHours(2),
+        //HeureDateFinPrevue = DateTime.Now.AddHours(3),
         StatutConsultation = StatutConsultation.EnAttente,
         PlageHoraireID = 1,
         PatientID = 1

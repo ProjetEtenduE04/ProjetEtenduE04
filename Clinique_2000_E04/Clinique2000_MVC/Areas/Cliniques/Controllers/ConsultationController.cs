@@ -1,13 +1,8 @@
 
 using Clinique2000_Core.Models;
-using Clinique2000_Services.Services;
 using Clinique2000_Services.IServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Immutable;
+using Clinique2000_Utility.Constants;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
@@ -24,7 +19,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
         
         /// <summary>
-        /// Obtient tout les listes d'Attente ordered par date d'effectivité ,
+        /// Obtient tout les listes d'Attente ordered par date d'effectivitï¿½ ,
         /// qui sont pertinantes a la receptionniste
         /// , puis les renvoie a la vue.
         /// </summary>
@@ -74,7 +69,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 Consultation consultation = await _services.consultation.ObtenirParIdAsync(id);
                 return View(consultation);
             }
-            return NotFound();
+            TempData[AppConstants.Warning] = $"Dï¿½solï¿½, mais la Consultation n'a pas ï¿½tï¿½ trouvï¿½e.";
+            return View("NotFound");
 
         }
 
@@ -236,11 +232,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 //await _services.consultation.GenererPlagesHorairesAsync(ID);
 
                 model = await _services.consultation.ObtenirParIdAsync(ID);
-
+                TempData[AppConstants.Success] = $"Les plages horaires ont ï¿½tï¿½ gï¿½nï¿½rï¿½es avec succï¿½s.";
                 return View("Details", model);
 
             }
-            return NotFound();
+            TempData[AppConstants.Warning] = $"Dï¿½solï¿½, mais la consultation n'a pas ï¿½tï¿½ trouvï¿½e.";
+            return View("NotFound");
         }
 
 

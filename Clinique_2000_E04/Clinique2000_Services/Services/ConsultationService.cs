@@ -57,8 +57,35 @@ namespace Clinique2000_Services.Services
             consultation.PatientID = patientId;
             consultation.StatutConsultation = StatutConsultation.EnAttente;
 
+            await FermerOuLaisserOuverteListeAttente(consultation.PlageHorarie.ListeAttenteID);
+
             await _context.SaveChangesAsync();
+
         }
+
+        /// <summary>
+        /// Verifie si la liste dattente doit etre fermee ou non en consequence du statut des consultations
+        /// </summary>
+        /// <param name="listeattenteid"></param>
+        /// <returns>true si tout les consultations sont reserves
+        /// false si ils le sont pas tous</returns>
+        public async Task FermerOuLaisserOuverteListeAttente(int listeattenteid)
+        {
+
+            ListeAttente listeAttente = await _context.ListeAttentes.FindAsync(listeattenteid);
+
+            if (listeAttente.Consultations.Any(x => x.StatutConsultation == StatutConsultation.DisponiblePourReservation))
+            {
+                listeAttente.IsOuverte = true;
+            }
+            else
+            {
+                listeAttente.IsOuverte = false;
+            }
+
+        }
+
+
 
         /// <summary>
         /// Récupère de manière asynchrone la plage horaire et la liste d'attente associées à un identifiant de consultation donné.
@@ -104,18 +131,18 @@ namespace Clinique2000_Services.Services
             return listeAttente != null && listeAttente.IsOuverte;
         }
 
-        private async Task<int> ObtenirIdPatientAsync()
+        public async Task<int> ObtenirIdPatientAsync()
         {
             var userId = ObtenirIdUtilisateur();
             return await ObtenirIdPatientDepuisUtilisateurAsync(userId);
         }
 
-        private string ObtenirIdUtilisateur()
+        public string ObtenirIdUtilisateur()
         {
             return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
 
-        private async Task<int> ObtenirIdPatientDepuisUtilisateurAsync(string userId)
+        public async Task<int> ObtenirIdPatientDepuisUtilisateurAsync(string userId)
         {
             var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
             return patient?.PatientId ?? 0; // Retourne 0 ou un ID de patient valide

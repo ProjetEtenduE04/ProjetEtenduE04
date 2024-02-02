@@ -1,5 +1,7 @@
-﻿@model ListeAttente
-
+@model ListeAttente
+@{
+    var btnText = "Supprimer la liste";
+}
 <div class="container mt-3">
     <h4 class="text-center mb-4">Suppression de la Liste d'Attente</h4>
     <hr />
@@ -82,11 +84,20 @@
         <input type="hidden" asp-for="HeureFermeture" />
         <input type="hidden" asp-for="IsOuverte" />
         <input type="hidden" asp-for="NbMedecinsDispo" />
-        <input type="hidden" asp-for="DureeConsultationMinutes" />
+        @*<input type="hidden" asp-for="DureeConsultationMinutes" />*@
         <input type="hidden" asp-for="CliniqueID" />
         <input type="hidden" asp-for="ListeAttenteID" />
-        <button type="submit" class="btn btn-danger">Supprimer</button>
-        <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+        <div class="row justify-content-center text-center">
+            <div class="col col-md-8 col-xl-6 mb-2 mt-4">
+                <partial name="_SubmitDeleteButtonPartial" model="@btnText" />
+            </div>
+        </div>
+
+        <div class="row justify-content-center text-center">
+            <div class="col col-md-8 col-xl-6 my-2">
+                <a asp-action="Index" class="smBtn button-white-action">Annuler</a>
+            </div>
+        </div>
     </form>
 </div>
 

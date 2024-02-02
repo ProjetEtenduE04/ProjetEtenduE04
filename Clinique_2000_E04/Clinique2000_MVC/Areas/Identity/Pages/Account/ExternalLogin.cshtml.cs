@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Clinique2000_Core.Models;
+using Clinique2000_Utility.Constants;
 
 namespace Clinique2000_MVC.Areas.Identity.Pages.Account
 {
@@ -132,6 +133,7 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                TempData[AppConstants.Success] = $" {info.Principal.Identity.Name} ,vous êtes connecté avec succès :.";
                 return LocalRedirect(returnUrl);
             }
             if (result.IsLockedOut)
@@ -200,12 +202,14 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
                         //}
 
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+                        TempData[AppConstants.Success] = $"Votre compte a été créé avec succès : {user.Email}";
                         return LocalRedirect(returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
+                    TempData[AppConstants.Error] = $"Erreur : {error.Description}";
                 }
             }
 

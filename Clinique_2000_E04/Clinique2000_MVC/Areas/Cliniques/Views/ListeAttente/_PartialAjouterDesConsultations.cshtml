@@ -19,11 +19,13 @@
                         <div>Patient: @Html.Raw(consultation.PatientID >= 0 && consultation.Patient != null ? $"{consultation.Patient.Prenom} {consultation.Patient.Nom}" : "")</div>
                     </td>
                     <td class="col-2">
-                        <!-- Utilisez un formulaire pour chaque bouton "Réserver" -->
-                        <form method="post" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="ReserverConsultation">
+                        <form asp-action="ShowReservationConfirmation" asp-controller="ListeAttente" asp-route-id="@consultation.ConsultationID" asp-area="Cliniques" method="get">
                             <input type="hidden" name="id" value="@consultation.ConsultationID" />
                             <input type="hidden" name="patientId" value="@consultation.PatientID" />
-                            <button type="submit" class="btn btn-success " @(consultation.PatientID >= 0 ? "disabled" : "")>Réserver</button>
+                            <button type="submit" class="btn button-green-action "
+                            @(consultation.StatutConsultation != Clinique2000_Utility.Enum.StatutConsultation.DisponiblePourReservation ? "disabled" : "")>
+                                Reserver
+                            </button>
                         </form>
                     </td>
                 </tr>

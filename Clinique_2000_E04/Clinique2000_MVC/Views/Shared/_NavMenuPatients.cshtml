@@ -2,26 +2,40 @@
 @*@if (this.User.IsInRole(AppConstants.AdminRole))*@
 @if (this.User.Identity.IsAuthenticated)
 {
+    var btnTitre1 = "Liste des patients";
+    var btnTitre2 = "Créer le dossier";
+    var btnTitre3 = "";
+    var btnTitre4 = "";
 
 <a class="nav-link custom-nav-link" style="color:white" data-bs-toggle="dropdown" aria-expanded="false">
-            Patient
-            <i class="fa-solid fa-square-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end text-center">
-
-            <li>
-            <a class="dropdown-item" asp-area="Patients" asp-controller="Patients" asp-action="Index">
-                Liste des patients&nbsp;
+   Patient
+        <i class="fa-solid fa-caret-down"></i>
+</a>
+<ul class="dropdown-menu dropdown-menu-end text-center">
+    <li>
+    <a class="dropdown-item" asp-area="Patients" asp-controller="Patients" asp-action="Index">
+        <div class="row">
+            <div class="col text-start">
+                @btnTitre1
+            </div>
+            <div class="col text-end">
                 <i class="fa-solid fa-people-group"></i>
-                </a>
-            </li>
-            <li>
-            <a class="dropdown-item" asp-area="Patients" asp-controller="Patients" asp-action="Create">
-                Créer le dossier&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+        </a>
+    </li>
+    <li>
+    <a class="dropdown-item" asp-area="Patients" asp-controller="Patients" asp-action="Create">
+        <div class="row">
+            <div class="col text-start">
+                @btnTitre2
+            </div>
+            <div class="col text-end">
                 <i class="fa-solid fa-hospital-user"></i>
-                </a>
-            </li>
-         
-        </ul>
+            </div>
+        </div>
+        </a>
+    </li>
+</ul>
 
 }
