@@ -272,6 +272,16 @@ namespace Clinique2000_Services.Services
             return await UserEstPatientAsync(user.Id);
         }
 
+        /// <summary>
+        /// Obtient un patient en fonction de l'utilisateur authentifié.
+        /// </summary>
+        /// <returns>IdentityUser</returns>
+        public async Task<IdentityUser> GetUserAuth()
+        {
+            string courrielUserAuth = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var user = await _userManager.FindByEmailAsync(courrielUserAuth);
+            return user;
+        }
 
         /// <summary>
         /// Récupère l'ID du patient en fonction de l'identifiant de l'utilisateur.

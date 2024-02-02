@@ -10,7 +10,7 @@
 //using System.Linq;
 //using System.Threading.Tasks;
 
-//public class DataImportService:IdataImportService
+//public class DataImportService : IdataImportService
 //{
 //    private readonly CliniqueDbContext _context;
 
@@ -19,12 +19,12 @@
 //        _context = context;
 //    }
 
-//public async Task ImporterDonneesDuFichierCSVasync(string filePath)
-//{
-//    var adresses = await LireFichierCSVasync(filePath);
-//    // Utilise la librairie Bulk pour inserer les adresses d'un seul coup
-//    _context.BulkInsert(adresses);
-//}
+//    public async Task ImporterDonneesDuFichierCSVasync(string filePath)
+//    {
+//        var adresses = await LireFichierCSVasync(filePath);
+//        // Utilise la librairie Bulk pour inserer les adresses d'un seul coup
+//        _context.BulkInsert(adresses);
+//    }
 
 //    public async Task<List<AdressesQuebec>> LireFichierCSVasync(string filePath)
 //    {

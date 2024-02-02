@@ -149,7 +149,7 @@ namespace Clinique2000_TestsUnitaires
 
             // Assert
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectToActionResult.ActionName);
+            Assert.Equal("IndexCliniquesAProximite", redirectToActionResult.ActionName);
         }
 
         /// <summary>

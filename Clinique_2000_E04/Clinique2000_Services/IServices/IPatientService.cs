@@ -1,4 +1,5 @@
 ﻿using Clinique2000_Core.Models;
+using Microsoft.AspNetCore.Identity;
 using static Clinique2000_Services.Services.PatientService;
 
 namespace Clinique2000_Services.IServices
@@ -17,5 +18,6 @@ namespace Clinique2000_Services.IServices
         Task<bool> VerifierExistencePatientParNomAsync(string nom);
         Task<Patient?> ObtenirPatientParNomAsync(string curriel);
         Task<bool> UserAuthEstPatientAsync();
+        Task<IdentityUser> GetUserAuth();
     }
 }
