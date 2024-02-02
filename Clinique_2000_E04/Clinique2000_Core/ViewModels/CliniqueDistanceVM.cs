@@ -18,5 +18,18 @@ namespace Clinique2000_Core.ViewModels
         [Display(Name = "Réservez une consultation dès")]
         [DataType(DataType.Time)]
         public DateTime? HeureProchaineConsultation { get; set; }
+
+        [Display(Name = "Latitude de la clinique")]
+        public string CliniqueLatitude { get; set; }
+
+        [Display(Name = "Longitude de la clinique")]
+        public string CliniqueLongitude { get; set; }
+
+        [Display(Name = "Latitude du patient")]
+        public string PatientLatitude { get; set; }
+
+        [Display(Name = "Longitude du patient")]
+        public string PatientLongitude { get; set; }
+
     }
 }
