@@ -233,10 +233,12 @@ $(document).ready(function () {
 //});
 
 ///=================================================
-const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-const popover = new bootstrap.Popover('.popover-dismiss', {
-    trigger: 'focus'
+document.addEventListener('DOMContentLoaded', function () {
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+    //const popover = new bootstrap.Popover('.popover-dismiss', {
+    //    trigger: 'focus'
+    //});
 });
 //function actualiserHeure() {
 //    console.log("Mise a jour heure site ok");
