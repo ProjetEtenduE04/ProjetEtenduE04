@@ -16,6 +16,16 @@
 *@
 
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="" />
+
+       <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+
 <div class="margin-container-index">
     <h1 class="text-center">Cliniques à proximité</h1>
     <div class="row">
@@ -86,6 +96,55 @@
     </div>
 </div>
 <div id="waitingListsContainer"></div>
+
+
+<div id="map" style="width: 100%; height: 400px; " class="container"></div>
+
+
+@section Scripts {
+    <script>
+        var map = L.map('map').setView([@ViewBag.PatientLatitude, @ViewBag.PatientLongitude], 10);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var patientIcon = L.icon({
+            iconUrl: '@Url.Content("~/images/Usericon2.png")', // This will resolve to the correct path for your icon
+            iconSize: [30, 60], // Size of the icon
+            iconAnchor: [22, 94], // Point of the icon which will correspond to marker's location
+            popupAnchor: [-3, -76] // Point from which the popup should open relative to the iconAnchor
+        });
+        var cliniqueIcon = L.icon({
+            iconUrl: '@Url.Content("~/images/CliniqueIcon.png")', // This will resolve to the correct path for your icon
+            iconSize: [30, 50], // Size of the icon
+            iconAnchor: [22, 94], // Point of the icon which will correspond to marker's location
+            popupAnchor: [-3, -76] // Point from which the popup should open relative to the iconAnchor
+        });
+
+        L.marker([@ViewBag.PatientLatitude, @ViewBag.PatientLongitude], { icon: patientIcon }).addTo(map)
+            .bindPopup('Vous ête ici')
+            .openPopup();
+
+        // Ajouter des marqueurs pour chaque clinique
+        @foreach (var clinique in Model)
+        {
+            if (clinique.Clinique != null)
+            {
+                <text>
+                                    var clinicLat = @clinique.CliniqueLatitude;
+                var clinicLng = @clinique.CliniqueLongitude
+                var clinicMarker = L.marker([clinicLat, clinicLng], { icon: cliniqueIcon }).addTo(map)
+                    .bindPopup('<b>' + '@clinique.Clinique.NomClinique' + '  ' + '@clinique.Distance' + 'Km' + '</b><br />' );
+
+                </text>
+            }
+        }
+
+    </script>
+}
+
+
 
 <script>
     //// Get modal element
