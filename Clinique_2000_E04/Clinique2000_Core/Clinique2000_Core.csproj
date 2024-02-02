@@ -16,6 +16,7 @@
     <None Remove="Models\ApplicationUser.cs~RF2f33c35.TMP" />
     <Compile Include="ViewModels\CliniqueAdresseVM.cs" />
     <Compile Include="ViewModels\CliniqueDistanceVM.cs" />
+    <Compile Include="ViewModels\EmailVM.cs" />
     <Compile Include="ViewModels\ListeAttenteVM.cs" />
   </ItemGroup>
 
