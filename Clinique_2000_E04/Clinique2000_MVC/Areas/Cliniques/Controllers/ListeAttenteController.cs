@@ -481,7 +481,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangerStatutConsultation(int consultationID, int employesID)
         {
-            var ListeSalleAttenteVM = await _services.listeAttente.ChangerStatutConsultation(consultationID);
+            var ListeSalleAttenteVM = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID);
 
             if (ListeSalleAttenteVM == null)
             {

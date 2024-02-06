@@ -314,6 +314,18 @@ namespace Clinique2000_Services.Services
         }
 
 
+
+        public async Task<bool> UserEstAdminClinique(ApplicationUser appUser)
+        {
+            if (appUser.Clinique.Any())
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
     }
 
 }

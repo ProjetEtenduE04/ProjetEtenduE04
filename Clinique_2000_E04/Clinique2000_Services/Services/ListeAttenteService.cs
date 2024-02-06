@@ -310,33 +310,83 @@ namespace Clinique2000_Services.Services
         }
 
 
-        public async Task<ListeAttenteVM> ChangerStatutConsultation(int consultaionID)
+        public async Task<ListeAttenteVM> AppelerProchainPatient(int consultaionID)
         {
-            Consultation consultation =  _context.Consultations.FirstOrDefault(c=>c.ConsultationID == consultaionID);
+            Consultation consultation = _context.Consultations.FirstOrDefault(c => c.ConsultationID == consultaionID);
 
             if (consultation != null)
             {
-                if(consultation.StatutConsultation == StatutConsultation.EnAttente)
+                if (consultation.StatutConsultation == StatutConsultation.EnAttente)
                 {
                     consultation.StatutConsultation = StatutConsultation.EnCours;
-                    await _context.SaveChangesAsync();
+                }
+
+                await _context.SaveChangesAsync();
+
+                ListeAttenteVM nouvelleListeAttenteVM = await GetListeSalleAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
+                return nouvelleListeAttenteVM;
+
+            }
+
+            return null;
+
+        }
+
+        public async Task<ListeAttenteVM> TerminerConsultationEtAppellerProchainPatient(int consultaionID)
+        {
+            Consultation consultation = _context.Consultations.FirstOrDefault(c => c.ConsultationID == consultaionID);
+
+            if (consultation != null)
+            {
+                if (consultation.StatutConsultation == StatutConsultation.EnAttente)
+                {
+                    consultation.StatutConsultation = StatutConsultation.EnCours;
                 }
                 else if (consultation.StatutConsultation == StatutConsultation.EnCours)
                 {
                     consultation.StatutConsultation = StatutConsultation.Terminé;
-                    await _context.SaveChangesAsync();
                 }
-               
 
-                ListeAttenteVM nouvelleListeAttenteVM= await GetListeSalleAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
+                await _context.SaveChangesAsync();
+
+                ListeAttenteVM nouvelleListeAttenteVM = await GetListeSalleAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
                 return nouvelleListeAttenteVM;
-                
+
             }
-            
+
             return null;
 
         }
-    
+
+
+        public async Task<ListeAttenteVM> TerminerConsultation(int consultaionID)
+        {
+            Consultation consultation = _context.Consultations.FirstOrDefault(c => c.ConsultationID == consultaionID);
+
+            if (consultation != null)
+            {
+              
+                if (consultation.StatutConsultation == StatutConsultation.EnCours)
+                {
+                    consultation.StatutConsultation = StatutConsultation.Terminé;
+                }
+
+                await _context.SaveChangesAsync();
+
+                ListeAttenteVM nouvelleListeAttenteVM = await GetListeSalleAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
+                return nouvelleListeAttenteVM;
+
+            }
+
+            return null;
+
+        }
+
+
+
+
+
+
     }
 
 

@@ -1,4 +1,4 @@
-﻿@using Clinique2000_Utility.Enum
+@using Clinique2000_Utility.Enum
 @model Clinique2000_Core.ViewModels.EmployesCliniqueVM
 
 @{
@@ -8,7 +8,8 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Salut 
+    <h4>
+        Bonjour, 
         @if (Model.EmployesClinique.EmployeCliniquePosition == EmployeCliniquePosition.Medecin)
         {
             <span><span>Dr</span></span>
@@ -17,40 +18,40 @@
     </h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniqueNom)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniqueNom)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniquePrenom)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniquePrenom)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniqueCourriel)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniqueCourriel)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniquePosition)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniquePosition)
         </dd>
         @* <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
+        @Html.DisplayNameFor(model => model.User)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
+        @Html.DisplayFor(model => model.User.Id)
         </dd> *@
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EmployesClinique.Clinique)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EmployesClinique.Clinique.NomClinique)
         </dd>
     </dl>
@@ -76,7 +77,7 @@
             @foreach (var item in Model.MesCliniques)
             {
                 <tr>
-                   
+
                     <td>
                         <a asp-action="Details" asp-route-id="@item.CliniqueID">@Html.DisplayFor(modelItem => item.NomClinique)</a>
                     </td>
@@ -87,34 +88,70 @@
 </div>*@
 
 <div class="col-6" style="display: flex;margin:20px 0">
- 
 
-@* <form method="post" asp-controller="ListeAttente" asp-action="ChangerStatutConsultation">
-    
+
+    @* <form method="post" asp-controller="ListeAttente" asp-action="ChangerStatutConsultation">
+
     <input type="hidden" name="consultationId" value="@Model.ListeAttenteVM.Consultations[0].ConsultationID" />
-        <input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />
+    <input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />
 
     <button type="submit" class="btn btn-primary">
-        Passer le prochain patient
+    Passer le prochain patient
     </button>
-</form>
- *@
+    </form>
+    *@
 
-<form method="post" asp-controller="ListeAttente" asp-action="ChangerStatutConsultation" style="margin-top: 20px;">
 
-    <input type="hidden" name="consultationId" value="@Model.ListeAttenteVM.Consultations[0].ConsultationID" />
+    <!--Btn appeller / terminer Consultation-->
+    <form method="post" asp-controller="ListeAttente" asp-action="ChangerStatutConsultation" style="margin-top: 20px;">
+
+        <input type="hidden" name="consultationId" value="@Model.ListeAttenteVM.Consultations[0].ConsultationID" />
         <input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />
 
-    <button type="submit" class="btn btn-success">
-        Fermer et passer le prochain patient
-    </button>
-</form>
+
+        <button type="submit" class="btn btn-success">
+            Appeler le prochain patient / Terminer Consultation
+        </button>
+
+    
+    </form>
+
+    <!--Btn Terminer et appeller-->
+    <div>
+        @if (Model.ListeAttenteVM.Consultations[0].StatutConsultation == StatutConsultation.EnAttente)
+        {
+            <form method="post" asp-action="AppelerProchainPatient">
+                <button type="submit" class="btn btn-primary">Appeler le prochain patient</button>
+            </form>
+        }
+        else if (Model.ListeAttenteVM.Consultations[0].StatutConsultation == StatutConsultation.EnCours)
+        {
+            <form method="post" asp-action="TerminerConsultation">
+                <button type="submit" class="btn btn-danger">Terminer Consultation</button>
+            </form>
+            <form method="post" asp-action="TerminerConsultationEtAppelerProchainPatient">
+                <button type="submit" class="btn btn-success">Terminer et appeler le prochain patient</button>
+            </form>
+        }
+    </div>
+
+    <form method="post" asp-controller="ListeAttente" asp-action="ChangerStatutConsultation" style="margin-top: 20px;">
+        <input type="hidden" name="consultationId" value="@Model.ListeAttenteVM.Consultations[0].ConsultationID" />
+        <input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />
+
+        <button type="submit" class="btn btn-success">
+            Terminer et appeler le prochain patient
+        </button>
+    </form>
+
+
+
 
 
 </div>
 <div>
     <h2>Details du patient</h2>
-<table class="dataTable">
+    <table class="dataTable">
         <thead>
             <tr>
                 <th>
@@ -126,22 +163,22 @@
                 <th>
                     Date de naissance
                 </th>
-                
+
             </tr>
         </thead>
         <tbody>
-               <tr>
-                    <td>
+            <tr>
+                <td>
                     @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.Nom)
-                    </td>
-                    <td>
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.Prenom)
-                    </td>
-                    <td>
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.DateDeNaissance)
-                    </td>
-                </tr>
-            
+                </td>
+            </tr>
+
         </tbody>
-        </table>
+    </table>
 </div>
