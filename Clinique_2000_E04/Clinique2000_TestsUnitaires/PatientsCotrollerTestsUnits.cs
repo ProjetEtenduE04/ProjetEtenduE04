@@ -78,7 +78,8 @@ namespace Clinique2000_TestsUnitaires
             tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
             _patientsController.TempData = tempDataMock.Object;
 
-            _userManagerMock.Setup(manager => manager.FindByEmailAsync("test@example.com")).ReturnsAsync(user);
+            //_userManagerMock.Setup(manager => manager.FindByEmailAsync("test@example.com")).ReturnsAsync(user);
+            _servicesMock.Setup(s => s.patient.GetUserAuthAsync()).ReturnsAsync(user);
             _servicesMock.Setup(service => service.patient.UserEstPatientAsync(user.Id)).ReturnsAsync(false);
 
             // Act
@@ -116,7 +117,8 @@ namespace Clinique2000_TestsUnitaires
             tempDataMock.SetupGet(t => t[It.IsAny<string>()]).Returns("Valeur de Mock");
             _patientsController.TempData = tempDataMock.Object;
 
-            _userManagerMock.Setup(manager => manager.FindByEmailAsync("test@example.com")).ReturnsAsync(user);
+            //_userManagerMock.Setup(manager => manager.FindByEmailAsync("test@example.com")).ReturnsAsync(user);
+            _servicesMock.Setup(s=>s.patient.GetUserAuthAsync()).ReturnsAsync(user);
             _servicesMock.Setup(service => service.patient.UserEstPatientAsync(user.Id)).ReturnsAsync(true);
             _servicesMock.Setup(service => service.patient.GetPatientParUserIdAsync(user.Id)).ReturnsAsync(_patientsList.FirstOrDefault());
 
@@ -149,7 +151,7 @@ namespace Clinique2000_TestsUnitaires
 
             // Assert
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectToActionResult.ActionName);
+            Assert.Equal("IndexCliniquesAProximite", redirectToActionResult.ActionName);
         }
 
         /// <summary>

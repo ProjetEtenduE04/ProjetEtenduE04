@@ -61,8 +61,9 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // GET: PatientsController/Create
         public async Task<IActionResult> Create()
         {
-                string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
-                var user = await _userManager.FindByEmailAsync(courrielUserAuth);
+                //string courrielUserAuth = User.FindFirstValue(ClaimTypes.Email);
+                //var user = await _userManager.FindByEmailAsync(courrielUserAuth);
+                var user = await _services.patient.GetUserAuthAsync();
                 bool estPatient = await _services.patient.UserEstPatientAsync(user.Id);
 
                 if (!estPatient)
@@ -91,6 +92,8 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 if (ModelState.IsValid)
                 {
                     await _services.patient.EnregistrerOuModifierPatient(patient);
+                    //var user = await _services.patient.GetUserAuthAsync();
+                    //await _userManager.AddToRoleAsync(user, AppConstants.PatientRole);
 
                     TempData[AppConstants.Success] = $"Vous avez créé avec succès le dossier du patient.";
 
