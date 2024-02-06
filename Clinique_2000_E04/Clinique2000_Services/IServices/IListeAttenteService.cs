@@ -9,22 +9,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Clinique2000_Services.IServices
 {
-    public interface IListeAttenteService:IServiceBaseAsync<ListeAttente>
+    public interface IListeAttenteService : IServiceBaseAsync<ListeAttente>
     {
-        Task GenererPlagesHorairesAsync(int ID);
         Task<ListeAttente> CreerListeAttenteAsync(ListeAttente listeAttente);
-        bool ListeAttenteIsValid(ListeAttente listeAttente);
+        Task<ListeAttente> ModifierListeAttenteAsync(ListeAttente listeAttente);
+        bool PeutSupprimmer(ListeAttente listeAttente);
+        Task SupprimmerListeAttente(ListeAttente listeAttente);
         bool VerifierSiListeAttenteExisteMemeJourClinique(DateTime dateEffectivite, int cliniqueID, int? listeAttenteID = null);
+        bool ListeAttenteIsValid(ListeAttente listeAttente);
         bool VerifierSiListeAttenteEstCree(ListeAttente listeAttente);
         bool VerifierSiNbMedecinsDisponibles(ListeAttente listeAttente);
         bool VerifierSiHeureOuvertureValide(ListeAttente listeAttente);
         bool VerifierSiDateEffectiviteValide(ListeAttente listeAttente);
-
-        Task<ListeAttente> ModifierListeAttenteAsync(ListeAttente listeAttente);
-        Task SupprimmerListeAttente(ListeAttente listeAttente);
-        bool PeutSupprimmer(ListeAttente listeAttente);
+        Task GenererPlagesHorairesAsync(int ID);
         Task<ListeAttenteVM> GetListeAttenteOrdonnee(int listeAttenteID);
         Task<ListeAttenteVM> GetListeSalleAttenteOrdonnee(int listeAttenteID);
+        void MettreConsultationEnCours(int consultaionID);
+        Task<ListeAttenteVM> AppelerProchainPatient(int consultaionID);
         Task<ListeAttenteVM> TerminerConsultationEtAppellerProchainPatient(int consultaionID);
+        Task<ListeAttenteVM> TerminerConsultation(int consultaionID);
     }
 }

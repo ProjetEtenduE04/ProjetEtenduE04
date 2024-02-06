@@ -36,10 +36,10 @@ namespace Clinique2000_Core.Models
 
 
         [ForeignKey("User")]
-        public  string? UserID { get; set; }
+        public string? UserID { get; set; }
 
         [ValidateNever]
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser? User { get; set; }
 
         [ForeignKey("Clinique")]
         public  int CliniqueID { get; set; }

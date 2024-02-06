@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Clinique2000_Core.Models;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
-using Clinique2000_Core.Models;
-using Clinique2000_Core.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Clinique2000_Utility.Enum;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Clinique2000_Services.Services
 {
@@ -64,7 +54,7 @@ namespace Clinique2000_Services.Services
 
         public async Task<ListeAttente> ObtenirListeAttenteDeLaClinqueDeLEmploye(int cliniqueID)
         {
-            var listeAttente = await _context.ListeAttentes.FirstAsync(l => l.CliniqueID == cliniqueID && l.IsOuverte);
+            var listeAttente = await _context.ListeAttentes.Where(l => l.CliniqueID == cliniqueID && l.IsOuverte==true).Include(l => l.PlagesHoraires).Include(x=>x.Consultations).FirstOrDefaultAsync();
             return listeAttente;
         }
 
@@ -85,6 +75,9 @@ namespace Clinique2000_Services.Services
 
             return employeUser;
         }
+
+
+
 
        
     }

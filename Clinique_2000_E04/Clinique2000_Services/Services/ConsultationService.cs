@@ -57,7 +57,8 @@ namespace Clinique2000_Services.Services
             consultation.PatientID = patientId;
             consultation.StatutConsultation = StatutConsultation.EnAttente;
 
-            await FermerOuLaisserOuverteListeAttente(consultation.PlageHorarie.ListeAttenteID);
+
+            await FermerOuLaisserOuverteListeAttente(consultation.PlageHoraire.ListeAttenteID);
 
             await _context.SaveChangesAsync();
 

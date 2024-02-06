@@ -70,6 +70,14 @@ namespace Clinique2000_Services.Services
             return await _dbContext.Set<T>().FindAsync(nom);
         }
 
+
+        public async Task<T> FindOneAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbContext.Set<T>().Where(predicate).FirstOrDefaultAsync();
+        }
+
+
+
         /// <summary>
         /// Obtient toutes les entités de type T de manière asynchrone.
         /// </summary>

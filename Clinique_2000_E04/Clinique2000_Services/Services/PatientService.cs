@@ -1,4 +1,4 @@
-﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.Models;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Utility.Constants;
@@ -299,6 +299,7 @@ namespace Clinique2000_Services.Services
             return user;
         }
 
+
         /// <summary>
         /// Représente l'âge d'une personne en années, mois et jours.
         /// </summary>
@@ -387,6 +388,8 @@ namespace Clinique2000_Services.Services
                 }
                 return this;
             }
+
+
 
 
 

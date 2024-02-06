@@ -74,15 +74,15 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             if (id >= 0)
             {
-               ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
-               if (listeAttente == null)
+                ListeAttente listeAttente = await _services.listeAttente.ObtenirParIdAsync(id);
+                if (listeAttente == null)
                 {
                     TempData[AppConstants.Warning] = $"Désolé, mais aucune liste d'attente avec l'identifiant {id} n'a été trouvée.";
                     return View("NotFound");
                 }
 
-               var plagesHoraires = listeAttente.PlagesHoraires?? new List<PlageHoraire>();
-               ListeAttenteVM listeAttenteVM = new ListeAttenteVM
+                var plagesHoraires = listeAttente.PlagesHoraires ?? new List<PlageHoraire>();
+                ListeAttenteVM listeAttenteVM = new ListeAttenteVM
                 {
                     ListeAttente = listeAttente,
                     PlagesHoraires = listeAttente.PlagesHoraires.OrderBy(ph => ph.PlageHoraireID).ToList()
@@ -155,7 +155,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
@@ -281,30 +281,30 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AjouterDesPlagesHoraires(int ID)
         {
-           
-               await _services.listeAttente.GenererPlagesHorairesAsync(ID);
 
-               var listeAttente = await _services.listeAttente.ObtenirParIdAsync(ID);
-                ListeAttenteVM listeAttenteVM = new ListeAttenteVM
-                {
-                    ListeAttente = listeAttente,
-                    PlagesHoraires = listeAttente.PlagesHoraires.OrderBy(ph => ph.PlageHoraireID).ToList()
-                };
+            await _services.listeAttente.GenererPlagesHorairesAsync(ID);
+
+            var listeAttente = await _services.listeAttente.ObtenirParIdAsync(ID);
+            ListeAttenteVM listeAttenteVM = new ListeAttenteVM
+            {
+                ListeAttente = listeAttente,
+                PlagesHoraires = listeAttente.PlagesHoraires.OrderBy(ph => ph.PlageHoraireID).ToList()
+            };
 
             TempData[AppConstants.Success] = $"Les plages horaires ont été générées avec succès";
-            return View("Details", listeAttenteVM);  
+            return View("Details", listeAttenteVM);
         }
 
-    
+
 
         [HttpGet]
         public async Task<ActionResult> ShowReservationConfirmation(int id)
         {
             var consultation = await _services.consultation.ObtenirParIdAsync(id);
-            var listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(consultation.PlageHorarie.ListeAttenteID);
+            var listeAttenteVM = await _services.listeAttente.GetListeAttenteOrdonnee(consultation.PlageHoraire.ListeAttenteID);
             try
             {
-              
+
                 if (consultation == null)
                 {
                     TempData[AppConstants.Warning] = "Désolé, mais aucune consultation n'a été trouvée.";
@@ -345,7 +345,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     return View("NotFound");
                 }
 
-                TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHorarie.HeureDebut.ToShortDateString()} à {consultation.PlageHorarie.HeureDebut.ToShortTimeString()}";
+                TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHoraire.HeureDebut.ToShortDateString()} à {consultation.PlageHoraire.HeureDebut.ToShortTimeString()}";
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             catch (ValidationException ex)
@@ -360,16 +360,16 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
         public async Task<ActionResult> TestReservationSuccess()
         {
-          
+
             var clinique = new Clinique2000_Core.Models.Clinique
             {
                 CliniqueID = 1, // ID ficticio
                 NomClinique = "Santé pour tous",
                 Courriel = "abc@dcv",
                 //NumTelephone="514-123 4567",
-                HeureOuverture = new TimeSpan(8, 0, 0), 
+                HeureOuverture = new TimeSpan(8, 0, 0),
                 HeureFermeture = new TimeSpan(17, 0, 0),
-               
+
                 Adresse = new Adresse
                 {
                     AdresseID = 1, // ID ficticio
@@ -382,7 +382,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             };
 
-           
+
             var listeAttente = new ListeAttente
             {
                 ListeAttenteID = 1, // ID ficticio
@@ -393,13 +393,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 NbMedecinsDispo = 5,
                 CliniqueID = clinique.CliniqueID,
                 Clinique = clinique
-                
+
             };
 
-            
+
             var plageHoraire = new PlageHoraire
             {
-                PlageHoraireID = 1, 
+                PlageHoraireID = 1,
                 HeureDebut = new DateTime(2024, 1, 19, 9, 0, 0),
                 HeureFin = new DateTime(2024, 1, 19, 9, 30, 0),
                 ListeAttenteID = listeAttente.ListeAttenteID,
@@ -408,25 +408,25 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             var consultation = new Consultation
             {
-                ConsultationID = 1, 
+                ConsultationID = 1,
                 PlageHoraireID = plageHoraire.PlageHoraireID,
-                PlageHorarie = plageHoraire,
-                PatientID = 1, 
+                PlageHoraire = plageHoraire,
+                PatientID = 1,
                 Patient = new Patient
                 {
                     Nom = "Emond",
                     Prenom = "Benoit"
                 },
-             
-               
-                
+
+
+
             };
 
-            TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHorarie.HeureDebut.ToShortDateString()} à {consultation.PlageHorarie.HeureDebut.ToShortTimeString()}";
+            TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHoraire.HeureDebut.ToShortDateString()} à {consultation.PlageHoraire.HeureDebut.ToShortTimeString()}";
             return View("ReservationSuccess", consultation);
         }
 
-        public  async Task<IActionResult> IndexlisteSalleAttente(int listeAttenteID)
+        public async Task<IActionResult> IndexlisteSalleAttente(int listeAttenteID)
         {
             ListeAttenteVM listeSalleAttenteVM = new ListeAttenteVM();
             if (listeAttenteID > 0)
@@ -489,8 +489,91 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 return View("NotFound");
             }
 
-            //return Json(new { success = true, data = ListeSalleAttenteVM });
-            return RedirectToAction("Details","EmployesCliniques", new { id = employesID });
+          
+            return RedirectToAction("Details", "EmployesCliniques", new { id = employesID });
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AppelerProchainPatient(int consultationID)
+        {
+            try
+            {
+                
+
+
+                // Call the service method to process calling the next patient.
+                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(consultationID);
+
+                if (updatedListeSalleAttente != null)
+                {
+                    // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
+                    return RedirectToAction("Details", "EmployesCliniques", updatedListeSalleAttente);
+                }
+                else
+                {
+                    // Handle the case where no updated waiting room data is available.
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions and return an appropriate error response.
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TerminerConsultationEtAppellerProchainPatient(int consultationID)
+        {
+            try
+            {
+                // Call the service method to complete the current consultation and call the next patient.
+                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID);
+
+                if (updatedListeSalleAttente != null)
+                {
+                    // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
+                    return RedirectToAction("Details", "EmployesCliniques", updatedListeSalleAttente);
+                }
+                else
+                {
+                    // Handle the case where no updated waiting room data is available.
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions and return an appropriate error response.
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TerminerConsultation(int consultationID)
+        {
+            try
+            {
+                // Call the service method to complete the current consultation.
+                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultation(consultationID);
+
+                if (updatedListeSalleAttente != null)
+                {
+                    // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
+                    return RedirectToAction("Details", "EmployesCliniques", updatedListeSalleAttente);
+                }
+                else
+                {
+                    // Handle the case where no updated waiting room data is available.
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions and return an appropriate error response.
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

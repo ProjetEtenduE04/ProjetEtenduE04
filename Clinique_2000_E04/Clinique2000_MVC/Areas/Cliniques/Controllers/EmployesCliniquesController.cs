@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
@@ -42,30 +43,77 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         // GET: EmployesCliniques/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details()
         {
-            if (id == null || _services.employesClinique.ObtenirParIdAsync == null)
+
+            //recupere le user connecté
+            var email = User.Identity.Name;
+            var user =  await _userManager.FindByEmailAsync(email);
+            var employee= await _services.employesClinique.FindOneAsync(x=>x.UserID==user.Id);
+
+            //EmployesClinique employesClinique = await _services.employesClinique.ObtenirParIdAsync(id);
+
+            if (employee == null)
             {
                 return NotFound();
             }
 
-            EmployesClinique employesClinique = await _services.employesClinique.ObtenirParIdAsync(id);
-
-            if (employesClinique == null)
-            {
-                return NotFound();
-            }
-
-            var listeAttente = await _services.employesClinique.ObtenirListeAttenteDeLaClinqueDeLEmploye(employesClinique.CliniqueID);
+            var listeAttente = await _services.employesClinique.ObtenirListeAttenteDeLaClinqueDeLEmploye(employee.CliniqueID);
             var listeAttenteVM = await _services.listeAttente.GetListeSalleAttenteOrdonnee(listeAttente.ListeAttenteID);
-            var mesCliniques = await _services.employesClinique.ObtenirCliniquesDeLEmploye(employesClinique);
+            var mesCliniques = await _services.employesClinique.ObtenirCliniquesDeLEmploye(employee);
+
+         
+            List<Consultation> consultationList = new List<Consultation>();
+
+            foreach (var plagesHoraire in listeAttente.PlagesHoraires)
+            {
+                foreach (Consultation consultation in plagesHoraire.Consultations)
+                {
+                    consultationList.Add(consultation);
+                }
+            }
+            Consultation? prochaineconsultation = consultationList.Where(x => x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnAttente)
+           .OrderBy(x => x.ConsultationID)
+           .ThenBy(x => x.PlageHoraire.HeureDebut)
+           .ThenBy(x => x.Patient.Prenom)
+           .ThenBy(x => x.Patient.Nom).FirstOrDefault();
+
+
+
+            Consultation? consultationEnCour = consultationList.Where(x => x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnCours && x.MedecinId == employee.UserID).FirstOrDefault();
+
+            if (consultationEnCour==null && prochaineconsultation==null)
+            {
+                TempData[AppConstants.Info] = $"Il n'y a plus de consultations en attente";
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+
+            //if (consultationEnCour == null)
+            //{
+            //    consultationEnCour = prochaineconsultation;
+            //    _services.listeAttente.MettreConsultationEnCours(consultationEnCour.ConsultationID);
+
+            //    prochaineconsultation = null;
+
+            //     prochaineconsultation = consultationList.Where(x => x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnAttente)
+            //        .OrderBy(x => x.ConsultationID)
+            //        .ThenBy(x => x.PlageHoraire.HeureDebut)
+            //        .ThenBy(x => x.Patient.Prenom)
+            //        .ThenBy(x => x.Patient.Nom).FirstOrDefault();
+
+
+            //}
 
             var employesCliniqueVM = new EmployesCliniqueVM()
             {
-                EmployesClinique = employesClinique,
+                EmployesClinique = employee,
                 MesCliniques = mesCliniques,
                 ListeAttente = listeAttente,
                 ListeAttenteVM = listeAttenteVM,
+                ProchaineConsultation = prochaineconsultation,
+                ConsultationEnCours= consultationEnCour,
+
             };
             
             return View(employesCliniqueVM);

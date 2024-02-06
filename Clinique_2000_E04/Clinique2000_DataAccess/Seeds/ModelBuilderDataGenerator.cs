@@ -1120,6 +1120,7 @@ namespace Clinique2000_DataAccess.Seeds
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 1,
                 PatientID = 1,
+                
             });
             builder.Entity<Consultation>().HasData(new Consultation()
             {

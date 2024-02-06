@@ -13,9 +13,9 @@
                  @*   <p>Nous sommes heureux de confirmer que votre rendez-vous a été fixé avec succès. >*@
                         @*<p class="m-1">Voici les détails de votre prochaine visite :</p>*@
                     <ul class ="details-rdv m-1 ms-2">
-                        <li><strong>Clinique <span id="clinicName">@Model.PlageHorarie.ListeAttente.Clinique.NomClinique</span></strong></li>
-                        <li><strong> Date: </strong><span id="appointmentDate"> @Model.PlageHorarie.ListeAttente.DateEffectivite.Date.ToString("dddd yyyy-MM-dd")</span></li>
-                        <li><strong>Heure:</strong> <span id="appointmentTime">@Model.PlageHorarie.HeureDebut.ToString("HH:mm")</span></li>    
+                        <li><strong>Clinique <span id="clinicName">@Model.PlageHoraire.ListeAttente.Clinique.NomClinique</span></strong></li>
+                        <li><strong> Date: </strong><span id="appointmentDate"> @Model.PlageHoraire.ListeAttente.DateEffectivite.Date.ToString("dddd yyyy-MM-dd")</span></li>
+                        <li><strong>Heure:</strong> <span id="appointmentTime">@Model.PlageHoraire.HeureDebut.ToString("HH:mm")</span></li>    
                     </ul>
 @*                    <p>Si vous avez des questions ou besoin d'assistance, n'hésitez pas à contacter la clinique :</p>
                     *@  <ul class="adresse m-1 ms-2">
@@ -24,15 +24,15 @@
  *@                        <li><strong>Adresse:</strong> 
                             <span id="clinicAddress">
 
-                                @Model.PlageHorarie.ListeAttente.Clinique.Adresse.Numero,
-                                @Model.PlageHorarie.ListeAttente.Clinique.Adresse.Rue,
-                                @Model.PlageHorarie.ListeAttente.Clinique.Adresse.Ville,
-                                @Model.PlageHorarie.ListeAttente.Clinique.Adresse.Province,
-                                @Model.PlageHorarie.ListeAttente.Clinique.Adresse.CodePostal
+                                @Model.PlageHoraire.ListeAttente.Clinique.Adresse.Numero,
+                                @Model.PlageHoraire.ListeAttente.Clinique.Adresse.Rue,
+                                @Model.PlageHoraire.ListeAttente.Clinique.Adresse.Ville,
+                                @Model.PlageHoraire.ListeAttente.Clinique.Adresse.Province,
+                                @Model.PlageHoraire.ListeAttente.Clinique.Adresse.CodePostal
                             </span>
                         </li>
                         <li><strong>Téléphone:</strong> <span id="clinicPhone">NumTelephone</span></li>
-                        <li><strong>Email: </strong><span id="clinicEmail">@Model.PlageHorarie.ListeAttente.Clinique.Courriel</span></li>
+                        <li><strong>Email: </strong><span id="clinicEmail">@Model.PlageHoraire.ListeAttente.Clinique.Courriel</span></li>
                     </ul>
                     <form asp-action="ReserverConsultation" asp-controller="ListeAttente" asp-area="Cliniques" asp-route-id="@Model.ConsultationID" method="post">
                         @Html.AntiForgeryToken()

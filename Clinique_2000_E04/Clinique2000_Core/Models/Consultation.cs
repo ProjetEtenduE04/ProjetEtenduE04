@@ -40,7 +40,7 @@ namespace Clinique2000_Core.Models
         [ValidateNever]
         [ForeignKey("PlageHoraire")]
         public int? PlageHoraireID { get; set; }
-        public virtual PlageHoraire  PlageHorarie { get; set; }
+        public virtual PlageHoraire  PlageHoraire { get; set; }
 
         [ValidateNever]
         [ForeignKey("Patient")]
@@ -48,8 +48,12 @@ namespace Clinique2000_Core.Models
         public virtual Patient? Patient { get; set; }
 
 
-        //FK MEDECINID
-        //PUBLIC MEDECIN MEDECIN
+        [ValidateNever]
+        [ForeignKey("EmployesClinique")]
+        public string? MedecinId { get; set; }
+
+        [ValidateNever]
+        public virtual EmployesClinique? Medecin { get; set; }
 
 
         //FK PATIENTACHARGEID

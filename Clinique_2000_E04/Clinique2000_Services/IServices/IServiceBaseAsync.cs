@@ -10,5 +10,7 @@ namespace Clinique2000_Services.IServices
         Task<T?> ObtenirParIdAsync(int? id);
         Task<T?> ObtenirParNomAsync(string nom);
         Task<T?> EditerAsync(T entity);
+
+        Task<T> FindOneAsync(Expression<Func<T, bool>> predicate);
     }
 }

@@ -52,12 +52,12 @@
             @Html.DisplayNameFor(model => model.EmployesClinique.Clinique)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EmployesClinique.Clinique.NomClinique)
+            @(Model.EmployesClinique.Clinique.NomClinique != null ? Html.DisplayFor(model => model.EmployesClinique.Clinique.NomClinique) : "")
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.EmployesClinique.EmployeCliniqueID">Edit</a> |
+   @*  <a asp-action="Edit" asp-route-id="@Model?.EmployesClinique.EmployeCliniqueID">Edit</a> | *@
     <a asp-action="Index">Back to List</a>
 </div>
 
@@ -102,55 +102,45 @@
     *@
 
 
-    <!--Btn appeller / terminer Consultation-->
-    <form method="post" asp-controller="ListeAttente" asp-action="ChangerStatutConsultation" style="margin-top: 20px;">
-
-        <input type="hidden" name="consultationId" value="@Model.ListeAttenteVM.Consultations[0].ConsultationID" />
-        <input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />
-
-
-        <button type="submit" class="btn btn-success">
-            Appeler le prochain patient / Terminer Consultation
-        </button>
-
-    
-    </form>
-
-    <!--Btn Terminer et appeller-->
-    <div>
-        @if (Model.ListeAttenteVM.Consultations[0].StatutConsultation == StatutConsultation.EnAttente)
+    <div class="col-6" style="display: flex; margin: 20px 0">
+        @if (Model.ConsultationEnCours != null)
         {
-            <form method="post" asp-action="AppelerProchainPatient">
-                <button type="submit" class="btn btn-primary">Appeler le prochain patient</button>
+            <!-- Terminer Consultation button -->
+            <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="TerminerConsultation">
+                <input type="hidden" name="consultationId" value="@Model.ConsultationEnCours.ConsultationID" />
+                <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
+                <button type="submit" class="btn btn-success">
+                    Terminer Consultation
+                </button>
+            </form>
+
+            <!-- Terminer Consultation et Appeler Prochain Patient button -->
+            <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="TerminerConsultationEtAppellerProchainPatient">
+                <input type="hidden" name="consultationId" value="@Model.ConsultationEnCours.ConsultationID" />
+                <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
+                <button type="submit" class="btn btn-success">
+                    Terminer et appeler le prochain patient
+                </button>
             </form>
         }
-        else if (Model.ListeAttenteVM.Consultations[0].StatutConsultation == StatutConsultation.EnCours)
+        else if (Model.ProchaineConsultation != null)
         {
-            <form method="post" asp-action="TerminerConsultation">
-                <button type="submit" class="btn btn-danger">Terminer Consultation</button>
-            </form>
-            <form method="post" asp-action="TerminerConsultationEtAppelerProchainPatient">
-                <button type="submit" class="btn btn-success">Terminer et appeler le prochain patient</button>
+            <!-- Appeler Prochain Patient button -->
+            <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="AppelerProchainPatient">
+                <input type="hidden" name="consultationId" value="@Model.ProchaineConsultation.ConsultationID" />
+                <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
+                <button type="submit" class="btn btn-primary">
+                    Appeler le prochain patient
+                </button>
             </form>
         }
     </div>
-
-    <form method="post" asp-controller="ListeAttente" asp-action="ChangerStatutConsultation" style="margin-top: 20px;">
-        <input type="hidden" name="consultationId" value="@Model.ListeAttenteVM.Consultations[0].ConsultationID" />
-        <input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />
-
-        <button type="submit" class="btn btn-success">
-            Terminer et appeler le prochain patient
-        </button>
-    </form>
-
-
 
 
 
 </div>
 <div>
-    <h2>Details du patient</h2>
+    <h2>Details du patient</h2> 
     <table class="dataTable">
         <thead>
             <tr>
@@ -169,13 +159,13 @@
         <tbody>
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.Nom)
+                    @Html.DisplayFor(modelItem => @Model.ConsultationEnCours.Patient.Nom)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.Prenom)
+                    @Html.DisplayFor(modelItem => @Model.ConsultationEnCours.Patient.Prenom)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.DateDeNaissance)
+                    @Html.DisplayFor(modelItem => @Model.ConsultationEnCours.Patient.DateDeNaissance)
                 </td>
             </tr>
 

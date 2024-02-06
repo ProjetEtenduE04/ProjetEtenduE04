@@ -4,6 +4,7 @@ using Clinique2000_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinique2000_DataAccess.Migrations
 {
     [DbContext(typeof(CliniqueDbContext))]
-    partial class CliniqueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240206061645_GestionConsultation")]
+    partial class GestionConsultation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +64,7 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasKey("AdresseID");
 
-                    b.ToTable("Adresses", (string)null);
+                    b.ToTable("Adresses");
 
                     b.HasData(
                         new
@@ -161,7 +163,7 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdressesQuebec", (string)null);
+                    b.ToTable("AdressesQuebec");
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.Clinique", b =>
@@ -219,7 +221,7 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasIndex("CreateurID");
 
-                    b.ToTable("Cliniques", (string)null);
+                    b.ToTable("Cliniques");
 
                     b.HasData(
                         new
@@ -351,7 +353,7 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasIndex("PlageHoraireID");
 
-                    b.ToTable("Consultations", (string)null);
+                    b.ToTable("Consultations");
 
                     b.HasData(
                         new
@@ -544,7 +546,7 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("EmployesClinique", (string)null);
+                    b.ToTable("EmployesClinique");
 
                     b.HasData(
                         new
@@ -597,7 +599,7 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasIndex("CliniqueID");
 
-                    b.ToTable("ListeAttentes", (string)null);
+                    b.ToTable("ListeAttentes");
 
                     b.HasData(
                         new
@@ -888,7 +890,7 @@ namespace Clinique2000_DataAccess.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Patients", (string)null);
+                    b.ToTable("Patients");
 
                     b.HasData(
                         new
@@ -1181,7 +1183,7 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("PatientACharges", (string)null);
+                    b.ToTable("PatientACharges");
                 });
 
             modelBuilder.Entity("Clinique2000_Core.Models.PlageHoraire", b =>
@@ -1205,7 +1207,7 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.HasIndex("ListeAttenteID");
 
-                    b.ToTable("PlagesHoraires", (string)null);
+                    b.ToTable("PlagesHoraires");
 
                     b.HasData(
                         new
