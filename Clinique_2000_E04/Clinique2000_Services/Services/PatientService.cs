@@ -266,8 +266,9 @@ namespace Clinique2000_Services.Services
         /// <returns>True si l'utilisateur est enregistré en tant que patient, sinon False. </returns>
         public async Task<bool> UserAuthEstPatientAsync()
         {
-            string courrielUserAuth = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
-            var user = await _userManager.FindByEmailAsync(courrielUserAuth);
+            //string courrielUserAuth = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            //var user = await _userManager.FindByEmailAsync(courrielUserAuth);
+            var user = await GetUserAuthAsync();
 
             return await UserEstPatientAsync(user.Id);
         }
@@ -284,7 +285,19 @@ namespace Clinique2000_Services.Services
             return patient?.PatientId ?? 0; // Retourne 0 si aucun patient n'est trouvé
         }
 
-
+        /// <summary>
+        /// Obtient l'utilisateur authentifié.
+        /// </summary>
+        /// <returns>L'utilisateur authentifié.</returns>
+        /// <remarks>
+        /// Cette méthode récupère l'utilisateur authentifié en utilisant son adresse e-mail.
+        /// </remarks>
+        public async Task<IdentityUser> GetUserAuthAsync()
+        {
+            string courrielUserAuth = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var user = await _userManager.FindByEmailAsync(courrielUserAuth);
+            return user;
+        }
 
         /// <summary>
         /// Représente l'âge d'une personne en années, mois et jours.
