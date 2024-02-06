@@ -9,5 +9,7 @@ namespace Clinique2000_Services.IServices
         Task<Clinique> SelectionnerClinique(int? cliniqueID);
         Task<ListeAttente> ObtenirListeAttenteDeLaClinqueDeLEmploye(int cliniqueID);
         Task<EmployesClinique> GetEmployeUserID(string userEmail, string userId);
+        Task<EmployesClinique> VerifierSiUserAuthEstEmploye(string userEmail);
+        Task<List<EmployesClinique>> GetEmployeSelonLaListeClinique(IEnumerable<Clinique> listClinique);
     }
 }

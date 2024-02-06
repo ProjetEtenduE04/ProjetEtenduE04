@@ -1,4 +1,4 @@
-ï»¿using Clinique2000_Core.Models;
+using Clinique2000_Core.Models;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Microsoft.EntityFrameworkCore;
@@ -64,7 +64,6 @@ namespace Clinique2000_Services.Services
         public async Task<EmployesClinique> GetEmployeUserID( string userEmail, string userId)
         {
 
-
             EmployesClinique employeUser = await _context.EmployesClinique.FirstAsync(e => e.EmployeCliniqueCourriel == userEmail);
 
             if (employeUser!= null)
@@ -76,9 +75,36 @@ namespace Clinique2000_Services.Services
             return employeUser;
         }
 
+        /// <summary>
+        /// Vérifie si l'utilisateur authentifié est un employé de la clinique.
+        /// </summary>
+        /// <param name="userEmail">L'adresse e-mail de l'utilisateur.</param>
+        /// <returns>L'objet EmployesClinique correspondant si trouvé, sinon null.</returns>
+        public async Task<EmployesClinique> VerifierSiUserAuthEstEmploye(string userEmail)
+        {
+            EmployesClinique employeUser = await _context.EmployesClinique.FirstAsync(e => e.EmployeCliniqueCourriel == userEmail);
+            if (employeUser != null)
+            {
+                return employeUser;
+            }
+            return null;
+        }
 
 
-
-       
+        /// <summary>
+        /// Obtient la liste des employés selon la liste des cliniques fournies.
+        /// </summary>
+        /// <param name="listClinique">La liste des cliniques.</param>
+        /// <returns>La liste des employés de toutes les cliniques fournies.</returns>
+        public async Task<List<EmployesClinique>> GetEmployeSelonLaListeClinique(IEnumerable<Clinique> listClinique)
+        {
+            var employesClinique = new List<EmployesClinique>();
+            foreach (var clinique in listClinique)
+            {
+                var employesListe = await _context.EmployesClinique.Where(e => e.CliniqueID == clinique.CliniqueID).ToListAsync();
+                employesClinique.AddRange(employesListe);
+            }
+            return employesClinique;
+        }
     }
 }

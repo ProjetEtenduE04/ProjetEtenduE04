@@ -240,6 +240,23 @@ document.addEventListener('DOMContentLoaded', function () {
     //    trigger: 'focus'
     //});
 });
+
+$(document).ready(function () {
+        $('#heureOuverture').on('change', function () {
+            $('#heureFermeture').val('');
+        });
+
+        $('#heureFermeture').on('blur', function () {
+            var openingTime = $('#heureOuverture').val();
+            var closingTime = $(this).val();
+
+            if (openingTime && closingTime && closingTime <= openingTime) {
+                alert("L'heure de fermeture ne peut pas être antérieure à l'heure d'ouverture.");
+                $(this).val('').focus(); // Clear the closing time and refocus
+            }
+        });
+    });
+
 //function actualiserHeure() {
 //    console.log("Mise a jour heure site ok");
 //    var now = new Date();

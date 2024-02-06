@@ -191,7 +191,7 @@ namespace Clinique2000_TestsUnitaires
                 Clinique = _listeCliniques.FirstOrDefault(),
                 Adresse = _adresse
             };
-
+            _servicesMock.Setup(s=>s.patient.GetUserAuthAsync()).ReturnsAsync(_createur);
             _servicesMock.Setup(s => s.clinique.EnregistrerCliniqueAsync(viewModel)).ReturnsAsync(new Clinique { CliniqueID = 1 });
 
             // Act

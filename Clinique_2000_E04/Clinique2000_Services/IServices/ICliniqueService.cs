@@ -1,5 +1,6 @@
 using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,5 +23,8 @@ namespace Clinique2000_Services.IServices
         Task EditerCliniqueAsync(CliniqueAdresseVM viewModel);
         Task<IList<ListeAttente>> GetListeAttentePourPatientAsync(int clinicId, bool? isOuvert);
         Task<IEnumerable<CliniqueDistanceVM>> ObtenirLes5CliniquesLesPlusProches();
+        Task<Clinique> ObtenirCliniqueParCreteurId(string? createurId);
+        Task<IEnumerable<Clinique>> ObtenirListeCliniquesParCreateurId(string? createurId);
+        Task<bool> VerifierSiUserAuthEstCreateurClinique(IdentityUser user);
     }
 }

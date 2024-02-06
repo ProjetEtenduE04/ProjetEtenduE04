@@ -89,7 +89,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 if (ModelState.IsValid)
                 {
                     var cliniqueEnregistre = await _services.clinique.EnregistrerCliniqueAsync(viewModel);
-
+                    var user = await _services.patient.GetUserAuthAsync();
+                    await _userManager.AddToRoleAsync(user, AppConstants.AdminCliniqueRole);
                     TempData[AppConstants.Success] = $"Vous avez enregistré avec succès la clinique  {cliniqueEnregistre.NomClinique}";
 
                     return RedirectToAction("Details", "Cliniques", new { id = cliniqueEnregistre.CliniqueID });
@@ -271,6 +272,53 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             return View("ListeAttentePourPatient", listeAttentePourPatient);
         }
+
+        //[Authorize(Roles = AppConstants.AdminCliniqueRole + "," + AppConstants.SuperAdminRole)]
+        //public async Task<IActionResult> IndexAdministration()
+        //{
+        //    // Verificați dacă utilizatorul autentificat are unul dintre rolurile necesare
+        //    if (User.IsInRole(AppConstants.AdminCliniqueRole) || User.IsInRole(AppConstants.SuperAdminRole))
+        //    {
+        //        // Obtenir l'ID de l'utilisateur connecté
+        //        var userAuth = await _services.patient.GetUserAuthAsync();
+
+        //        // Vérifier si l'utilisateur est un superadministrateur
+        //        if (User.IsInRole(AppConstants.SuperAdminRole))
+        //        {
+        //            // L'utilisateur est un superadministrateur, il peut donc voir toutes les cliniques
+        //            var employesClinique = await _services.clinique.ObtenirToutAsync();
+        //            return View(employesClinique);
+        //        }
+        //        // Vérifier si l'utilisateur est le créateur d'une clinique
+        //        var isCreator = await _services.clinique.VerifierSiUserAuthEstCreateurClinique(userAuth);
+        //        if (isCreator)
+        //        {
+        //            // L'utilisateur est le créateur d'une clinique, il ne peut donc voir que sa clinique.
+        //            //var clinique = await _services.clinique.ObtenirCliniqueParCreteurId(userAuth.Id);
+        //            var listeCliniqueAdminClinique = await _services.clinique.ObtenirListeCliniquesParCreateurId(userAuth.Id);
+        //            return View(listeCliniqueAdminClinique);
+        //        }
+
+        //        // Vérifier si l'utilisateur est l'employe d'une clinique 
+        //        var estEmploye = await _services.employesClinique.VerifierSiUserAuthEstEmploye(userAuth.Email);
+        //        if (estEmploye != null)
+        //        {
+        //            // L'utilisateur est l'employe d'une clinique, il ne peut donc voir que la clinique dans laquelle il travaille.
+        //            var employeClinique = await _services.employesClinique.GetEmployeUserID(userId, null);
+        //            var clinique = await _services.clinique.SelectionnerClinique(employeClinique.CliniqueID);
+        //            var employesClinique = await _services.employesClinique.ObtenirCliniquesDeLEmploye(clinique);
+        //            return View(employesClinique);
+        //        }
+
+        //        // Utilizatorul nu este creatorul sau administratorul unei clinici, deci redirectionăm la pagina principală
+        //        TempData["ErrorMessage"] = "Accesul interzis. Doar superadminii, creatorii de clinici sau administratorii de clinici au permisiunea de a accesa această pagină.";
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //    // Utilizatorul nu are unul dintre rolurile necesare, deci redirectionăm la pagina principală și afișăm un mesaj de eroare
+        //    TempData["ErrorMessage"] = "Accesul interzis. Doar superadminii și administratorii de clinici au permisiunea de a accesa această pagină.";
+        //    return RedirectToAction("Index", "Home");
+        //}
     }
 }
 

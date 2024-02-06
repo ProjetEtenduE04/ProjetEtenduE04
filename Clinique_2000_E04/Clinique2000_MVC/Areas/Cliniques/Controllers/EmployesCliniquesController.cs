@@ -34,12 +34,72 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         // GET: EmployesCliniques
+        //[Authorize(Roles = AppConstants.AdminCliniqueRole + "," + AppConstants.SuperAdminRole)]
+        //public async Task<IActionResult> Index()
+        //{
+
+        //    var employesClinique = await _services.employesClinique.ObtenirToutAsync();
+
+        //    //.EmployesClinique.Include(e => e.Clinique).Include(e => e.User);
+        //    return View(employesClinique);
+        //}
+
+        //[Authorize(Roles = AppConstants.AdminCliniqueRole + "," + AppConstants.SuperAdminRole)]
         public async Task<IActionResult> Index()
         {
-            var employesClinique = await _services.employesClinique.ObtenirToutAsync();
+           
+            try
+            {
+                // Verificați dacă utilizatorul autentificat are unul dintre rolurile necesare
+                //if (User.IsInRole(AppConstants.AdminCliniqueRole) || User.IsInRole(AppConstants.SuperAdminRole))
+                //{
+                // Obtenir l'ID de l'utilisateur connecté
+                var userAuth = await _services.patient.GetUserAuthAsync();
 
-            //.EmployesClinique.Include(e => e.Clinique).Include(e => e.User);
-            return View(employesClinique);
+                // Vérifier si l'utilisateur est un superadministrateur
+                if (User.IsInRole(AppConstants.SuperAdminRole))
+                {
+                    // L'utilisateur est un superadministrateur, il peut donc voir toutes les cliniques
+                    var employesClinique = await _services.employesClinique.ObtenirToutAsync();
+                    return View(employesClinique);
+                }
+                // Vérifier si l'utilisateur est le créateur d'une clinique
+                var isCreator = await _services.clinique.VerifierSiUserAuthEstCreateurClinique(userAuth);
+                if (isCreator)
+                {
+                    // L'utilisateur est le créateur d'une clinique, il ne peut donc voir que ses cliniques.
+                    var listeCliniqueAdminClinique = await _services.clinique.ObtenirListeCliniquesParCreateurId(userAuth.Id);
+                    var listEmployesCliniques = await _services.employesClinique.GetEmployeSelonLaListeClinique(listeCliniqueAdminClinique);
+                    return View(listEmployesCliniques);
+                }
+
+                // Vérifier si l'utilisateur est l'employe d'une clinique 
+                var estEmploye = await _services.employesClinique.VerifierSiUserAuthEstEmploye(userAuth.Email);
+                if (estEmploye != null)
+                {
+                    // L'utilisateur est l'employe d'une clinique, il ne peut donc voir que  les cliniques où ils travaillent.
+                    var listCliniqueEmploye = await _services.employesClinique.ObtenirCliniquesDeLEmploye(estEmploye);
+                    var listEmployesCliniques = await _services.employesClinique.GetEmployeSelonLaListeClinique(listCliniqueEmploye);
+                    return View(listEmployesCliniques);
+                }
+
+                // L'utilisateur n'est pas le créateur ou l'administrateur d'une clinique, nous redirigeons donc vers la page principale.
+                TempData[AppConstants.Error] = "Accès refusé. Seuls les superadministrateurs, les créateurs de cliniques ou les administrateurs de cliniques sont autorisés à accéder à cette page";
+                return RedirectToAction("Index", "Home", new { area = "" });
+                //}
+
+                // L'utilisateur n'a pas l'un des rôles requis, nous redirigeons donc vers la page principale et affichons un message d'erreur.
+                //TempData[AppConstants.Error] = "Accès refusé. Seuls les superadministrateurs et les administrateurs de cliniques sont autorisés à accéder à cette page";
+                //return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+                return RedirectToAction("Index", "Home", new { area = "" });
+
+            }
+            
         }
 
         // GET: EmployesCliniques/Details/5

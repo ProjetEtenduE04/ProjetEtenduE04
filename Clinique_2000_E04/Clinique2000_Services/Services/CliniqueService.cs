@@ -3,6 +3,7 @@ using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Utility.Enum;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -325,6 +326,43 @@ namespace Clinique2000_Services.Services
         }
 
 
+        /// <summary>
+        /// Obtient la clinique associée à l'identifiant du créateur.
+        /// </summary>
+        /// <param name="createurId">L'identifiant du créateur.</param>
+        /// <returns>La clinique correspondante, ou null si non trouvée.</returns>
+        public async Task<Clinique> ObtenirCliniqueParCreteurId(string? createurId)
+        {
+            var clinique = await _dbContext.Cliniques.Where(c => c.CreateurID == createurId).FirstOrDefaultAsync();
+
+            return clinique;
+        }
+
+
+        /// <summary>
+        /// Obtient la liste des cliniques associées à l'identifiant du créateur.
+        /// </summary>
+        /// <param name="createurId">L'identifiant du créateur.</param>
+        /// <returns>La liste des cliniques associées à l'identifiant du créateur.</returns>
+        public async Task<IEnumerable<Clinique>> ObtenirListeCliniquesParCreateurId(string? createurId)
+        {
+            var cliniques = await _dbContext.Cliniques.Where(c => c.CreateurID == createurId).ToListAsync();
+
+            return cliniques;
+        }
+
+
+        /// <summary>
+        /// Vérifie si l'utilisateur authentifié est le créateur d'une clinique.
+        /// </summary>
+        /// <param name="user">L'utilisateur à vérifier.</param>
+        /// <returns>True si l'utilisateur est le créateur d'une clinique, sinon false.</returns>
+        public async Task<bool> VerifierSiUserAuthEstCreateurClinique(IdentityUser user)
+        {
+            Clinique clinique = await ObtenirCliniqueParCreteurId(user.Id) ;
+
+            return clinique != null && clinique.CreateurID == user.Id;        
+        }
 
     }
 
