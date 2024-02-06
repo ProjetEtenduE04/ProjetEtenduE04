@@ -75,14 +75,30 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         public async Task<IActionResult> SelectionnerClinique( int cliniqueID)
         {
             var clinique = await _services.employesClinique.SelectionnerClinique(cliniqueID);
-            //var employesCliniqueVM = new EmployesCliniqueVM()
-            //{
-            //    EmployesClinique = new EmployesClinique(),
-            //    MesCliniques = await _services.clinique.ObtenirToutAsync(),
-            //    ListeAttente = await _services.listeAttente,
-            //};
+           
             return View();
         }
+
+        
+        public async Task<IActionResult> GetUserID()
+
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);//Recupere l email d l user connecté
+
+           
+            var user= await _userManager.FindByEmailAsync(userEmail);//recupere l id de User connecté
+            if (user.Id == null)
+            {
+                return View();
+            }
+            EmployesClinique employesClinique =  await _services.employesClinique.GetEmployeUserID(userEmail, user.Id);//chercher le EmployeClinique avec le meme email que le user 
+            
+
+            return RedirectToAction("Details", new { id = employesClinique.EmployeCliniqueID });
+        }
+
+
+      
 
 
 

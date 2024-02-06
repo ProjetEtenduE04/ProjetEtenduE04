@@ -70,5 +70,22 @@ namespace Clinique2000_Services.Services
 
 
 
+
+        public async Task<EmployesClinique> GetEmployeUserID( string userEmail, string userId)
+        {
+
+
+            EmployesClinique employeUser = await _context.EmployesClinique.FirstAsync(e => e.EmployeCliniqueCourriel == userEmail);
+
+            if (employeUser!= null)
+            {
+                employeUser.UserID = userId;
+                 await _context.SaveChangesAsync();
+            }
+
+            return employeUser;
+        }
+
+       
     }
 }

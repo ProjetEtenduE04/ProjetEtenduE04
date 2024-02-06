@@ -1,0 +1,42 @@
+﻿@*DropDown Ajouter*@
+@*@if (this.User.IsInRole(AppConstants.AdminRole))*@
+@if (this.User.Identity.IsAuthenticated)
+{
+    var btnTitre1 = "Employes Details";
+    @*var btnTitre2 = "Créer le dossier";
+    var btnTitre3 = "";
+    var btnTitre4 = "";
+*@
+<a class="nav-link custom-nav-link" style="color:white" data-bs-toggle="dropdown" aria-expanded="false">
+   Employes
+        <i class="fa-solid fa-caret-down"></i>
+</a>
+<ul class="dropdown-menu dropdown-menu-end text-center">
+    <li>
+    <a class="dropdown-item" asp-area="Cliniques" asp-controller="EmployesCliniques" asp-action="GetUserID">
+        @*<input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />*@
+        <div class="row">
+            <div class="col text-start">
+                @btnTitre1
+            </div>
+            <div class="col text-end">
+                <i class="fa-solid fa-people-group"></i>
+            </div>
+        </div>
+        </a>
+    </li>
+    @*<li>
+    <a class="dropdown-item" asp-area="Patients" asp-controller="Patients" asp-action="Create">
+        <div class="row">
+            <div class="col text-start">
+                @btnTitre2
+            </div>
+            <div class="col text-end">
+                <i class="fa-solid fa-hospital-user"></i>
+            </div>
+        </div>
+        </a>
+    </li>*@
+</ul>
+
+}

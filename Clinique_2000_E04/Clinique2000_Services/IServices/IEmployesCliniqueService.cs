@@ -5,9 +5,9 @@ namespace Clinique2000_Services.IServices
 {
     public interface IEmployesCliniqueService:IServiceBaseAsync<EmployesClinique>
     {
-        Task <IList<Clinique>>ObtenirCliniquesDeLEmploye(EmployesClinique employesClinique);
-       // Task<EmployesCliniqueVM> obtenirDonnees(EmployesClinique employesClinique);
-        Task<ListeAttente> ObtenirListeAttenteDeLaClinqueDeLEmploye(int cliniqueID);
+        Task<IList<Clinique>> ObtenirCliniquesDeLEmploye(EmployesClinique employesClinique);
         Task<Clinique> SelectionnerClinique(int? cliniqueID);
+        Task<ListeAttente> ObtenirListeAttenteDeLaClinqueDeLEmploye(int cliniqueID);
+        Task<EmployesClinique> GetEmployeUserID(string userEmail, string userId);
     }
 }
