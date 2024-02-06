@@ -59,6 +59,7 @@ namespace Clinique2000_Services.Services
             var body =  $"    <p>Bonjour, {patient.Nom} {consultation.Patient.Prenom} !</p>" +
                         $"    <p>Nous confirmons la réservation de la consultation prévue pour :</p>" +
                         $"    <h3 style=\"color:red;\">{consultation.PlageHorarie.HeureDebut.ToShortDateString()} à {consultation.PlageHorarie.HeureDebut.ToShortTimeString()}</h3>" +
+                        $"    <h3 style=\"color:red;\">Clinique : {consultation.PlageHorarie.ListeAttente.Clinique.NomClinique}</h3>" +
                         $"    <p>Nous vous remercions et nous nous réjouissons de vous voir lors de votre rendez-vous.</p>" +
                         $"    <p>Cordialement,<br />L'équipe Clinique2000</p>";
 
