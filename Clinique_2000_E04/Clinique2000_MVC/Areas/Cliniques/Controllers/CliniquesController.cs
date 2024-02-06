@@ -271,6 +271,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             return View("ListeAttentePourPatient", listeAttentePourPatient);
         }
+
+
+        public async Task<IActionResult> ConsultationPourMedecine()
+        {
+            return View();
+
+        }
     }
 }
 

@@ -3,144 +3,303 @@
 
 @{
     ViewData["Title"] = "Details";
+    var btnText = "Modifier";
 }
 
-<h1>Details</h1>
+<div class="container" style="max-width: 1080px; margin-top: 50px;">
 
-<div>
-    <h4>Salut 
-        @if (Model.EmployesClinique.EmployeCliniquePosition == EmployeCliniquePosition.Medecin)
-        {
-            <span><span>Dr</span></span>
-        }
-        @Model.EmployesClinique.EmployeCliniqueNom
-    </h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniqueNom)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniqueNom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniquePrenom)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniquePrenom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniqueCourriel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniqueCourriel)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniquePosition)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniquePosition)
-        </dd>
-        @* <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd> *@
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployesClinique.Clinique)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmployesClinique.Clinique.NomClinique)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.EmployesClinique.EmployeCliniqueID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <h1 class="text-center">Profil du medecine</h1>
 
-<div>
-    <h2>
-        Mes cliniques
-    </h2>
-    <table class="dataTable">
-        <thead>
-            <tr>
-                <th>
-                    Mes Cliniques
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.MesCliniques)
+    <div>
+        <h4>
+            @if (Model.EmployesClinique.EmployeCliniquePosition == EmployeCliniquePosition.Medecin)
             {
-                <tr>
-                   
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.CliniqueID">@Html.DisplayFor(modelItem => item.NomClinique)</a>
-                    </td>
-                </tr>
+                <span><span>Dr</span></span>
             }
-        </tbody>
-</table>
+            @Model.EmployesClinique.EmployeCliniqueNom
+        </h4>
+    </div>
+
+
+    <ul class="nav nav-tabs nav-tabs-custom border-bottom-0 mt-3 nav-justfied" role="tablist" style="margin-bottom:10px">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link px-4 active" data-bs-toggle="tab" href="#info" role="tab" aria-selected="false" tabindex="-1">
+                <span class="d-block d-sm-none"><i class="mdi mdi-menu-open"></i></span>
+                <span class="d-none d-sm-block">Mes informations</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link px-4 " href="#myClinique" role="tab">
+                <span class="d-block d-sm-none"><i class="mdi mdi-account-group-outline"></i></span>
+                <span class="d-none d-sm-block">Mes cliniques</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link px-4 " href="#patient" role="tab">
+                <span class="d-block d-sm-none"><i class="mdi mdi-account-group-outline"></i></span>
+                <span class="d-none d-sm-block">Consultation du patient</span>
+            </a>
+        </li>
+    </ul>
+
+
+
+    @*aa*@
+
+    <div class="card">
+        <div class="tab-content p-4">
+
+
+            <div class="tab-pane active show" id="info" role="tabpanel">
+                <h4 class="card-title mb-4">Mes informations</h4>
+
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="task-list-box" id="landing-task">
+                            <div id="task-item-1">
+                                <div class="card task-box rounded-3">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <dl class="row">
+                                                <dt class="col-sm-2">
+                                                    @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniqueNom)
+                                                </dt>
+                                                <dd class="col-sm-10">
+                                                    @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniqueNom)
+                                                </dd>
+                                                <dt class="col-sm-2">
+                                                    @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniquePrenom)
+                                                </dt>
+                                                <dd class="col-sm-10">
+                                                    @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniquePrenom)
+                                                </dd>
+                                                <dt class="col-sm-2">
+                                                    @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniqueCourriel)
+                                                </dt>
+                                                <dd class="col-sm-10">
+                                                    @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniqueCourriel)
+                                                </dd>
+                                                <dt class="col-sm-2">
+                                                    @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniquePosition)
+                                                </dt>
+                                                <dd class="col-sm-10">
+                                                    @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniquePosition)
+                                                </dd>
+
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center text-center">
+                                        <div class="col col-md-8 col-xl-6 mb-2 mt-2">
+                                            <a asp-controller="EmployesCliniques" asp-action="Edit" asp-route-id="@Model?.EmployesClinique.EmployeCliniqueID" class="button-green-action form-control" style="width:auto">@btnText</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="tab-pane " id="myClinique" role="tabpanel">
+                <h4 class="card-title mb-4">Mes cliniques</h4>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="task-list-box" id="landing-task">
+                            <div id="task-item-1">
+                                <div class="card task-box rounded-3">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            @foreach (var item in Model.MesCliniques)
+                                            {
+                                                <a asp-action="Details" asp-route-id="@item.CliniqueID">@Html.DisplayFor(modelItem => item.NomClinique)</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane " id="patient" role="tabpanel">
+                <h4 class="card-title mb-4">Les consultations du patients</h4>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="task-list-box" id="landing-task">
+                            <div id="task-item-1">
+                                <div class="card task-box rounded-3">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col-6" style="display: flex;margin:20px 0">
+                                                <form method="post" asp-controller="ListeAttente" asp-action="ChangerStatutConsultation" style="margin-top: 20px;">
+                                                    <input type="hidden" name="consultationId" value="@Model.ListeAttenteVM.Consultations[0].ConsultationID" />
+                                                    <input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />
+                                                    <button type="submit" class="btn btn-success">
+                                                        Fermer et passer le prochain patient
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div>
+                                                <h4>Details du patient</h4>
+                                                <table class="dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Nom
+                                                            </th>
+                                                            <th>
+                                                                Prenom
+                                                            </th>
+                                                            <th>
+                                                                Date de naissance
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.Nom)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.Prenom)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.DateDeNaissance)
+                                                            </td>
+
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div>
+
+        <div class="row justify-content-center text-center">
+            <div class="col col-md-8 col-xl-6 mb-4 mt-2">
+                <a asp-controller="EmployesCliniques" asp-action="Index" class="smBtn button-white-action">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tabs = document.querySelectorAll('.nav-link');
+        var tabContents = document.querySelectorAll('.tab-pane');
 
-<div class="col-6" style="display: flex;margin:20px 0">
- 
+        tabs.forEach(function (tab) {
+            tab.addEventListener('click', function (event) {
+                event.preventDefault();
+                tabs.forEach(function (t) {
+                    t.classList.remove('active');
+                });
+                tab.classList.add('active');
 
-@* <form method="post" asp-controller="ListeAttente" asp-action="ChangerStatutConsultation">
-    
-    <input type="hidden" name="consultationId" value="@Model.ListeAttenteVM.Consultations[0].ConsultationID" />
-        <input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />
+                var currentTabId = tab.getAttribute('href').substring(1);
 
-    <button type="submit" class="btn btn-primary">
-        Passer le prochain patient
-    </button>
-</form>
- *@
+                tabContents.forEach(function (content) {
+                    content.classList.remove('active', 'show');
+                });
 
-<form method="post" asp-controller="ListeAttente" asp-action="ChangerStatutConsultation" style="margin-top: 20px;">
+                var activeTabContent = document.getElementById(currentTabId);
+                activeTabContent.classList.add('active', 'show');
 
-    <input type="hidden" name="consultationId" value="@Model.ListeAttenteVM.Consultations[0].ConsultationID" />
-        <input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />
-
-    <button type="submit" class="btn btn-success">
-        Fermer et passer le prochain patient
-    </button>
-</form>
+                //window.scrollTo({
+                //    top: 0,
+                //    behavior: 'smooth'
+                //});
+            });
+        });
+    });
+</script>
 
 
-</div>
-<div>
-    <h2>Details du patient</h2>
-<table class="dataTable">
-        <thead>
-            <tr>
-                <th>
-                    Nom
-                </th>
-                <th>
-                    Prenom
-                </th>
-                <th>
-                    Date de naissance
-                </th>
-                
-            </tr>
-        </thead>
-        <tbody>
-               <tr>
-                    <td>
-                    @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.Nom)
-                    </td>
-                    <td>
-                    @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.Prenom)
-                    </td>
-                    <td>
-                    @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.DateDeNaissance)
-                    </td>
-                </tr>
-            
-        </tbody>
-</div>
+
+
+<style>
+    body {
+        background: #f7f8fa
+    }
+
+    .card {
+        margin-bottom: 20px;
+        -webkit-box-shadow: 0 2px 3px #eaedf2;
+        box-shadow: 0 2px 3px #eaedf2;
+    }
+
+    .pb-0 {
+        padding-bottom: 0 !important;
+    }
+
+    .font-size-16 {
+        font-size: 16px !important;
+    }
+
+    .bg-soft-primary {
+        background-color: rgba(3,142,220,.15) !important;
+    }
+
+    .rounded-circle {
+        border-radius: 50% !important;
+    }
+
+    .nav-tabs-custom .nav-item .nav-link.active {
+        color: #038edc;
+        background: white
+    }
+
+    .nav-tabs-custom .nav-item .nav-link {
+        border: none;
+    }
+
+
+
+    .border-end {
+        border-right: 1px solid #eff0f2 !important;
+    }
+
+    .d-inline-block {
+        display: inline-block !important;
+    }
+
+    .nav-tabs-custom .nav-item {
+        position: relative;
+        color: #343a40;
+    }
+
+        .nav-tabs-custom .nav-item .nav-link.active:after {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+
+        .nav-tabs-custom .nav-item .nav-link::after {
+            content: "";
+            background: #038edc;
+            height: 2px;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            bottom: -2px;
+            -webkit-transition: all 250ms ease 0s;
+            transition: all 250ms ease 0s;
+            -webkit-transform: scale(0);
+            transform: scale(0);
+        }
+</style>
