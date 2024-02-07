@@ -57,18 +57,18 @@ namespace Clinique2000_DataAccess.Initializer
                                 .GetAwaiter().GetResult();
 
 
-                //_userManager.CreateAsync(new ApplicationUser
-                //{
-                //    UserName = "bitcav@gmail.com",
-                //    NormalizedUserName = "BITCAV@GMAIL.COM",
-                //    Email = "bitcav@gmail.com",
-                //    NormalizedEmail = "BITCAV@GMAIL.COM",
-                //    PhoneNumber = "1234567890",
-                //    EmailConfirmed = true
-                //}).GetAwaiter().GetResult();
-                //ApplicationUser user = _db.ApplicationUser.FirstOrDefault(u => u.Email == "bitcav@gmail.com");
-                //_userManager.AddToRoleAsync(user, AppConstants.SuperAdminRole)
-                //    .GetAwaiter().GetResult();
+                _userManager.CreateAsync(new ApplicationUser
+                {
+                    UserName = "admin@clinique.com",
+                    NormalizedUserName = "ADMIN@CLINIQUE.COM",
+                    Email = "admin@clinique.com",
+                    NormalizedEmail = "ADMIN@CLINIQUE.COM",
+                    PhoneNumber = "1234567890",
+                    EmailConfirmed = true
+                }, "Admin123!").GetAwaiter().GetResult();
+                ApplicationUser user = _db.ApplicationUser.FirstOrDefault(u => u.Email == "admin@clinique.com");
+                _userManager.AddToRoleAsync(user, AppConstants.SuperAdminRole)
+                    .GetAwaiter().GetResult();
 
             }
         }

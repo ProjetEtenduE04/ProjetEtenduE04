@@ -64,8 +64,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     return View(employesClinique);
                 }
                 // Vérifier si l'utilisateur est le créateur d'une clinique
-                var isCreator = await _services.clinique.VerifierSiUserAuthEstCreateurClinique(userAuth);
-                if (isCreator)
+                //var isCreator = await _services.clinique.VerifierSiUserAuthEstCreateurClinique(userAuth);
+                if (User.IsInRole(AppConstants.AdminCliniqueRole))
                 {
                     // L'utilisateur est le créateur d'une clinique, il ne peut donc voir que ses cliniques.
                     var listeCliniqueAdminClinique = await _services.clinique.ObtenirListeCliniquesParCreateurId(userAuth.Id);
@@ -74,14 +74,14 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 }
 
                 // Vérifier si l'utilisateur est l'employe d'une clinique 
-                var estEmploye = await _services.employesClinique.VerifierSiUserAuthEstEmploye(userAuth.Email);
-                if (estEmploye != null)
-                {
-                    // L'utilisateur est l'employe d'une clinique, il ne peut donc voir que  les cliniques où ils travaillent.
-                    var listCliniqueEmploye = await _services.employesClinique.ObtenirCliniquesDeLEmploye(estEmploye);
-                    var listEmployesCliniques = await _services.employesClinique.GetEmployeSelonLaListeClinique(listCliniqueEmploye);
-                    return View(listEmployesCliniques);
-                }
+                //var estEmploye = await _services.employesClinique.VerifierSiUserAuthEstEmploye(userAuth.Email);
+                //if (estEmploye != null)
+                //{
+                //    // L'utilisateur est l'employe d'une clinique, il ne peut donc voir que  les cliniques où ils travaillent.
+                //    var listCliniqueEmploye = await _services.employesClinique.ObtenirCliniquesDeLEmploye(estEmploye);
+                //    var listEmployesCliniques = await _services.employesClinique.GetEmployeSelonLaListeClinique(listCliniqueEmploye);
+                //    return View(listEmployesCliniques);
+                //}
 
                 // L'utilisateur n'est pas le créateur ou l'administrateur d'une clinique, nous redirigeons donc vers la page principale.
                 TempData[AppConstants.Error] = "Accès refusé. Seuls les superadministrateurs, les créateurs de cliniques ou les administrateurs de cliniques sont autorisés à accéder à cette page";
