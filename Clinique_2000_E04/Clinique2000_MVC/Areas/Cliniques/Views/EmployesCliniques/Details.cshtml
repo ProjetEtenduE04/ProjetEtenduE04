@@ -61,26 +61,33 @@
                                 <div class="card task-box rounded-3">
                                     <div class="card-body">
                                         <div class="row align-items-center">
-                                            <div class="col-6" style="display: flex;margin:20px 0">
+                                            <div class="" style="display: flex;margin:20px 0">
                                                 @if (Model.ConsultationEnCours != null)
                                                 {
                                                     <!-- Terminer Consultation button -->
-                                                    <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="TerminerConsultation">
-                                                        <input type="hidden" name="consultationId" value="@Model.ConsultationEnCours.ConsultationID" />
-                                                        <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
-                                                        <button type="submit" class="btn btn-success">
-                                                            Terminer Consultation
-                                                        </button>
-                                                    </form>
+                                               
+
+                                                        <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="TerminerConsultation">
+                                                            <input type="hidden" name="consultationId" value="@Model.ConsultationEnCours.ConsultationID" />
+                                                            <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
+                                                            <button type="submit" class="button-green-action form-control" style="width:fit-content; margin-right:26px" >
+                                                                Terminer Consultation
+                                                            </button>
+                                                        </form>
+                                               
+
+
 
                                                     <!-- Terminer Consultation et Appeler Prochain Patient button -->
+                                                    
                                                     <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="TerminerConsultationEtAppellerProchainPatient">
                                                         <input type="hidden" name="consultationId" value="@Model.ConsultationEnCours.ConsultationID" />
                                                         <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
-                                                        <button type="submit" class="btn btn-success">
+                                                        <button type="submit" class="button-green-action form-control" style="width:fit-content">
                                                             Terminer et appeler le prochain patient
                                                         </button>
                                                     </form>
+                                                    
                                                 }
                                                 else if (Model.ProchaineConsultation != null)
                                                 {
@@ -88,7 +95,7 @@
                                                     <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="AppelerProchainPatient">
                                                         <input type="hidden" name="consultationId" value="@Model.ProchaineConsultation.ConsultationID" />
                                                         <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
-                                                        <button type="submit" class="btn btn-primary">
+                                                        <button type="submit" class="button-blue-action form-control" style="width:fit-content">
                                                             Appeler le prochain patient
                                                         </button>
                                                     </form>
