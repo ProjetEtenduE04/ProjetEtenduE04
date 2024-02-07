@@ -481,7 +481,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangerStatutConsultation(int consultationID, int employesID)
         {
-            var ListeSalleAttenteVM = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID);
+            var ListeSalleAttenteVM = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employesID);
 
             if (ListeSalleAttenteVM == null)
             {
@@ -495,15 +495,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AppelerProchainPatient(int consultationID)
+        public async Task<IActionResult> AppelerProchainPatient(int consultationID, int employeCliniqueID)
         {
             try
             {
-                
-
-
                 // Call the service method to process calling the next patient.
-                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(consultationID);
+                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(consultationID,  employeCliniqueID);
+               
 
                 if (updatedListeSalleAttente != null)
                 {
@@ -524,12 +522,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TerminerConsultationEtAppellerProchainPatient(int consultationID)
+        public async Task<IActionResult> TerminerConsultationEtAppellerProchainPatient(int consultationID, int employeID)
         {
             try
             {
                 // Call the service method to complete the current consultation and call the next patient.
-                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID);
+                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employeID);
 
                 if (updatedListeSalleAttente != null)
                 {
@@ -550,7 +548,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TerminerConsultation(int consultationID)
+        public async Task<IActionResult> TerminerConsultation(int consultationID, int employeID)
         {
             try
             {
