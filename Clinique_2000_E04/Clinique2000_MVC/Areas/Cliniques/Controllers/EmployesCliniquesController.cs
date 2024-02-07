@@ -129,7 +129,6 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
         
         public async Task<IActionResult> GetUserID()
-
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Email);//Recupere l email d l user connecté
 

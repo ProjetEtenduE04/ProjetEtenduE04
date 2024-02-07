@@ -74,3 +74,4 @@ namespace Clinique2000_DataAccess.Initializer
         }
     }
 }
+
