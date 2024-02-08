@@ -56,7 +56,7 @@ namespace Clinique2000_Services.Services
             var user = await _patientService.GetUserAuthAsync();
             var patient = consultation.Patient;
             var subject = "Confirmation de réservation Consultation";
-            var body =  $"    <p>Bonjour, {patient.Nom} {consultation.Patient.Prenom} !</p>" +
+                var body =  $"    <p>Bonjour, {patient.Nom} {consultation.Patient.Prenom} !</p>" +
                         $"    <p>Nous confirmons la réservation de la consultation prévue pour :</p>" +
                         $"    <h3 style=\"color:red;\">{consultation.PlageHoraire.HeureDebut.ToShortDateString()} à {consultation.PlageHoraire.HeureDebut.ToShortTimeString()}</h3>" +
                         $"    <h3 style=\"color:red;\">Clinique : {consultation.PlageHoraire.ListeAttente.Clinique.NomClinique}</h3>" +

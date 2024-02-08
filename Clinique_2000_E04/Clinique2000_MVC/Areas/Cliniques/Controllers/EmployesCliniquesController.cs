@@ -104,13 +104,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         // GET: EmployesCliniques/Details/5
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(int? id)
         {
          
             //recupere le user connecté
-            var email = User.Identity.Name;
-            var user =  await _userManager.FindByEmailAsync(email);
-            var employee= await _services.employesClinique.FindOneAsync(x=>x.UserID==user.Id && x.EmployeCliniquePosition==Clinique2000_Utility.Enum.EmployeCliniquePosition.Medecin);
+            //var email = User.Identity.Name;
+            //var user =  await _userManager.FindByEmailAsync(email);
+            var employee = await _services.employesClinique.ObtenirParIdAsync(id);
 
           
             //EmployesClinique employesClinique = await _services.employesClinique.ObtenirParIdAsync(id);

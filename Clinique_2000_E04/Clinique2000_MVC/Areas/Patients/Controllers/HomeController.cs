@@ -38,7 +38,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         }
 
         // GET: HomeController
-        public IActionResult Index()
+        public IActionResult Index2()
         {
             return View();
         }

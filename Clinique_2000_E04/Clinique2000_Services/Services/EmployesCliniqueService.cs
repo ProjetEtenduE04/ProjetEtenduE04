@@ -68,7 +68,7 @@ namespace Clinique2000_Services.Services
         public async Task<EmployesClinique> GetEmployeUserID( string userEmail, string userId)
         {
 
-            EmployesClinique employeUser = await _context.EmployesClinique.FirstAsync(e => e.EmployeCliniqueCourriel == userEmail);
+            EmployesClinique employeUser = await _context.EmployesClinique.Where(e => e.EmployeCliniqueCourriel == userEmail).FirstOrDefaultAsync();
 
             if (employeUser!= null)
             {
@@ -80,13 +80,13 @@ namespace Clinique2000_Services.Services
         }
 
         /// <summary>
-        /// Vérifie si l'utilisateur authentifié est un employé de la clinique.
+        /// Vï¿½rifie si l'utilisateur authentifiï¿½ est un employï¿½ de la clinique.
         /// </summary>
         /// <param name="userEmail">L'adresse e-mail de l'utilisateur.</param>
-        /// <returns>L'objet EmployesClinique correspondant si trouvé, sinon null.</returns>
-        public async Task<EmployesClinique> VerifierSiUserAuthEstMedecin(string userEmail)
+        /// <returns>L'objet EmployesClinique correspondant si trouvï¿½, sinon null.</returns>
+        public async Task<EmployesClinique> VerifierSiUserAuthEstEmploye(string userEmail)
         {
-            EmployesClinique employeUser = await _context.EmployesClinique.FirstAsync(e => e.EmployeCliniqueCourriel == userEmail && e.EmployeCliniquePosition==Clinique2000_Utility.Enum.EmployeCliniquePosition.Medecin);
+            EmployesClinique employeUser = await _context.EmployesClinique.Where(e => e.EmployeCliniqueCourriel == userEmail).FirstOrDefaultAsync();
             if (employeUser != null)
             {
                 return employeUser;
@@ -96,10 +96,10 @@ namespace Clinique2000_Services.Services
 
 
         /// <summary>
-        /// Obtient la liste des employés selon la liste des cliniques fournies.
+        /// Obtient la liste des employï¿½s selon la liste des cliniques fournies.
         /// </summary>
         /// <param name="listClinique">La liste des cliniques.</param>
-        /// <returns>La liste des employés de toutes les cliniques fournies.</returns>
+        /// <returns>La liste des employï¿½s de toutes les cliniques fournies.</returns>
         public async Task<List<EmployesClinique>> GetEmployeSelonLaListeClinique(IEnumerable<Clinique> listClinique)
         {
             var employesClinique = new List<EmployesClinique>();

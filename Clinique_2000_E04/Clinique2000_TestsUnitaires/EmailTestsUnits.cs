@@ -93,7 +93,15 @@ namespace Clinique2000_TestsUnitaires
                 PlageHoraire = new PlageHoraire
                 {
                     HeureDebut = DateTime.Now,
-                    HeureFin = DateTime.Now.AddHours(1)
+                    HeureFin = DateTime.Now.AddHours(1),
+                    ListeAttente = new ListeAttente
+                    {
+                        Clinique = new Clinique
+                        {
+                            NomClinique = "Clinique2000"
+                        }
+                    }
+                    
                 }
             };
 

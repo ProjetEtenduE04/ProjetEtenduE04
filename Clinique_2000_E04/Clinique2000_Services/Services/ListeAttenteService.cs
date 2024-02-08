@@ -420,7 +420,7 @@ namespace Clinique2000_Services.Services
                     // Enregistre l'heure de fin r�elle de la consultation � l'heure actuelle.
                     consultation.HeureDateFinReele = DateTime.Now;
                     // Met � jour le statut de la consultation pour la marquer comme termin�e.
-                    consultation.StatutConsultation = StatutConsultation.Termin�;
+                    consultation.StatutConsultation = StatutConsultation.Termine;
 
                     // D�termine la logique pour s�lectionner le prochain m�decin disponible.
                     //string nextAvailableDoctorId = D�terminerProchainM�decinDisponible();
@@ -463,7 +463,7 @@ namespace Clinique2000_Services.Services
                 if (consultation.StatutConsultation == StatutConsultation.EnCours)
                 {
                     // Met � jour le statut de la consultation pour la marquer comme termin�e.
-                    consultation.StatutConsultation = StatutConsultation.Termin�;
+                    consultation.StatutConsultation = StatutConsultation.Termine;
                     // Enregistre l'heure de fin r�elle de la consultation � l'heure actuelle.
                     consultation.HeureDateFinReele = DateTime.Now;
 

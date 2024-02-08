@@ -153,7 +153,7 @@
                 </div>
                 <div class="card mb-4">
                 @{
-                    var consultationHist = @Model.Consultations.Where(x => x.PatientID == Model.PatientId && x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.Terminé).Take(5);
+                    var consultationHist = @Model.Consultations.Where(x => x.PatientID == Model.PatientId && x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.Termine).Take(5);
 
                         <div class="card-header ">
                             <h4 class="mt-2">Historique du rendez-vous</h4>
