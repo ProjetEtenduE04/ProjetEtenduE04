@@ -17,6 +17,7 @@
     <Compile Include="ViewModels\CliniqueAdresseVM.cs" />
     <Compile Include="ViewModels\CliniqueDistanceVM.cs" />
     <Compile Include="ViewModels\EmployesCliniqueVM.cs" />
+    <Compile Include="ViewModels\EmailVM.cs" />
     <Compile Include="ViewModels\ListeAttenteVM.cs" />
   </ItemGroup>
 

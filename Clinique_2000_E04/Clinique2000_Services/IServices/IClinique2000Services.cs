@@ -19,6 +19,7 @@ namespace Clinique2000_Services.IServices
         public ICliniqueService clinique { get; }
         public IAdresseService adresse { get; }
         public IEmployesCliniqueService employesClinique { get; }
+        public IEmailService email { get; }
     }
     
 }

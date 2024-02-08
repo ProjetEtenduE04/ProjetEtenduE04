@@ -1,4 +1,4 @@
-﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.Models;
 using Microsoft.AspNetCore.Identity;
 using static Clinique2000_Services.Services.PatientService;
 

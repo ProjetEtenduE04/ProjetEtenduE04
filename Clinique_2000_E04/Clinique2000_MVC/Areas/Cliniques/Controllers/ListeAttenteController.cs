@@ -345,13 +345,20 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     return View("NotFound");
                 }
 
-                TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHoraire.HeureDebut.ToShortDateString()} à {consultation.PlageHoraire.HeureDebut.ToShortTimeString()}";
+                TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.PlageHorarie.HeureDebut.ToShortDateString()} à {consultation.PlageHorarie.HeureFin.ToShortTimeString()}";
+                await _services.email.SendConsultationConfirmationEmail(consultation);
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError("Erreur", ex.Message);
                 TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            catch (Exception ex)
+            {
+                TempData[AppConstants.Error] = $"Erreur lors de l'envoi de l'email de confirmation : {ex.Message}";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }

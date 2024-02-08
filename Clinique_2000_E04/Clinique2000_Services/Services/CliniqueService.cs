@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -276,6 +277,7 @@ namespace Clinique2000_Services.Services
         {
             var patientID = await _consultationService.ObtenirIdPatientAsync();
             var patient = await _context.Patients.FirstOrDefaultAsync(x => x.PatientId == patientID);
+            var patientLocation = await _adresseService.GetLocationByPostalCodeAsync(patient.CodePostal);
 
             List<CliniqueDistanceVM> cliniquesAvecDistance = new List<CliniqueDistanceVM>();
 
@@ -288,8 +290,8 @@ namespace Clinique2000_Services.Services
 
                 if (aListeAttenteOuverteAvecConsultations)
                 {
-                    double distance = await _adresseService.CalculerDistanceEntre2CodesPostaux(
-                        clinique.Adresse.CodePostal, patient.CodePostal);
+                    var adresseClinique = await _adresseService.GetLocationByPostalCodeAsync(clinique.Adresse.CodePostal);
+                    double distance = await  _adresseService.CalculerDistanceEntre2CodesPostaux( patientLocation.PostalCode,adresseClinique.PostalCode);
 
                     var prochainePlageHoraire = _context.PlagesHoraires
                         .Include(ph => ph.Consultations)
@@ -302,7 +304,11 @@ namespace Clinique2000_Services.Services
                     {
                         Clinique = clinique,
                         Distance = distance,
-                        HeureProchaineConsultation = prochainePlageHoraire?.HeureDebut
+                        HeureProchaineConsultation = prochainePlageHoraire?.HeureDebut,
+                        CliniqueLatitude = adresseClinique.Latitude.ToString(CultureInfo.InvariantCulture),
+                        CliniqueLongitude = adresseClinique.Longitude.ToString(CultureInfo.InvariantCulture),
+                        PatientLatitude = patientLocation.Latitude.ToString(CultureInfo.InvariantCulture),
+                        PatientLongitude = patientLocation.Longitude.ToString(CultureInfo.InvariantCulture)
                     });
                 }
             }

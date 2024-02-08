@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Security.Claims;
 
 
@@ -250,9 +251,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 return View("IndexCliniquesAProximite");
             }
 
-            IEnumerable<CliniqueDistanceVM> activeClinics = await _services.clinique.ObtenirLes5CliniquesLesPlusProches();
 
-            if(activeClinics.Count() > 0)
+
+            IEnumerable<CliniqueDistanceVM> activeClinics = await _services.clinique.ObtenirLes5CliniquesLesPlusProches();
+            ViewBag.PatientLatitude = activeClinics.FirstOrDefault()?.PatientLatitude.ToString(CultureInfo.InvariantCulture);
+            ViewBag.PatientLongitude = activeClinics.FirstOrDefault()?.PatientLongitude.ToString(CultureInfo.InvariantCulture);
+
+            if (activeClinics.Count() > 0)
                 TempData[AppConstants.Info] = $"Voici les cliniques les plus proches de chez vous avec des rendez-vous disponibles ";
             else
                 TempData[AppConstants.Info] = $"Malheureusement, il n'y a pas de clinique RDV disponible pour le moment.";
