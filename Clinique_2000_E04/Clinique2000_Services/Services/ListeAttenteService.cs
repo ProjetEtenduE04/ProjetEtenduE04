@@ -307,36 +307,36 @@ namespace Clinique2000_Services.Services
         }
 
 
-        public async void MettreConsultationEnCours(int consultaionID)
-        {
-            var consultation = await _context.Consultations.FindAsync(consultaionID);
-            consultation.StatutConsultation = StatutConsultation.EnCours;
-            _context.SaveChanges();
+        //public async void MettreConsultationEnCours(int consultaionID)
+        //{
+        //    var consultation = await _context.Consultations.FindAsync(consultaionID);
+        //    consultation.StatutConsultation = StatutConsultation.EnCours;
+        //    _context.SaveChanges();
 
-        }
+        //}
 
-        private string DéterminerProchainMédecinDisponible()
-        {
-            // interroger la base de données pour trouver un médecin disponible qui n'est pas actuellement en consultation.
+        //private string DéterminerProchainMédecinDisponible()
+        //{
+        //    // interroger la base de données pour trouver un médecin disponible qui n'est pas actuellement en consultation.
 
-            // Recherche un médecin disponible en filtrant par la position "Medecin".
-            // De plus, vérifie que le médecin n'est pas actuellement en consultation en utilisant une sous-requête.
-            var médecinDisponible = _context.EmployesClinique
-                .Where(doc => doc.EmployeCliniquePosition == EmployeCliniquePosition.Medecin)
-                .Where(doc => !_context.Consultations.Any(cons => cons.Medecin.UserID == doc.UserID && cons.StatutConsultation == StatutConsultation.EnCours))
-                .FirstOrDefault();
+        //    // Recherche un médecin disponible en filtrant par la position "Medecin".
+        //    // De plus, vérifie que le médecin n'est pas actuellement en consultation en utilisant une sous-requête.
+        //    var médecinDisponible = _context.EmployesClinique
+        //        .Where(doc => doc.EmployeCliniquePosition == EmployeCliniquePosition.Medecin)
+        //        .Where(doc => !_context.Consultations.Any(cons => cons.Medecin.UserID == doc.UserID && cons.StatutConsultation == StatutConsultation.EnCours))
+        //        .FirstOrDefault();
 
-            if(médecinDisponible==null)
+        //    if(médecinDisponible==null)
 
-            // Si un médecin disponible est trouvé, retourne l'UserID du médecin sélectionné.
-            if (médecinDisponible != null)
-            {
-                return médecinDisponible.UserID;
-            }
+        //    // Si un médecin disponible est trouvé, retourne l'UserID du médecin sélectionné.
+        //    if (médecinDisponible != null)
+        //    {
+        //        return médecinDisponible.UserID;
+        //    }
 
-            // Si aucun médecin disponible n'est trouvé, retourne null 
-            return null;
-        }
+        //    // Si aucun médecin disponible n'est trouvé, retourne null 
+        //    return null;
+        //}
 
 
 
@@ -350,7 +350,7 @@ namespace Clinique2000_Services.Services
                     consultation.MedecinId = employeClinique.UserID;
                     consultation.StatutConsultation = StatutConsultation.EnCours;
                     consultation.HeureDateDebutReele = DateTime.Now;
-                    _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                     ListeAttenteVM nouvelleListeAttenteVM = await GetListeSalleAttenteOrdonnee(consultation.PlageHoraire.ListeAttenteID);
                     return nouvelleListeAttenteVM;
 
@@ -410,12 +410,9 @@ namespace Clinique2000_Services.Services
             if (consultation != null)
             {
                 // Vérifie si la consultation est en attente.
-                if (consultation.StatutConsultation == StatutConsultation.EnAttente)
+                if (consultation.StatutConsultation != StatutConsultation.EnCours)
                 {
-                    // Met à jour le statut de la consultation pour la marquer comme en cours.
-                    consultation.StatutConsultation = StatutConsultation.EnCours;
-                    // Enregistre l'heure de début réelle de la consultation à l'heure actuelle.
-                    consultation.HeureDateDebutReele = DateTime.Now;
+                    throw new ValidationException("Une erreure est survenue.");
                 }
                 // Vérifie si la consultation est en cours.
                 else if (consultation.StatutConsultation == StatutConsultation.EnCours)
@@ -434,15 +431,14 @@ namespace Clinique2000_Services.Services
 
                         var prochaineconsultationID = await _context.Consultations.Where(x => x.StatutConsultation == StatutConsultation.EnAttente).FirstOrDefaultAsync();
                         // Associe le médecin sélectionné à la consultation.
-                        var prochaineconsultation = await _context.Consultations.Where(x => x.PlageHoraireID == prochaineconsultationID.PlageHoraireID && x.StatutConsultation == StatutConsultation.EnAttente).FirstOrDefaultAsync();
 
-                        await AppelerProchainPatient(prochaineconsultation.ConsultationID, employeCliniqueID);
-
+                        await AppelerProchainPatient(prochaineconsultationID.ConsultationID, employeCliniqueID);
+                    await _context.SaveChangesAsync();
                     //}
                 }
 
                 // Enregistre les modifications dans la base de données (statut et heures de début/fin).
-                await _context.SaveChangesAsync();
+               
 
                 // Obtient la liste d'attente mise à jour.
                 ListeAttenteVM nouvelleListeAttenteVM = await GetListeSalleAttenteOrdonnee(consultation.PlageHoraire.ListeAttenteID);

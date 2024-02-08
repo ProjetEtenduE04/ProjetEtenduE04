@@ -72,7 +72,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     consultationList.Add(consultation);
                 }
             }
-            Consultation? prochaineconsultation = consultationList.Where(x => x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnAttente)
+
+            Consultation? prochaineconsultation =  consultationList.Where(x => x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnAttente && x.PlageHoraire.ListeAttenteID== listeAttente.ListeAttenteID)
            .OrderBy(x => x.ConsultationID)
            .ThenBy(x => x.PlageHoraire.HeureDebut)
            .ThenBy(x => x.Patient.Prenom)

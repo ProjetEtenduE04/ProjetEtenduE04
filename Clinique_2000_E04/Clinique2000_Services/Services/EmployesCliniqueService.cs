@@ -54,7 +54,7 @@ namespace Clinique2000_Services.Services
 
         public async Task<ListeAttente> ObtenirListeAttenteDeLaClinqueDeLEmploye(int cliniqueID)
         {
-            var listeAttente = await _context.ListeAttentes.Where(l => l.CliniqueID == cliniqueID && l.IsOuverte==true).Include(l => l.PlagesHoraires).Include(x=>x.Consultations).FirstOrDefaultAsync();
+            var listeAttente = await _context.ListeAttentes.Where(l => l.CliniqueID == cliniqueID /*&& l.IsOuverte==true*/).Include(l => l.PlagesHoraires).Include(x=>x.Consultations).FirstOrDefaultAsync();
             return listeAttente;
         }
 
