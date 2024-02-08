@@ -90,14 +90,14 @@ namespace Clinique2000_TestsUnitaires
                     Nom = "Doe",
                     Prenom = "John"
                 },
-                PlageHorarie = new PlageHoraire
+                PlageHoraire = new PlageHoraire
                 {
                     HeureDebut = DateTime.Now,
                     HeureFin = DateTime.Now.AddHours(1)
                 }
             };
 
-            patientServiceMock.Setup(ps => ps.GetUserAuth()).ReturnsAsync(user);
+            patientServiceMock.Setup(ps => ps.GetUserAuthAsync()).ReturnsAsync(user);
 
             // Act
             var result = await emailService.CreateConsultationConfirmationEmail(consultation);
@@ -110,8 +110,8 @@ namespace Clinique2000_TestsUnitaires
             Assert.Contains(consultation.Patient.Nom, result.Body);
             Assert.Contains(consultation.Patient.Prenom, result.Body);
 
-            Assert.Contains(consultation.PlageHorarie.HeureDebut.ToShortDateString(), result.Body);
-            Assert.Contains(consultation.PlageHorarie.HeureDebut.ToShortTimeString(), result.Body);
+            Assert.Contains(consultation.PlageHoraire.HeureDebut.ToShortDateString(), result.Body);
+            Assert.Contains(consultation.PlageHoraire.HeureDebut.ToShortTimeString(), result.Body);
 
         }
 

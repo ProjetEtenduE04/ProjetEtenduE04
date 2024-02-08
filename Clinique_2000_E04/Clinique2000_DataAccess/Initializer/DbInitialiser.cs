@@ -42,19 +42,19 @@ namespace Clinique2000_DataAccess.Initializer
             }
             catch (Exception ex) { }
             //Créer les rôles suivants si aucun rôle ne figure dans la bd
-            //if (!_roleManager.RoleExistsAsync(AppConstants.AdminCliniqueRole).GetAwaiter().GetResult())
-            //{
-            //    _roleManager.CreateAsync(new IdentityRole(AppConstants.AdminCliniqueRole))
-            //        .GetAwaiter().GetResult();
+            if (!_roleManager.RoleExistsAsync(AppConstants.AdminCliniqueRole).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(AppConstants.AdminCliniqueRole))
+                    .GetAwaiter().GetResult();
 
-            //    _roleManager.CreateAsync(new IdentityRole(AppConstants.MedicinRole))
-            //                    .GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(AppConstants.MedicinRole))
+                                .GetAwaiter().GetResult();
 
-            //    _roleManager.CreateAsync(new IdentityRole(AppConstants.PatientRole))
-            //                    .GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(AppConstants.PatientRole))
+                                .GetAwaiter().GetResult();
 
-            //    _roleManager.CreateAsync(new IdentityRole(AppConstants.SuperAdminRole))
-            //                    .GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(AppConstants.SuperAdminRole))
+                                .GetAwaiter().GetResult();
 
 
                 _userManager.CreateAsync(new ApplicationUser
@@ -73,5 +73,6 @@ namespace Clinique2000_DataAccess.Initializer
             }
         }
     }
+}
 
 
