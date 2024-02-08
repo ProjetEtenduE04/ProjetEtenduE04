@@ -126,7 +126,10 @@
                             </div>
                             <div class="row justify-content-center text-center">
                                 <div class="col col-md-8 col-xl-6 mb-4">
-                                    <a asp-area="Cliniques" asp-action="Edit" asp-route-id="@Model?.PatientId" class="smBtn button-red-action form-control" style="width:auto">Annuler</a>
+                                    <a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="AnnulerConsultation" asp-route-PatientId="@Model?.PatientId" class="smBtn button-red-action form-control" style="width:auto">
+                                        
+                                    Annuler
+                                    </a>
                                 </div>
                             </div>
                         }

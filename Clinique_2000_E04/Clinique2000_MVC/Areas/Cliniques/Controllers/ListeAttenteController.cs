@@ -584,5 +584,23 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             }
         }
 
+        public async Task<IActionResult> AnnulerConsultation(int PatientId)
+        {
+
+            if (PatientId >= 0)
+            {
+                var patient = await _services.patient.ObtenirParIdAsync(PatientId);
+                if (patient == null)
+                {
+                    TempData[AppConstants.Warning] = $"Désolé, mais aucune patient avec l'identifiant {PatientId} n'a été trouvée.";
+                    return View("NotFound");
+                }
+                await _services.listeAttente.AnnulerConsultationAsync(patient);
+                return RedirectToAction("Details", "Patients", new { area = "Patients", id = PatientId });
+               
+            }
+            return View();
+        }
+
     }
 }

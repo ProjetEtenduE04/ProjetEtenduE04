@@ -16,7 +16,7 @@ namespace Clinique2000_Services.IServices
         string ObtenirIdUtilisateur();
         Task<int> ObtenirIdPatientDepuisUtilisateurAsync(string userId);
         Task<bool> PatientAConsultationPlanifieeAsync(int patientId);
-
         Task FermerOuLaisserOuverteListeAttente(int listeattenteid);
+        
     }
 }
