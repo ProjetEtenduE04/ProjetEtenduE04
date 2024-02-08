@@ -17,7 +17,7 @@
         <i class="fa-solid fa-caret-down"></i>
     </a>
     <ul class="dropdown-menu dropdown-menu-end text-center">
-        @if (employe != null && employe.EmployeCliniquePosition == EmployeCliniquePosition.Medecin)
+        @if (employe != null && employe.EmployeCliniquePosition == Clinique2000_Utility.Enum.EmployeCliniquePosition.Medecin)
         {
             <li>
                 <a class="dropdown-item" asp-area="Cliniques" asp-controller="EmployesCliniques" asp-action="Details" asp-route-id=@employe.EmployeCliniqueID>

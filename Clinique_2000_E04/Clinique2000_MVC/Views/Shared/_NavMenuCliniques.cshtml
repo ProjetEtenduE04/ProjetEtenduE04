@@ -62,7 +62,7 @@
                 </li>
             }
         @if (User.IsInRole(AppConstants.AdminCliniqueRole) || User.IsInRole(AppConstants.SuperAdminRole) 
-            || employe != null && employe.EmployeCliniquePosition == EmployeCliniquePosition.Receptionniste)
+            || employe != null && employe.EmployeCliniquePosition == Clinique2000_Utility.Enum.EmployeCliniquePosition.Receptionniste)
             {
                 <li>
                      <a class="dropdown-item" asp-area="Cliniques" asp-controller="EmployesCliniques" asp-action="GetUserIDReturnToListeAttente">
