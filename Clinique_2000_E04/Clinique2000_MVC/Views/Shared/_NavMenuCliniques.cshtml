@@ -19,7 +19,8 @@
         <i class="fa-solid fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
-            @if(User.IsInRole(AppConstants.AdminCliniqueRole) || User.IsInRole(AppConstants.SuperAdminRole))
+            @if(this.User.IsInRole(AppConstants.AdminCliniqueRole) || this.User.IsInRole(AppConstants.SuperAdminRole)
+            || employe != null )
             {
                 <li>
                     <a class="dropdown-item" asp-area="Cliniques" asp-controller="Cliniques" asp-action="Index">
@@ -62,10 +63,10 @@
                 </li>
             }
         @if (User.IsInRole(AppConstants.AdminCliniqueRole) || User.IsInRole(AppConstants.SuperAdminRole) 
-            || employe != null && employe.EmployeCliniquePosition == Clinique2000_Utility.Enum.EmployeCliniquePosition.Receptionniste)
+            || employe != null && employe.EmployeCliniquePosition == EmployeCliniquePosition.Receptionniste)
             {
                 <li>
-                     <a class="dropdown-item" asp-area="Cliniques" asp-controller="EmployesCliniques" asp-action="GetUserIDReturnToListeAttente">
+                     <a class="dropdown-item" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="Index">
                         <div class="row">
                             <div class="col text-start">
                                 @btnTitre4

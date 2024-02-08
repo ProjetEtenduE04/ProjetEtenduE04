@@ -39,8 +39,10 @@
                 <!-- Navbar Content -->
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item mx-2">
-                            <a style="color:white;" class="nav-link custom-nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i></a>
+                        <li class="btn-group nav-item mx-2">
+                            <a style="color:white;" class="nav-link custom-nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fa-solid fa-house"></i>
+                            </a>
                         </li>
                         <li class="btn-group nav-item mx-2">
                             @await Html.PartialAsync("_NavMenuCliniques")
@@ -49,9 +51,7 @@
                             @await Html.PartialAsync("_NavMenuPatients")
                         </li>
                         <li class="btn-group nav-item mx-2">
-                        
-                                @await Html.PartialAsync("_NavMenuEmployes")
-                        
+                        @await Html.PartialAsync("_NavMenuEmployes")                      
                         </li>
 @*                        <li class="nav-item mx-2">
                             <a style="color:white;" class="nav-link custom-nav-link" asp-area="Patients" asp-controller="home" asp-action="Index">Patient</a>

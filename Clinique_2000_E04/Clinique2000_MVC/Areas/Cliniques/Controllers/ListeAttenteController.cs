@@ -20,12 +20,10 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
     {
 
         public IClinique2000Services _services { get; set; }
-        public UserManager<IdentityUser> _userManager { get; set; }
 
-        public ListeAttenteController(IClinique2000Services service, UserManager<IdentityUser> userManager)
+        public ListeAttenteController(IClinique2000Services service)
         {
             _services = service;
-            _userManager = userManager;
         }
 
 
@@ -37,14 +35,14 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         /// <returns></returns>
         public async Task<ActionResult> Index()
         {
+            var user = await _services.patient.GetUserAuthAsync();
+            var employee= await _services.employesClinique.GetEmployeUserID(user.Email, user.Id);
 
-            // Obtenir l'ID de l'utilisateur connecté
-            var email = User.Identity.Name;
-            var user = await _userManager.FindByEmailAsync(email);
-            var employee = await _services.employesClinique.FindOneAsync(x => x.UserID == user.Id && x.EmployeCliniquePosition == Clinique2000_Utility.Enum.EmployeCliniquePosition.Receptionniste);
+            //var employee = await _services.employesClinique.FindOneAsync(x => x.UserID == user.Id && x.EmployeCliniquePosition == EmployeCliniquePosition.Receptionniste);
 
             //AFFICHE LES LISTES DATTENTE DE LA CLINIQUE DANS Laquelle la receptionniste travaille
-            if (employee!=null && await _services.employesClinique.EmployeCliniqueEstReceptionniste(employee) == true)
+            if (employee!=null && employee.EmployeCliniquePosition == EmployeCliniquePosition.Receptionniste
+                /* await _services.employesClinique.EmployeCliniqueEstReceptionniste(employee) == true*/)
             {
                 IList<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
 
@@ -57,21 +55,23 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             }
             else
             {
+
                 //affiche tout les listes dèattentes de la bd
                 IList<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
-
                 listListAttente = listListAttente.Where(x => x.DateEffectivite >= DateTime.Now)
-                    .OrderBy(x => x.DateEffectivite)
-                    .ToList();
-
+                .OrderBy(x => x.DateEffectivite)
+                .ToList();
+                if(User.IsInRole(AppConstants.SuperAdminRole))
+                {
+                    return View(listListAttente);
+                }
+                //Affiche les listes d'attentes de la clinique du createur
+                if (User.IsInRole(AppConstants.AdminCliniqueRole))
+                {
+                    listListAttente = listListAttente.Where(l => l.Clinique.CreateurID == user.Id).ToList();  
+                }
                 return View(listListAttente);
-
             }
-
-
-
-
-          
         }
 
         /// <summary>

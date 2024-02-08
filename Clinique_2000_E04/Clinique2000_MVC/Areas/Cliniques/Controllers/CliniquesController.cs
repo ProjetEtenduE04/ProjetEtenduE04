@@ -38,8 +38,34 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         // GET: Cliniques
         public async Task<IActionResult> Index()
         {
-            var listeDesCliniques = await _services.clinique.ObtenirToutAsync();
-            return View(listeDesCliniques);
+            
+            var userAuth = await _services.patient.GetUserAuthAsync();
+
+            // Vérifier si l'utilisateur est un superadministrateur
+            if (User.IsInRole(AppConstants.SuperAdminRole))
+            {
+                // L'utilisateur est un superadministrateur, il peut donc voir toutes les cliniques
+                var employesClinique = await _services.clinique.ObtenirToutAsync();
+                return View(employesClinique);
+            }
+            //Vérifier si l'utilisateur est le créateur d'une clinique
+            if (User.IsInRole(AppConstants.AdminCliniqueRole))
+            {
+                // L'utilisateur est le créateur d'une clinique, il ne peut donc voir que ses clinique.
+                var listeCliniqueAdminClinique = await _services.clinique.ObtenirListeCliniquesParCreateurId(userAuth.Id);
+                return View(listeCliniqueAdminClinique);
+            }
+            // Vérifier si l'utilisateur est l'employe d'une clinique 
+            var employe = await _services.employesClinique.VerifierSiUserAuthEstEmploye(userAuth.Email);
+            if (employe != null)
+            {
+                // L'utilisateur est l'employe d'une clinique, il ne peut donc voir que la clinique dans laquelle il travaille.
+                var listCliniqueDeLEmployee = await _services.employesClinique.ObtenirCliniquesDeLEmploye(employe);
+                return View(listCliniqueDeLEmployee);
+            }
+            //L'utilisateur n'est pas le créateur ou l'administrateur d'une clinique, nous redirigeons donc vers la page principale.
+            TempData["ErrorMessage"] = "Accès refusé. Seuls les superadministrateurs, les créateurs de cliniques ou les administrateurs de cliniques sont autorisés à accéder à cette page.";
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Cliniques/Details/5

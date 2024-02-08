@@ -1382,7 +1382,16 @@ namespace Clinique2000_DataAccess.Seeds
                 CliniqueID = 1,
 
             });
+            builder.Entity<EmployesClinique>().HasData(new EmployesClinique()
+            {
+                EmployeCliniqueID = 4,
+                EmployeCliniqueNom = "Bostan",
+                EmployeCliniquePrenom = "Max",
+                EmployeCliniqueCourriel = "clinique597@gmail.com",
+                EmployeCliniquePosition = EmployeCliniquePosition.Receptionniste,
+                CliniqueID = 1,
 
+            });
 
 
             #endregion
