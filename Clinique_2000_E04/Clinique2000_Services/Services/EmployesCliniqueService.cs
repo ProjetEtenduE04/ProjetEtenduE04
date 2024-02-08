@@ -1,6 +1,8 @@
 using Clinique2000_Core.Models;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
+using Clinique2000_Utility.Enum;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clinique2000_Services.Services
@@ -8,10 +10,12 @@ namespace Clinique2000_Services.Services
     public class EmployesCliniqueService : ServiceBaseAsync<EmployesClinique>, IEmployesCliniqueService
     {
         private readonly CliniqueDbContext _context;
+        private UserManager<IdentityUser> _userManager;
 
-        public EmployesCliniqueService(CliniqueDbContext context) : base(context)
+        public EmployesCliniqueService(CliniqueDbContext context, UserManager<IdentityUser> userManager) : base(context)
         {
             _context = context;
+            _userManager = userManager;
 
         }
 
@@ -80,9 +84,9 @@ namespace Clinique2000_Services.Services
         /// </summary>
         /// <param name="userEmail">L'adresse e-mail de l'utilisateur.</param>
         /// <returns>L'objet EmployesClinique correspondant si trouvé, sinon null.</returns>
-        public async Task<EmployesClinique> VerifierSiUserAuthEstEmploye(string userEmail)
+        public async Task<EmployesClinique> VerifierSiUserAuthEstMedecin(string userEmail)
         {
-            EmployesClinique employeUser = await _context.EmployesClinique.FirstAsync(e => e.EmployeCliniqueCourriel == userEmail);
+            EmployesClinique employeUser = await _context.EmployesClinique.FirstAsync(e => e.EmployeCliniqueCourriel == userEmail && e.EmployeCliniquePosition==Clinique2000_Utility.Enum.EmployeCliniquePosition.Medecin);
             if (employeUser != null)
             {
                 return employeUser;
@@ -106,5 +110,26 @@ namespace Clinique2000_Services.Services
             }
             return employesClinique;
         }
+
+
+        public async Task<bool> EmployeCliniqueEstReceptionniste(EmployesClinique employeclinique)
+        {
+          
+            if (employeclinique.EmployeCliniquePosition==EmployeCliniquePosition.Receptionniste)
+                return true;
+            else
+                return false;
+        }
+
+        public async Task<EmployesClinique> GetEmployeCliniqueFromUserEmail(string email)
+        {
+
+            var employeClinique = await _context.EmployesClinique.FirstOrDefaultAsync(e => e.EmployeCliniqueCourriel.ToLower() == email.ToLower());
+            if (employeClinique == null)
+                return null;
+            else
+            return employeClinique; 
+        }
+
     }
 }

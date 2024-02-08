@@ -34,18 +34,40 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         /// <returns></returns>
         public async Task<ActionResult> Index()
         {
-            DateTime now = DateTime.Now.Date;
 
-            IList<ListeAttente> listListAttente = await _services.listeAttente
-                .ObtenirToutAsync();
+            // Obtenir l'ID de l'utilisateur connecté
+            var userAuth = await _services.patient.GetUserAuthAsync();
+            var employesClinique = await _services.employesClinique.GetEmployeUserID(userAuth.Email,userAuth.Id);
+
+            //AFFICHE LES LISTES DATTENTE DE LA CLINIQUE DANS L
+            if (await _services.employesClinique.EmployeCliniqueEstReceptionniste(employesClinique) == true)
+            {
+                IList<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
+
+                listListAttente = listListAttente.Where(x => x.DateEffectivite >= DateTime.Now && x.CliniqueID==employesClinique.CliniqueID)
+                    .OrderBy(x => x.DateEffectivite)
+                    .ToList();
+
+                return View(listListAttente);
+
+            }
+            else
+            {
+                //affiche tout les listes dèattentes de la bd
+                IList<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
+
+                listListAttente = listListAttente.Where(x => x.DateEffectivite >= DateTime.Now)
+                    .OrderBy(x => x.DateEffectivite)
+                    .ToList();
+
+                return View(listListAttente);
+
+            }
 
 
-            listListAttente = listListAttente.Where(x => x.DateEffectivite >= now)
-                .OrderBy(x => x.DateEffectivite)
-                .ToList();
 
 
-            return View(listListAttente);
+          
         }
 
         /// <summary>
@@ -150,6 +172,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 if (ModelState.IsValid)
                 {
                     listeAttente.CliniqueID = 2;
+
                     await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
                     TempData[AppConstants.Success] = $"Vous avez créé avec succès la liste d'attente";
                     return RedirectToAction("Index");
@@ -498,7 +521,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 return View("NotFound");
             }
 
-          
+
             return RedirectToAction("Details", "EmployesCliniques", new { id = employesID });
         }
 
@@ -509,8 +532,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             try
             {
                 // Call the service method to process calling the next patient.
-                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(consultationID,  employeCliniqueID);
-               
+                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(consultationID, employeCliniqueID);
+
 
                 if (updatedListeSalleAttente != null)
                 {

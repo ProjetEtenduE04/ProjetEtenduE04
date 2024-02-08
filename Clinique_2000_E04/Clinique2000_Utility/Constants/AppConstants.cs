@@ -31,6 +31,8 @@ namespace Clinique2000_Utility.Constants
         public const string AdminCliniqueRole = "AdminClinique";
         public const string MedicinRole = "Medecin";
         public const string PatientRole = "Patient";
+        public const string ReceptionnisteRole = "Receptionniste";
+        
 
     }
 }

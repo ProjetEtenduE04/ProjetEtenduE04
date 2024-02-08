@@ -50,11 +50,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
            
             try
             {
-                // Verificați dacă utilizatorul autentificat are unul dintre rolurile necesare
+              
                 //if (User.IsInRole(AppConstants.AdminCliniqueRole) || User.IsInRole(AppConstants.SuperAdminRole))
                 //{
                 // Obtenir l'ID de l'utilisateur connecté
                 var userAuth = await _services.patient.GetUserAuthAsync();
+                
 
                 // Vérifier si l'utilisateur est un superadministrateur
                 if (User.IsInRole(AppConstants.SuperAdminRole))
@@ -105,12 +106,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         // GET: EmployesCliniques/Details/5
         public async Task<IActionResult> Details()
         {
-
+         
             //recupere le user connecté
             var email = User.Identity.Name;
             var user =  await _userManager.FindByEmailAsync(email);
-            var employee= await _services.employesClinique.FindOneAsync(x=>x.UserID==user.Id);
+            var employee= await _services.employesClinique.FindOneAsync(x=>x.UserID==user.Id && x.EmployeCliniquePosition==Clinique2000_Utility.Enum.EmployeCliniquePosition.Medecin);
 
+          
             //EmployesClinique employesClinique = await _services.employesClinique.ObtenirParIdAsync(id);
 
             if (employee == null)
