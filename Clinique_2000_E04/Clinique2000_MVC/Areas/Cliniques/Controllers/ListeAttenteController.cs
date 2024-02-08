@@ -542,7 +542,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 if (updatedListeSalleAttente != null)
                 {
                     // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
-                    return RedirectToAction("Details", "EmployesCliniques", updatedListeSalleAttente);
+                    return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
                 else
                 {
@@ -570,7 +570,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     TempData[AppConstants.Success] = $"Le prochain patient a été appelé.";
 
                     // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
-                    return RedirectToAction("Details", "EmployesCliniques", updatedListeSalleAttente);
+                    return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
                 else
                 {
@@ -586,7 +586,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TerminerConsultation(int consultationID)
+        public async Task<IActionResult> TerminerConsultation(int consultationID, int employeCliniqueID)
         {
             try
             {
@@ -596,7 +596,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 if (updatedListeSalleAttente != null)
                 {
                     // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
-                    return RedirectToAction("Details", "EmployesCliniques", updatedListeSalleAttente);
+                    return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
                 else
                 {
