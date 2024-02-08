@@ -102,6 +102,12 @@
                                                 }
                                             </div>
                                             <div>
+
+
+
+
+                                                 @if (Model.ConsultationEnCours != null)
+                                                    {
                                                 <h4>Details du patient</h4>
                                                 <table class="dataTable">
                                                     <thead>
@@ -118,22 +124,38 @@
 
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.Nom)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.Prenom)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => @Model.ListeAttenteVM.Consultations[0].Patient.DateDeNaissance)
-                                                            </td>
 
-                                                        </tr>
 
-                                                    </tbody>
+
+                                                   
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => @Model.ConsultationEnCours.Patient.Nom)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => @Model.ConsultationEnCours.Patient.Prenom)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => @Model.ConsultationEnCours.Patient.DateDeNaissance)
+                                                                </td>
+
+                                                            </tr>
+
+                                                        </tbody>
+                                                
                                                 </table>
+                                                }
+                                                else if (Model.ProchaineConsultation != null)
+                                                {
+
+                                                }
+
+
+
+
+
+
                                             </div>
                                         </div>
                                     </div>
