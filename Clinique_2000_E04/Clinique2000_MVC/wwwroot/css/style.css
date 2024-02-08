@@ -152,6 +152,15 @@ h4 {
     color: #023373;
     text-decoration: none;
 }
+.hr5 {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #023373;
+    text-decoration: none;
+}
 
 /* P1 Mukta 16 */
 .p1 {
@@ -373,7 +382,9 @@ divider-2 {
     padding: 20px;
     align-items: flex-start;
 }
-
+.icons-details-patient {
+    color: #0ca447;
+}
 /* ---- bouton -formulaire----
     ================================================== 
 */
@@ -1715,3 +1726,5 @@ table td {
 }
 /*End : Styles pour la montre et la page ListeSalleDAttente */
 /*---------------------*/
+
+
