@@ -319,6 +319,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         //    TempData["ErrorMessage"] = "Accesul interzis. Doar superadminii și administratorii de clinici au permisiunea de a accesa această pagină.";
         //    return RedirectToAction("Index", "Home");
         //}
+
+
+        public async Task<IActionResult> ConsultationPourMedecine()
+        {
+            return View();
+
+        }
     }
 }
 

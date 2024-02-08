@@ -26,8 +26,14 @@ namespace Clinique2000_DataAccess.Data
         public DbSet<Clinique> Cliniques { get; set; }
         public DbSet<Adresse> Adresses { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<EmployesClinique> EmployesClinique { get; set; }
+
+
+
+
+
         public CliniqueDbContext(DbContextOptions<CliniqueDbContext> options) : base(options) { }
-        public DbSet< EmployesClinique> EmployesClinique{ get; set; }
+       
        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
