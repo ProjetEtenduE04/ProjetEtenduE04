@@ -65,7 +65,7 @@
             || employe != null && employe.EmployeCliniquePosition == EmployeCliniquePosition.Receptionniste)
             {
                 <li>
-                    <a class="dropdown-item" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="Index">
+                     <a class="dropdown-item" asp-area="Cliniques" asp-controller="EmployesCliniques" asp-action="GetUserIDReturnToListeAttente">
                         <div class="row">
                             <div class="col text-start">
                                 @btnTitre4
@@ -74,9 +74,11 @@
                                 <i class="fa-solid fa-calendar-days"></i>
                             </div>
                         </div>
+                  
                     </a>
                 </li>
             }
+           
         </ul>
 
 }

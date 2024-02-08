@@ -1,4 +1,4 @@
-﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 
 namespace Clinique2000_Services.IServices
@@ -11,6 +11,7 @@ namespace Clinique2000_Services.IServices
         Task<EmployesClinique> GetEmployeUserID(string userEmail, string userId);
         Task<EmployesClinique> VerifierSiUserAuthEstEmploye(string userEmail);
         Task<List<EmployesClinique>> GetEmployeSelonLaListeClinique(IEnumerable<Clinique> listClinique);
+        Task<bool> EmployeCliniqueEstReceptionniste(EmployesClinique employeclinique);
         Task<bool> EmployeCliniqueEstReceptionniste(EmployesClinique employeclinique);
         Task<EmployesClinique> GetEmployeCliniqueFromUserEmail(string email);
     }

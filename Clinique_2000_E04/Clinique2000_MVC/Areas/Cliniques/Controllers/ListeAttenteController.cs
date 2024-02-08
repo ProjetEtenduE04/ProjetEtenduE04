@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
 using Clinique2000_Utility.Enum;
 using Clinique2000_Utility.Constants;
+using Microsoft.AspNetCore.Identity;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
@@ -19,10 +20,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
     {
 
         public IClinique2000Services _services { get; set; }
+        public UserManager<IdentityUser> _userManager { get; set; }
 
-        public ListeAttenteController(IClinique2000Services service)
+        public ListeAttenteController(IClinique2000Services service, UserManager<IdentityUser> userManager)
         {
             _services = service;
+            _userManager = userManager;
         }
 
 
@@ -36,15 +39,16 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
 
             // Obtenir l'ID de l'utilisateur connecté
-            var userAuth = await _services.patient.GetUserAuthAsync();
-            var employesClinique = await _services.employesClinique.GetEmployeUserID(userAuth.Email,userAuth.Id);
+            var email = User.Identity.Name;
+            var user = await _userManager.FindByEmailAsync(email);
+            var employee = await _services.employesClinique.FindOneAsync(x => x.UserID == user.Id && x.EmployeCliniquePosition == Clinique2000_Utility.Enum.EmployeCliniquePosition.Receptionniste);
 
-            //AFFICHE LES LISTES DATTENTE DE LA CLINIQUE DANS L
-            if (await _services.employesClinique.EmployeCliniqueEstReceptionniste(employesClinique) == true)
+            //AFFICHE LES LISTES DATTENTE DE LA CLINIQUE DANS Laquelle la receptionniste travaille
+            if (employee!=null && await _services.employesClinique.EmployeCliniqueEstReceptionniste(employee) == true)
             {
                 IList<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
 
-                listListAttente = listListAttente.Where(x => x.DateEffectivite >= DateTime.Now && x.CliniqueID==employesClinique.CliniqueID)
+                listListAttente = listListAttente.Where(x => x.DateEffectivite >= DateTime.Now && x.CliniqueID== employee.CliniqueID)
                     .OrderBy(x => x.DateEffectivite)
                     .ToList();
 

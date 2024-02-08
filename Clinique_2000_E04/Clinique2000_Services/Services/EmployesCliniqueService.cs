@@ -65,7 +65,7 @@ namespace Clinique2000_Services.Services
 
 
 
-        public async Task<EmployesClinique> GetEmployeUserID( string userEmail, string userId)
+        public async Task<EmployesClinique> GetEmployeUserID(string userEmail, string userId)
         {
 
             EmployesClinique employeUser = await _context.EmployesClinique.Where(e => e.EmployeCliniqueCourriel == userEmail).FirstOrDefaultAsync();
@@ -113,7 +113,7 @@ namespace Clinique2000_Services.Services
 
 
         public async Task<bool> EmployeCliniqueEstReceptionniste(EmployesClinique employeclinique)
-        {
+         {
           
             if (employeclinique.EmployeCliniquePosition==EmployeCliniquePosition.Receptionniste)
                 return true;
@@ -121,15 +121,7 @@ namespace Clinique2000_Services.Services
                 return false;
         }
 
-        public async Task<EmployesClinique> GetEmployeCliniqueFromUserEmail(string email)
-        {
-
-            var employeClinique = await _context.EmployesClinique.FirstOrDefaultAsync(e => e.EmployeCliniqueCourriel.ToLower() == email.ToLower());
-            if (employeClinique == null)
-                return null;
-            else
-            return employeClinique; 
-        }
+      
 
     }
 }

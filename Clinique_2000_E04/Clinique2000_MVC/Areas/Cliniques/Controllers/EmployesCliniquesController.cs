@@ -47,15 +47,15 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         //[Authorize(Roles = AppConstants.AdminCliniqueRole + "," + AppConstants.SuperAdminRole)]
         public async Task<IActionResult> Index()
         {
-           
+
             try
             {
-              
+
                 //if (User.IsInRole(AppConstants.AdminCliniqueRole) || User.IsInRole(AppConstants.SuperAdminRole))
                 //{
                 // Obtenir l'ID de l'utilisateur connecté
                 var userAuth = await _services.patient.GetUserAuthAsync();
-                
+
 
                 // Vérifier si l'utilisateur est un superadministrateur
                 if (User.IsInRole(AppConstants.SuperAdminRole))
@@ -100,19 +100,26 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
 
             }
-            
+
         }
 
         // GET: EmployesCliniques/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-         
+
+             //var email = User.Identity.Name;
+            //var user = await _userManager.FindByEmailAsync(email);
+            //var employee = await _services.employesClinique.FindOneAsync(x => x.UserID == user.Id && x.EmployeCliniquePosition == Clinique2000_Utility.Enum.EmployeCliniquePosition.Medecin);
+
             //recupere le user connecté
             //var email = User.Identity.Name;
             //var user =  await _userManager.FindByEmailAsync(email);
             var employee = await _services.employesClinique.ObtenirParIdAsync(id);
+            
+            
+           
 
-          
+
             //EmployesClinique employesClinique = await _services.employesClinique.ObtenirParIdAsync(id);
 
             if (employee == null)
@@ -124,7 +131,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             var listeAttenteVM = await _services.listeAttente.GetListeSalleAttenteOrdonnee(listeAttente.ListeAttenteID);
             var mesCliniques = await _services.employesClinique.ObtenirCliniquesDeLEmploye(employee);
 
-         
+
             List<Consultation> consultationList = new List<Consultation>();
 
             foreach (var plagesHoraire in listeAttente.PlagesHoraires)
@@ -135,7 +142,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 }
             }
 
-            Consultation? prochaineconsultation =  consultationList.Where(x => x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnAttente && x.PlageHoraire.ListeAttenteID== listeAttente.ListeAttenteID)
+            Consultation? prochaineconsultation = consultationList.Where(x => x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnAttente && x.PlageHoraire.ListeAttenteID == listeAttente.ListeAttenteID)
            .OrderBy(x => x.ConsultationID)
            .ThenBy(x => x.PlageHoraire.HeureDebut)
            .ThenBy(x => x.Patient.Prenom)
@@ -145,7 +152,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
             Consultation? consultationEnCour = consultationList.Where(x => x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnCours && x.MedecinId == employee.UserID).FirstOrDefault();
 
-            if (consultationEnCour==null && prochaineconsultation==null)
+            if (consultationEnCour == null && prochaineconsultation == null)
             {
                 TempData[AppConstants.Info] = $"Il n'y a plus de consultations en attente";
                 return RedirectToAction("Index", "Home", new { area = "" });
@@ -175,40 +182,56 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 ListeAttente = listeAttente,
                 ListeAttenteVM = listeAttenteVM,
                 ProchaineConsultation = prochaineconsultation,
-                ConsultationEnCours= consultationEnCour,
+                ConsultationEnCours = consultationEnCour,
 
             };
-            
+
             return View(employesCliniqueVM);
         }
 
 
-        public async Task<IActionResult> SelectionnerClinique( int cliniqueID)
+        public async Task<IActionResult> SelectionnerClinique(int cliniqueID)
         {
             var clinique = await _services.employesClinique.SelectionnerClinique(cliniqueID);
-           
+
             return View();
         }
 
-        
+
         public async Task<IActionResult> GetUserID()
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Email);//Recupere l email d l user connecté
 
-           
-            var user= await _userManager.FindByEmailAsync(userEmail);//recupere l id de User connecté
+
+            var user = await _userManager.FindByEmailAsync(userEmail);//recupere l id de User connecté
             if (user.Id == null)
             {
                 return View();
             }
-            EmployesClinique employesClinique =  await _services.employesClinique.GetEmployeUserID(userEmail, user.Id);//chercher le EmployeClinique avec le meme email que le user 
-            
+            EmployesClinique employesClinique = await _services.employesClinique.GetEmployeUserID(userEmail, user.Id);//chercher le EmployeClinique avec le meme email que le user 
+
 
             return RedirectToAction("Details", new { id = employesClinique.EmployeCliniqueID });
         }
 
+        public async Task<IActionResult> GetUserIDReturnToListeAttente()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);//Recupere l email d l user connecté
 
-      
+
+            var user = await _userManager.FindByEmailAsync(userEmail);//recupere l id de User connecté
+            if (user.Id == null)
+            {
+                return View();
+            }
+            EmployesClinique employesClinique = await _services.employesClinique.GetEmployeUserID(userEmail, user.Id);//chercher le EmployeClinique avec le meme email que le user 
+
+
+            return RedirectToAction("Index", "listeattente", new { area="Cliniques"}/*, new { id = employesClinique.EmployeCliniqueID }*/);
+        }
+
+
+
 
 
 
