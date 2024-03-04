@@ -1,0 +1,96 @@
+@model Clinique
+
+@{
+    ViewData["Title"] = "Details";
+    var btnText = "Modifier";
+}
+<div class="row" style="margin:40px 0">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <h1>Details</h1>
+
+        <div>
+            <h4>Clinique : @Model.NomClinique</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.NomClinique)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NomClinique)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Courriel)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Courriel)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.NumTelephone)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NumTelephone)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HeureOuverture)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HeureOuverture)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HeureFermeture)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HeureFermeture)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.TempsMoyenConsultation)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TempsMoyenConsultation)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.EstActive)
+                </dt>
+                <dd class="col-sm-10" >
+                    @Html.DisplayFor(model => model.EstActive)
+
+                </dd>
+
+               
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Adresse)
+                </dt>
+                <dd class="col-sm-10">
+                    @{
+                        // Concatène toutes les propriétés pertinentes de l'objet Adresse en une chaîne de caractères.
+                        string concatenatedAddress = $"{Model.Adresse.Numero} {Model.Adresse.Rue}, {Model.Adresse.Ville}, {Model.Adresse.Province}, {Model.Adresse.Pays}, {Model.Adresse.CodePostal}";
+
+                        // Afficher la chaîne concaténée
+                        @Html.DisplayFor(model => concatenatedAddress)
+                    }
+                </dd>
+            </dl>
+        </div>
+        <div>
+
+            <!--EditBTN-->
+            <div class="row justify-content-center text-center">
+                <div class="col col-md-8 col-xl-6 mb-2 mt-4">
+                    <a asp-action="Edit" asp-route-id="@Model?.CliniqueID" class="button-green-action form-control" style="width:auto">@btnText</a>
+                </div>
+            </div>
+            <div class="row justify-content-center text-center">
+                <div class="col col-md-8 col-xl-6 mb-2 mt-2">
+                    <a asp-action="Index" class="smBtn button-white-action">Retour à la liste</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+<Style>
+
+
+</Style>

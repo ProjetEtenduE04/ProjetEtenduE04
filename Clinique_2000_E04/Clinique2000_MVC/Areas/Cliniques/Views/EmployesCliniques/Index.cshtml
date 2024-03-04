@@ -1,0 +1,88 @@
+﻿@model IEnumerable<EmployesClinique>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="margin-container-index">
+    <h1 class="text-center">Liste des employés</h1>
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-6" style="display: flex;margin:20px 0">
+            <a asp-action="Create" class="button-green-action form-control" style="width:auto">Ajouter un employé</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1">
+        </div>
+        <div class="col-10">
+            <div class="card mb-4">
+                <div class="card-header card-header-datatables h4 text-light">
+                    <i class="fa-solid fa-hospital me-1" style="color: #fff;"></i>
+                    Employés des cliniques
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive mx-auto">
+                        <table class="table hover order-column" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployeCliniqueNom)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployeCliniquePrenom)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployeCliniqueCourriel)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployeCliniquePosition)
+                                    </th>
+                                   @*  <th>
+                                        @Html.DisplayNameFor(model => model.User)
+                                    </th> *@
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Clinique)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model) {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EmployeCliniqueNom)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EmployeCliniquePrenom)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EmployeCliniqueCourriel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EmployeCliniquePosition)
+                                        </td>
+                                        @* <td>
+                                            @Html.DisplayFor(modelItem => item.User.Id)
+                                        </td> *@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Clinique.NomClinique)
+                                        </td>
+                                        <td class="" style="width: 100px;">
+                                            <a class="btn btn-warning btn-circle btn-sm" asp-action="Edit" asp-route-id="@item.EmployeCliniqueID"><i class="fa-solid fa-pen"></i></a>
+                                            <a class="btn btn-info btn-circle btn-sm"  asp-action="Details" asp-route-id="@item.EmployeCliniqueID"><i class="fa-solid fa-info fa-lg"></i></a>
+                                            <a class="btn btn-danger btn-circle btn-sm" asp-action="Delete" asp-route-id="@item.EmployeCliniqueID"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+        </div>
+    </div>
+</div>

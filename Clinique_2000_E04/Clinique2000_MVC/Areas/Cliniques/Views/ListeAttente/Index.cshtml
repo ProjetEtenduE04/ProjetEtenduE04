@@ -1,0 +1,87 @@
+@model IEnumerable<Clinique2000_Core.Models.ListeAttente>
+
+@{
+    ViewData["Title"] = "Vos listes d'attentes";
+}
+
+<div class="container mt-5">
+    <main role="main" class="" style="margin-bottom:3vh;">
+        <div class="container-fluid">
+            <div style="padding-bottom:2%;" class="row justify-content-between align-items-center mb-3">
+               <h1 class="h0 text-center mb-3" style="margin-top:3vh; " >Vos listes d'attente</h1>
+            
+            </div>
+                <div class="col text-start mb-4" >
+                    <button class="button-green-action"  onclick="location.href='@Url.Action("Create")'">Créer une liste d'attente</button>
+                    <i  onclick="location.href='@Url.Action("HistoriqueListeAttentes")'" class=" my-icon fa-solid fa-file fa-lg" style="padding-left:1%;"></i>
+                </div>
+
+
+
+            <div class="row">
+                @foreach (var liste in Model.Select((value, index) => new { Value = value, Index = index }))
+                {
+                    if (liste.Index % 3 == 0 && liste.Index != 0)
+                    {
+                        @:</div><div class="row mt-3">
+                    }
+
+                    <div class="col-md-4">
+                        <div class="card card-3d mb-3">
+                            <div class="card-header card-header-animated ">
+                                <h4 class="">
+                                    Liste d'attente du @Html.DisplayFor(model => liste.Value.DateEffectivite)
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.DateEffectivite)
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(model => liste.Value.DateEffectivite)
+                                </dd>
+
+                                <dt class="col-sm-4">
+                                    État
+                                </dt>
+@*                                <dd class="col-sm-8" style="color: @(liste.Value.IsOuverte ? "green" : "red");">
+                                    @(liste.Value.IsOuverte ? "Ouverte" : "Fermée")
+                                </dd>*@
+
+                                <dd class="col-sm-8">
+                                    @if (liste.Value.IsOuverte)
+                                    {
+                                        <span class="badge rounded-pill text-bg-success">Ouverte</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill text-bg-danger">Fermée</span>
+                                    }
+                                </dd>
+                            </div>
+                            <div class="card-footer text-end">
+@*                                @Html.ActionLink("Modifier", "Edit", new { id = liste.Value.ListeAttenteID }, new { @class = "smBtn button-green-action" })
+                                @Html.ActionLink("Détails", "DetailsOrdonnes", new { id = liste.Value.ListeAttenteID }, new { @class = "smBtn button-white-action" })
+                                @Html.ActionLink("Supprimer", "Delete", new { id = liste.Value.ListeAttenteID }, new { @class = "smBtn button-red-action" })*@
+
+                                <a href="@Url.Action("Edit", new { id = liste.Value.ListeAttenteID })" class="smBtn button-white-action">
+                                    <i class="fa-solid fa-gear"></i>
+
+                                </a>
+
+                                <a href="@Url.Action("DetailsOrdonnes", new { id = liste.Value.ListeAttenteID })" class="smBtn button-white-action">
+                                 <i class="fa-solid fa-list-ul"></i>
+                                </a>
+
+                                <a href="@Url.Action("Delete", new { id = liste.Value.ListeAttenteID })" class="smBtn button-white-action">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </main>
+</div>

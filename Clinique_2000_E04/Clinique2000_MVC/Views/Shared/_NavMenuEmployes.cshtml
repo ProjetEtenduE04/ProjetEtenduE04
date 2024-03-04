@@ -1,0 +1,56 @@
+﻿@inject Clinique2000_Services.IServices.IClinique2000Services _service;
+@using System.Security.Claims;
+
+
+@if (this.User.Identity.IsAuthenticated)
+{
+
+    var btnTitre1 = "Tableau de bord";
+    var btnTitre2 = "Liste des employés";
+    var user = await _service.patient.GetUserAuthAsync();
+    var employe = await _service.employesClinique.VerifierSiUserAuthEstEmploye(user.Email);
+    var patient = await _service.patient.GetPatientParUserIdAsync(user.Id);
+
+    @if (this.User.IsInRole(AppConstants.SuperAdminRole) || this.User.IsInRole(AppConstants.AdminCliniqueRole) 
+   || employe != null && employe.EmployeCliniquePosition == Clinique2000_Utility.Enum.EmployeCliniquePosition.Medecin)
+
+{
+        <a class="nav-link custom-nav-link" style="color:white" data-bs-toggle="dropdown" aria-expanded="false">
+            Employes
+            <i class="fa-solid fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end text-center">
+            @if (employe != null && employe.EmployeCliniquePosition == Clinique2000_Utility.Enum.EmployeCliniquePosition.Medecin)
+            {
+                <li>
+                    <a class="dropdown-item" asp-area="Cliniques" asp-controller="EmployesCliniques" asp-action="Details" asp-route-id=@employe.EmployeCliniqueID>
+                        @*<input type="hidden" name="employesID" value="@Model.EmployesClinique.EmployeCliniqueID" />*@
+                        <div class="row">
+                            <div class="col text-start">
+                                @btnTitre1
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa-solid fa-people-group"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+            @if (this.User.IsInRole(AppConstants.SuperAdminRole) || this.User.IsInRole(AppConstants.AdminCliniqueRole))
+            {
+                <li>
+                    <a class="dropdown-item" asp-area="Cliniques" asp-controller="EmployesCliniques" asp-action="Index">
+                        <div class="row">
+                            <div class="col text-start">
+                                @btnTitre2
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa-solid fa-people-group"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    } 
+}

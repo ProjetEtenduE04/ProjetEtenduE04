@@ -1,11 +1,7 @@
 ﻿using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Clinique2000_Services.Services
 {
@@ -36,7 +32,7 @@ namespace Clinique2000_Services.Services
         /// Modifie une entité de type T de manière asynchrone dans la base de données.
         /// </summary>
         /// <param name="entity">Entité à modifier</param>
-        public async Task EditerAsync(T entity)
+        public async Task<T> EditerAsync(T entity)
         {
 
             if (_dbContext.Entry(entity).State == EntityState.Detached)
@@ -49,8 +45,9 @@ namespace Clinique2000_Services.Services
             {
                 _dbContext.Entry(entity).State = EntityState.Modified;
             }
-                
+
             await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
         /// <summary>
@@ -73,11 +70,19 @@ namespace Clinique2000_Services.Services
             return await _dbContext.Set<T>().FindAsync(nom);
         }
 
+
+        public async Task<T> FindOneAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbContext.Set<T>().Where(predicate).FirstOrDefaultAsync();
+        }
+
+
+
         /// <summary>
         /// Obtient toutes les entités de type T de manière asynchrone.
         /// </summary>
         /// <returns>Liste des entités</returns>
-        public async Task<IReadOnlyList<T>> ObtenirToutAsync()
+        public async Task<List<T>> ObtenirToutAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
         }

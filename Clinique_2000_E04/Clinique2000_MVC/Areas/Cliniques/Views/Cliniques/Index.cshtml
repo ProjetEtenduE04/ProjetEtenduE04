@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Clinique>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="margin-container-index">
+    <h1 class="text-center">Liste des cliniques</h1>
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-6" style="display: flex;margin:20px 0">
+            <a asp-action="Create" class="button-green-action form-control" style="width:auto">Enregistrer une clinique</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1">
+        </div>
+        <div class="col-10">
+            <div class="card mb-4">
+                <div class="card-header card-header-datatables h4 text-light">
+                    <i class="fa-solid fa-hospital me-1" style="color: #fff;"></i>
+                    Cliniques enregistrées
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive mx-auto">
+                        <table class="table hover order-column  " id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NomClinique)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Courriel)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.HeureOuverture)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.HeureFermeture)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TempsMoyenConsultation)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EstActive)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Adresse)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NomClinique)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Courriel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.HeureOuverture)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.HeureFermeture)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TempsMoyenConsultation)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EstActive)
+                                        </td>
+                                        <td>
+                                            @{
+                                                // Concatène toutes les propriétés pertinentes de l'objet Adresse en une chaîne de caractères.
+                                                string concatenatedAddress = $"{item.Adresse.Numero} {item.Adresse.Rue}, {item.Adresse.Ville}, {item.Adresse.Province}, {item.Adresse.Pays}, {item.Adresse.CodePostal}";
+
+                                                // Afficher la chaîne concaténée
+                                                @Html.DisplayFor(modelItem => concatenatedAddress)
+                                            }
+                                        </td>
+                                        <td class="" style="width: 100px;">
+                                            <a class="btn btn-warning btn-circle btn-sm" asp-action="Edit" asp-route-id="@item.CliniqueID"><i class="fa-solid fa-pen"></i></a> 
+                                            <a class="btn btn-info btn-circle btn-sm" asp-action="Details" asp-route-id="@item.CliniqueID"><i class="fa-solid fa-info fa-lg"></i></a> 
+                                            <a class="btn btn-danger btn-circle btn-sm" asp-action="Delete" asp-route-id="@item.CliniqueID"> <i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+        </div>
+    </div>
+</div>

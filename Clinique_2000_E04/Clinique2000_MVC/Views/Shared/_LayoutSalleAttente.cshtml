@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!--Métadonnées-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Clinique2000</title>
+    <meta name="description" content="Clinique 2000 est un projet à but non lucratif qui a comme objectif de complémenter le service existant Bonjour-santé et qui permettra de s’inscrire à distance pour une clinique sans rendez-vous.">
+    <meta name="keywords" content="Clinique 2000, projet, santé, rendez-vous médical, inscription à distance, Bonjour-santé, non lucratif, clinique sans rendez-vous">
+    <meta name="author" content="EO4 (Misleidy, Alexei, Jordan, Thi Anh)">
+    <link rel="stylesheet" href="~/lib/DataTables/datatables.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="~/css/style.css" asp-append-version="true" />
+</head>
+<body>
+  
+<div class="margin-container-index">
+    <div class="row">
+        <div class="col-1">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1">
+        </div>
+        <div class="col-10">
+            <div class="card mb-4">
+                <div class="card-header card-header-datatables h4 align-items-end">
+                    <div class="content-clock row text-end justify-content-end">
+                        <div class="col-5 text-start">
+                            <div class="row justify-content-center h4">
+                                <h1 class="text-start d-block mt-4 ms-5 animated-text">
+                                    <i class="fa-brands fa-medrt fa-xl" style="color: #63E6BE;">
+                                    </i>
+                                    @Model.ListeAttente.Clinique.NomClinique
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="timeDiv ">
+                                <span class="font-color-clock" id="time"></span>
+                                <span class="font-color-clock" id="sec"></span>
+                                <span class="font-color-clock" id="med"></span>
+                            </div>
+                            <div class="dayDiv">
+                                <span class="font-color-clock day">DIM</span>
+                                <span class="font-color-clock day">LUN</span>
+                                <span class="font-color-clock day">MAR</span>
+                                <span class="font-color-clock day">MER</span>
+                                <span class="font-color-clock day">JEU</span>
+                                <span class="font-color-clock day">VEN</span>
+                                <span class="font-color-clock day">SAM</span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <span class="font-color-clock date-complet" id="full-date">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+        </div>
+    </div>
+</div>
+
+
+    
+
+ <footer class="border-top footer text-muted">
+        
+   
+       
+        <section id="copyright2">
+            <div class="copyright-content py-2">
+                Copyright &copy; 2024 Clinique2000 
+            </div>
+            <div id="watch"></div>
+           
+        </section>
+        
+ </footer>
+   
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/inputmask/jquery.inputmask.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/63463ff979.js" crossorigin="anonymous"></script>
+    <script src="~/lib/DataTables/datatables.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="/js/main.js" asp-append-version="true"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

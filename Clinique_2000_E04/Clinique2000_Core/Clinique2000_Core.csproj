@@ -7,9 +7,29 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="ViewModels\" />
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="ViewModels\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="ViewModels\**" />
+    <None Remove="Models\ApplicationUser.cs~RF2f33c35.TMP" />
+    <Compile Include="ViewModels\CliniqueAdresseVM.cs" />
+    <Compile Include="ViewModels\CliniqueDistanceVM.cs" />
+    <Compile Include="ViewModels\EmployesCliniqueVM.cs" />
+    <Compile Include="ViewModels\EmailVM.cs" />
+    <Compile Include="ViewModels\ListeAttenteVM.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.64.0.1869" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.34" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Clinique2000_Utility\Clinique2000_Utility.csproj" />
   </ItemGroup>
 
 </Project>

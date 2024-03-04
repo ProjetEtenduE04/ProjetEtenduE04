@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,18 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="appsettings.json~RF14ec06e2.TMP" />
+    <Content Remove="Areas\Patients\Views\Patients\NewFile.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.Development.json~RF26d765c.TMP" />
+    <None Remove="appsettings.json~RF14ec06e2.TMP" />
+    <None Remove="Areas\Cliniques\Views\Cliniques\Edit.cshtml~RFcb7168d.TMP" />
+    <None Remove="Areas\Patients\Views\Patients\NewFile.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Clinique2000_Core\Clinique2000_Core.csproj" />
     <ProjectReference Include="..\Clinique2000_DataAccess\Clinique2000_DataAccess.csproj" />
     <ProjectReference Include="..\Clinique2000_Services\Clinique2000_Services.csproj" />
     <ProjectReference Include="..\Clinique2000_Utility\Clinique2000_Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.25" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.34" />
+    <PackageReference Include="Microsoft.DotNet.Scaffolding.Shared" Version="6.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.25" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -30,10 +43,51 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\" />
+    <Folder Include="Areas\Patients\Data\" />
+    <Folder Include="Areas\Patients\Models\" />
+    <Folder Include="Areas\Patients\Views\Shared\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Areas\Cliniques\Data\" />
+    <Folder Include="Areas\Cliniques\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Cliniques\Views\EmployesCliniques\Create.cshtml" />
+    <None Include="Areas\Cliniques\Views\EmployesCliniques\Delete.cshtml" />
+    <None Include="Areas\Cliniques\Views\EmployesCliniques\Details.cshtml" />
+    <None Include="Areas\Cliniques\Views\EmployesCliniques\Edit.cshtml" />
+    <None Include="Areas\Cliniques\Views\EmployesCliniques\Index.cshtml" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap4.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap4.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap5.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap5.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bulma.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bulma.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.dataTables.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.dataTables.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.foundation.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.foundation.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.jqueryui.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.jqueryui.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.semanticui.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.semanticui.min.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\jquery.dataTables.js" />
+    <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\jquery.dataTables.min.js" />
+    <None Include="wwwroot\lib\DataTables\datatables.js" />
+    <None Include="wwwroot\lib\DataTables\datatables.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Shared\_NavMenuPatients.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
