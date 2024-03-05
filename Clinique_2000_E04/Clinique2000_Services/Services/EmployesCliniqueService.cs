@@ -4,6 +4,7 @@ using Clinique2000_Services.IServices;
 using Clinique2000_Utility.Enum;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using static Clinique2000_Services.Services.PatientService;
 
 namespace Clinique2000_Services.Services
 {
@@ -121,7 +122,16 @@ namespace Clinique2000_Services.Services
                 return false;
         }
 
-      
+        public async Task UpdateEmployeCliniqueAsync(EmployesClinique employeClinique)
+        {
+            _context.Update(employeClinique);
+            await _context.SaveChangesAsync();
+        }
+
+        public bool EmployeCliniqueExists(int id)
+        {
+            return _context.EmployesClinique.Any(e => e.EmployeCliniqueID == id);
+        }
 
     }
 }

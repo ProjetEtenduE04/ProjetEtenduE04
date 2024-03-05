@@ -1,57 +1,66 @@
-﻿@model Clinique2000_Core.Models.EmployesClinique
+﻿@model EmployesClinique
 
 @{
+    var btnText = "Enregistrer les modificcations";
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="container-fluid">
+    <div class="row justify-content-around text-center" style="margin-bottom:40px">
+        <div class="col col-lg-10 col-xl-9">
+            <div>
+                <h1 class="h0" style="margin-top:50px">Renseignements Obligatoires</h1>
+                <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
 
-<h4>EmployesClinique</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="EmployeCliniqueID" />
-            <div class="form-group">
-                <label asp-for="EmployeCliniqueNom" class="control-label"></label>
-                <input asp-for="EmployeCliniqueNom" class="form-control" />
-                <span asp-validation-for="EmployeCliniqueNom" class="text-danger"></span>
+                <p class="p1">
+                    Veuillez compléter ces informations <br />
+                    <span class="p3">Les champs marqués d'un astérisque (<span class="champs-obligatoires">*</span>) doivent être renseignés.</span>
+                </p>
             </div>
-            <div class="form-group">
-                <label asp-for="EmployeCliniquePrenom" class="control-label"></label>
-                <input asp-for="EmployeCliniquePrenom" class="form-control" />
-                <span asp-validation-for="EmployeCliniquePrenom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmployeCliniqueCourriel" class="control-label"></label>
-                <input asp-for="EmployeCliniqueCourriel" class="form-control" />
-                <span asp-validation-for="EmployeCliniqueCourriel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmployeCliniquePosition" class="control-label"></label>
-                <select asp-for="EmployeCliniquePosition" class="form-control"></select>
-                <span asp-validation-for="EmployeCliniquePosition" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserID" class="control-label"></label>
-                <select asp-for="UserID" class="form-control" asp-items="ViewBag.UserID"></select>
-                <span asp-validation-for="UserID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CliniqueID" class="control-label"></label>
-                <select asp-for="CliniqueID" class="form-control" asp-items="ViewBag.CliniqueID"></select>
-                <span asp-validation-for="CliniqueID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            <form asp-controller="EmployesCliniques" asp-action="Edit" method="post" enctype="multipart/form-data" class="text-start p1">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="EmployeCliniqueID" />
+
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="EmployeCliniqueNom" class="form-label mt-3 mb-1"></label>
+                        <input asp-for="EmployeCliniqueNom" class="form-control" />
+                        <span asp-validation-for="EmployeCliniqueNom" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="EmployeCliniquePrenom" class="form-label mt-3 mb-1"></label>
+                        <input asp-for="EmployeCliniquePrenom" class="form-control" />
+                        <span asp-validation-for="EmployeCliniquePrenom" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="EmployeCliniqueCourriel" class="form-label mt-3 mb-1"></label>
+                        <input asp-for="EmployeCliniqueCourriel" class="form-control" />
+                        <span asp-validation-for="EmployeCliniqueCourriel" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row justify-content-center text-center">
+                    <div class="col col-md-8 col-xl-6 mb-2 mt-4">
+                        <partial name="_SubmitButtonPartial" model="@btnText" />
+                    </div>
+                </div>
+                <div class="row justify-content-center text-center">
+                    <div class="col col-md-8 col-xl-6 my-2">
+                        <partial name="_ResetButtonPartial" />
+                    </div>
+                </div>
+                <div class="row justify-content-center text-center">
+                    <div class="col col-md-8 col-xl-6 my-2">
+                        <a asp-action="Details" asp-route-id="@Model.EmployeCliniqueID">Retour au profil</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

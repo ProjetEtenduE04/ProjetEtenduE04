@@ -264,22 +264,20 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         // GET: EmployesCliniques/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.EmployesClinique == null)
+            if (id == null || _services.employesClinique == null)
             {
                 return NotFound();
             }
 
-            var employesClinique = await _context.EmployesClinique.FindAsync(id);
+            var employesClinique = await _services.employesClinique.ObtenirParIdAsync(id);
             if (employesClinique == null)
             {
                 return NotFound();
             }
-            ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel", employesClinique.CliniqueID);
-            ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id", employesClinique.UserID);
             return View(employesClinique);
         }
 
-        // POST: EmployesCliniques/Edit/5
+        //POST: EmployesCliniques/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -295,12 +293,11 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 try
                 {
-                    _context.Update(employesClinique);
-                    await _context.SaveChangesAsync();
+                    _services.employesClinique.UpdateEmployeCliniqueAsync(employesClinique);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployesCliniqueExists(employesClinique.EmployeCliniqueID))
+                    if (!_services.employesClinique.EmployeCliniqueExists(employesClinique.EmployeCliniqueID))
                     {
                         return NotFound();
                     }
@@ -309,12 +306,11 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = employesClinique.EmployeCliniqueID });
             }
-            ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel", employesClinique.CliniqueID);
-            ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id", employesClinique.UserID);
             return View(employesClinique);
         }
+
 
         //    // GET: EmployesCliniques/Delete/5
         //    public async Task<IActionResult> Delete(int? id)
