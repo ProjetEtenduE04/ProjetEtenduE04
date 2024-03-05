@@ -1747,8 +1747,9 @@ table td {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
+  padding-bottom: 40px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
 }
 
 /* The Close Button */
@@ -1757,6 +1758,7 @@ table td {
   float: right;
   font-size: 28px;
   font-weight: bold;
+  text-align: end;
 }
 
 .close:hover,
