@@ -12,6 +12,7 @@ using Clinique2000_Utility.Enum;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Clinique2000_Services.Services
 {
@@ -486,20 +487,34 @@ namespace Clinique2000_Services.Services
             {
                 throw new ArgumentNullException(nameof(patient));
             }
-            
+
             var consultation = await _context.Consultations.Where(c => c.PatientID == patient.PatientId && c.StatutConsultation == StatutConsultation.EnAttente).FirstOrDefaultAsync();
             if (consultation != null)
             {
                 consultation.StatutConsultation = StatutConsultation.DisponiblePourReservation;
                 consultation.PatientID = null;
-               ListeAttente listeAttente= await _context.ListeAttentes.Where(la => la.ListeAttenteID == consultation.PlageHoraire.ListeAttenteID).FirstOrDefaultAsync();
+                ListeAttente listeAttente = await _context.ListeAttentes.Where(la => la.ListeAttenteID == consultation.PlageHoraire.ListeAttenteID).FirstOrDefaultAsync();
                 if (listeAttente != null)
                 {
-                    listeAttente.IsOuverte=true;
-                   
+                    listeAttente.IsOuverte = true;
+
                 }
                 await _context.SaveChangesAsync();
             }
+        }
+
+
+        public void AssignerCliniqueIDaListeAttente(ListeAttente listeAttente, int cliniqueID)
+        {
+            if (listeAttente != null && cliniqueID != null)
+            {
+                listeAttente.CliniqueID = cliniqueID;
+            }
+            else { }
+
+            _context.SaveChanges();
+
+
         }
     }
 

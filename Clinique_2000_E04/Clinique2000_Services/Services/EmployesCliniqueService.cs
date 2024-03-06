@@ -21,24 +21,24 @@ namespace Clinique2000_Services.Services
         }
 
 
-        //public async Task<EmployesCliniqueVM> obtenirDonnees(EmployesClinique employesClinique)
-        //{
-        //    Clinique clinique= await SelectionnerClinique(employesClinique.CliniqueID);
-        //    ListeAttente listeAttente = await ObtenirListeAttenteDeLaClinqueDeLEmploye(employesClinique.CliniqueID);
-            
+        public async Task<EmployesCliniqueVM> obtenirDonnees(EmployesClinique employesClinique)
+        {
+            Clinique clinique = await SelectionnerClinique(employesClinique.CliniqueID);
+            ListeAttente listeAttente = await ObtenirListeAttenteDeLaClinqueDeLEmploye(employesClinique.CliniqueID);
 
-        //    var employesClinqueVM = new EmployesCliniqueVM()
-        //    {
-        //        EmployesClinique = employesClinique,
-        //        MesCliniques = _context.Cliniques.Where(c => c.CliniqueID == employesClinique.CliniqueID).ToList(),
-        //        ListeAttente = listeAttente,
-                
-        //    };
-            
-        //    return employesClinqueVM;
-        //}
 
-        
+            var employesClinqueVM = new EmployesCliniqueVM()
+            {
+                EmployesClinique = employesClinique,
+                MesCliniques = _context.Cliniques.Where(c => c.CliniqueID == employesClinique.CliniqueID).ToList(),
+                ListeAttente = listeAttente,
+
+            };
+
+            return employesClinqueVM;
+        }
+
+
 
         public async Task<IList<Clinique>>ObtenirCliniquesDeLEmploye(EmployesClinique employesClinique)
         {
