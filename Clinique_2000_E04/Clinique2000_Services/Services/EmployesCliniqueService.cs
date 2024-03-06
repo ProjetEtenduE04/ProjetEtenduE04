@@ -124,8 +124,11 @@ namespace Clinique2000_Services.Services
 
         public async Task UpdateEmployeCliniqueAsync(EmployesClinique employeClinique)
         {
-            _context.Update(employeClinique);
-            await _context.SaveChangesAsync();
+            //var employe = _context.EmployesClinique.Where(e => e.EmployeCliniqueID == employeClinique.EmployeCliniqueID).FirstOrDefault();
+            //_context.EmployesClinique.Remove(employe);
+            //_context.EmployesClinique.Update(employeClinique);
+            //await _context.SaveChangesAsync();
+            await EditerAsync(employeClinique);
         }
 
         public bool EmployeCliniqueExists(int id)
