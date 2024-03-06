@@ -261,60 +261,58 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         //        return View(employesClinique);
         //    }
 
-        //    // GET: EmployesCliniques/Edit/5
-        //    public async Task<IActionResult> Edit(int? id)
-        //    {
-        //        if (id == null || _context.EmployesClinique == null)
-        //        {
-        //            return NotFound();
-        //        }
+        // GET: EmployesCliniques/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _services.employesClinique == null)
+            {
+                return NotFound();
+            }
 
-        //        var employesClinique = await _context.EmployesClinique.FindAsync(id);
-        //        if (employesClinique == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel", employesClinique.CliniqueID);
-        //        ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id", employesClinique.UserID);
-        //        return View(employesClinique);
-        //    }
+            var employesClinique = await _services.employesClinique.ObtenirParIdAsync(id);
+            ViewData["CliniqueID"] = employesClinique.CliniqueID;
+            if (employesClinique == null)
+            {
+                return NotFound();
+            }
+            return View(employesClinique);
+        }
 
-        //    // POST: EmployesCliniques/Edit/5
-        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
-        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Edit(int id, [Bind("EmployeCliniqueID,EmployeCliniqueNom,EmployeCliniquePrenom,EmployeCliniqueCourriel,EmployeCliniquePosition,UserID,CliniqueID")] EmployesClinique employesClinique)
-        //    {
-        //        if (id != employesClinique.EmployeCliniqueID)
-        //        {
-        //            return NotFound();
-        //        }
+        //POST: EmployesCliniques/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("EmployeCliniqueID,EmployeCliniqueNom,EmployeCliniquePrenom,EmployeCliniqueCourriel,EmployeCliniquePosition,UserID,CliniqueID")] EmployesClinique employesClinique)
+        {
+            if (id != employesClinique.EmployeCliniqueID)
+            {
+                return NotFound();
+            }
 
-        //        if (ModelState.IsValid)
-        //        {
-        //            try
-        //            {
-        //                _context.Update(employesClinique);
-        //                await _context.SaveChangesAsync();
-        //            }
-        //            catch (DbUpdateConcurrencyException)
-        //            {
-        //                if (!EmployesCliniqueExists(employesClinique.EmployeCliniqueID))
-        //                {
-        //                    return NotFound();
-        //                }
-        //                else
-        //                {
-        //                    throw;
-        //                }
-        //            }
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel", employesClinique.CliniqueID);
-        //        ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id", employesClinique.UserID);
-        //        return View(employesClinique);
-        //    }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ViewBag.CliniqueID = employesClinique.CliniqueID;
+                    await _services.employesClinique.UpdateEmployeCliniqueAsync(employesClinique);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_services.employesClinique.EmployeCliniqueExists(employesClinique.EmployeCliniqueID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Details), new { id = employesClinique.EmployeCliniqueID });
+            }
+            return View(employesClinique);
+        }
+
 
         //    // GET: EmployesCliniques/Delete/5
         //    public async Task<IActionResult> Delete(int? id)
