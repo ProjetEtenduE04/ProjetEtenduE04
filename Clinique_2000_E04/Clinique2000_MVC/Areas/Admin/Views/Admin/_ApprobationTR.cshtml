@@ -1,0 +1,27 @@
+﻿@model Clinique2000_Core.ViewModels.ApprobationVM
+
+@if (Model.Param == "clinique")
+{
+    int i = 0;
+    @foreach (var item in Model.ApprobationCliniquesVM.Cliniques)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomClinique)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courriel)
+            </td>
+            <td>
+                @{
+                    string addresse = $"{item.Adresse.Numero} {item.Adresse.Rue}, {item.Adresse.Ville}, {item.Adresse.Province}, {item.Adresse.Pays}, {item.Adresse.CodePostal}";
+                }
+                @Html.DisplayFor(modelItem => addresse)
+            </td>
+            <td>
+                <a asp-action="ApprouverClinique" asp-route-id="@item.CliniqueID" class="btn btn-success">Approuver</a>
+                <a asp-action="RefuserClinique" asp-route-id="@item.CliniqueID" class="btn btn-danger">Refuser</a>
+            </td>
+        </tr>
+    }
+}
