@@ -1,4 +1,5 @@
 using Clinique2000_Core.Models;
+using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Utility.Enum;
@@ -128,6 +129,8 @@ namespace Clinique2000_Services.Services
             //_context.EmployesClinique.Remove(employe);
             //_context.EmployesClinique.Update(employeClinique);
             //await _context.SaveChangesAsync();
+
+
             await EditerAsync(employeClinique);
         }
 

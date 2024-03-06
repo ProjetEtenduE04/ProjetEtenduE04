@@ -270,6 +270,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             }
 
             var employesClinique = await _services.employesClinique.ObtenirParIdAsync(id);
+            ViewData["CliniqueID"] = employesClinique.CliniqueID;
             if (employesClinique == null)
             {
                 return NotFound();
@@ -293,7 +294,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 try
                 {
-                    _services.employesClinique.UpdateEmployeCliniqueAsync(employesClinique);
+                    ViewBag.CliniqueID = employesClinique.CliniqueID;
+                    await _services.employesClinique.UpdateEmployeCliniqueAsync(employesClinique);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

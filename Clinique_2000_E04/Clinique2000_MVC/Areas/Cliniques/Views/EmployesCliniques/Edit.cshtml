@@ -3,6 +3,7 @@
 @{
     var btnText = "Enregistrer les modificcations";
     ViewData["Title"] = "Edit";
+    var cliniqueID = ViewData["CliniqueID"];
 }
 
 <div class="container-fluid">
@@ -20,6 +21,7 @@
             <form asp-controller="EmployesCliniques" asp-action="Edit" method="post" enctype="multipart/form-data" class="text-start p1">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="EmployeCliniqueID" />
+                <input type="hidden" name="CliniqueID" value="@cliniqueID" />
 
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
