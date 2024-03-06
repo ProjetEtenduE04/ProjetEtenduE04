@@ -2,8 +2,10 @@ using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
+using Clinique2000_Utility.Constants;
 using Clinique2000_Utility.Enum;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -370,6 +372,11 @@ namespace Clinique2000_Services.Services
             return clinique != null && clinique.CreateurID == user.Id;        
         }
 
-    }
+        public async Task ApproverClinique(Clinique clinique)
+        {
+            clinique.EstActive = true;
+            await EditerAsync(clinique);
+        }
 
+    }
 }
