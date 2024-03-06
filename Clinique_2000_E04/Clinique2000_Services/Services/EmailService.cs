@@ -6,18 +6,31 @@ using MimeKit;
 using MimeKit.Text;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_Core.Models;
+using Clinique2000_Utility.Enum;
+using Quartz;
+using Microsoft.Extensions.Hosting;
+using Google.Apis.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Clinique2000_Services.Services
 {
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _config;
+        //private readonly IClinique2000Services _cliniqueServices;
         private readonly IPatientService _patientService;
+        //private readonly ILogger<EmailService> _logger;
 
-        public EmailService(IConfiguration config, IPatientService patientService)
+        public EmailService(IConfiguration config,
+            //IClinique2000Services cliniqueServices,
+            IPatientService patientService
+            //ILogger<EmailService> logger
+            )
         {
             _config = config;
+            //_cliniqueServices = cliniqueServices;
             _patientService = patientService;
+            //_logger = logger;
         }
 
         /// <summary>
@@ -80,5 +93,51 @@ namespace Clinique2000_Services.Services
             var confirmationEmail = await CreateConsultationConfirmationEmail(consultation);
             SendEmail(confirmationEmail);
         }
+
+
+        public async Task<EmailVM> CreateReminderEmail(Consultation consultation, Patient patient, NotificationTime notificationTime)
+        {
+            var subject = "Rappel de Consultation";
+            var body = $"    <p>Bonjour, {patient.Nom} {patient.Prenom} !</p>" +
+                        $"    <p>Ceci est un rappel pour votre consultation prévue pour :</p>" +
+                        $"    <h3 style=\"color:red;\">{consultation.PlageHoraire.HeureDebut.ToShortDateString()} à {consultation.PlageHoraire.HeureDebut.ToShortTimeString()}</h3>" +
+                        $"    <h3 style=\"color:red;\">Clinique : {consultation.PlageHoraire.ListeAttente.Clinique.NomClinique}</h3>" +
+                        $"    <p>Nous vous attendons avec impatience.</p>" +
+                        $"    <p>Cordialement,<br />L'équipe Clinique2000</p>";
+            var user = await _patientService.GetUserByUserId(patient.UserId);
+            return new EmailVM
+            {
+                To = user.Email,
+                Subject = subject,
+                Body = body
+            };
+        }
+
+        /// <summary>
+        /// Envoie une notification de consultation pour la consultation spécifiée.
+        /// </summary>
+        /// <param name="consultation">La consultation pour laquelle la notification est envoyée.</param>
+        /// <param name="notificationTime">Le moment de la notification.</param>
+        public async Task SendConsultationNotificationAsync(Consultation consultation, NotificationTime notificationTime)
+        {
+            var reminderEmail = await CreateReminderEmail(consultation, consultation.Patient, notificationTime);
+            SendEmail(reminderEmail);
+        }
+
+        //public Task Execute(IJobExecutionContext context)
+        //{
+        //    //var notificationTime = (NotificationTime)context.JobDetail.JobDataMap["notificationTime"];
+        //    //var consultationId = (int)context.JobDetail.JobDataMap["consultationId"];
+
+        //    //var consultation = await _cliniqueServices.consultation.ObtenirConsultationParIdAsync(consultationId);
+        //    //var patient = await _cliniqueServices.patient.ObtenirParIdAsync(consultation.Patient.PatientId);
+
+        //    //var emailVM = await CreateReminderEmail(consultation, patient, notificationTime);
+
+        //    //SendEmail(emailVM);
+        //    _logger.LogInformation("{UtcNow}", DateTime.UtcNow);
+        //    return Task.CompletedTask;
+        //}
+
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Clinique2000_DataAccess.Migrations
 {
-    public partial class ModificatioNSeedConsultation : Migration
+    public partial class addSeedPlageHConsultation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,871 +14,761 @@ namespace Clinique2000_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: "7cc96785-8933-4eac-8d7f-a289b28df211",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "32df58c3-bcf4-47b1-997f-eccf4bdc2f2e", "a30af241-63ef-49bf-8f6e-03db20afe5f1" });
+                values: new object[] { "3c138dc3-e436-4d39-a814-66944f616ca3", "bb844e4b-937a-4f36-91f8-655191ce80dc" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "7cc96785-8933-4eac-8d7f-a289b28df216",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "92ed53a3-cf64-4558-a078-bce72bd23a52", "ef8e39c2-8103-401d-8c10-16ae1d081849" });
+                values: new object[] { "6cfb0ccb-c8c6-4d75-9804-5e46398b229d", "f9c444e2-02dc-4f78-80b1-bdf77028ddcb" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "7cc96785-8933-4eac-8d7f-a289b28df223",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "044265b1-837f-4c3d-87fd-175432902041", "3cf2427b-36d0-49a6-9d0d-4ee7da4226f9" });
+                values: new object[] { "652851f5-5488-4ab5-ad25-5df399beceb0", "963fab35-63a3-47b7-b0ce-10c65acc3c6f" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "7cc96785-8933-4eac-8d7f-a289b28df226",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "34683b6d-d6c5-48d9-b1f7-fd0c930f2509", "4677180c-b6ec-422e-8298-76b8e93d18e0" });
+                values: new object[] { "ec2750c4-f437-4b47-87da-3224740dec94", "1f8256b5-9bdc-4803-87c9-9ed8d7b4fcbe" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "e2b8f367-6c94-4a3e-b5a6-45dabec4d212",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "ef8c1db2-52f9-405e-b526-dcc91de7015a", "18d4548c-9966-4665-9a13-aec829fd7444" });
+                values: new object[] { "18cd9b21-7ba2-4d7e-abd9-99ab6814c3e8", "ff9204ab-46b6-48c5-a75b-10f4d99bb211" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "e2b8f367-6c94-4a3e-b5a6-45dabec4d217",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "ea2c8afd-09c1-4fb9-a36b-ae8de62520e4", "bb95afac-c99b-4863-a463-bc9553fa257e" });
+                values: new object[] { "38933d00-84f4-4c3b-acd2-b0d0408c042c", "5ea10191-36be-43b4-8229-ace03b787766" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "bf5c7c46-8ce1-4a8d-bcbb-6fd6f3c66e0a", "b68b5163-9c5c-42b2-9b50-f3eb0abfca18" });
+                values: new object[] { "ab2bd1b2-b7a7-4803-bde8-b046c5396721", "50db8d06-b7e2-4b3d-8762-16ce21e9c5f9" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "ba7a0a11-0bc6-4435-9d92-3a2fb04b93f4", "05a499bb-075d-46e0-933d-a710b48ecea7" });
+                values: new object[] { "5f712bad-71b5-43f4-bc86-0b2e3e0a3a88", "642e489c-4bbe-4454-9e39-d32d680b8f77" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "49eadb73-5abb-4e72-8a6d-086d10c147cc", "0bffd24d-95e8-48d0-bee5-d089b081fa3d" });
+                values: new object[] { "6b9a8eec-0913-4295-bb79-66ddecc955d7", "071e8b37-5dcc-4b94-a28e-77baa8fe70d3" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "4029d6c7-d3cf-46b8-9a95-eb3c0caa268f", "fdfa69d9-2348-4dc3-9b7d-2b8a87512ddf" });
+                values: new object[] { "0fb1abbd-8fec-43fd-ac0f-6ebd06845e94", "b75df20f-c3f3-4565-a2fa-cebcf9fefc24" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "4ddce69e-6d7b-4980-9320-27c631716a38", "9a073faa-9658-42e2-8de1-fbf16ea9ea6c" });
+                values: new object[] { "6592024f-6897-4441-a2d2-207ac4c7b242", "77c0b724-a09a-46e7-9197-955aa198f077" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "ad054f80-c44a-4327-a3db-1b32d9ed8358", "989c2cb5-cf7f-4f84-abcd-dba529deebdd" });
+                values: new object[] { "8b59fadd-6de0-4962-a4e7-6719eebae25f", "cd2dfebf-0c71-455a-9b1b-d88d3656ee12" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g22",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "aff01b10-7da5-4cdb-a630-7cf7faefe59e", "11345860-c4f1-432e-bfe4-300571521f4a" });
+                values: new object[] { "95c9b070-ef2a-42ca-9194-daa2af10f22c", "8b360963-1f26-4f69-888b-f60e81703273" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g410",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "b2bcb455-03d5-47b4-98f3-82f7c636eec8", "e7c3acf7-eed4-443b-9ca8-c38c73b14337" });
+                values: new object[] { "1283490c-edb2-4296-a7c5-fce84ea8b4e3", "83120d4b-6109-4778-a032-68c73c518cfa" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g414",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "f6065080-060e-42f8-ae5d-2aa8df6f6b48", "fcfd031f-8de8-4960-ab83-19388d536ffd" });
+                values: new object[] { "37359fc8-c1a2-4049-b71e-814f3356dcb1", "bd9fa1e0-5fdc-4e08-a46f-7e2c5601d20f" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g415",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "b10bfb90-8b62-47fd-826f-b573ecde90bd", "8dd5f19c-a4c6-4c83-a428-89c521d64337" });
+                values: new object[] { "6c209bd7-c14b-493d-86ed-e43dd23b6bfa", "fca979fd-b032-4c84-93c1-cb9575821228" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g419",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "d5a912c2-7d0c-45b7-9218-90299a22ed7d", "4ae51b6f-402d-40a0-8658-f6442dcbdda0" });
+                values: new object[] { "b40062a6-7a2f-4620-872a-766b5060b6d0", "10ec4241-8ff5-4a56-81c4-03f83011b88a" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g420",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "ebeed9ae-0d04-4a68-ae6f-54dfa7660f23", "bd9ff53c-c4ee-45d8-813c-3d4226a32bf0" });
+                values: new object[] { "5ba5a6a6-571c-47bb-acdf-79bcf095d862", "4f483473-e07f-43df-b3fb-0071a9042a0e" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g421",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "89136fe9-5fa3-4798-8b92-0c8ca319719e", "16088b28-a301-483b-ac1a-5b5d0103508d" });
+                values: new object[] { "e21a0fb1-6fc3-41ec-a044-d89a38181201", "50be8c55-bbff-41aa-8ee1-f0feef902464" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g4g4",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "2bf0c518-da78-4c95-942b-e4a86a4397d1", "cd4c31bb-e5c8-4fba-b6de-7f0c27f895ee" });
+                values: new object[] { "07a9db54-9626-4fe9-b82c-43f4cbc9411d", "2daeafc8-d09d-4609-92f6-fda7cb3ff143" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g4g5",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "ecec8298-2eff-4ea8-a2b2-2b53e8eb59d7", "fb68ed8b-df24-48be-9507-8761c2663d73" });
+                values: new object[] { "506aa58a-05c0-4879-8007-47106316451f", "4057edbe-2866-4587-a102-300e17e7a7d4" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g4g9",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "36ab9c31-2966-4f1e-b1d8-7de798b5649a", "c5e6c4df-954a-4618-9b95-a26002314703" });
+                values: new object[] { "255b73c1-96c2-4b10-8e8a-85c2c29d5b38", "8fd8236c-1d7f-494e-8b7d-52085653e1e1" });
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 1,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(8936));
+                value: new DateTime(2024, 3, 6, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(229));
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 2,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(8983));
+                value: new DateTime(2024, 3, 6, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(279));
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 3,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(8985));
+                value: new DateTime(2024, 3, 6, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(282));
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 4,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(8988));
+                value: new DateTime(2024, 3, 6, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(284));
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 5,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(8991));
+                value: new DateTime(2024, 3, 6, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(286));
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 6,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(8993));
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 12,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { null, 6 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 13,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { null, 6 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 14,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { null, 6 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 15,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { null, 6 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 16,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { null, 6 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 17,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { null, 6 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 18,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { null, 6 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 19,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { null, 6 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 20,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { null, 6 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 21,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { null, 6 });
+                value: new DateTime(2024, 3, 6, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(288));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 1,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9023));
+                value: new DateTime(2024, 3, 7, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(328));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 2,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9034));
+                value: new DateTime(2024, 3, 7, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(344));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 3,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9043));
+                value: new DateTime(2024, 3, 7, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(353));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 4,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9051));
+                value: new DateTime(2024, 3, 7, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(421));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 5,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9058));
+                value: new DateTime(2024, 3, 7, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(430));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 6,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9067));
+                value: new DateTime(2024, 3, 7, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(439));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 7,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 10, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9079));
+                value: new DateTime(2024, 3, 8, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(447));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 8,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 10, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9086));
+                value: new DateTime(2024, 3, 8, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(455));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 9,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 10, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9094));
+                value: new DateTime(2024, 3, 8, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(463));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 10,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 12, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9103));
+                value: new DateTime(2024, 3, 10, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(473));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 11,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 13, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9151));
+                value: new DateTime(2024, 3, 11, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(481));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 12,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 14, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9160));
+                value: new DateTime(2024, 3, 12, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(489));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 13,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 11, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9168));
+                value: new DateTime(2024, 3, 9, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(497));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 14,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 12, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9175));
+                value: new DateTime(2024, 3, 10, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(505));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 15,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 11, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9183));
+                value: new DateTime(2024, 3, 9, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(513));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 16,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 12, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9190));
+                value: new DateTime(2024, 3, 10, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(520));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 17,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 13, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9199));
+                value: new DateTime(2024, 3, 11, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(528));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 18,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 14, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9208));
+                value: new DateTime(2024, 3, 12, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(536));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 19,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9216));
+                value: new DateTime(2024, 3, 7, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(545));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 20,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 10, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9223));
+                value: new DateTime(2024, 3, 8, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(554));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 21,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 11, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9230));
+                value: new DateTime(2024, 3, 9, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(563));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 22,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 12, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9237));
+                value: new DateTime(2024, 3, 10, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(571));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 23,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 13, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9245));
+                value: new DateTime(2024, 3, 11, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(578));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 24,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 14, 22, 6, 57, 550, DateTimeKind.Local).AddTicks(9252));
+                value: new DateTime(2024, 3, 12, 15, 59, 0, 827, DateTimeKind.Local).AddTicks(586));
+
+            migrationBuilder.InsertData(
+                table: "PlagesHoraires",
+                columns: new[] { "PlageHoraireID", "HeureDebut", "HeureFin", "ListeAttenteID" },
+                values: new object[] { 12, new DateTime(2024, 3, 7, 17, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 7, 17, 30, 0, 0, DateTimeKind.Local), 1 });
+
+            migrationBuilder.InsertData(
+                table: "Consultations",
+                columns: new[] { "ConsultationID", "HeureDateDebutPrevue", "HeureDateDebutReele", "HeureDateFinPrevue", "HeureDateFinReele", "ListeAttenteID", "MedecinEmployeCliniqueID", "MedecinId", "PatientID", "PlageHoraireID", "StatutConsultation" },
+                values: new object[] { 23, new DateTime(2024, 3, 7, 15, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 7, 15, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 12, 6 });
+
+            migrationBuilder.InsertData(
+                table: "Consultations",
+                columns: new[] { "ConsultationID", "HeureDateDebutPrevue", "HeureDateDebutReele", "HeureDateFinPrevue", "HeureDateFinReele", "ListeAttenteID", "MedecinEmployeCliniqueID", "MedecinId", "PatientID", "PlageHoraireID", "StatutConsultation" },
+                values: new object[] { 24, new DateTime(2024, 3, 7, 16, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 7, 17, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 12, 6 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DeleteData(
+                table: "Consultations",
+                keyColumn: "ConsultationID",
+                keyValue: 23);
+
+            migrationBuilder.DeleteData(
+                table: "Consultations",
+                keyColumn: "ConsultationID",
+                keyValue: 24);
+
+            migrationBuilder.DeleteData(
+                table: "PlagesHoraires",
+                keyColumn: "PlageHoraireID",
+                keyValue: 12);
+
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "7cc96785-8933-4eac-8d7f-a289b28df211",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "9afa211c-74d1-4fe4-bd5d-fd68aa52c34c", "aedb5584-d762-4877-a1f6-d476783e470b" });
+                values: new object[] { "5b4faf01-94cf-49cb-97c8-a53fa94b10c2", "67044135-a08e-4a8a-9738-c7f06ffc198a" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "7cc96785-8933-4eac-8d7f-a289b28df216",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "4a053fea-b79a-4aef-ba32-471743e87819", "85ec6b64-11db-4a96-8509-da7f95593a99" });
+                values: new object[] { "a5d94edd-64d7-4fce-97dc-4fe03c3da6db", "70517e89-ba17-42a6-b092-2e10dc3411c6" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "7cc96785-8933-4eac-8d7f-a289b28df223",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "8894adc2-71b4-4397-ac02-f4da8278c4ad", "d6bf9fe7-5cff-48ff-bfbd-89be007a4b93" });
+                values: new object[] { "760a14c7-abcd-405d-9388-d362d68f579e", "6dd6d3cc-3aa6-4ae2-85dd-58436691855f" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "7cc96785-8933-4eac-8d7f-a289b28df226",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "968f767d-5550-48d1-93a1-315dcc68fb6a", "b778b841-917c-4899-b33b-28318f92caff" });
+                values: new object[] { "ec7e4e85-67a3-4e6a-9c1d-1622dd1ad479", "7456962f-10ea-46a4-9ae8-b86142ac3380" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "e2b8f367-6c94-4a3e-b5a6-45dabec4d212",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "ee877078-7889-4bb8-bebb-d5c6d32b9f9d", "e100e0c5-8b24-44b3-b1ae-26f2397376ea" });
+                values: new object[] { "0084a02c-5abd-4f38-9bae-5ead29d41664", "ed91ec24-859b-4272-9f1e-fc50f6c9835c" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "e2b8f367-6c94-4a3e-b5a6-45dabec4d217",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "03694459-2f57-4681-ab16-958a23f912c8", "02288f92-9d01-408b-8c23-d418472079f4" });
+                values: new object[] { "a15b5cb7-e5b6-40fd-b0ad-0185e2ea3c16", "d3980629-d3d9-4e8a-9b0a-9a73fed065c5" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "220eb4f4-1656-47c2-9bfe-bae1307c121d", "9816967c-5b18-4988-9d55-fcbb32bcf7f4" });
+                values: new object[] { "e4dc24d7-2177-43be-9085-2c111176f48e", "e012986d-4344-4053-884d-df75394ed499" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "feacd62d-ac53-4980-8678-4bb1f931d746", "0f783132-d7a6-45e0-8322-6309fd83df84" });
+                values: new object[] { "a649f1b3-69f2-49b1-a366-06488942ca0b", "626dcfc8-0230-4677-949d-5e3a9a199b33" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "dd3705d4-057c-4c6b-b0f3-0120cd99b7b3", "0d3f9a62-327c-4492-ba40-8aaf45ffddea" });
+                values: new object[] { "cb85dd37-8ecb-4bfb-9fec-4b370d86eb03", "92b394c0-9e3a-42b2-b355-8206ae1e6a70" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "5b1b8304-5b44-41b3-9b2e-f84fda0683d4", "cdfd1b80-0fc8-4af9-9287-4502fab9c85d" });
+                values: new object[] { "d11cffbd-fbb1-4c57-a774-a8d62725f867", "69584b27-2483-4bd9-b7b0-3aedf540f16c" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "1c073778-4aaf-4be8-a88b-093a33f69366", "304d3444-bf20-4c69-b5c3-46db8f0344f5" });
+                values: new object[] { "1a3b7090-eb00-4a98-b8ef-22959861651d", "3c7ac36e-e4b3-4c6e-864e-e78f2db7637b" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "e26d5789-bf24-40de-b364-3cfd66918e78", "34a197b5-59f4-4e57-890d-eeb0353cd631" });
+                values: new object[] { "db83dbfd-4ede-409f-8eb4-129837d35233", "75355ccf-6892-4988-ae0a-4c51c4aace4e" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g22",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "88697693-5828-427c-982b-16488b0b888d", "f07d9bac-7681-4fa7-be19-6883506ac71d" });
+                values: new object[] { "3c1f9623-3cf2-4dcd-a732-6a280d92d9aa", "1492861f-b6ea-4961-8444-7144ea0f6127" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g410",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "cf3ca65c-a9b5-40cc-9f4f-0e1aad33c7ce", "36a501c4-04ab-47c0-b52a-cb4e8e8b4c11" });
+                values: new object[] { "fea22524-54b0-46a1-9a62-d99d83b3a43e", "e58c8639-7294-49f4-aa04-e71b1af870db" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g414",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "c35f01db-4d77-4677-9d88-01097d4f8445", "2d68a50b-9cf8-445a-abcc-400b7c2aaf36" });
+                values: new object[] { "063aa494-60ef-4c21-8fca-e1df6f6b6f9b", "fe60f452-ea12-4678-a4b5-1dfcea981fa4" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g415",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "bcf15dba-bed4-4a6f-8d31-b11145b898c9", "ca95843b-10ee-418f-b8ff-a9d2b5ab7a63" });
+                values: new object[] { "65640ec8-b79a-4561-b69c-c78d5dcc03c1", "22192827-9bbb-4a12-b537-db6a00db6f3d" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g419",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "0a3428a6-11e1-4ba7-bc48-31e50f459ad1", "7675b543-7c61-41a5-8438-9658a22b2ada" });
+                values: new object[] { "c019b486-a6d7-49be-a474-02ff5ac209a2", "6997f346-44e5-4557-b255-d41734809d2c" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g420",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "7ce182a0-e9b6-433e-b140-399a36078243", "113fa178-8680-46f1-840a-1da13e9fdfd0" });
+                values: new object[] { "afb65d61-7cf7-4d64-8743-da19e2aa998d", "b72a9889-9c2e-4cbd-9ab4-024495e50101" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g421",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "86ba5e61-f5c0-4fad-9d6d-d7a28f1b1a88", "cf5268ad-ae8c-46ae-99c1-4a5739f840c5" });
+                values: new object[] { "6a469b82-9d69-4da1-abd4-21e17dfec71a", "224d1a56-f7f5-473d-add3-39b561ca1c1e" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g4g4",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "ae2a5a31-3d46-4f53-9485-024e3301b30b", "775e442f-c87c-4abb-91cf-e524b9034b8c" });
+                values: new object[] { "107ee60b-1660-47d3-ae2b-a02a8a2244e2", "33de86ed-4508-401c-872e-af036e13a091" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g4g5",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "54451c4b-5697-4921-83c2-876a232bd9c2", "45be2dfa-05c8-4ffc-a676-1159dd84f906" });
+                values: new object[] { "880c12e2-d995-4b46-a7c5-cfba95f35f29", "fe1a8714-fda4-452e-8945-f5903fecd5fb" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "g4d0a589-2b02-4d36-9a85-39c028a4g4g9",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "da8237e5-f621-4072-b9d9-ff3f2dc8df39", "1a65194c-64b7-4b32-9958-da29db5e328d" });
+                values: new object[] { "a95e781a-bd99-45a9-82db-96922cabf1f0", "7febe9c3-faa7-44f8-9a3c-b5c7f54f6f90" });
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 1,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(2853));
+                value: new DateTime(2024, 3, 6, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3431));
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 2,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(2945));
+                value: new DateTime(2024, 3, 6, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3480));
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 3,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(2950));
+                value: new DateTime(2024, 3, 6, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3482));
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 4,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(2954));
+                value: new DateTime(2024, 3, 6, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3486));
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 5,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(2957));
+                value: new DateTime(2024, 3, 6, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3489));
 
             migrationBuilder.UpdateData(
                 table: "Cliniques",
                 keyColumn: "CliniqueID",
                 keyValue: 6,
                 column: "DateCreation",
-                value: new DateTime(2024, 2, 8, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(2959));
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 12,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { 12, 2 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 13,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { 13, 2 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 14,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { 14, 2 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 15,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { 15, 2 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 16,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { 16, 2 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 17,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { 17, 2 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 18,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { 18, 2 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 19,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { 19, 2 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 20,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { 20, 2 });
-
-            migrationBuilder.UpdateData(
-                table: "Consultations",
-                keyColumn: "ConsultationID",
-                keyValue: 21,
-                columns: new[] { "PatientID", "StatutConsultation" },
-                values: new object[] { 21, 2 });
+                value: new DateTime(2024, 3, 6, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3491));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 1,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3006));
+                value: new DateTime(2024, 3, 7, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3527));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 2,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3025));
+                value: new DateTime(2024, 3, 7, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3546));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 3,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3038));
+                value: new DateTime(2024, 3, 7, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3555));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 4,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3049));
+                value: new DateTime(2024, 3, 7, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3563));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 5,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3061));
+                value: new DateTime(2024, 3, 7, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3571));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 6,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3074));
+                value: new DateTime(2024, 3, 7, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3581));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 7,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 10, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3085));
+                value: new DateTime(2024, 3, 8, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3589));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 8,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 10, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3097));
+                value: new DateTime(2024, 3, 8, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3598));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 9,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 10, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3108));
+                value: new DateTime(2024, 3, 8, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3605));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 10,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 12, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3121));
+                value: new DateTime(2024, 3, 10, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3614));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 11,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 13, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3133));
+                value: new DateTime(2024, 3, 11, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3663));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 12,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 14, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3145));
+                value: new DateTime(2024, 3, 12, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3671));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 13,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 11, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3156));
+                value: new DateTime(2024, 3, 9, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3679));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 14,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 12, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3167));
+                value: new DateTime(2024, 3, 10, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3686));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 15,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 11, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3178));
+                value: new DateTime(2024, 3, 9, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3696));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 16,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 12, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3190));
+                value: new DateTime(2024, 3, 10, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3704));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 17,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 13, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3201));
+                value: new DateTime(2024, 3, 11, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3712));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 18,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 14, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3214));
+                value: new DateTime(2024, 3, 12, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3721));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 19,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 9, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3225));
+                value: new DateTime(2024, 3, 7, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3729));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 20,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 10, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3238));
+                value: new DateTime(2024, 3, 8, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3736));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 21,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 11, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3249));
+                value: new DateTime(2024, 3, 9, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3744));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 22,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 12, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3260));
+                value: new DateTime(2024, 3, 10, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3751));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 23,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 13, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3272));
+                value: new DateTime(2024, 3, 11, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3759));
 
             migrationBuilder.UpdateData(
                 table: "ListeAttentes",
                 keyColumn: "ListeAttenteID",
                 keyValue: 24,
                 column: "DateEffectivite",
-                value: new DateTime(2024, 2, 14, 12, 3, 54, 15, DateTimeKind.Local).AddTicks(3317));
+                value: new DateTime(2024, 3, 12, 15, 43, 20, 176, DateTimeKind.Local).AddTicks(3767));
         }
     }
 }

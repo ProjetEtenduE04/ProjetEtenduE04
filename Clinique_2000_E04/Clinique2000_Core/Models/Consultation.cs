@@ -19,13 +19,13 @@ namespace Clinique2000_Core.Models
         [Key]
         public int ConsultationID { get; set; }
 
-        //[Display(Name = "Date et heure prévue")]
-        //[Required(ErrorMessage = "Ce champ est obligatoire.")]
-        //public DateTime HeureDateDebutPrevue { get; set; }
+        [Display(Name = "Date et heure prévue")]
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        public DateTime HeureDateDebutPrevue { get; set; }
 
-        //[Display(Name = "Date et heure de fin prévue ")]
-        //[Required(ErrorMessage = "Ce champ est obligatoire.")]
-        //public DateTime HeureDateFinPrevue { get; set; }                                  
+        [Display(Name = "Date et heure de fin prévue ")]
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        public DateTime HeureDateFinPrevue { get; set; }
 
 
         public DateTime? HeureDateDebutReele { get; set; }
@@ -42,13 +42,15 @@ namespace Clinique2000_Core.Models
         public int? PlageHoraireID { get; set; }
         public virtual PlageHoraire  PlageHoraire { get; set; }
 
-        [ValidateNever]
+
         [ForeignKey("Patient")]
         public int? PatientID { get; set; }
+
+        [ValidateNever]
         public virtual Patient? Patient { get; set; }
 
 
-        [ValidateNever]
+
         [ForeignKey("EmployesClinique")]
         public string? MedecinId { get; set; }
 
