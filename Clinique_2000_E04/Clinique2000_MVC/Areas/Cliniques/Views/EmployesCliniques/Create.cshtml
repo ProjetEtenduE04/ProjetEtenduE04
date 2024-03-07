@@ -1,54 +1,71 @@
-﻿@model Clinique2000_Core.Models.EmployesClinique
+﻿@model EmployesClinique
 
 @{
     ViewData["Title"] = "Create";
+    ViewData["Title"] = "Créer un profil";
 }
 
-<h1>Create</h1>
+<div class="container-fluid">
+    <div class="row justify-content-around text-center">
+        <div class="col col-lg-10 col-xl-9">
+            <div>
+                <h1 class="h0" style="margin-top:50px">Renseignements Obligatoires</h1>
+                <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
 
-<h4>EmployesClinique</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="EmployeCliniqueNom" class="control-label"></label>
-                <input asp-for="EmployeCliniqueNom" class="form-control" />
-                <span asp-validation-for="EmployeCliniqueNom" class="text-danger"></span>
+                <p class="p1">
+                    Veuillez compléter ces informations <br />
+                    <span class="p3">Les champs marqués d'un astérisque (<span class="champs-obligatoires">*</span>) doivent être renseignés.</span>
+                </p>
             </div>
-            <div class="form-group">
-                <label asp-for="EmployeCliniquePrenom" class="control-label"></label>
-                <input asp-for="EmployeCliniquePrenom" class="form-control" />
-                <span asp-validation-for="EmployeCliniquePrenom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmployeCliniqueCourriel" class="control-label"></label>
-                <input asp-for="EmployeCliniqueCourriel" class="form-control" />
-                <span asp-validation-for="EmployeCliniqueCourriel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmployeCliniquePosition" class="control-label"></label>
-                <select asp-for="EmployeCliniquePosition" class="form-control"></select>
-                <span asp-validation-for="EmployeCliniquePosition" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserID" class="control-label"></label>
-                <select asp-for="UserID" class ="form-control" asp-items="ViewBag.UserID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CliniqueID" class="control-label"></label>
-                <select asp-for="CliniqueID" class ="form-control" asp-items="ViewBag.CliniqueID"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+            <!--Form d'inscription employé clinique-->
+            <form asp-controller="EmployesCliniques" asp-action="Create" method="post" enctype="multipart/form-data" class="text-start p1">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+                <!--Prenom Employé Clinique-->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="@Model.EmployeCliniquePrenom" class="form-label mt-3 mb-1">Prénom<span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="@Model.EmployeCliniquePrenom" placeholder="Exemple: John">
+                        <span asp-validation-for="@Model.EmployeCliniquePrenom" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Nom Employé Clinique-->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="@Model.EmployeCliniqueNom" class="form-label mt-3 mb-1">Nom<span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="@Model.EmployeCliniqueNom" id="nomPatient" placeholder="Exemple: Smith">
+                        <span asp-validation-for="@Model.EmployeCliniqueNom" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Courriel Employé Clinique-->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="@Model.EmployeCliniqueCourriel" class="form-label mt-3 mb-1">Courriel<span class="champs-obligatoires"> *</span></label>
+                        <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="@Model.EmployeCliniqueCourriel" id="nomPatient" placeholder="Exemple: courriel@gmail.com">
+                        <span asp-validation-for="@Model.EmployeCliniqueCourriel" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Position Employé Clinique-->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="@Model.EmployeCliniquePosition" class="form-label mt-3 mb-1">Position<span class="champs-obligatoires"> *</span></label>
+                        <select asp-for="@Model.EmployeCliniquePosition" class="form-control">
+                            <option value="">-- Sélectionnez une position --</option>
+                            @foreach (var position in Model.EmployeCliniquePositionList)
+                            {
+                                <option value="@position.Value">@position.Text</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.EmployeCliniquePosition" class="text-danger"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
