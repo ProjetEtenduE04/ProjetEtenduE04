@@ -99,7 +99,7 @@ namespace Clinique2000_DataAccess.Seeds
                  AdresseID = 1,
                  NumTelephone = "(450) 646-4445",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-
+                 EstApprouvee = true,
              },
              new Clinique()
              {
@@ -113,6 +113,7 @@ namespace Clinique2000_DataAccess.Seeds
                  AdresseID = 2,
                  NumTelephone = "(450) 468-6223",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                 EstApprouvee = true
              },
              new Clinique()
              {
@@ -122,10 +123,11 @@ namespace Clinique2000_DataAccess.Seeds
                  HeureOuverture = new TimeSpan(8, 0, 0),
                  HeureFermeture = new TimeSpan(18, 0, 0),
                  TempsMoyenConsultation = 20,
-                 EstActive = false,
+                 EstActive = true,
                  AdresseID = 3,
                  NumTelephone = "(450) 679-4333",
-                 CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223"
+                 CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                 EstApprouvee =  false
              },
              new Clinique()
              {
@@ -135,10 +137,11 @@ namespace Clinique2000_DataAccess.Seeds
                  HeureOuverture = new TimeSpan(8, 0, 0),
                  HeureFermeture = new TimeSpan(20, 0, 0),
                  TempsMoyenConsultation = 40,
-                 EstActive = false,
+                 EstActive = true,
                  AdresseID = 4,
                  NumTelephone = "(450) 466-7892",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                 EstApprouvee = false,
              },
              new Clinique()
              {
@@ -152,6 +155,7 @@ namespace Clinique2000_DataAccess.Seeds
                  AdresseID = 5,
                  NumTelephone = "(514) 954-1444",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                 EstApprouvee = false
              },
              new Clinique()
              {
@@ -161,10 +165,11 @@ namespace Clinique2000_DataAccess.Seeds
                  HeureOuverture = new TimeSpan(8, 0, 0),
                  HeureFermeture = new TimeSpan(16, 0, 0),
                  TempsMoyenConsultation = 15,
-                 EstActive = false,
+                 EstActive = true,
                  AdresseID = 6,
                  NumTelephone = "(450) 926-2236",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                 EstApprouvee = false
              }
           );
             #endregion

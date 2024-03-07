@@ -14,6 +14,7 @@
     <None Remove="Interfaces\**" />
     <None Remove="ViewModels\**" />
     <None Remove="Models\ApplicationUser.cs~RF2f33c35.TMP" />
+    <Compile Include="ViewModels\ApprobationCliniquesRefuseesVM.cs" />
     <Compile Include="ViewModels\ApprobationCliniquesVM.cs" />
     <Compile Include="ViewModels\ApprobationUtilisateursVM.cs" />
     <Compile Include="ViewModels\ApprobationVM.cs" />
