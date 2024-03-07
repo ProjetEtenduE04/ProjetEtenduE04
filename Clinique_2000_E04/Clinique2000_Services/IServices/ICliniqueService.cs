@@ -17,14 +17,16 @@ namespace Clinique2000_Services.IServices
         Task<bool> VerifierExistenceCliniqueParNomAsync(string nomClinique);
         Task<bool> VerifierExistenceCliniqueParCourrielAsync(string courriel);
         Task<bool> VerifierExistenceCliniqueParIdAsync(int? id);
-        Task ListeDeVerificationClinique(Clinique clinique);
         Task<bool> VerifierSiHeureOuvertureValide(Clinique clinique);
+        Task ListeDeVerificationClinique(Clinique clinique);
+        Task ListeDeVerificationCliniqueEdit(Clinique clinique);
         Task<Clinique> EnregistrerCliniqueAsync(CliniqueAdresseVM viewModel);
         Task EditerCliniqueAsync(CliniqueAdresseVM viewModel);
         Task<IList<ListeAttente>> GetListeAttentePourPatientAsync(int clinicId, bool? isOuvert);
         Task<IEnumerable<CliniqueDistanceVM>> ObtenirLes5CliniquesLesPlusProches();
+        Task<bool> UserEstAdminClinique(IdentityUser user);
         Task<Clinique> ObtenirCliniqueParCreteurId(string? createurId);
         Task<IEnumerable<Clinique>> ObtenirListeCliniquesParCreateurId(string? createurId);
-        Task<bool> VerifierSiUserAuthEstCreateurClinique(IdentityUser user);
+        Task<bool> VerifierSiUserAuthEstCreateurClinique(IdentityUser appUser);
     }
 }

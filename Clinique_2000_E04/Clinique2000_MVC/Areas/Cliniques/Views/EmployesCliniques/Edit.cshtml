@@ -1,7 +1,7 @@
 ﻿@model EmployesClinique
 
 @{
-    var btnText = "Enregistrer les modificcations";
+    var btnText = "Enregistrer les modifications";
     ViewData["Title"] = "Edit";
     var cliniqueID = ViewData["CliniqueID"];
 }
@@ -40,7 +40,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <label asp-for="EmployeCliniqueCourriel" class="form-label mt-3 mb-1">Courriel <span class="champs-obligatoires">*</span></label>
-                        <input asp-for="EmployeCliniqueCourriel" class="form-control" />
+                        <input asp-for="EmployeCliniqueCourriel" class="form-control" disabled />
                         <span asp-validation-for="EmployeCliniqueCourriel" class="text-danger"></span>
                     </div>
                 </div>

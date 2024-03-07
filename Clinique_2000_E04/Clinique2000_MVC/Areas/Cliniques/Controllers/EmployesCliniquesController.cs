@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
+
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
     [Area("Cliniques")]
@@ -27,6 +28,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         public EmployesCliniquesController(
             IClinique2000Services service,
             UserManager<IdentityUser> userManager
+
             )
         {
             _services = service;
@@ -107,7 +109,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         public async Task<IActionResult> Details(int? id)
         {
 
-             //var email = User.Identity.Name;
+            //var email = User.Identity.Name;
             //var user = await _userManager.FindByEmailAsync(email);
             //var employee = await _services.employesClinique.FindOneAsync(x => x.UserID == user.Id && x.EmployeCliniquePosition == Clinique2000_Utility.Enum.EmployeCliniquePosition.Medecin);
 
@@ -115,9 +117,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             //var email = User.Identity.Name;
             //var user =  await _userManager.FindByEmailAsync(email);
             var employee = await _services.employesClinique.ObtenirParIdAsync(id);
-            
-            
-           
+
+
+
 
 
             //EmployesClinique employesClinique = await _services.employesClinique.ObtenirParIdAsync(id);
@@ -227,7 +229,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             EmployesClinique employesClinique = await _services.employesClinique.GetEmployeUserID(userEmail, user.Id);//chercher le EmployeClinique avec le meme email que le user 
 
 
-            return RedirectToAction("Index", "listeattente", new { area="Cliniques"}/*, new { id = employesClinique.EmployeCliniqueID }*/);
+            return RedirectToAction("Index", "listeattente", new { area = "Cliniques" }/*, new { id = employesClinique.EmployeCliniqueID }*/);
         }
 
 
@@ -312,8 +314,60 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             }
             return View(employesClinique);
         }
+        // GET: EmployesCliniques/Create
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+
+            var user = await _services.patient.GetUserAuthAsync();
+            var userAuth = await _userManager.GetUserAsync(User);
+
+            if (User.IsInRole(AppConstants.SuperAdminRole))
+            {
+                // User is an admin, display dropdown list of clinics
+                ViewData["CliniqueID"] = new SelectList(await _services.clinique.ObtenirToutAsync(), "CliniqueID", "Courriel");
+            }
+            else if (await _services.clinique.VerifierSiUserAuthEstCreateurClinique(user) == true)
+            {
+                // User is a gestionnaireDeClinique, use the clinic they work for as the default value
+                var clinique = await _services.clinique.ObtenirCliniqueParCreteurId(user.Id);
+                ViewData["CliniqueID"] = clinique.CliniqueID;
+            }
+            else
+            {
+                // User does not have the required role, handle accordingly
+                // For example, redirect to an error page or display an error message
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
 
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(EmployesClinique employesClinique)
+        {
+            if (ModelState.IsValid)
+            {
+                var addedEmploye = await _services.employesClinique.AjouterEmployerAsync(employesClinique);
+                if (addedEmploye != null)
+                {
+                    // Redirect to a suitable page after successful creation
+                    return RedirectToAction(nameof(Index)); // Adjust 'Index' to your actual success landing action method
+                }
+                else
+                {
+                    // Handle the case where the employee couldn't be added (e.g., already exists)
+                    ModelState.AddModelError(string.Empty, "An error occurred saving the employee. It might already exist.");
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            // Note: You may need to repopulate any ViewData or SelectList required for the form
+            return View(employesClinique);
+        }
         //    // GET: EmployesCliniques/Delete/5
         //    public async Task<IActionResult> Delete(int? id)
         //    {

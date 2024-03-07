@@ -322,9 +322,9 @@ namespace Clinique2000_Services.Services
 
 
 
-        public async Task<bool> UserEstAdminClinique(ApplicationUser appUser)
+        public async Task<bool> UserEstAdminClinique(IdentityUser User)
         {
-            if (appUser.Clinique.Any())
+            if (_context.Cliniques.Any(x=>x.CreateurID==User.Id))
             {
                 return true;
             }
@@ -363,11 +363,11 @@ namespace Clinique2000_Services.Services
         /// </summary>
         /// <param name="user">L'utilisateur à vérifier.</param>
         /// <returns>True si l'utilisateur est le créateur d'une clinique, sinon false.</returns>
-        public async Task<bool> VerifierSiUserAuthEstCreateurClinique(IdentityUser user)
+        public async Task<bool> VerifierSiUserAuthEstCreateurClinique(IdentityUser appUser)
         {
-            Clinique clinique = await ObtenirCliniqueParCreteurId(user.Id) ;
+            Clinique clinique = await ObtenirCliniqueParCreteurId(appUser.Id) ;
 
-            return clinique != null && clinique.CreateurID == user.Id;        
+            return clinique != null && clinique.CreateurID == appUser.Id;        
         }
 
     }
