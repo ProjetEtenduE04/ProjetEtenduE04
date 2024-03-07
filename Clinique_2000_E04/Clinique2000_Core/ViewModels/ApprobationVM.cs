@@ -19,5 +19,8 @@ namespace Clinique2000_Core.ViewModels
 
         // Liste des utilisateurs à approuver
         public ApprobationUtilisateursVM ApprobationUtilisateursVM { get; set; }
+
+        // Liste des cliniques refusées
+        public ApprobationCliniquesRefuseesVM ApprobationCliniquesRefuseesVM { get; set; }
     }
 }
