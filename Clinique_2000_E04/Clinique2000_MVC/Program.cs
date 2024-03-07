@@ -56,6 +56,7 @@ builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
 builder.Services.AddScoped<IEmployesCliniqueService, EmployesCliniqueService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 //builder.Services.AddTransient<DataImportService>();
 //builder.Services.AddHostedService(provider =>
 //    new DataImportBackgroundService(provider, AppConstants.CsvFilePath));

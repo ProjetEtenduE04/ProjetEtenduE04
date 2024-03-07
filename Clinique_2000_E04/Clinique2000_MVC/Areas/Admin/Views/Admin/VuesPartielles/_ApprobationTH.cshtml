@@ -1,0 +1,45 @@
+﻿@model Clinique2000_Core.ViewModels.ApprobationVM
+
+@if (Model.Param == "clinique")
+{
+    <th>
+        @Html.DisplayNameFor(model => model.ApprobationCliniquesVM.Cliniques[0].NomClinique)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ApprobationCliniquesVM.Cliniques[0].Courriel)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ApprobationCliniquesVM.Cliniques[0].Adresse)
+    </th>
+    <th>
+        Actions
+    </th>
+}
+@if (Model.Param == "utilisateur")
+{
+    <th>
+        @Html.DisplayNameFor(model => model.ApprobationUtilisateursVM.Utilisateurs[0].Email)
+    </th>
+    <th>
+        Actions
+    </th>
+}
+
+@if (Model.Param == "cliniquesrefusees")
+{
+    <th>
+        @Html.DisplayNameFor(model => model.ApprobationCliniquesRefuseesVM.CliniquesRefusees[0].CliniqueRefuseeID)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ApprobationCliniquesRefuseesVM.CliniquesRefusees[0].NomClinique)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ApprobationCliniquesRefuseesVM.CliniquesRefusees[0].Courriel)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ApprobationCliniquesRefuseesVM.CliniquesRefusees[0].Adresse)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ApprobationCliniquesRefuseesVM.CliniquesRefusees[0].DateModification)
+    </th>
+}
