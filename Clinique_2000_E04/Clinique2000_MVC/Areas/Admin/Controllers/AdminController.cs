@@ -62,6 +62,14 @@ namespace Clinique2000_MVC.Areas.Admin.Controllers
                 };
                 return View(approbationVM);
             }
+            if (id == "cliniquesrefusees")
+            {
+                approbationVM.ApprobationCliniquesRefuseesVM = new ApprobationCliniquesRefuseesVM
+                {
+                    CliniquesRefusees = await _services.admin.ListeCliniquesRefusees()
+                };
+                return View(approbationVM);
+            }
 
             return View();
         }
@@ -79,6 +87,58 @@ namespace Clinique2000_MVC.Areas.Admin.Controllers
             }
 
             return RedirectToAction(nameof(Approbation));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ApprobationClinique(int id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Approbation", "Admin");
+            }
+
+            await _services.admin.ApprobationCliniqueParID(id);
+
+            return RedirectToAction("Approbation", new { id = "clinique" });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RefuserClinique(int id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Approbation", "Admin");
+            }
+
+            await _services.admin.RefuserCliniqueParID(id);
+
+            return RedirectToAction("Approbation", new { id = "clinique" });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ApprobationUtilisateur(int id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Approbation", "Admin");
+            }
+
+            await _services.admin.ApprobationUtilisateurParID(id);
+
+            return RedirectToAction("Approbation", new { id = "utilisateur" });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RefuserUtilisateur(int id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Approbation", "Admin");
+            }
+
+            await _services.admin.RefuserUtilisateurParID(id);
+
+            return RedirectToAction("Approbation", new { id = "utilisateur" });
         }
     }
 }
