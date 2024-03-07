@@ -1,0 +1,68 @@
+﻿@model Patient
+
+<a class="smBtn button-red-action form-control" id="myBtn" style="width:auto">
+    Annuler
+</a>
+
+@{
+    var consultation = @Model.Consultations.Where(x => x.PatientID == Model.PatientId && x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnAttente).FirstOrDefault();
+    if (consultation != null)
+    {
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h1>Attention!</h1>
+                <p style="font-size: 20px; color: black">
+                    Êtes-vous sûr de vouloir annuler votre rendez-vous du<br />
+                    <a style="color: rgb(0, 61, 135)">@consultation.PlageHoraire.HeureDebut.ToShortDateString() à @consultation.PlageHoraire.HeureDebut.ToShortTimeString() à la @consultation.PlageHoraire.ListeAttente.Clinique.NomClinique</a>
+                    ?
+                </p>
+                <p style="color: black; font-style: italic; font-size 20px">
+                    Cette action est irréversible.
+                </p>
+                <div class="d-flex justify-content-center" style="margin-top: 40px">
+                    <a class="retour smBtn button-red-action form-control col-2" style="width:auto; margin-right: 40px;">
+                        Retour
+                    </a>
+                    <a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="AnnulerConsultation" asp-route-PatientId="@Model?.PatientId" class="smBtn button-green-action form-control col-2" style="width:auto; margin-left: 40px;">
+                        Confirmer
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    var retour = document.getElementsByClassName("retour")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    retour.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+</script>
