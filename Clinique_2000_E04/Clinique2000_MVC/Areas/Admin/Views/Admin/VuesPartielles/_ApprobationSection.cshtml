@@ -1,0 +1,23 @@
+﻿@model Clinique2000_Core.ViewModels.ApprobationVM
+
+@if (Model.Param == "clinique")
+{
+    <div class="card-header card-header-datatables h4 text-light">
+        <i class="fa-solid fa-hospital me-1" style="color: #fff;"></i>
+        Cliniques enregistrées
+    </div>
+}
+@if (Model.Param == "utilisateur")
+{
+    <div class="card-header card-header-datatables h4 text-light">
+        <i class="fa-solid fa-user me-1" style="color: #fff;"></i>
+        Utilisateurs enregistrés
+    </div>
+}
+@if (Model.Param == "cliniquesrefusees")
+{
+    <div class="card-header card-header-datatables h4 text-light">
+        <i class="fa-solid fa-hospital me-1" style="color: #fff;"></i>
+        Cliniques refusées
+    </div>
+}

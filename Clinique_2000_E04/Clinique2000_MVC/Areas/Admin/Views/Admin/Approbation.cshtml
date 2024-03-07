@@ -1,0 +1,34 @@
+﻿@model Clinique2000_Core.ViewModels.ApprobationVM
+
+@{
+    ViewData["Title"] = "Approbations";
+}
+
+<div class="margin-container-index">
+    @await Html.PartialAsync("VuesPartielles/_ApprobationEntete", Model)
+    <div class="row">
+        <div class="col-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-1"></div>
+            <div class="col-10">
+                <div class="card mb-4">
+                @await Html.PartialAsync("VuesPartielles/_ApprobationSection", Model)
+                <div class="card-body">
+                    <div class="table-responsive mx-auto">
+                        <table class="table hover order-column" id="dataTable">
+                            <thead>
+                                <tr>
+                                    @await Html.PartialAsync("VuesPartielles/_ApprobationTH", Model)
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @await Html.PartialAsync("VuesPartielles/_ApprobationTR", Model)
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

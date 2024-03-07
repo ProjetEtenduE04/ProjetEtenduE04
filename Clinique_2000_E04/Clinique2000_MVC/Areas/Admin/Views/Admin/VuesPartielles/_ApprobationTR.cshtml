@@ -1,0 +1,69 @@
+﻿@model Clinique2000_Core.ViewModels.ApprobationVM
+
+@if (Model.Param == "clinique")
+{
+    @foreach (var item in Model.ApprobationCliniquesVM.Cliniques)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomClinique)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courriel)
+            </td>
+            <td>
+                @{
+                    string addresse = $"{item.Adresse.Numero} {item.Adresse.Rue}, {item.Adresse.Ville}, {item.Adresse.Province}, {item.Adresse.Pays}, {item.Adresse.CodePostal}";
+                }
+                @Html.DisplayFor(modelItem => addresse)
+            </td>
+            <td>
+                <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="Details" asp-route-id="@item.CliniqueID" class="btn btn-primary">Détails</a>
+                <a asp-action="ApprobationClinique" asp-route-id="@item.CliniqueID" class="btn btn-success">Approuver</a>
+                <a asp-action="RefuserClinique" asp-route-id="@item.CliniqueID" class="btn btn-danger">Refuser</a>
+            </td>
+        </tr>
+    }
+}
+@if (Model.Param == "utilisateur")
+{
+    @foreach (var item in Model.ApprobationUtilisateursVM.Utilisateurs)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a class="btn btn-primary" id="@item.Id">Détails</a>
+                <a asp-action="ApprobationUtilisateur" asp-route-id="@item.Id" class="btn btn-success">Approuver</a>
+                <a asp-action="RefuserUtilisateur" asp-route-id="@item.Id" class="btn btn-danger">Refuser</a>
+            </td>
+        </tr>
+    }
+}
+@if (Model.Param == "cliniquesrefusees")
+{
+    @foreach (var item in Model.ApprobationCliniquesRefuseesVM.CliniquesRefusees)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CliniqueRefuseeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomClinique)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courriel)
+            </td>
+            <td>
+                @{
+                    string addresse = $"{item.Adresse.Numero} {item.Adresse.Rue}, {item.Adresse.Ville}, {item.Adresse.Province}, {item.Adresse.Pays}, {item.Adresse.CodePostal}";
+                }
+                @Html.DisplayFor(modelItem => addresse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateModification)
+            </td>
+        </tr>
+    }
+}
