@@ -17,20 +17,16 @@ namespace Clinique2000_Services.Services
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _config;
-        //private readonly IClinique2000Services _cliniqueServices;
         private readonly IPatientService _patientService;
-        //private readonly ILogger<EmailService> _logger;
+        private readonly IDictionary<string, HashSet<NotificationTime>> _sentNotifications = new Dictionary<string, HashSet<NotificationTime>>();
+
 
         public EmailService(IConfiguration config,
-            //IClinique2000Services cliniqueServices,
             IPatientService patientService
-            //ILogger<EmailService> logger
             )
         {
             _config = config;
-            //_cliniqueServices = cliniqueServices;
             _patientService = patientService;
-            //_logger = logger;
         }
 
         /// <summary>
@@ -95,6 +91,10 @@ namespace Clinique2000_Services.Services
         }
 
 
+        /// <summary>
+        /// Crée et retourne un objet EmailVM pour la rappel de consultation.
+        /// </summary>
+        /// <param name="consultation">La consultation pour laquelle un rappel est générée.</param>
         public async Task<EmailVM> CreateReminderEmail(Consultation consultation, Patient patient, NotificationTime notificationTime)
         {
             var subject = "Rappel de Consultation";
@@ -121,23 +121,81 @@ namespace Clinique2000_Services.Services
         public async Task SendConsultationNotificationAsync(Consultation consultation, NotificationTime notificationTime)
         {
             var reminderEmail = await CreateReminderEmail(consultation, consultation.Patient, notificationTime);
+            // Verificați dacă notificarea a mai fost trimisă pentru acest e-mail și acest NotificationTime
+            if (IsNotificationAlreadySent(reminderEmail.To, notificationTime))
+            {
+                return; // Nu trimiteți din nou notificarea
+            }
             SendEmail(reminderEmail);
+            // Actualizați structura de date cu informații despre notificarea trimisă
+            UpdateSentNotifications(reminderEmail.To, notificationTime);
         }
 
-        //public Task Execute(IJobExecutionContext context)
-        //{
-        //    //var notificationTime = (NotificationTime)context.JobDetail.JobDataMap["notificationTime"];
-        //    //var consultationId = (int)context.JobDetail.JobDataMap["consultationId"];
+        private bool IsNotificationAlreadySent(string email, NotificationTime notificationTime)
+        {
+            if (_sentNotifications.ContainsKey(email))
+            {
+                return _sentNotifications[email].Contains(notificationTime);
+            }
+            return false;
+        }
 
-        //    //var consultation = await _cliniqueServices.consultation.ObtenirConsultationParIdAsync(consultationId);
-        //    //var patient = await _cliniqueServices.patient.ObtenirParIdAsync(consultation.Patient.PatientId);
+        private void UpdateSentNotifications(string email, NotificationTime notificationTime)
+        {
+            if (!_sentNotifications.ContainsKey(email))
+            {
+                _sentNotifications[email] = new HashSet<NotificationTime>();
+            }
+            _sentNotifications[email].Add(notificationTime);
+        }
 
-        //    //var emailVM = await CreateReminderEmail(consultation, patient, notificationTime);
 
-        //    //SendEmail(emailVM);
-        //    _logger.LogInformation("{UtcNow}", DateTime.UtcNow);
-        //    return Task.CompletedTask;
-        //}
+        public void CleanUpSentNotifications()
+        {
+            var currentTime = DateTime.Now;
+
+            foreach (var entry in _sentNotifications.ToList())
+            {
+                var email = entry.Key;
+                var notificationTimes = entry.Value;
+
+                foreach (var notificationTime in notificationTimes.ToList())
+                {
+                    DateTime notificationTimeThreshold;
+                    switch (notificationTime)
+                    {
+                        case NotificationTime.UnJourAvant:
+                            notificationTimeThreshold = currentTime.AddHours(-24);
+                            break;
+                        case NotificationTime.DouzeHeuresAvant:
+                            notificationTimeThreshold = currentTime.AddHours(-12);
+                            break;
+                        case NotificationTime.SixHeuresAvant:
+                            notificationTimeThreshold = currentTime.AddHours(-6);
+                            break;
+                        case NotificationTime.UneHeureAvant:
+                            notificationTimeThreshold = currentTime.AddHours(-1);
+                            break;
+                        default:
+                            throw new ArgumentException("NotificationTime is not valid.");
+                    }
+
+                    // Verificăm dacă timpul notificării este mai vechi decât pragul de timp
+                    if (notificationTimeThreshold < currentTime)
+                    {
+                        // Ștergem notificarea expirată din colecția asociată
+                        _sentNotifications[email].Remove(notificationTime);
+
+                        // Dacă nu mai există alte notificări pentru această adresă de e-mail, ștergem și intrarea din dicționar
+                        if (_sentNotifications[email].Count == 0)
+                        {
+                            _sentNotifications.Remove(email);
+                        }
+                    }
+                }
+            }
+        }
+
 
     }
 }

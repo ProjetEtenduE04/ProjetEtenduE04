@@ -23,7 +23,7 @@ namespace Clinique2000_Services.Services
                         trigger
                             .ForJob(jobKey)
                             .WithSimpleSchedule(schedule =>
-                            schedule.WithIntervalInMinutes(1).RepeatForever()));
+                            schedule.WithIntervalInMinutes(60).RepeatForever()));
         }
     }
 }

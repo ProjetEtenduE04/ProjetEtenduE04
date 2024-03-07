@@ -20,5 +20,6 @@ namespace Clinique2000_Services.IServices
         Task<bool> UserAuthEstPatientAsync();
         Task<IdentityUser> GetUserAuthAsync();
         Task<IdentityUser> GetUserByUserId(string userId);
+        Task<int> GetPatientIdFromUserIdAsync(string userId);
     }
 }

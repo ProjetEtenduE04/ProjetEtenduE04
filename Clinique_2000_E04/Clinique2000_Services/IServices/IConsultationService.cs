@@ -18,7 +18,7 @@ namespace Clinique2000_Services.IServices
         Task<bool> PatientAConsultationPlanifieeAsync(int patientId);
         Task FermerOuLaisserOuverteListeAttente(int listeattenteid);
         Task<Consultation> ObtenirConsultationParIdAsync(int consultationId);
-        Task<List<Consultation>> ObtenirListesConsultationIncludeUsersCourriel();
+        //Task<List<Consultation>> ObtenirListesConsultationIncludeUsersCourriel();
 
     }
 }

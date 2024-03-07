@@ -28,9 +28,9 @@ namespace Clinique2000_Utility.Enum
 
     public enum NotificationTime
     {
-        UnJourAvant,
-        DouzeHeuresAvant,
-        SixHeuresAvant,
-        UneHeureAvant
+        UnJourAvant = 24, // 24 heures avant
+        DouzeHeuresAvant = 12, // 12 heures avant
+        SixHeuresAvant = 6, // 6 heures avant
+        UneHeureAvant = 1 // 1 heure avant
     }
 }

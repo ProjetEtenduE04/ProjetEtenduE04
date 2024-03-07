@@ -28,26 +28,20 @@ namespace Clinique2000_Services.Services
             _consultationService = consultationService;
         }
 
-        //public Task Execute(IJobExecutionContext context)
-        //{
-        //    _logger.LogInformation("{UtcNow}", DateTime.UtcNow);
-        //    return Task.CompletedTask;
-        //}
-
+        /// <summary>
+        /// Exécute le travail d'arrière-plan de l'expéditeur de courrier électronique.
+        /// </summary>
+        /// <param name="context">Le contexte d'exécution du travail.</param>
         public async Task Execute(IJobExecutionContext context)
         {
-            //var consultationService = context.JobDetail.JobDataMap["consultationService"] as IConsultationService;
-            //var emailService = context.JobDetail.JobDataMap["emailService"] as IEmailService;
-
             // Nous récupérons tous les rendez-vous en cours
             var consultations = await _consultationService.ObtenirToutAsync();
             var listConsultationsEnAttente = consultations.Where(c => c.StatutConsultation == StatutConsultation.EnAttente);
 
-
             foreach (var consultation in listConsultationsEnAttente)
             {
                 // Vérifier si la date du rendez-vous est différente de la date actuelle
-                if (consultation.HeureDateDebutPrevue.Date == DateTime.Today.Date || consultation.HeureDateDebutPrevue.Date == DateTime.Today.AddDays(1).Date)
+                if (consultation.HeureDateDebutPrevue.Date >= DateTime.Today.Date && consultation.HeureDateDebutPrevue.Date <= DateTime.Today.AddDays(1).Date)
                 {
                     // Calculer le délai entre la date et l'heure actuelles et la date et l'heure de la consultation.
                     var timeDifference = consultation.HeureDateDebutPrevue - DateTime.Now;
@@ -79,7 +73,7 @@ namespace Clinique2000_Services.Services
                 }
             }
             _logger.LogInformation("{UtcNow}", DateTime.UtcNow);
-            //return Task.CompletedTask;
+            //return Task.CompletedTask; (if not async)
         }
 
     }
