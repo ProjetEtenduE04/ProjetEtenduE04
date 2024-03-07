@@ -235,6 +235,10 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             //ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel");
             //ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id");
+            var cliniques = _services.clinique.GetAllClinique();
+
+            ViewData["clinique"] = cliniques;
+
             return View();
         }
 

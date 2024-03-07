@@ -370,6 +370,10 @@ namespace Clinique2000_Services.Services
             return clinique != null && clinique.CreateurID == user.Id;        
         }
 
+        public List<Clinique> GetAllClinique()
+        {
+            return _context.Cliniques.ToList();
+        }
     }
 
 }
