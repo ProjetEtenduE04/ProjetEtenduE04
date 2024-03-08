@@ -334,13 +334,18 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             }
             else
             {
-                // User does not have the required role, handle accordingly
                 // For example, redirect to an error page or display an error message
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
 
             return View();
+
+
+                  // Si un employe existe deja, renvoyer a la page de modification et on me dit qu'il existe deja. ************************************
+
+
+
         }
 
 
@@ -354,19 +359,20 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 if (addedEmploye != null)
                 {
                     // Redirect to a suitable page after successful creation
-                    return RedirectToAction(nameof(Index)); // Adjust 'Index' to your actual success landing action method
+                    return RedirectToAction("Index"); // Adjust 'Index' to your actual success landing action method
                 }
                 else
                 {
                     // Handle the case where the employee couldn't be added (e.g., already exists)
-                    ModelState.AddModelError(string.Empty, "An error occurred saving the employee. It might already exist.");
+                    TempData["ErrorMessage"] = "Cet employé existe déja.";
+                    return View("Create", employesClinique);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
-            // Note: You may need to repopulate any ViewData or SelectList required for the form
             return View(employesClinique);
         }
+
+
+
         //    // GET: EmployesCliniques/Delete/5
         //    public async Task<IActionResult> Delete(int? id)
         //    {

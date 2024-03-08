@@ -6,6 +6,7 @@ using Clinique2000_Utility.Enum;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml.FormulaParsing.Excel.Functions;
+using System.ComponentModel.DataAnnotations;
 using static Clinique2000_Services.Services.PatientService;
 
 namespace Clinique2000_Services.Services
@@ -155,6 +156,7 @@ namespace Clinique2000_Services.Services
             if (_context.EmployesClinique.Any(x=>x.EmployeCliniqueID==employesClinique.EmployeCliniqueID))
             {
                 return false;
+                throw new ValidationException("L'employé entré existe déjà.");
             }
             else
             {
