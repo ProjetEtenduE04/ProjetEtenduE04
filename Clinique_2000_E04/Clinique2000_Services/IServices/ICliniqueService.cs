@@ -27,6 +27,7 @@ namespace Clinique2000_Services.IServices
         Task<bool> UserEstAdminClinique(IdentityUser user);
         Task<Clinique> ObtenirCliniqueParCreteurId(string? createurId);
         Task<IEnumerable<Clinique>> ObtenirListeCliniquesParCreateurId(string? createurId);
-        Task<bool> VerifierSiUserAuthEstCreateurClinique(IdentityUser appUser);
+        Task<bool> VerifierSiUserAuthEstCreateurClinique(IdentityUser user);
+        List<Clinique> GetAllClinique();
     }
 }
