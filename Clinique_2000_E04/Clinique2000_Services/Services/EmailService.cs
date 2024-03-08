@@ -121,13 +121,13 @@ namespace Clinique2000_Services.Services
         public async Task SendConsultationNotificationAsync(Consultation consultation, NotificationTime notificationTime)
         {
             var reminderEmail = await CreateReminderEmail(consultation, consultation.Patient, notificationTime);
-            // Verificați dacă notificarea a mai fost trimisă pentru acest e-mail și acest NotificationTime
+            // Vérifier si la notification a déjà été envoyée pour cet email et ce NotificationTime
             if (IsNotificationAlreadySent(reminderEmail.To, notificationTime))
             {
-                return; // Nu trimiteți din nou notificarea
+                return; // Ne pas renvoyer la notification
             }
             SendEmail(reminderEmail);
-            // Actualizați structura de date cu informații despre notificarea trimisă
+            // Mise à jour de la structure de données avec les informations relatives à la notification envoyée
             UpdateSentNotifications(reminderEmail.To, notificationTime);
         }
 
@@ -180,13 +180,13 @@ namespace Clinique2000_Services.Services
                             throw new ArgumentException("NotificationTime is not valid.");
                     }
 
-                    // Verificăm dacă timpul notificării este mai vechi decât pragul de timp
+                    // Verifier si l'heure de la notification est antérieure au seuil de temps.
                     if (notificationTimeThreshold < currentTime)
                     {
-                        // Ștergem notificarea expirată din colecția asociată
+                        // Supprimer la notification expirée de la collection associée
                         _sentNotifications[email].Remove(notificationTime);
 
-                        // Dacă nu mai există alte notificări pentru această adresă de e-mail, ștergem și intrarea din dicționar
+                        // S'il n'y a plus de notifications pour cette adresse e-mail, nous supprimons également l'entrée du dictionnaire.
                         if (_sentNotifications[email].Count == 0)
                         {
                             _sentNotifications.Remove(email);
@@ -196,6 +196,28 @@ namespace Clinique2000_Services.Services
             }
         }
 
+        // Méthode pour supprimer du dictionnaire tous les enregistrements associés à un courriel
+        private void RemoveEntriesForEmail(string email)
+        {
+            // Vérifier si le dictionnaire contient la clé spécifiée
+            if (_sentNotifications.ContainsKey(email))
+            {
+                // Supprimer l'ensemble de l'entrée associée à l'e-mail spécifié
+                _sentNotifications.Remove(email);
+            }
+        }
+
+
+        // La méthode à utiliser à la fin de la consultation du patient avec le médecin
+        public async void ConsultationCompleted(Patient patient)
+        {
+            // Obtenir l'adresse électronique du patient
+            var user = await _patientService.GetUserByUserId(patient.UserId);
+            string patientEmail = user.Email;
+
+            // Supprimer du dictionnaire tous les enregistrements associés à l'adresse électronique du patient.
+            RemoveEntriesForEmail(patientEmail);
+        }
 
     }
 }

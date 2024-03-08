@@ -19,11 +19,12 @@ namespace Clinique2000_Services.Services
     {
 
         private readonly CliniqueDbContext _context;
+        private readonly IEmailService _emailService;
 
-        public ListeAttenteService(CliniqueDbContext context) : base(context)
+        public ListeAttenteService(CliniqueDbContext context, IEmailService emailService) : base(context)
         {
             _context = context;
-
+            _emailService = emailService;
         }
 
         public async Task<ListeAttente> CreerListeAttenteAsync(ListeAttente listeAttente)
@@ -421,6 +422,9 @@ namespace Clinique2000_Services.Services
                     consultation.HeureDateFinReele = DateTime.Now;
                     // Met � jour le statut de la consultation pour la marquer comme termin�e.
                     consultation.StatutConsultation = StatutConsultation.Termine;
+                    // Apelarea metodei ConsultationCompleted pentru a marca terminarea consultației pacientului
+                      _emailService.ConsultationCompleted(consultation.Patient);
+
 
                     // D�termine la logique pour s�lectionner le prochain m�decin disponible.
                     //string nextAvailableDoctorId = D�terminerProchainM�decinDisponible();

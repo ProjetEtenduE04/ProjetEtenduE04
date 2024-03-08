@@ -37,7 +37,7 @@ namespace Clinique2000_Services.Services
             // Nous récupérons tous les rendez-vous en cours
             var consultations = await _consultationService.ObtenirToutAsync();
             var listConsultationsEnAttente = consultations.Where(c => c.StatutConsultation == StatutConsultation.EnAttente);
-
+            _emailService.CleanUpSentNotifications();
             foreach (var consultation in listConsultationsEnAttente)
             {
                 // Vérifier si la date du rendez-vous est différente de la date actuelle

@@ -15,6 +15,8 @@ namespace Clinique2000_Services.IServices
         Task<EmailVM> CreateConsultationConfirmationEmail(Consultation consultation);
         Task SendConsultationConfirmationEmail(Consultation consultation);
         Task SendConsultationNotificationAsync(Consultation consultation, NotificationTime notificationTime);
+        void CleanUpSentNotifications();
+        void ConsultationCompleted(Patient patient);
 
     }
 }
