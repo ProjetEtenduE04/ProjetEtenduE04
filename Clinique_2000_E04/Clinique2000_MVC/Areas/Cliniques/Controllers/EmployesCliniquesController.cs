@@ -232,35 +232,35 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             return RedirectToAction("Index", "listeattente", new { area = "Cliniques" }/*, new { id = employesClinique.EmployeCliniqueID }*/);
         }
 
-        // GET: EmployesCliniques/Create
-        public IActionResult Create()
-        {
-            //ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel");
-            //ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id");
-            var cliniques = _services.clinique.GetAllClinique();
+        //// GET: EmployesCliniques/Create
+        //public IActionResult Create()
+        //{
+        //    //ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel");
+        //    //ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id");
+        //    var cliniques = _services.clinique.GetAllClinique();
 
-            ViewData["clinique"] = cliniques;
+        //    ViewData["clinique"] = cliniques;
 
-            return View();
-        }
+        //    return View();
+        //}
 
-        // POST: EmployesCliniques/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeCliniqueID,EmployeCliniqueNom,EmployeCliniquePrenom,EmployeCliniqueCourriel,EmployeCliniquePosition,UserID,CliniqueID")] EmployesClinique employesClinique)
-        {
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Add(employesClinique);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel", employesClinique.CliniqueID);
-            //ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id", employesClinique.UserID);
-            return View(employesClinique);
-        }
+        //// POST: EmployesCliniques/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("EmployeCliniqueID,EmployeCliniqueNom,EmployeCliniquePrenom,EmployeCliniqueCourriel,EmployeCliniquePosition,UserID,CliniqueID")] EmployesClinique employesClinique)
+        //{
+        //    //if (ModelState.IsValid)
+        //    //{
+        //    //    _context.Add(employesClinique);
+        //    //    await _context.SaveChangesAsync();
+        //    //    return RedirectToAction(nameof(Index));
+        //    //}
+        //    //ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel", employesClinique.CliniqueID);
+        //    //ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id", employesClinique.UserID);
+        //    return View(employesClinique);
+        //}
 
         // GET: EmployesCliniques/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -324,7 +324,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             if (User.IsInRole(AppConstants.SuperAdminRole))
             {
                 // User is an admin, display dropdown list of clinics
-                ViewData["CliniqueID"] = new SelectList(await _services.clinique.ObtenirToutAsync(), "CliniqueID", "Courriel");
+                ViewData["CliniqueID"] = new SelectList(await _services.clinique.ObtenirToutAsync(), "CliniqueID", "NomClinique");
             }
             else if (await _services.clinique.VerifierSiUserAuthEstCreateurClinique(user) == true)
             {
@@ -340,12 +340,6 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
 
             return View();
-
-
-                  // Si un employe existe deja, renvoyer a la page de modification et on me dit qu'il existe deja. ************************************
-
-
-
         }
 
 

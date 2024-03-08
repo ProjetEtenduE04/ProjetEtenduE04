@@ -3,14 +3,16 @@
 @{
     var btnText = "Ajouter l'employé";
     ViewData["Title"] = "Créer un profil";
-    var clinic = ViewData["clinique"] as List<Clinique>;
+    var clinicList = ViewData["CliniqueID"] as SelectList;
+    var clinicId = ViewData["CliniqueID"] as int?;
 }
 
 <div class="container-fluid">
     <div class="row justify-content-around text-center">
         <div class="col col-lg-10 col-xl-9">
             <div>
-                <h1 class="h0" style="margin-top:50px">Renseignements Obligatoires</h1>
+                <h1 class="h0" style="margin-top:50px">Création d'employé de clinique</h1>
+                <h2 style="margin-top:50px; color: red; font-size: 20px; margin-top:30px; margin-bottom: 0px">Renseignements Obligatoires</h2>
                 <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
 
                 <p class="p1">
@@ -58,34 +60,40 @@
                             <option value="">-- Sélectionnez une position --</option>
                             <option value="Medecin">Medecin</option>
                             <option value="Receptionniste">Receptionniste</option>
-                            <option value="AdminClinique">AdminClinique</option>
                             <option value="Autre">Autre</option>
                         </select>
                         <span asp-validation-for="@Model.EmployeCliniquePosition" class="text-danger"></span>
                     </div>
                 </div>
 
-                @if (this.User.IsInRole("SuperAdmin"))
-                {
-                    <div class="row justify-content-center">
-                        <div class="col col-md-8 col-lg-7 col-xl-6 ">
+
+
+                <!--Clinique Employé Clinique-->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        
+                        @if (clinicList != null)
+                        {
                             <label asp-for="@Model.CliniqueID" class="form-label mt-3 mb-1">Clinique<span class="champs-obligatoires"> *</span></label>
                             <select asp-for="@Model.CliniqueID" class="form-control form-control-lg capitalize-first-letter">
                                 <option value="">-- Sélectionnez une clinique --</option>
-                                @foreach (var clinique in clinic)
+                                @foreach (var item in clinicList)
                                 {
-                                    <option value="@clinique.CliniqueID">@clinique.NomClinique</option>
+                                    <option value="@item.Value">@item.Text</option>
                                 }
                             </select>
-                            <span asp-validation-for="@Model.CliniqueID" class="text-danger"></span>
-                        </div>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="@Model.CliniqueID" value="@clinicId" />
+                            @*<select asp-for="@Model.CliniqueID" class="form-control form-control-lg capitalize-first-letter">
+                                <option value="">-- Sélectionnez une clinique --</option>
+                            </select>*@
+                        }
+                        <span asp-validation-for="@Model.CliniqueID" class="text-danger"></span>
                     </div>
-                }   
-                
-                @*@if (this.User.IsInRole("AdminClinique"))
-                {
-                    <input asp-for="@Model.CliniqueID" value="@User.Identity." class="form-control" type="hidden" />
-                }*@
+                </div>
+
 
                 <!--CreateBTN-->
                 <div class="row justify-content-center text-center">

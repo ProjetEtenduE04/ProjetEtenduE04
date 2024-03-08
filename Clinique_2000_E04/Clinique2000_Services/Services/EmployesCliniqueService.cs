@@ -147,7 +147,9 @@ namespace Clinique2000_Services.Services
             if (await DevraitAjouterEmployer(employesClinique))
             {
                 await _context.EmployesClinique.AddAsync(employesClinique);
+
             }
+            _context.SaveChanges();
             return employesClinique;
         }
 
