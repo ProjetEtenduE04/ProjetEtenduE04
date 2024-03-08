@@ -1,6 +1,4 @@
 ﻿@model EmployesClinique
-@using Microsoft.AspNetCore.Identity
-@inject UserManager<ApplicationUser> UserManager
 
 @{
     var btnText = "Ajouter l'employé";
@@ -84,10 +82,10 @@
                     </div>
                 }   
                 
-                @if (this.User.IsInRole("AdminClinique"))
+                @*@if (this.User.IsInRole("AdminClinique"))
                 {
-                    <input asp-for="@Model.CliniqueID" value="" class="form-control" type="hidden" />
-                }
+                    <input asp-for="@Model.CliniqueID" value="@User.Identity." class="form-control" type="hidden" />
+                }*@
 
                 <!--CreateBTN-->
                 <div class="row justify-content-center text-center">
