@@ -131,6 +131,12 @@ namespace Clinique2000_Services.Services
             UpdateSentNotifications(reminderEmail.To, notificationTime);
         }
 
+        /// <summary>
+        /// Vérifie si une notification a déjà été envoyée pour une adresse e-mail et un moment donné.
+        /// </summary>
+        /// <param name="email">L'adresse e-mail pour laquelle vérifier l'envoi de la notification.</param>
+        /// <param name="notificationTime">Le moment auquel vérifier l'envoi de la notification.</param>
+        /// <returns>True si une notification a déjà été envoyée pour l'adresse e-mail et le moment donné ; sinon, False.</returns>
         private bool IsNotificationAlreadySent(string email, NotificationTime notificationTime)
         {
             if (_sentNotifications.ContainsKey(email))
@@ -140,6 +146,11 @@ namespace Clinique2000_Services.Services
             return false;
         }
 
+        /// <summary>
+        /// Met à jour les notifications envoyées pour une adresse e-mail avec le moment donné.
+        /// </summary>
+        /// <param name="email">L'adresse e-mail pour laquelle mettre à jour les notifications envoyées.</param>
+        /// <param name="notificationTime">Le moment auquel mettre à jour les notifications envoyées.</param>
         private void UpdateSentNotifications(string email, NotificationTime notificationTime)
         {
             if (!_sentNotifications.ContainsKey(email))
@@ -149,7 +160,10 @@ namespace Clinique2000_Services.Services
             _sentNotifications[email].Add(notificationTime);
         }
 
-
+        /// <summary>
+        /// Nettoie les notifications envoyées en supprimant celles qui ont expiré.
+        /// </summary>
+        /// <exception cref="ArgumentException">NotificationTime is not valid</exception>
         public void CleanUpSentNotifications()
         {
             var currentTime = DateTime.Now;
@@ -196,7 +210,11 @@ namespace Clinique2000_Services.Services
             }
         }
 
-        // Méthode pour supprimer du dictionnaire tous les enregistrements associés à un courriel
+      
+        /// <summary>
+        /// Méthode pour supprimer du dictionnaire tous les enregistrements associés à un courriel
+        /// </summary>
+        /// <param name="email">Courriel</param>
         private void RemoveEntriesForEmail(string email)
         {
             // Vérifier si le dictionnaire contient la clé spécifiée
@@ -208,10 +226,13 @@ namespace Clinique2000_Services.Services
         }
 
 
-        // La méthode à utiliser à la fin de la consultation du patient avec le médecin
+
+        /// <summary>
+        /// Supprime toutes les notifications associées à un patient après la fin de la consultation.
+        /// </summary>
+        /// <param name="patient"> patient </param>
         public async void ConsultationCompleted(Patient patient)
         {
-            // Obtenir l'adresse électronique du patient
             var user = await _patientService.GetUserByUserId(patient.UserId);
             string patientEmail = user.Email;
 
