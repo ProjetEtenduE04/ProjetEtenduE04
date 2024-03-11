@@ -6,6 +6,11 @@ using MimeKit;
 using MimeKit.Text;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_Core.Models;
+using Clinique2000_Utility.Enum;
+using Quartz;
+using Microsoft.Extensions.Hosting;
+using Google.Apis.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Clinique2000_Services.Services
 {
@@ -13,8 +18,12 @@ namespace Clinique2000_Services.Services
     {
         private readonly IConfiguration _config;
         private readonly IPatientService _patientService;
+        private readonly IDictionary<string, HashSet<NotificationTime>> _sentNotifications = new Dictionary<string, HashSet<NotificationTime>>();
 
-        public EmailService(IConfiguration config, IPatientService patientService)
+
+        public EmailService(IConfiguration config,
+            IPatientService patientService
+            )
         {
             _config = config;
             _patientService = patientService;
@@ -80,5 +89,156 @@ namespace Clinique2000_Services.Services
             var confirmationEmail = await CreateConsultationConfirmationEmail(consultation);
             SendEmail(confirmationEmail);
         }
+
+
+        /// <summary>
+        /// Crée et retourne un objet EmailVM pour la rappel de consultation.
+        /// </summary>
+        /// <param name="consultation">La consultation pour laquelle un rappel est générée.</param>
+        public async Task<EmailVM> CreateReminderEmail(Consultation consultation, Patient patient, NotificationTime notificationTime)
+        {
+            var subject = "Rappel de Consultation";
+            var body = $"    <p>Bonjour, {patient.Nom} {patient.Prenom} !</p>" +
+                        $"    <p>Ceci est un rappel pour votre consultation prévue pour :</p>" +
+                        $"    <h3 style=\"color:red;\">{consultation.PlageHoraire.HeureDebut.ToShortDateString()} à {consultation.PlageHoraire.HeureDebut.ToShortTimeString()}</h3>" +
+                        $"    <h3 style=\"color:red;\">Clinique : {consultation.PlageHoraire.ListeAttente.Clinique.NomClinique}</h3>" +
+                        $"    <p>Nous vous attendons avec impatience.</p>" +
+                        $"    <p>Cordialement,<br />L'équipe Clinique2000</p>";
+            var user = await _patientService.GetUserByUserId(patient.UserId);
+            return new EmailVM
+            {
+                To = user.Email,
+                Subject = subject,
+                Body = body
+            };
+        }
+
+        /// <summary>
+        /// Envoie une notification de consultation pour la consultation spécifiée.
+        /// </summary>
+        /// <param name="consultation">La consultation pour laquelle la notification est envoyée.</param>
+        /// <param name="notificationTime">Le moment de la notification.</param>
+        public async Task SendConsultationNotificationAsync(Consultation consultation, NotificationTime notificationTime)
+        {
+            var reminderEmail = await CreateReminderEmail(consultation, consultation.Patient, notificationTime);
+            // Vérifier si la notification a déjà été envoyée pour cet email et ce NotificationTime
+            if (IsNotificationAlreadySent(reminderEmail.To, notificationTime))
+            {
+                return; // Ne pas renvoyer la notification
+            }
+            SendEmail(reminderEmail);
+            // Mise à jour de la structure de données avec les informations relatives à la notification envoyée
+            UpdateSentNotifications(reminderEmail.To, notificationTime);
+        }
+
+        /// <summary>
+        /// Vérifie si une notification a déjà été envoyée pour une adresse e-mail et un moment donné.
+        /// </summary>
+        /// <param name="email">L'adresse e-mail pour laquelle vérifier l'envoi de la notification.</param>
+        /// <param name="notificationTime">Le moment auquel vérifier l'envoi de la notification.</param>
+        /// <returns>True si une notification a déjà été envoyée pour l'adresse e-mail et le moment donné ; sinon, False.</returns>
+        private bool IsNotificationAlreadySent(string email, NotificationTime notificationTime)
+        {
+            if (_sentNotifications.ContainsKey(email))
+            {
+                return _sentNotifications[email].Contains(notificationTime);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Met à jour les notifications envoyées pour une adresse e-mail avec le moment donné.
+        /// </summary>
+        /// <param name="email">L'adresse e-mail pour laquelle mettre à jour les notifications envoyées.</param>
+        /// <param name="notificationTime">Le moment auquel mettre à jour les notifications envoyées.</param>
+        private void UpdateSentNotifications(string email, NotificationTime notificationTime)
+        {
+            if (!_sentNotifications.ContainsKey(email))
+            {
+                _sentNotifications[email] = new HashSet<NotificationTime>();
+            }
+            _sentNotifications[email].Add(notificationTime);
+        }
+
+        /// <summary>
+        /// Nettoie les notifications envoyées en supprimant celles qui ont expiré.
+        /// </summary>
+        /// <exception cref="ArgumentException">NotificationTime is not valid</exception>
+        public void CleanUpSentNotifications()
+        {
+            var currentTime = DateTime.Now;
+
+            foreach (var entry in _sentNotifications.ToList())
+            {
+                var email = entry.Key;
+                var notificationTimes = entry.Value;
+
+                foreach (var notificationTime in notificationTimes.ToList())
+                {
+                    DateTime notificationTimeThreshold;
+                    switch (notificationTime)
+                    {
+                        case NotificationTime.UnJourAvant:
+                            notificationTimeThreshold = currentTime.AddHours(-24);
+                            break;
+                        case NotificationTime.DouzeHeuresAvant:
+                            notificationTimeThreshold = currentTime.AddHours(-12);
+                            break;
+                        case NotificationTime.SixHeuresAvant:
+                            notificationTimeThreshold = currentTime.AddHours(-6);
+                            break;
+                        case NotificationTime.UneHeureAvant:
+                            notificationTimeThreshold = currentTime.AddHours(-1);
+                            break;
+                        default:
+                            throw new ArgumentException("NotificationTime is not valid.");
+                    }
+
+                    // Verifier si l'heure de la notification est antérieure au seuil de temps.
+                    if (notificationTimeThreshold < currentTime)
+                    {
+                        // Supprimer la notification expirée de la collection associée
+                        _sentNotifications[email].Remove(notificationTime);
+
+                        // S'il n'y a plus de notifications pour cette adresse e-mail, nous supprimons également l'entrée du dictionnaire.
+                        if (_sentNotifications[email].Count == 0)
+                        {
+                            _sentNotifications.Remove(email);
+                        }
+                    }
+                }
+            }
+        }
+
+      
+        /// <summary>
+        /// Méthode pour supprimer du dictionnaire tous les enregistrements associés à un courriel
+        /// </summary>
+        /// <param name="email">Courriel</param>
+        private void RemoveEntriesForEmail(string email)
+        {
+            // Vérifier si le dictionnaire contient la clé spécifiée
+            if (_sentNotifications.ContainsKey(email))
+            {
+                // Supprimer l'ensemble de l'entrée associée à l'e-mail spécifié
+                _sentNotifications.Remove(email);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Supprime toutes les notifications associées à un patient après la fin de la consultation.
+        /// </summary>
+        /// <param name="patient"> patient </param>
+        public async void ConsultationCompleted(Patient patient)
+        {
+            var user = await _patientService.GetUserByUserId(patient.UserId);
+            string patientEmail = user.Email;
+
+            // Supprimer du dictionnaire tous les enregistrements associés à l'adresse électronique du patient.
+            RemoveEntriesForEmail(patientEmail);
+        }
+
     }
 }

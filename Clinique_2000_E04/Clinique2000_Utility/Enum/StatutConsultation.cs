@@ -13,16 +13,24 @@ namespace Clinique2000_Utility.Enum
         EnAttente, //Le patient attend de voir le medecin   
         EnRetard, // le patient est en retard
         Annulle, // le patient a annullé son rdv
-        Refuse ,//il n'y avait pas de plageHoraireDispo lorsque le client a tenté de reserver une consultation
+        Refuse,//il n'y avait pas de plageHoraireDispo lorsque le client a tenté de reserver une consultation
         DisponiblePourReservation, //la consultation est disponible pour reservation
 
     }
     public enum EmployeCliniquePosition
     {
         Medecin,
-        Receptionniste, 
-        AdminClinique,   
-        Autre, 
+        Receptionniste,
+        AdminClinique,
+        Autre,
 
+    }
+
+    public enum NotificationTime
+    {
+        UnJourAvant = 24, // 24 heures avant
+        DouzeHeuresAvant = 12, // 12 heures avant
+        SixHeuresAvant = 6, // 6 heures avant
+        UneHeureAvant = 1 // 1 heure avant
     }
 }

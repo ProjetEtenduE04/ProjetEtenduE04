@@ -181,7 +181,7 @@ namespace Clinique2000_DataAccess.Seeds
                 IsOuverte = true,
                 DateEffectivite = DateTime.Now.AddDays(1),
                 HeureOuverture = new TimeSpan(8, 0, 0),
-                HeureFermeture = new TimeSpan(14, 0, 0),
+                HeureFermeture = new TimeSpan(17, 0, 0),
                 NbMedecinsDispo = 2,
                 
             }); 
@@ -555,6 +555,13 @@ namespace Clinique2000_DataAccess.Seeds
                 HeureFin = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
                 ListeAttenteID = 1,
             });
+            builder.Entity<PlageHoraire>().HasData(new PlageHoraire()
+            {
+                PlageHoraireID = 12,
+                HeureDebut = DateTime.Now.AddDays(1).Date.AddHours(17).AddMinutes(00),
+                HeureFin = DateTime.Now.AddDays(1).Date.AddHours(17).AddMinutes(30),
+                ListeAttenteID = 1,
+            });
 
             //builder.Entity<PlageHoraire>().HasData(new PlageHoraire()
             //{
@@ -580,7 +587,7 @@ namespace Clinique2000_DataAccess.Seeds
             //    ListeAttenteID = 1,
             //});
 
-           
+
             #endregion PlageHoraire
 
             #region ApplicationUser
@@ -588,10 +595,10 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                UserName = "patient1@example.com",
-                NormalizedUserName = "PATIENT1@EXAMPLE.COM",
-                Email = "patient1@example.com",
-                NormalizedEmail = "PATIENT1@EXAMPLE.COM",
+                UserName = "patient245@example.com",
+                NormalizedUserName = "PATIENT245@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -600,8 +607,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2",
                 UserName = "patient2@example.com",
                 NormalizedUserName = "PATIENT2@EXAMPLE.COM",
-                Email = "patient2@example.com",
-                NormalizedEmail = "PATIENT2@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -610,8 +617,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3",
                 UserName = "patient3@example.com",
                 NormalizedUserName = "PATIENT3@EXAMPLE.COM",
-                Email = "patient3@example.com",
-                NormalizedEmail = "PATIENT3@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -620,8 +627,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4",
                 UserName = "patient4@example.com",
                 NormalizedUserName = "PATIENT4@EXAMPLE.COM",
-                Email = "patient4@example.com",
-                NormalizedEmail = "PATIENT4@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
 
 
@@ -632,8 +639,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g5",
                 UserName = "patient5@example.com",
                 NormalizedUserName = "PATIENT5@EXAMPLE.COM",
-                Email = "patient5@example.com",
-                NormalizedEmail = "PATIENT5@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
 
 
@@ -643,8 +650,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "7cc96785-8933-4eac-8d7f-a289b28df226",
                 UserName = "patient6@example.com",
                 NormalizedUserName = "PATIENT6@EXAMPLE.COM",
-                Email = "patient6@example.com",
-                NormalizedEmail = "PATIENT6@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -653,8 +660,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7",
                 UserName = "patient7@example.com",
                 NormalizedUserName = "PATIENT7@EXAMPLE.COM",
-                Email = "patient7@example.com",
-                NormalizedEmail = "PATIENT7@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -663,8 +670,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38",
                 UserName = "patient8@example.com",
                 NormalizedUserName = "PATIENT8@EXAMPLE.COM",
-                Email = "patient8@example.com",
-                NormalizedEmail = "PATIENT8@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -673,8 +680,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g9",
                 UserName = "patient9@example.com",
                 NormalizedUserName = "PATIENT9@EXAMPLE.COM",
-                Email = "patient9@example.com",
-                NormalizedEmail = "PATIENT9@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
 
 
@@ -685,8 +692,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g410",
                 UserName = "patient10@example.com",
                 NormalizedUserName = "PATIENT10@EXAMPLE.COM",
-                Email = "patient10@example.com",
-                NormalizedEmail = "PATIENT10@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
 
 
@@ -695,10 +702,10 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 Id = "7cc96785-8933-4eac-8d7f-a289b28df211",
-                UserName = "patient11@example.com",
-                NormalizedUserName = "PATIENT11@EXAMPLE.COM",
-                Email = "patient11@example.com",
-                NormalizedEmail = "PATIENT11@EXAMPLE.COM",
+                UserName = "testproject2132@gmail.com",
+                NormalizedUserName = "TESTPROJECT2132@GMAIL.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -707,8 +714,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d212",
                 UserName = "patient12@example.com",
                 NormalizedUserName = "PATIENT12@EXAMPLE.COM",
-                Email = "patient12@example.com",
-                NormalizedEmail = "PATIENT12@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -717,8 +724,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313",
                 UserName = "patient13@example.com",
                 NormalizedUserName = "PATIENT13@EXAMPLE.COM",
-                Email = "patient13@example.com",
-                NormalizedEmail = "PATIENT13@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -727,8 +734,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g414",
                 UserName = "patient14@example.com",
                 NormalizedUserName = "PATIENT14@EXAMPLE.COM",
-                Email = "patient14@example.com",
-                NormalizedEmail = "PATIENT14@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
 
 
@@ -739,8 +746,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g415",
                 UserName = "patient15@example.com",
                 NormalizedUserName = "PATIENT15@EXAMPLE.COM",
-                Email = "patient15@example.com",
-                NormalizedEmail = "PATIENT15@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
 
 
@@ -751,8 +758,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "7cc96785-8933-4eac-8d7f-a289b28df216",
                 UserName = "patient16@example.com",
                 NormalizedUserName = "PATIENT16@EXAMPLE.COM",
-                Email = "patient16@example.com",
-                NormalizedEmail = "PATIENT16@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -761,8 +768,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d217",
                 UserName = "patient17@example.com",
                 NormalizedUserName = "PATIENT17@EXAMPLE.COM",
-                Email = "patient17@example.com",
-                NormalizedEmail = "PATIENT17@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -771,8 +778,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318",
                 UserName = "patient18@example.com",
                 NormalizedUserName = "PATIENT18@EXAMPLE.COM",
-                Email = "patient18@example.com",
-                NormalizedEmail = "PATIENT18@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
             });
 
@@ -781,8 +788,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g419",
                 UserName = "patient19@example.com",
                 NormalizedUserName = "PATIENT19@EXAMPLE.COM",
-                Email = "patient19@example.com",
-                NormalizedEmail = "PATIENT19@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
 
 
@@ -794,8 +801,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g420",
                 UserName = "patient20@example.com",
                 NormalizedUserName = "PATIENT20@EXAMPLE.COM",
-                Email = "patient20@example.com",
-                NormalizedEmail = "PATIENT20@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
 
 
@@ -805,8 +812,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g421",
                 UserName = "patient21@example.com",
                 NormalizedUserName = "PATIENT21@EXAMPLE.COM",
-                Email = "patient21@example.com",
-                NormalizedEmail = "PATIENT21@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
 
 
@@ -816,8 +823,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g22",
                 UserName = "patient22@example.com",
                 NormalizedUserName = "PATIENT22@EXAMPLE.COM",
-                Email = "patient22@example.com",
-                NormalizedEmail = "PATIENT22@EXAMPLE.COM",
+                Email = "testproject2132@gmail.com",
+                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
                 EmailConfirmed = true,
 
 
@@ -1120,8 +1127,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 1,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(00),
-                //HeureDateFinPrevue= DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 1,
                 PatientID = 1,
@@ -1130,8 +1137,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 2,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 1,
                 PatientID = 2,
@@ -1139,8 +1146,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 3,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 2,
                 PatientID = 3,
@@ -1148,8 +1155,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 4,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(8).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 2,
                 PatientID = 4,
@@ -1157,8 +1164,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 5,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 3,
                 PatientID = 5,
@@ -1166,8 +1173,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 6,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 3,
                 PatientID = 6,
@@ -1176,8 +1183,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 7,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 4,
                 PatientID = 7,
@@ -1186,8 +1193,8 @@ namespace Clinique2000_DataAccess.Seeds
                 builder.Entity<Consultation>().HasData(new Consultation()
                 {
                 ConsultationID = 8,
-                    //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
-                    //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
+                    HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(9).AddMinutes(30),
+                    HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
                     StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 4,
                 PatientID = 8,
@@ -1196,8 +1203,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 9,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 5,
                 PatientID = 9,
@@ -1206,8 +1213,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 10,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 5,
                 PatientID = 10,
@@ -1216,8 +1223,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 11,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
                 StatutConsultation = StatutConsultation.EnAttente,
                 PlageHoraireID = 6,
                 PatientID = 11,
@@ -1226,8 +1233,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 12,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(10).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
                 StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 6,
                 //PatientID = 12,
@@ -1236,8 +1243,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 13,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(30),
                 StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 7,
                 //PatientID = 13,
@@ -1247,8 +1254,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 14,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(11).AddMinutes(30),
                 StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 7,
                 //PatientID = 14,
@@ -1257,8 +1264,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 15,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
                 StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 8,
                 //PatientID = 15,
@@ -1267,8 +1274,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 16,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
                 StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 8,
                 //PatientID = 16,
@@ -1277,8 +1284,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 17,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
                 StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 9,
                 //PatientID = 17,
@@ -1287,8 +1294,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 18,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(12).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
                 StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 9,
                /* PatientID = 18,*/
@@ -1297,8 +1304,8 @@ namespace Clinique2000_DataAccess.Seeds
                 builder.Entity<Consultation>().HasData(new Consultation()
                 {
                 ConsultationID = 19,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
+                    HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
+                    HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
                     StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 10,
                 //PatientID = 19,
@@ -1307,8 +1314,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 20,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(00),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
                 StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 10,
                 //PatientID = 20,
@@ -1317,8 +1324,8 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 21,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
                 StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 11,
                 //PatientID = 21,
@@ -1327,10 +1334,31 @@ namespace Clinique2000_DataAccess.Seeds
             builder.Entity<Consultation>().HasData(new Consultation()
             {
                 ConsultationID = 22,
-                //HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
-                //HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(13).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(14).AddMinutes(00),
                 StatutConsultation = StatutConsultation.DisponiblePourReservation,
                 PlageHoraireID = 11,
+
+            });
+
+
+            builder.Entity<Consultation>().HasData(new Consultation()
+            {
+                ConsultationID = 23,
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(15).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(15).AddMinutes(00),
+                StatutConsultation = StatutConsultation.DisponiblePourReservation,
+                PlageHoraireID = 12,
+                //PatientID = 21,
+            });
+
+            builder.Entity<Consultation>().HasData(new Consultation()
+            {
+                ConsultationID = 24,
+                HeureDateDebutPrevue = DateTime.Now.AddDays(1).Date.AddHours(16).AddMinutes(30),
+                HeureDateFinPrevue = DateTime.Now.AddDays(1).Date.AddHours(17).AddMinutes(00),
+                StatutConsultation = StatutConsultation.DisponiblePourReservation,
+                PlageHoraireID = 12,
 
             });
             //builder.Entity<Consultation>().HasData(new Consultation()

@@ -28,8 +28,10 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
     googleOptions.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
     googleOptions.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
 });
+builder.Services.AddQuartzServices();
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+
 //builder.Services.AddAuthentication(options =>
 //{
 //    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -57,6 +59,7 @@ builder.Services.AddScoped<IConsultationService, ConsultationService>();
 builder.Services.AddScoped<IEmployesCliniqueService, EmployesCliniqueService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+
 //builder.Services.AddTransient<DataImportService>();
 //builder.Services.AddHostedService(provider =>
 //    new DataImportBackgroundService(provider, AppConstants.CsvFilePath));
