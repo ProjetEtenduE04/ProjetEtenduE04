@@ -16,7 +16,7 @@
             <i class="fa-solid fa-caret-down"></i>
     </a>
     <ul class="dropdown-menu dropdown-menu-end text-center">
-            @if (this.User.IsInRole(AppConstants.SuperAdminRole) || employe != null)
+            @if (this.User.IsInRole(AppConstants.SuperAdminRole) @* || employe != null *@)
             {
                 <li>
                     <a class="dropdown-item" asp-area="Patients" asp-controller="Patients" asp-action="Index">
