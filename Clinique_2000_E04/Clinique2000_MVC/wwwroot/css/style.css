@@ -1771,3 +1771,86 @@ table td {
 
 /* Fin confirmation d'annulation */
 
+
+
+
+
+
+
+/*chatbox */
+#chatbox-container {
+    position: fixed;
+    bottom: 0;
+    left: 20px;
+    z-index: 1000;
+}
+
+#chatbox-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    font-weight: bold;
+}
+
+#chatbox {
+    background: #fff;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    overflow: hidden;
+    max-height: 0; /* Initial state is collapsed */
+    width: 300px; /* Define a specific width */
+    transition: max-height 0.3s ease-out;
+    position: absolute;
+    bottom: 40px; /* Adjust based on the toggle button's size */
+    left: 0;
+}
+
+.chatbox-header {
+    background-color: #0056b3;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.chatbox-messages {
+    max-height: 200px; /* Allows scrolling within a smaller area */
+    overflow-y: auto; /* Enables vertical scrolling */
+    padding: 15px;
+}
+
+.chatbox-questions {
+    max-height: 150px; /* Adjust as needed */
+    overflow-y: auto; /* Enables scrolling for questions area */
+    padding: 15px;
+}
+
+    .chatbox-questions button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .chatbox-questions button:hover {
+            background-color: #0056b3;
+        }
+
+#chatbox.expanded {
+    max-height: 500px; /* Adjust based on content */
+}
+
+    /*chatbox end*/
