@@ -1790,8 +1790,8 @@ table td {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #007bff; /* Primary Color */
+    color: #fff; /* White Text */
     cursor: pointer;
     padding: 10px 20px;
     border-radius: 20px 20px 0 0;
@@ -1800,57 +1800,84 @@ table td {
 }
 
 #chatbox {
-    background: #fff;
+    background: #fff; /* White Background */
     border-radius: 15px 15px 0 0;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
     overflow: hidden;
-    max-height: 0; /* Initial state is collapsed */
-    width: 300px; /* Define a specific width */
+    max-height: 0; /* Collapsed Initially */
+    width: 400px;
     transition: max-height 0.3s ease-out;
     position: absolute;
-    bottom: 40px; /* Adjust based on the toggle button's size */
+    bottom: 40px;
     left: 0;
 }
 
 .chatbox-header {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker Blue */
     color: white;
     padding: 15px;
-    font-size: 16px;
+    font-size: 18px; /* Slightly Larger */
     text-align: center;
+    font-weight: bold; /* Bold Text */
 }
 
 .chatbox-messages {
-    max-height: 200px; /* Allows scrolling within a smaller area */
-    overflow-y: auto; /* Enables vertical scrolling */
+    max-height: 200px;
+    overflow-y: auto;
     padding: 15px;
+    font-size: 14px; /* Readable Text Size */
+    line-height: 1.5; /* Improved Line Spacing */
+    color: #333; /* Darker Text for Better Readability */
 }
 
 .chatbox-questions {
-    max-height: 150px; /* Adjust as needed */
-    overflow-y: auto; /* Enables scrolling for questions area */
-    padding: 15px;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 0 15px 15px 15px; /* Adjusted Padding */
 }
 
     .chatbox-questions button {
         display: block;
         width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        background-color: #007bff;
+        padding: 12px; /* Slightly Larger Padding */
+        margin-bottom: 8px; /* Reduced Margin */
+        background-color: #007bff; /* Primary Color */
         color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        transition: background-color 0.3s;
+        font-size: 14px; /* Larger Font Size */
+        font-weight: 500; /* Medium Font Weight */
+        transition: background-color 0.3s, transform 0.2s;
     }
 
         .chatbox-questions button:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Darker on Hover */
+            transform: translateY(-2px); /* Slight Raise */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle Shadow */
         }
 
 #chatbox.expanded {
     max-height: 500px; /* Adjust based on content */
 }
+
+/* New Styles for Alternating Backgrounds */
+.question-response {
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #333;
+}
+
+.bg-color-1 {
+    background-color: #e8f4fa; /* First alternating color */
+}
+
+.bg-color-2 {
+    background-color: #e8f9f1; /* Second alternating color */
+}
+
+
+
 
     /*chatbox end*/
