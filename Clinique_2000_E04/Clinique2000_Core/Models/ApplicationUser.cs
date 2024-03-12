@@ -20,5 +20,8 @@ namespace Clinique2000_Core.Models
 
         [ValidateNever]
         public virtual ICollection<EmployesClinique> EmployesCliniques { get; set; }
+
+        [ValidateNever]
+        public virtual bool EstApprouvee { get; set; }
     }
 }

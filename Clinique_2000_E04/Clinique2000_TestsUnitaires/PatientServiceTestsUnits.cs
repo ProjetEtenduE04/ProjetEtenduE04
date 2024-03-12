@@ -125,7 +125,7 @@ namespace Clinique2000_TestsUnitaires
             var age = service.CalculerAge(dateOfBirth);
 
             // Assert
-            Assert.Equal(23, age.Annees);
+            Assert.Equal(DateTime.Now.Year-dateOfBirth.Year, age.Annees);
         }
 
         /// <summary>
@@ -558,6 +558,35 @@ namespace Clinique2000_TestsUnitaires
                 Assert.NotNull(createdPatient);
             }
         }
+        /// <summary>
+        /// Teste la méthode GetUserByUserId pour vérifier si elle retourne un utilisateur existant en fonction de son identifiant.
+        /// </summary>
+        /// <returns>
+        /// Si un utilisateur existe avec l'identifiant fourni, la méthode devrait retourner l'utilisateur correspondant ; sinon, elle doit retourner null.
+        /// </returns>
+        [Fact]
+        public async Task GetUserByUserId_ReturnUserIfExists()
+        {
+            // Arrange
+            var options = SetUpInMemory("moq_db");
+            using var context = new CliniqueDbContext(options);
+            var service = new PatientService(context, _userManagerMock.Object, _httpContextAccessorMock.Object, _AdresseServiceMock.Object);
+            var userMock = new Mock<IdentityUser>();
+            userMock.Setup(u => u.Id).Returns("4eaffcbd-4351-4995-a0c0-03624a3743c7");
+            _userManagerMock.Setup(m => m.FindByIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(userMock.Object);
+            var userAChercher = await _userManagerMock.Object.FindByIdAsync("4eaffcbd-4351-4995-a0c0-03624a3743c7");
+
+            // Act
+            var result = await service.GetUserByUserId(userAChercher.Id);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(typeof(IdentityUser), result.GetType().BaseType);
+            Assert.Equal(userAChercher.Id, result.Id);
+        }
+
+
 
     }
 }

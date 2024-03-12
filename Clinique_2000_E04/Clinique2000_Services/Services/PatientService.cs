@@ -270,7 +270,15 @@ namespace Clinique2000_Services.Services
             //var user = await _userManager.FindByEmailAsync(courrielUserAuth);
             var user = await GetUserAuthAsync();
 
-            return await UserEstPatientAsync(user.Id);
+            if (user != null)
+            {
+                return await UserEstPatientAsync(user.Id);
+            }
+            else
+            {
+                // Handle the case when the user is null
+                return false;
+            }
         }
 
         /// <summary>
@@ -309,6 +317,15 @@ namespace Clinique2000_Services.Services
             return user;
         }
 
+        /// <summary>
+        /// Obtient un utilisateur en fonction de son identifiant.
+        /// </summary>
+        /// <param name="userId"> Id de l'utilisateur  </param>
+        /// <returns> IdentityUser </returns>
+        public async Task<IdentityUser> GetUserByUserId(string userId)
+        {
+            return await _userManager.FindByIdAsync(userId);
+        }
 
         /// <summary>
         /// Représente l'âge d'une personne en années, mois et jours.

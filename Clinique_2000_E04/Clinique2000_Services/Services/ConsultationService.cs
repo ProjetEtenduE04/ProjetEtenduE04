@@ -56,6 +56,8 @@ namespace Clinique2000_Services.Services
 
             consultation.PatientID = patientId;
             consultation.StatutConsultation = StatutConsultation.EnAttente;
+            consultation.HeureDateDebutPrevue = consultation.PlageHoraire.HeureDebut;
+            consultation.HeureDateFinPrevue = DateTime.Now.AddMinutes(consultation.PlageHoraire.ListeAttente.Clinique.TempsMoyenConsultation);
 
 
             await FermerOuLaisserOuverteListeAttente(consultation.PlageHoraire.ListeAttenteID);
@@ -164,5 +166,26 @@ namespace Clinique2000_Services.Services
             else
                 return false;
         }
+
+
+        /// <summary>
+        /// Obtient une consultation à partir de son identifiant.
+        /// </summary>
+        /// <param name="consultationId">L'identifiant de la consultation.</param>
+        /// <returns>La consultation correspondante.</returns>
+        public async Task<Consultation> ObtenirConsultationParIdAsync(int consultationId)
+        {
+            return await _context.Consultations.FindAsync(consultationId);
+        }
+
+        ///// <summary>
+        ///// Obtient consultations avec les patients inclus
+        ///// </summary>
+        ///// <returns>Liste de consultation </returns>
+        //public async Task<List<Consultation>> ObtenirListesConsultationIncludeUsersCourriel()
+        //{
+        //    var listeConsultations = await _context.Consultations.Include(x => x.Patient).ToListAsync();
+        //    return listeConsultations;
+        //}
     }
 }
