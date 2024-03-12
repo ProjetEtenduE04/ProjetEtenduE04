@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
+
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
     [Area("Cliniques")]
@@ -27,6 +28,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         public EmployesCliniquesController(
             IClinique2000Services service,
             UserManager<IdentityUser> userManager
+
             )
         {
             _services = service;
@@ -107,7 +109,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         public async Task<IActionResult> Details(int? id)
         {
 
-             //var email = User.Identity.Name;
+            //var email = User.Identity.Name;
             //var user = await _userManager.FindByEmailAsync(email);
             //var employee = await _services.employesClinique.FindOneAsync(x => x.UserID == user.Id && x.EmployeCliniquePosition == Clinique2000_Utility.Enum.EmployeCliniquePosition.Medecin);
 
@@ -115,9 +117,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             //var email = User.Identity.Name;
             //var user =  await _userManager.FindByEmailAsync(email);
             var employee = await _services.employesClinique.ObtenirParIdAsync(id);
-            
-            
-           
+
+
+
 
 
             //EmployesClinique employesClinique = await _services.employesClinique.ObtenirParIdAsync(id);
@@ -227,39 +229,38 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             EmployesClinique employesClinique = await _services.employesClinique.GetEmployeUserID(userEmail, user.Id);//chercher le EmployeClinique avec le meme email que le user 
 
 
-            return RedirectToAction("Index", "listeattente", new { area="Cliniques"}/*, new { id = employesClinique.EmployeCliniqueID }*/);
+            return RedirectToAction("Index", "listeattente", new { area = "Cliniques" }/*, new { id = employesClinique.EmployeCliniqueID }*/);
         }
 
+        //// GET: EmployesCliniques/Create
+        //public IActionResult Create()
+        //{
+        //    //ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel");
+        //    //ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id");
+        //    var cliniques = _services.clinique.GetAllClinique();
 
+        //    ViewData["clinique"] = cliniques;
 
+        //    return View();
+        //}
 
-
-
-        //    // GET: EmployesCliniques/Create
-        //    public IActionResult Create()
-        //    {
-        //        ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel");
-        //        ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id");
-        //        return View();
-        //    }
-
-        //    // POST: EmployesCliniques/Create
-        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
-        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Create([Bind("EmployeCliniqueID,EmployeCliniqueNom,EmployeCliniquePrenom,EmployeCliniqueCourriel,EmployeCliniquePosition,UserID,CliniqueID")] EmployesClinique employesClinique)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            _context.Add(employesClinique);
-        //            await _context.SaveChangesAsync();
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel", employesClinique.CliniqueID);
-        //        ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id", employesClinique.UserID);
-        //        return View(employesClinique);
-        //    }
+        //// POST: EmployesCliniques/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("EmployeCliniqueID,EmployeCliniqueNom,EmployeCliniquePrenom,EmployeCliniqueCourriel,EmployeCliniquePosition,UserID,CliniqueID")] EmployesClinique employesClinique)
+        //{
+        //    //if (ModelState.IsValid)
+        //    //{
+        //    //    _context.Add(employesClinique);
+        //    //    await _context.SaveChangesAsync();
+        //    //    return RedirectToAction(nameof(Index));
+        //    //}
+        //    //ViewData["CliniqueID"] = new SelectList(_context.Cliniques, "CliniqueID", "Courriel", employesClinique.CliniqueID);
+        //    //ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "Id", employesClinique.UserID);
+        //    return View(employesClinique);
+        //}
 
         // GET: EmployesCliniques/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -312,6 +313,58 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             }
             return View(employesClinique);
         }
+        // GET: EmployesCliniques/Create
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+
+            var user = await _services.patient.GetUserAuthAsync();
+            var userAuth = await _userManager.GetUserAsync(User);
+
+            if (User.IsInRole(AppConstants.SuperAdminRole))
+            {
+                // User is an admin, display dropdown list of clinics
+                ViewData["CliniqueID"] = new SelectList(await _services.clinique.ObtenirToutAsync(), "CliniqueID", "NomClinique");
+            }
+            else if (await _services.clinique.VerifierSiUserAuthEstCreateurClinique(user) == true)
+            {
+                // User is a gestionnaireDeClinique, use the clinic they work for as the default value
+                var clinique = await _services.clinique.ObtenirCliniqueParCreteurId(user.Id);
+                ViewData["CliniqueID"] = clinique.CliniqueID;
+            }
+            else
+            {
+                // For example, redirect to an error page or display an error message
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(EmployesClinique employesClinique)
+        {
+            if (ModelState.IsValid)
+            {
+                var addedEmploye = await _services.employesClinique.AjouterEmployerAsync(employesClinique);
+                if (addedEmploye != null)
+                {
+                    // Redirect to a suitable page after successful creation
+                    return RedirectToAction("Index"); // Adjust 'Index' to your actual success landing action method
+                }
+                else
+                {
+                    // Handle the case where the employee couldn't be added (e.g., already exists)
+                    TempData["ErrorMessage"] = "Cet employé existe déja.";
+                    return View("Create", employesClinique);
+                }
+            }
+            return View(employesClinique);
+        }
+
 
 
         //    // GET: EmployesCliniques/Delete/5

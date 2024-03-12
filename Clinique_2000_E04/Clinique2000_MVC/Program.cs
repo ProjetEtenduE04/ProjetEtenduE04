@@ -9,6 +9,8 @@ using System.Text.Json.Serialization;
 using Clinique2000_DataAccess.Initializer;
 using Microsoft.IdentityModel.Tokens;
 using Clinique2000_Utility.Constants;
+using Clinique2000_Core.Models;
+using Google;
 
 var builder = WebApplication.CreateBuilder(args);
 //DbContext
@@ -22,14 +24,21 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CliniqueDbContext>();
 
+//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>()
+//    .AddDefaultUI()
+//    .AddDefaultTokenProviders();
+
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
     googleOptions.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
 });
+builder.Services.AddQuartzServices();
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+
 //builder.Services.AddAuthentication(options =>
 //{
 //    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -57,6 +66,7 @@ builder.Services.AddScoped<IConsultationService, ConsultationService>();
 builder.Services.AddScoped<IEmployesCliniqueService, EmployesCliniqueService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+
 //builder.Services.AddTransient<DataImportService>();
 //builder.Services.AddHostedService(provider =>
 //    new DataImportBackgroundService(provider, AppConstants.CsvFilePath));

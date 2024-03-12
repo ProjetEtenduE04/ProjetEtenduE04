@@ -41,88 +41,88 @@ namespace Clinique2000_TestsUnitaires
             return context;
         }
 
- private void SeedInMemoryStore(CliniqueDbContext dbContext)
-{
-    // Seed your in-memory database with data resembling your real database
+        private void SeedInMemoryStore(CliniqueDbContext dbContext)
+        {
+            // Seed your in-memory database with data resembling your real database
 
-    // Create a Clinique with required properties
-    var clinique = new Clinique
-    {
-        CliniqueID = 1,
-        TempsMoyenConsultation = 30,
-        Courriel = "clinique@example.com",
-        CreateurID = "user1",
-        HeureOuverture = new TimeSpan(8, 0, 0),   // Opening time (8:00 AM)
-        HeureFermeture = new TimeSpan(18, 0, 0),  // Closing time (6:00 PM)
-        NomClinique = "Clinique2000"
-    };
-    dbContext.Cliniques.Add(clinique);
+            // Create a Clinique with required properties
+            var clinique = new Clinique
+            {
+                CliniqueID = 1,
+                TempsMoyenConsultation = 30,
+                Courriel = "clinique@example.com",
+                CreateurID = "user1",
+                HeureOuverture = new TimeSpan(8, 0, 0),   // Opening time (8:00 AM)
+                HeureFermeture = new TimeSpan(18, 0, 0),  // Closing time (6:00 PM)
+                NomClinique = "Clinique2000"
+            };
+            dbContext.Cliniques.Add(clinique);
 
-    // Create a ListeAttente associated with the Clinique
-    var listeAttente = new ListeAttente
-    {
-        ListeAttenteID = 1,
-        CliniqueID = 1,
-        IsOuverte = true
-    };
-    dbContext.ListeAttentes.Add(listeAttente);
+            // Create a ListeAttente associated with the Clinique
+            var listeAttente = new ListeAttente
+            {
+                ListeAttenteID = 1,
+                CliniqueID = 1,
+                IsOuverte = true
+            };
+            dbContext.ListeAttentes.Add(listeAttente);
 
-    // Create a PlageHoraire associated with the ListeAttente
-    var plageHoraire = new PlageHoraire
-    {
-        PlageHoraireID = 1,
-        HeureDebut = DateTime.Now,
-        HeureFin = DateTime.Now.AddHours(1),
-        ListeAttenteID = 1
-    };
-    dbContext.PlagesHoraires.Add(plageHoraire);
+            // Create a PlageHoraire associated with the ListeAttente
+            var plageHoraire = new PlageHoraire
+            {
+                PlageHoraireID = 1,
+                HeureDebut = DateTime.Now,
+                HeureFin = DateTime.Now.AddHours(1),
+                ListeAttenteID = 1
+            };
+            dbContext.PlagesHoraires.Add(plageHoraire);
 
-    // Create a ApplicationUser (User)
-    var user = new ApplicationUser
-    {
-        UserName = "user1",
-        Email = "user1@example.com"
-    };
-    dbContext.ApplicationUser.Add(user);
-    dbContext.SaveChanges(); // Save to generate user Id
+            // Create a ApplicationUser (User)
+            var user = new ApplicationUser
+            {
+                UserName = "user1",
+                Email = "user1@example.com"
+            };
+            dbContext.ApplicationUser.Add(user);
+            dbContext.SaveChanges(); // Save to generate user Id
 
-    // Create a Patient associated with the User
-    var patient = new Patient
-    {
-        PatientId = 1,
-        Age = 30,
-        UserId = user.Id,
-        CodePostal = "J4G 1T2",
-        NAM = "COUJ 2222 2222",
-        Nom = "Doe",
-        Prenom = "John"
-    };
-    dbContext.Patients.Add(patient);
+            // Create a Patient associated with the User
+            var patient = new Patient
+            {
+                PatientId = 1,
+                Age = 30,
+                UserId = user.Id,
+                CodePostal = "J4G 1T2",
+                NAM = "COUJ 2222 2222",
+                Nom = "Doe",
+                Prenom = "John"
+            };
+            dbContext.Patients.Add(patient);
 
-    // Create a Consultation with missing properties and associate with PlageHoraire
-    var consultationReady = new Consultation
-    {
-        ConsultationID = 1,
-        StatutConsultation = StatutConsultation.DisponiblePourReservation,
-        PlageHoraireID = 1,
-        PatientID = null
-    };
-    dbContext.Consultations.Add(consultationReady);
+            // Create a Consultation with missing properties and associate with PlageHoraire
+            var consultationReady = new Consultation
+            {
+                ConsultationID = 1,
+                StatutConsultation = StatutConsultation.DisponiblePourReservation,
+                PlageHoraireID = 1,
+                PatientID = null
+            };
+            dbContext.Consultations.Add(consultationReady);
 
-    // Create another Consultation with missing properties and associate with PlageHoraire
-    var consultationPlanned = new Consultation
-    {
-        ConsultationID = 2,
-        //HeureDateDebutPrevue = DateTime.Now.AddHours(2),
-        //HeureDateFinPrevue = DateTime.Now.AddHours(3),
-        StatutConsultation = StatutConsultation.EnAttente,
-        PlageHoraireID = 1,
-        PatientID = 1
-    };
-    dbContext.Consultations.Add(consultationPlanned);
+            // Create another Consultation with missing properties and associate with PlageHoraire
+            var consultationPlanned = new Consultation
+            {
+                ConsultationID = 2,
+                HeureDateDebutPrevue = DateTime.Now.AddHours(2),
+                HeureDateFinPrevue = DateTime.Now.AddHours(3),
+                StatutConsultation = StatutConsultation.EnAttente,
+                PlageHoraireID = 1,
+                PatientID = 1
+            };
+            dbContext.Consultations.Add(consultationPlanned);
 
-    dbContext.SaveChanges();
-}
+            dbContext.SaveChanges();
+        }
 
         /// <summary>
         /// Teste le lancement d'une exception pour une consultation inexistante.
@@ -163,7 +163,9 @@ namespace Clinique2000_TestsUnitaires
             var consultation = await context.Consultations.FindAsync(consultationId);
             Assert.NotNull(consultation);
             Assert.Equal(StatutConsultation.EnAttente, consultation.StatutConsultation);
+
         }
+
 
         /// <summary>
         /// Teste le lancement d'une exception si la liste d'attente est fermée.
@@ -214,7 +216,43 @@ namespace Clinique2000_TestsUnitaires
             }
         }
 
+        /// <summary>
+        /// Teste la récupération d'une consultation par son identifiant. Identifiant valide.
+        /// </summary>
+        [Fact]
+        public async Task ObtenirConsultationParIdAsync_WithValidId_ReturnsConsultation()
+        {
+            // Arrange
+            var consultationId = 1;
+            var dbContext = CreateAndSeedContext();
+            var service = new ConsultationService(dbContext, _mockPatientService.Object, _mockHttpContextAccessor.Object);
 
+            // Act
+            var result = await service.ObtenirConsultationParIdAsync(consultationId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(consultationId, result.ConsultationID);
+        }
+
+        /// <summary>
+        /// test la récupération d'une consultation par son identifiant. Identivant invalide.
+        /// </summary>
+
+        [Fact]
+        public async Task ObtenirConsultationParIdAsync_WithInvalidId_ReturnsNull()
+        {
+            // Arrange
+            var consultationId = -1; 
+            var dbContext = CreateAndSeedContext();
+            var service = new ConsultationService(dbContext, _mockPatientService.Object, _mockHttpContextAccessor.Object);
+
+            // Act
+            var result = await service.ObtenirConsultationParIdAsync(consultationId);
+
+            // Assert
+            Assert.Null(result);
+        }
 
     }
 }

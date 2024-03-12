@@ -5,6 +5,8 @@ using Clinique2000_Services.IServices;
 using Clinique2000_Utility.Enum;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml.FormulaParsing.Excel.Functions;
+using System.ComponentModel.DataAnnotations;
 using static Clinique2000_Services.Services.PatientService;
 
 namespace Clinique2000_Services.Services
@@ -41,7 +43,7 @@ namespace Clinique2000_Services.Services
 
 
 
-        public async Task<IList<Clinique>>ObtenirCliniquesDeLEmploye(EmployesClinique employesClinique)
+        public async Task<IList<Clinique>> ObtenirCliniquesDeLEmploye(EmployesClinique employesClinique)
         {
             var MesCliniques = _context.Cliniques.Where(c => c.CliniqueID == employesClinique.CliniqueID).ToList();
             return MesCliniques;
@@ -60,7 +62,7 @@ namespace Clinique2000_Services.Services
 
         public async Task<ListeAttente> ObtenirListeAttenteDeLaClinqueDeLEmploye(int cliniqueID)
         {
-            var listeAttente = await _context.ListeAttentes.Where(l => l.CliniqueID == cliniqueID /*&& l.IsOuverte==true*/).Include(l => l.PlagesHoraires).Include(x=>x.Consultations).FirstOrDefaultAsync();
+            var listeAttente = await _context.ListeAttentes.Where(l => l.CliniqueID == cliniqueID /*&& l.IsOuverte==true*/).Include(l => l.PlagesHoraires).Include(x => x.Consultations).FirstOrDefaultAsync();
             return listeAttente;
         }
 
@@ -72,10 +74,10 @@ namespace Clinique2000_Services.Services
 
             EmployesClinique employeUser = await _context.EmployesClinique.Where(e => e.EmployeCliniqueCourriel == userEmail).FirstOrDefaultAsync();
 
-            if (employeUser!= null)
+            if (employeUser != null)
             {
                 employeUser.UserID = userId;
-                 await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
 
             return employeUser;
@@ -115,9 +117,9 @@ namespace Clinique2000_Services.Services
 
 
         public async Task<bool> EmployeCliniqueEstReceptionniste(EmployesClinique employeclinique)
-         {
-          
-            if (employeclinique.EmployeCliniquePosition==EmployeCliniquePosition.Receptionniste)
+        {
+
+            if (employeclinique.EmployeCliniquePosition == EmployeCliniquePosition.Receptionniste)
                 return true;
             else
                 return false;
@@ -138,6 +140,35 @@ namespace Clinique2000_Services.Services
         {
             return _context.EmployesClinique.Any(e => e.EmployeCliniqueID == id);
         }
+      
+
+        public async Task<EmployesClinique> AjouterEmployerAsync(EmployesClinique employesClinique)
+        {
+            if (await DevraitAjouterEmployer(employesClinique))
+            {
+                await _context.EmployesClinique.AddAsync(employesClinique);
+
+            }
+            _context.SaveChanges();
+            return employesClinique;
+        }
+
+        public async Task<bool> DevraitAjouterEmployer(EmployesClinique employesClinique)
+        {
+            if (_context.EmployesClinique.Any(x=>x.EmployeCliniqueID==employesClinique.EmployeCliniqueID))
+            {
+                return false;
+                throw new ValidationException("L'employé entré existe déjà.");
+            }
+            else
+            {
+                return true;
+                   
+                
+            }
+        }
+
+
 
     }
 }
