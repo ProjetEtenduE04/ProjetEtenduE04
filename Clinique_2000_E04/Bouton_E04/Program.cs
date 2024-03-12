@@ -9,10 +9,10 @@ namespace Bouton_E04
     public class Program
     {
         // Création des alias pour les boutons
-        private static GpioPin _btnRouge;
-        private static GpioPin _btnBleu;
-        private static GpioPin _btnVert;
-        private static GpioPin _btnNoir;
+        private static GpioPin _btn1;
+        private static GpioPin _btn2;
+        private static GpioPin _btn3;
+        private static GpioPin _btn4;
 
         // Création des alias pour les DELs
         private static GpioPin _del1Rouge;
@@ -36,10 +36,10 @@ namespace Bouton_E04
             var controller = new GpioController();
 
             // Association des broches aux alias
-            _btnRouge = controller.OpenPin(23, PinMode.Input);
-            _btnBleu = controller.OpenPin(22, PinMode.Input);
-            _btnVert = controller.OpenPin(21, PinMode.Input);
-            _btnNoir = controller.OpenPin(19, PinMode.Input);
+            _btn1 = controller.OpenPin(23, PinMode.Input);
+            _btn2 = controller.OpenPin(22, PinMode.Input);
+            _btn3 = controller.OpenPin(21, PinMode.Input);
+            _btn4 = controller.OpenPin(19, PinMode.Input);
             _del1Rouge = controller.OpenPin(4, PinMode.Output);
             _del1Vert = controller.OpenPin(0, PinMode.Output);
             _del2Rouge = controller.OpenPin(2, PinMode.Output);
@@ -51,56 +51,81 @@ namespace Bouton_E04
             _del2Vert.Write(PinValue.Low);
 
             kbd.Initialize();
-            _del1Rouge.Write(PinValue.High);
             kbd.Advertise();
-            _del2Rouge.Write(PinValue.High);
 
+            string debounce=null;
 
             while (true)
             {
-                if (_btnRouge.Read() == PinValue.Low)
+                if (_btn1.Read() == PinValue.High && debounce != "btn1")
                 {
+                    KeyboardUtilities.TypeText(kbd, "1");
+                    debounce = "btn1";
                     _del1Rouge.Write(PinValue.High);
+                    Thread.Sleep(100);
                     _del1Vert.Write(PinValue.Low);
+                    Thread.Sleep(100);
                 }
-                else
+
+                if (_btn2.Read() == PinValue.High && debounce != "btn2")
                 {
+                    KeyboardUtilities.TypeText(kbd, "2");
+                    debounce = "btn2";
                     _del1Rouge.Write(PinValue.Low);
+                    Thread.Sleep(100);
                     _del1Vert.Write(PinValue.High);
+                    Thread.Sleep(100);
                 }
 
-                if (_btnBleu.Read() == PinValue.Low)
+                if (_btn3.Read() == PinValue.High && debounce != "btn3")
                 {
-                    _del2Rouge.Write(PinValue.High);
-                    _del2Vert.Write(PinValue.Low);
-                }
-                else
-                {
+                    KeyboardUtilities.TypeText(kbd, "3");
+                    debounce = "btn3";
                     _del2Rouge.Write(PinValue.Low);
-                    _del2Vert.Write(PinValue.High);
-                }
-
-                _del1Rouge.Write(PinValue.Low);
-                _del1Vert.Write(PinValue.High);
-
-                if (!kbd.IsConnected)
-                {
-                    _del2Rouge.Write(PinValue.Low);
+                    Thread.Sleep(100);
                     _del2Vert.Write(PinValue.High);
                     Thread.Sleep(100);
-                    continue;
                 }
 
-                Thread.Sleep(5000);
+                if (_btn4.Read() == PinValue.High && debounce != "btn4")
+                {
+                    KeyboardUtilities.TypeText(kbd, "4");
+                    debounce = "btn4";
+                    _del1Rouge.Write(PinValue.Low);
+                    Thread.Sleep(100);
+                    _del1Vert.Write(PinValue.High);
+                    Thread.Sleep(100);
+                    _del2Rouge.Write(PinValue.Low);
+                    Thread.Sleep(100);
+                    _del2Vert.Write(PinValue.High);
+                    Thread.Sleep(100);
+                }
 
-                kbd.Send(Keys.Modifiers.LeftGUI, Keys.Alphabet.R);
-                KeyboardUtilities.TypeText(kbd, "Notepad");
-                kbd.Send(Keys.Control.Return);
+                //if (debounce == "btn1")
+                //{
+                //    _del1Rouge.Write(PinValue.High);
+                //    _del1Vert.Write(PinValue.Low);
+                //}
 
-                // wait a bit for notepad to launch
-                Thread.Sleep(1000);
+                //if (debounce == "btn2")
+                //{
+                //    _del1Rouge.Write(PinValue.Low);
+                //    _del1Vert.Write(PinValue.High);
+                //}
 
-                KeyboardUtilities.TypeText(kbd, "Hello, World. I want to play a game.");
+                //if (debounce == "btn3")
+                //{
+                //    _del2Rouge.Write(PinValue.Low);
+                //    _del2Vert.Write(PinValue.High);
+                //}
+
+                //if (debounce == "btn4")
+                //{
+                //    _del1Rouge.Write(PinValue.Low);
+                //    _del1Vert.Write(PinValue.High);
+                //    _del2Rouge.Write(PinValue.Low);
+                //    _del2Vert.Write(PinValue.High);
+                //}
             }
         }
     }
