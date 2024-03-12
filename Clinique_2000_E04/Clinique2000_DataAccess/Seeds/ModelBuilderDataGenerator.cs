@@ -1392,7 +1392,7 @@ namespace Clinique2000_DataAccess.Seeds
                 EmployeCliniquePosition  = EmployeCliniquePosition.Medecin,
                 CliniqueID = 1,
 
-            }) ;
+            });
 
             builder.Entity<EmployesClinique>().HasData(new EmployesClinique()
             {
