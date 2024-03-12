@@ -1,9 +1,11 @@
 using Clinique2000_Core.Models;
+using Clinique2000_Core.ViewModels;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Utility.Enum;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using static Clinique2000_Services.Services.PatientService;
 
 namespace Clinique2000_Services.Services
 {
@@ -20,24 +22,24 @@ namespace Clinique2000_Services.Services
         }
 
 
-        //public async Task<EmployesCliniqueVM> obtenirDonnees(EmployesClinique employesClinique)
-        //{
-        //    Clinique clinique= await SelectionnerClinique(employesClinique.CliniqueID);
-        //    ListeAttente listeAttente = await ObtenirListeAttenteDeLaClinqueDeLEmploye(employesClinique.CliniqueID);
-            
+        public async Task<EmployesCliniqueVM> obtenirDonnees(EmployesClinique employesClinique)
+        {
+            Clinique clinique = await SelectionnerClinique(employesClinique.CliniqueID);
+            ListeAttente listeAttente = await ObtenirListeAttenteDeLaClinqueDeLEmploye(employesClinique.CliniqueID);
 
-        //    var employesClinqueVM = new EmployesCliniqueVM()
-        //    {
-        //        EmployesClinique = employesClinique,
-        //        MesCliniques = _context.Cliniques.Where(c => c.CliniqueID == employesClinique.CliniqueID).ToList(),
-        //        ListeAttente = listeAttente,
-                
-        //    };
-            
-        //    return employesClinqueVM;
-        //}
 
-        
+            var employesClinqueVM = new EmployesCliniqueVM()
+            {
+                EmployesClinique = employesClinique,
+                MesCliniques = _context.Cliniques.Where(c => c.CliniqueID == employesClinique.CliniqueID).ToList(),
+                ListeAttente = listeAttente,
+
+            };
+
+            return employesClinqueVM;
+        }
+
+
 
         public async Task<IList<Clinique>>ObtenirCliniquesDeLEmploye(EmployesClinique employesClinique)
         {
@@ -121,7 +123,21 @@ namespace Clinique2000_Services.Services
                 return false;
         }
 
-      
+        public async Task UpdateEmployeCliniqueAsync(EmployesClinique employeClinique)
+        {
+            //var employe = _context.EmployesClinique.Where(e => e.EmployeCliniqueID == employeClinique.EmployeCliniqueID).FirstOrDefault();
+            //_context.EmployesClinique.Remove(employe);
+            //_context.EmployesClinique.Update(employeClinique);
+            //await _context.SaveChangesAsync();
+
+
+            await EditerAsync(employeClinique);
+        }
+
+        public bool EmployeCliniqueExists(int id)
+        {
+            return _context.EmployesClinique.Any(e => e.EmployeCliniqueID == id);
+        }
 
     }
 }

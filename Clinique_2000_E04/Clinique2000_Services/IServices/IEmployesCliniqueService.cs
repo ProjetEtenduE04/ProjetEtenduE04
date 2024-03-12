@@ -12,5 +12,7 @@ namespace Clinique2000_Services.IServices
         Task<EmployesClinique> VerifierSiUserAuthEstEmploye(string userEmail);
         Task<List<EmployesClinique>> GetEmployeSelonLaListeClinique(IEnumerable<Clinique> listClinique);
         Task<bool> EmployeCliniqueEstReceptionniste(EmployesClinique employeclinique);
+        Task UpdateEmployeCliniqueAsync(EmployesClinique employeClinique);
+        public bool EmployeCliniqueExists(int id);
     }
 }

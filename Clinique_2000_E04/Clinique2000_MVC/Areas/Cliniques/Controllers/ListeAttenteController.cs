@@ -1,17 +1,10 @@
-
 using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
-using Clinique2000_Services.Services;
 using Clinique2000_Services.IServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Immutable;
 using Clinique2000_Utility.Enum;
 using Clinique2000_Utility.Constants;
-using Microsoft.AspNetCore.Identity;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
@@ -44,7 +37,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             if (employee!=null && employee.EmployeCliniquePosition == EmployeCliniquePosition.Receptionniste
                 /* await _services.employesClinique.EmployeCliniqueEstReceptionniste(employee) == true*/)
             {
-                IList<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
+                List<ListeAttente> listListAttente = await _services.listeAttente.ObtenirToutAsync();
 
                 listListAttente = listListAttente.Where(x => x.DateEffectivite >= DateTime.Now && x.CliniqueID== employee.CliniqueID)
                     .OrderBy(x => x.DateEffectivite)
@@ -175,11 +168,17 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    listeAttente.CliniqueID = 2;
+                    var user = await _services.patient.GetUserAuthAsync();
+                    var userid = await _services.employesClinique.GetEmployeUserID(user.Email, user.Id);
+                    var employee = await _services.employesClinique.FindOneAsync(x => x.UserID == user.Id && x.EmployeCliniquePosition == EmployeCliniquePosition.Receptionniste);
 
-                    await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
-                    TempData[AppConstants.Success] = $"Vous avez créé avec succès la liste d'attente";
-                    return RedirectToAction("Index");
+                    if (employee != null)
+                    {
+                       _services.listeAttente.AssignerCliniqueIDaListeAttente(listeAttente, employee.CliniqueID);
+                        await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
+                        TempData[AppConstants.Success] = "Vous avez créé avec succès la liste d'attente";
+                        RedirectToAction("Index");
+                    }
                 }
             }
             catch (Exception ex)
