@@ -173,6 +173,7 @@ namespace Clinique2000_DataAccess.Seeds
              }
           );
             #endregion
+
             #region ListeAttente
             builder.Entity<ListeAttente>().HasData(new ListeAttente()
             {
@@ -590,15 +591,15 @@ namespace Clinique2000_DataAccess.Seeds
 
             #endregion PlageHoraire
 
-            #region ApplicationUser
-            // Create ApplicationUser objects
+            #region ApplicationUser 
+            // Create ApplicationUser objects 
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                UserName = "patient245@example.com",
-                NormalizedUserName = "PATIENT245@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                UserName = "patient1@example.com",
+                NormalizedUserName = "PATIENT1@EXAMPLE.COM",
+                Email = "patient1@example.com",
+                NormalizedEmail = "PATIENT1@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -607,8 +608,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2",
                 UserName = "patient2@example.com",
                 NormalizedUserName = "PATIENT2@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient2@example.com",
+                NormalizedEmail = "PATIENT2@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -617,8 +618,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3",
                 UserName = "patient3@example.com",
                 NormalizedUserName = "PATIENT3@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient3@example.com",
+                NormalizedEmail = "PATIENT3@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -627,8 +628,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4",
                 UserName = "patient4@example.com",
                 NormalizedUserName = "PATIENT4@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient4@example.com",
+                NormalizedEmail = "PATIENT4@EXAMPLE.COM",
                 EmailConfirmed = true,
 
 
@@ -639,8 +640,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g5",
                 UserName = "patient5@example.com",
                 NormalizedUserName = "PATIENT5@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient5@example.com",
+                NormalizedEmail = "PATIENT5@EXAMPLE.COM",
                 EmailConfirmed = true,
 
 
@@ -650,8 +651,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "7cc96785-8933-4eac-8d7f-a289b28df226",
                 UserName = "patient6@example.com",
                 NormalizedUserName = "PATIENT6@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient6@example.com",
+                NormalizedEmail = "PATIENT6@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -660,8 +661,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7",
                 UserName = "patient7@example.com",
                 NormalizedUserName = "PATIENT7@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient7@example.com",
+                NormalizedEmail = "PATIENT7@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -670,8 +671,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38",
                 UserName = "patient8@example.com",
                 NormalizedUserName = "PATIENT8@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient8@example.com",
+                NormalizedEmail = "PATIENT8@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -680,8 +681,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g9",
                 UserName = "patient9@example.com",
                 NormalizedUserName = "PATIENT9@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient9@example.com",
+                NormalizedEmail = "PATIENT9@EXAMPLE.COM",
                 EmailConfirmed = true,
 
 
@@ -692,20 +693,20 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g410",
                 UserName = "patient10@example.com",
                 NormalizedUserName = "PATIENT10@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient10@example.com",
+                NormalizedEmail = "PATIENT10@EXAMPLE.COM",
                 EmailConfirmed = true,
 
 
             });
-            
+
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 Id = "7cc96785-8933-4eac-8d7f-a289b28df211",
-                UserName = "testproject2132@gmail.com",
-                NormalizedUserName = "TESTPROJECT2132@GMAIL.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                UserName = "patient11@example.com",
+                NormalizedUserName = "PATIENT11@EXAMPLE.COM",
+                Email = "patient11@example.com",
+                NormalizedEmail = "PATIENT11@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -714,8 +715,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d212",
                 UserName = "patient12@example.com",
                 NormalizedUserName = "PATIENT12@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient12@example.com",
+                NormalizedEmail = "PATIENT12@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -724,8 +725,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313",
                 UserName = "patient13@example.com",
                 NormalizedUserName = "PATIENT13@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient13@example.com",
+                NormalizedEmail = "PATIENT13@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -734,8 +735,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g414",
                 UserName = "patient14@example.com",
                 NormalizedUserName = "PATIENT14@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient14@example.com",
+                NormalizedEmail = "PATIENT14@EXAMPLE.COM",
                 EmailConfirmed = true,
 
 
@@ -746,8 +747,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g415",
                 UserName = "patient15@example.com",
                 NormalizedUserName = "PATIENT15@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient15@example.com",
+                NormalizedEmail = "PATIENT15@EXAMPLE.COM",
                 EmailConfirmed = true,
 
 
@@ -758,8 +759,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "7cc96785-8933-4eac-8d7f-a289b28df216",
                 UserName = "patient16@example.com",
                 NormalizedUserName = "PATIENT16@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient16@example.com",
+                NormalizedEmail = "PATIENT16@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -768,8 +769,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d217",
                 UserName = "patient17@example.com",
                 NormalizedUserName = "PATIENT17@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient17@example.com",
+                NormalizedEmail = "PATIENT17@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -778,8 +779,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318",
                 UserName = "patient18@example.com",
                 NormalizedUserName = "PATIENT18@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient18@example.com",
+                NormalizedEmail = "PATIENT18@EXAMPLE.COM",
                 EmailConfirmed = true,
             });
 
@@ -788,8 +789,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g419",
                 UserName = "patient19@example.com",
                 NormalizedUserName = "PATIENT19@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient19@example.com",
+                NormalizedEmail = "PATIENT19@EXAMPLE.COM",
                 EmailConfirmed = true,
 
 
@@ -801,8 +802,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g420",
                 UserName = "patient20@example.com",
                 NormalizedUserName = "PATIENT20@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient20@example.com",
+                NormalizedEmail = "PATIENT20@EXAMPLE.COM",
                 EmailConfirmed = true,
 
 
@@ -812,8 +813,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g421",
                 UserName = "patient21@example.com",
                 NormalizedUserName = "PATIENT21@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient21@example.com",
+                NormalizedEmail = "PATIENT21@EXAMPLE.COM",
                 EmailConfirmed = true,
 
 
@@ -823,8 +824,8 @@ namespace Clinique2000_DataAccess.Seeds
                 Id = "g4d0a589-2b02-4d36-9a85-39c028a4g22",
                 UserName = "patient22@example.com",
                 NormalizedUserName = "PATIENT22@EXAMPLE.COM",
-                Email = "testproject2132@gmail.com",
-                NormalizedEmail = "TESTPROJECT2132@GMAIL.COM",
+                Email = "patient22@example.com",
+                NormalizedEmail = "PATIENT22@EXAMPLE.COM",
                 EmailConfirmed = true,
 
 
@@ -833,7 +834,7 @@ namespace Clinique2000_DataAccess.Seeds
 
 
             #region Patient 
-           
+
             builder.Entity<Patient>().HasData(new Patient()
             {
                 PatientId = 1,
