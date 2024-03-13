@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Clinique2000_DataAccess.Migrations
 {
-    public partial class seed : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,6 +65,7 @@ namespace Clinique2000_DataAccess.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EstApprouvee = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -192,6 +193,42 @@ namespace Clinique2000_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CliniqueRefusees",
+                columns: table => new
+                {
+                    CliniqueRefuseeID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NomClinique = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Courriel = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    HeureOuverture = table.Column<TimeSpan>(type: "time", nullable: false),
+                    HeureFermeture = table.Column<TimeSpan>(type: "time", nullable: false),
+                    TempsMoyenConsultation = table.Column<int>(type: "int", nullable: false),
+                    NumTelephone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EstActive = table.Column<bool>(type: "bit", nullable: false),
+                    DateCreation = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateModification = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AdresseID = table.Column<int>(type: "int", nullable: false),
+                    CreateurID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EstApprouvee = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CliniqueRefusees", x => x.CliniqueRefuseeID);
+                    table.ForeignKey(
+                        name: "FK_CliniqueRefusees_Adresses_AdresseID",
+                        column: x => x.AdresseID,
+                        principalTable: "Adresses",
+                        principalColumn: "AdresseID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CliniqueRefusees_AspNetUsers_CreateurID",
+                        column: x => x.CreateurID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cliniques",
                 columns: table => new
                 {
@@ -207,7 +244,8 @@ namespace Clinique2000_DataAccess.Migrations
                     DateCreation = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateModification = table.Column<DateTime>(type: "datetime2", nullable: true),
                     AdresseID = table.Column<int>(type: "int", nullable: false),
-                    CreateurID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    CreateurID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EstApprouvee = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -263,7 +301,8 @@ namespace Clinique2000_DataAccess.Migrations
                     EmployeCliniqueCourriel = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmployeCliniquePosition = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CliniqueID = table.Column<int>(type: "int", nullable: false)
+                    CliniqueID = table.Column<int>(type: "int", nullable: false),
+                    CliniqueRefuseeID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -273,6 +312,11 @@ namespace Clinique2000_DataAccess.Migrations
                         column: x => x.UserID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_EmployesClinique_CliniqueRefusees_CliniqueRefuseeID",
+                        column: x => x.CliniqueRefuseeID,
+                        principalTable: "CliniqueRefusees",
+                        principalColumn: "CliniqueRefuseeID");
                     table.ForeignKey(
                         name: "FK_EmployesClinique_Cliniques_CliniqueID",
                         column: x => x.CliniqueID,
@@ -292,11 +336,17 @@ namespace Clinique2000_DataAccess.Migrations
                     HeureOuverture = table.Column<TimeSpan>(type: "time", nullable: false),
                     HeureFermeture = table.Column<TimeSpan>(type: "time", nullable: false),
                     NbMedecinsDispo = table.Column<int>(type: "int", nullable: false),
-                    CliniqueID = table.Column<int>(type: "int", nullable: false)
+                    CliniqueID = table.Column<int>(type: "int", nullable: false),
+                    CliniqueRefuseeID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ListeAttentes", x => x.ListeAttenteID);
+                    table.ForeignKey(
+                        name: "FK_ListeAttentes_CliniqueRefusees_CliniqueRefuseeID",
+                        column: x => x.CliniqueRefuseeID,
+                        principalTable: "CliniqueRefusees",
+                        principalColumn: "CliniqueRefuseeID");
                     table.ForeignKey(
                         name: "FK_ListeAttentes_Cliniques_CliniqueID",
                         column: x => x.CliniqueID,
@@ -408,44 +458,44 @@ namespace Clinique2000_DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "EstApprouvee", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "7cc96785-8933-4eac-8d7f-a289b28df211", 0, "799cc800-d7df-4fdd-86e5-f027dc3dafdc", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "TESTPROJECT2132@GMAIL.COM", null, null, false, "1624539a-eac3-4f6e-abb1-7a611e1528ea", false, "testproject2132@gmail.com" },
-                    { "7cc96785-8933-4eac-8d7f-a289b28df216", 0, "f5a0002f-89ef-4a87-8c4a-56132c6cf2de", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT16@EXAMPLE.COM", null, null, false, "f396b243-3eb5-4179-95b4-0c44b8af6269", false, "patient16@example.com" },
-                    { "7cc96785-8933-4eac-8d7f-a289b28df223", 0, "f495d310-40eb-4baf-a1b3-7687687d1136", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT245@EXAMPLE.COM", null, null, false, "a7413b7d-e542-4188-a1a5-a95d6bf145c5", false, "patient245@example.com" },
-                    { "7cc96785-8933-4eac-8d7f-a289b28df226", 0, "cf3bf6b5-b998-422a-96e1-5b9e84c2798c", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT6@EXAMPLE.COM", null, null, false, "e976f439-8ead-4da2-baf8-f5c1c1232688", false, "patient6@example.com" },
-                    { "e2b8f367-6c94-4a3e-b5a6-45dabec4d212", 0, "a4828481-7aba-4525-874f-93b02d6740b0", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT12@EXAMPLE.COM", null, null, false, "9af4ed6b-5ab0-4064-ae9e-7d8a0b90e336", false, "patient12@example.com" },
-                    { "e2b8f367-6c94-4a3e-b5a6-45dabec4d217", 0, "a27763b6-00ef-4ee1-bb6c-7e22dba6d174", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT17@EXAMPLE.COM", null, null, false, "d6d49273-1650-49a5-8fe6-dbff17490347", false, "patient17@example.com" },
-                    { "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2", 0, "001a39c3-22fa-4f55-afe3-5d8340f2c134", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT2@EXAMPLE.COM", null, null, false, "ae632f7b-314f-4613-b619-5ef7a7c890ce", false, "patient2@example.com" },
-                    { "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7", 0, "1fb3008b-f93e-47ea-9572-3b37c7e4cc7c", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT7@EXAMPLE.COM", null, null, false, "e958e8b5-62ca-43ba-81a3-67d5e5cb0bf9", false, "patient7@example.com" },
-                    { "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313", 0, "a2dfd117-8364-4cb5-8334-e23645969547", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT13@EXAMPLE.COM", null, null, false, "b122db71-e117-4952-94c9-89e95a1aae72", false, "patient13@example.com" },
-                    { "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318", 0, "21ee4602-2c73-4eda-9ea1-c28bcc9e0a33", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT18@EXAMPLE.COM", null, null, false, "ebcc9af6-9cd2-4ca8-9f2d-273501f0e88e", false, "patient18@example.com" },
-                    { "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3", 0, "708cdf77-2d32-4dcd-bc35-c37c9befb972", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT3@EXAMPLE.COM", null, null, false, "79e5add6-6565-4dfe-9b58-8ceb34baac15", false, "patient3@example.com" },
-                    { "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38", 0, "f31bc421-c571-408c-80e9-f68b82dc3be8", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT8@EXAMPLE.COM", null, null, false, "7db7c1f4-c6ae-46eb-885e-25cb1f8132ba", false, "patient8@example.com" },
-                    { "g4d0a589-2b02-4d36-9a85-39c028a4g22", 0, "6fb034a8-f93e-4456-9b7c-cf6bfed8364f", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT22@EXAMPLE.COM", null, null, false, "d128b50d-0e6c-42e4-8e87-233ec5f817e3", false, "patient22@example.com" },
-                    { "g4d0a589-2b02-4d36-9a85-39c028a4g410", 0, "7dd70548-0c72-44c2-bd67-0a5ff6a8e3fb", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT10@EXAMPLE.COM", null, null, false, "5dde69d3-6834-4f03-ae7a-dec7f69bbe56", false, "patient10@example.com" },
-                    { "g4d0a589-2b02-4d36-9a85-39c028a4g414", 0, "0b989e1a-eca3-46d3-b8d0-6ef1903eaa2e", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT14@EXAMPLE.COM", null, null, false, "baa03aa9-bb76-4b0a-b47e-05135315a65b", false, "patient14@example.com" },
-                    { "g4d0a589-2b02-4d36-9a85-39c028a4g415", 0, "c6db5229-b8fd-4d4c-a7dd-8ea76a14f8ad", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT15@EXAMPLE.COM", null, null, false, "f2c5df8e-1d37-4ecb-ab60-b9ecda819877", false, "patient15@example.com" },
-                    { "g4d0a589-2b02-4d36-9a85-39c028a4g419", 0, "1eab1269-4a4e-4339-b5a4-85f48a56f3d6", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT19@EXAMPLE.COM", null, null, false, "46783c58-7fbe-4337-a07e-934b5b0a3384", false, "patient19@example.com" },
-                    { "g4d0a589-2b02-4d36-9a85-39c028a4g420", 0, "b590d920-6ccd-4c73-a2df-2cf997a87ba4", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT20@EXAMPLE.COM", null, null, false, "701bdd1e-0dbe-4eac-920f-b8bc478e047c", false, "patient20@example.com" },
-                    { "g4d0a589-2b02-4d36-9a85-39c028a4g421", 0, "0989f448-bf44-47af-b552-edcb9b8e6001", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT21@EXAMPLE.COM", null, null, false, "0cd49887-e5fd-43f9-90a0-caa1498a3b27", false, "patient21@example.com" },
-                    { "g4d0a589-2b02-4d36-9a85-39c028a4g4g4", 0, "e7784e97-ee4c-4452-9a80-6693a7edbfcb", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT4@EXAMPLE.COM", null, null, false, "fe05b8e6-b781-47de-93e4-3861fa440d42", false, "patient4@example.com" },
-                    { "g4d0a589-2b02-4d36-9a85-39c028a4g4g5", 0, "49ff13ea-6e9a-453b-a8f9-ff3fb8c12140", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT5@EXAMPLE.COM", null, null, false, "159ed0db-fb26-4753-873e-5ba72d8c4e82", false, "patient5@example.com" },
-                    { "g4d0a589-2b02-4d36-9a85-39c028a4g4g9", 0, "bea36e46-64ef-4d5a-9e16-df318cb5aaa7", "ApplicationUser", "testproject2132@gmail.com", true, false, null, "TESTPROJECT2132@GMAIL.COM", "PATIENT9@EXAMPLE.COM", null, null, false, "05ab871a-f9cf-40ba-815c-98e36b4e3dbd", false, "patient9@example.com" }
+                    { "7cc96785-8933-4eac-8d7f-a289b28df211", 0, "3c74c0ab-180b-4394-ba89-637aebd6a5db", "ApplicationUser", "patient11@example.com", true, false, false, null, "PATIENT11@EXAMPLE.COM", "PATIENT11@EXAMPLE.COM", null, null, false, "2af0c341-3491-4abe-9a1b-0b58189b8fc7", false, "patient11@example.com" },
+                    { "7cc96785-8933-4eac-8d7f-a289b28df216", 0, "e7bdbc52-8f79-4cb2-8c8d-3abab194b655", "ApplicationUser", "patient16@example.com", true, false, false, null, "PATIENT16@EXAMPLE.COM", "PATIENT16@EXAMPLE.COM", null, null, false, "dae5a22e-dbee-4c9b-af82-cfe5b2df3649", false, "patient16@example.com" },
+                    { "7cc96785-8933-4eac-8d7f-a289b28df223", 0, "bcdd2735-5230-41f6-a386-80c865737405", "ApplicationUser", "patient1@example.com", true, false, false, null, "PATIENT1@EXAMPLE.COM", "PATIENT1@EXAMPLE.COM", null, null, false, "b20a66de-0e20-41e5-8660-da6ca77c45e8", false, "patient1@example.com" },
+                    { "7cc96785-8933-4eac-8d7f-a289b28df226", 0, "c6e94175-f4da-4857-8da8-7baed8481886", "ApplicationUser", "patient6@example.com", true, false, false, null, "PATIENT6@EXAMPLE.COM", "PATIENT6@EXAMPLE.COM", null, null, false, "3bba1705-021e-430c-bac0-d9794cfc0df3", false, "patient6@example.com" },
+                    { "e2b8f367-6c94-4a3e-b5a6-45dabec4d212", 0, "9284b9ea-87b1-49fa-89f6-323e7b2f0889", "ApplicationUser", "patient12@example.com", true, false, false, null, "PATIENT12@EXAMPLE.COM", "PATIENT12@EXAMPLE.COM", null, null, false, "591bd528-16de-48b5-9b34-86d5f79a597a", false, "patient12@example.com" },
+                    { "e2b8f367-6c94-4a3e-b5a6-45dabec4d217", 0, "399da1aa-aeb3-4179-805d-03e5c924b1a5", "ApplicationUser", "patient17@example.com", true, false, false, null, "PATIENT17@EXAMPLE.COM", "PATIENT17@EXAMPLE.COM", null, null, false, "1df8773b-fbf6-4430-9ba5-25223ff6eae4", false, "patient17@example.com" },
+                    { "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2", 0, "6d269f3c-3557-4077-a878-f1cf168e60d8", "ApplicationUser", "patient2@example.com", true, false, false, null, "PATIENT2@EXAMPLE.COM", "PATIENT2@EXAMPLE.COM", null, null, false, "2edef3bf-1912-49c9-948d-507e69bb7bfb", false, "patient2@example.com" },
+                    { "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7", 0, "d771053f-d62e-462d-a483-b478bb205ee4", "ApplicationUser", "patient7@example.com", true, false, false, null, "PATIENT7@EXAMPLE.COM", "PATIENT7@EXAMPLE.COM", null, null, false, "81599632-29a4-4d0e-ad4f-b0360d9c7e38", false, "patient7@example.com" },
+                    { "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313", 0, "432af10e-0e7e-4c79-8fb9-e8a38316ca93", "ApplicationUser", "patient13@example.com", true, false, false, null, "PATIENT13@EXAMPLE.COM", "PATIENT13@EXAMPLE.COM", null, null, false, "c27bb2f0-50d5-414c-9849-6e67eda63d1d", false, "patient13@example.com" },
+                    { "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318", 0, "ed3fcc49-2d88-405e-a252-677c84b7bf7d", "ApplicationUser", "patient18@example.com", true, false, false, null, "PATIENT18@EXAMPLE.COM", "PATIENT18@EXAMPLE.COM", null, null, false, "5c2a21f2-ab45-44fa-8b1f-31b279e94e5b", false, "patient18@example.com" },
+                    { "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3", 0, "7112dc3b-3d6c-45ce-b964-cf6f7bad5ecf", "ApplicationUser", "patient3@example.com", true, false, false, null, "PATIENT3@EXAMPLE.COM", "PATIENT3@EXAMPLE.COM", null, null, false, "cc35fbd8-c264-425b-9bc1-dafb6b1cdd96", false, "patient3@example.com" },
+                    { "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38", 0, "fc98c3ac-0878-4945-aaf7-49d39acd1409", "ApplicationUser", "patient8@example.com", true, false, false, null, "PATIENT8@EXAMPLE.COM", "PATIENT8@EXAMPLE.COM", null, null, false, "36ea2e34-87fb-457d-9ebb-a7a0bbff3e70", false, "patient8@example.com" },
+                    { "g4d0a589-2b02-4d36-9a85-39c028a4g22", 0, "444079d7-3d8c-4935-94c6-c150275fc70c", "ApplicationUser", "patient22@example.com", true, false, false, null, "PATIENT22@EXAMPLE.COM", "PATIENT22@EXAMPLE.COM", null, null, false, "a28d8993-c52d-4fb8-a389-8eb860ae5bfe", false, "patient22@example.com" },
+                    { "g4d0a589-2b02-4d36-9a85-39c028a4g410", 0, "9ed74ffb-91d9-4511-8103-16c8622f0b39", "ApplicationUser", "patient10@example.com", true, false, false, null, "PATIENT10@EXAMPLE.COM", "PATIENT10@EXAMPLE.COM", null, null, false, "280e3f27-7dac-46b1-8ece-a3e6401a67d4", false, "patient10@example.com" },
+                    { "g4d0a589-2b02-4d36-9a85-39c028a4g414", 0, "8e8676dd-71d1-462b-83cb-21410716bc67", "ApplicationUser", "patient14@example.com", true, false, false, null, "PATIENT14@EXAMPLE.COM", "PATIENT14@EXAMPLE.COM", null, null, false, "a52197c0-f4f3-45e1-94c5-b6d6dd7ceab2", false, "patient14@example.com" },
+                    { "g4d0a589-2b02-4d36-9a85-39c028a4g415", 0, "16adf863-6b7b-48a9-8582-33abf91747cf", "ApplicationUser", "patient15@example.com", true, false, false, null, "PATIENT15@EXAMPLE.COM", "PATIENT15@EXAMPLE.COM", null, null, false, "2e07ef93-51d1-4aa9-a5a6-16c0cf579f98", false, "patient15@example.com" },
+                    { "g4d0a589-2b02-4d36-9a85-39c028a4g419", 0, "2d286ca1-d6b3-4756-9286-93b3f447f7b8", "ApplicationUser", "patient19@example.com", true, false, false, null, "PATIENT19@EXAMPLE.COM", "PATIENT19@EXAMPLE.COM", null, null, false, "54585105-b504-48f8-b6b8-9e7f0e0d21d3", false, "patient19@example.com" },
+                    { "g4d0a589-2b02-4d36-9a85-39c028a4g420", 0, "45cd5f73-3f10-43b7-99de-2ac36238e30e", "ApplicationUser", "patient20@example.com", true, false, false, null, "PATIENT20@EXAMPLE.COM", "PATIENT20@EXAMPLE.COM", null, null, false, "952ec5fc-e57f-4524-a603-4c759babbc92", false, "patient20@example.com" },
+                    { "g4d0a589-2b02-4d36-9a85-39c028a4g421", 0, "572d9c50-2acf-4cf9-a41c-d398840364a0", "ApplicationUser", "patient21@example.com", true, false, false, null, "PATIENT21@EXAMPLE.COM", "PATIENT21@EXAMPLE.COM", null, null, false, "a8d8df8b-467d-4167-8108-dfbc9cbb06a2", false, "patient21@example.com" },
+                    { "g4d0a589-2b02-4d36-9a85-39c028a4g4g4", 0, "fc4b0b82-af2a-4f8d-a9e2-284ab44f0728", "ApplicationUser", "patient4@example.com", true, false, false, null, "PATIENT4@EXAMPLE.COM", "PATIENT4@EXAMPLE.COM", null, null, false, "fe4a15a4-031c-43ef-8eb7-600f368279f5", false, "patient4@example.com" },
+                    { "g4d0a589-2b02-4d36-9a85-39c028a4g4g5", 0, "713eeedb-1a95-4f4d-aed0-f30609d3989f", "ApplicationUser", "patient5@example.com", true, false, false, null, "PATIENT5@EXAMPLE.COM", "PATIENT5@EXAMPLE.COM", null, null, false, "58e910cd-c9b3-41e2-bdba-b83f3f599cfe", false, "patient5@example.com" },
+                    { "g4d0a589-2b02-4d36-9a85-39c028a4g4g9", 0, "96818d85-afe9-4a51-8e42-392191a35a08", "ApplicationUser", "patient9@example.com", true, false, false, null, "PATIENT9@EXAMPLE.COM", "PATIENT9@EXAMPLE.COM", null, null, false, "405edb97-b6b0-46e4-82a4-1a2c2144292e", false, "patient9@example.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Cliniques",
-                columns: new[] { "CliniqueID", "AdresseID", "Courriel", "CreateurID", "DateCreation", "DateModification", "EstActive", "HeureFermeture", "HeureOuverture", "NomClinique", "NumTelephone", "TempsMoyenConsultation" },
+                columns: new[] { "CliniqueID", "AdresseID", "Courriel", "CreateurID", "DateCreation", "DateModification", "EstActive", "EstApprouvee", "HeureFermeture", "HeureOuverture", "NomClinique", "NumTelephone", "TempsMoyenConsultation" },
                 values: new object[,]
                 {
-                    { 1, 1, "contact@adoncour.ca", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 11, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5473), null, true, new TimeSpan(0, 15, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Clinique Adoncour", "(450) 646-4445", 30 },
-                    { 2, 2, "contact@pboucher.ca", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 11, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5528), null, true, new TimeSpan(0, 22, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Clinique Pierre-Boucher", "(450) 468-6223", 30 },
-                    { 3, 3, "contact@camu.ca", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 11, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5531), null, true, new TimeSpan(0, 18, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Clinique Medicale Urgence Camu", "(450) 679-4333", 20 },
-                    { 4, 4, "contact@cigogne.ca", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 11, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5533), null, true, new TimeSpan(0, 20, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Medical Clinic GMF La Cigogne", "(450) 466-7892", 40 },
-                    { 5, 5, "contact@cmenroute.ca", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 11, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5535), null, true, new TimeSpan(0, 16, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Clinique Medicale en Route", "(514) 954-1444", 10 },
-                    { 6, 6, "contact@chambly.com", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 11, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5537), null, true, new TimeSpan(0, 16, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Centre Médical Chambly Latour", "(450) 926-2236", 15 }
+                    { 1, 1, "contact@adoncour.ca", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 12, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8005), null, true, true, new TimeSpan(0, 15, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Clinique Adoncour", "(450) 646-4445", 30 },
+                    { 2, 2, "contact@pboucher.ca", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 12, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8059), null, true, true, new TimeSpan(0, 22, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Clinique Pierre-Boucher", "(450) 468-6223", 30 },
+                    { 3, 3, "contact@camu.ca", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 12, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8062), null, true, false, new TimeSpan(0, 18, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Clinique Medicale Urgence Camu", "(450) 679-4333", 20 },
+                    { 4, 4, "contact@cigogne.ca", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 12, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8065), null, true, false, new TimeSpan(0, 20, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Medical Clinic GMF La Cigogne", "(450) 466-7892", 40 },
+                    { 5, 5, "contact@cmenroute.ca", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 12, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8067), null, true, false, new TimeSpan(0, 16, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Clinique Medicale en Route", "(514) 954-1444", 10 },
+                    { 6, 6, "contact@chambly.com", "7cc96785-8933-4eac-8d7f-a289b28df223", new DateTime(2024, 3, 12, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8069), null, true, false, new TimeSpan(0, 16, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), "Centre Médical Chambly Latour", "(450) 926-2236", 15 }
                 });
 
             migrationBuilder.InsertData(
@@ -478,44 +528,44 @@ namespace Clinique2000_DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "EmployesClinique",
-                columns: new[] { "EmployeCliniqueID", "CliniqueID", "EmployeCliniqueCourriel", "EmployeCliniqueNom", "EmployeCliniquePosition", "EmployeCliniquePrenom", "UserID" },
+                columns: new[] { "EmployeCliniqueID", "CliniqueID", "CliniqueRefuseeID", "EmployeCliniqueCourriel", "EmployeCliniqueNom", "EmployeCliniquePosition", "EmployeCliniquePrenom", "UserID" },
                 values: new object[,]
                 {
-                    { 1, 1, "numcliniquetest@gmail.com", "Tremblay", 0, "Mark", null },
-                    { 2, 1, "testproject2132@gmail.com", "Dubois", 0, "Monique", null },
-                    { 3, 1, "sylviebeton98@gmail.com", "Beton", 1, "Sylvie", null },
-                    { 4, 1, "clinique597@gmail.com", "Bostan", 1, "Max", null }
+                    { 1, 1, null, "numcliniquetest@gmail.com", "Tremblay", 0, "Mark", null },
+                    { 2, 1, null, "testproject2132@gmail.com", "Dubois", 0, "Monique", null },
+                    { 3, 1, null, "sylviebeton98@gmail.com", "Beton", 1, "Sylvie", null },
+                    { 4, 1, null, "clinique597@gmail.com", "Bostan", 1, "Max", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "ListeAttentes",
-                columns: new[] { "ListeAttenteID", "CliniqueID", "DateEffectivite", "HeureFermeture", "HeureOuverture", "IsOuverte", "NbMedecinsDispo" },
+                columns: new[] { "ListeAttenteID", "CliniqueID", "CliniqueRefuseeID", "DateEffectivite", "HeureFermeture", "HeureOuverture", "IsOuverte", "NbMedecinsDispo" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 3, 12, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5573), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
-                    { 2, 2, new DateTime(2024, 3, 12, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5587), new TimeSpan(0, 8, 30, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 1 },
-                    { 3, 3, new DateTime(2024, 3, 12, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5596), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
-                    { 4, 4, new DateTime(2024, 3, 12, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5604), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
-                    { 5, 5, new DateTime(2024, 3, 12, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5613), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
-                    { 6, 6, new DateTime(2024, 3, 12, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5622), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
-                    { 7, 2, new DateTime(2024, 3, 13, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5630), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
-                    { 8, 2, new DateTime(2024, 3, 13, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5638), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
-                    { 9, 3, new DateTime(2024, 3, 13, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5646), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
-                    { 10, 4, new DateTime(2024, 3, 15, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5655), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
-                    { 11, 4, new DateTime(2024, 3, 16, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5663), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 2 },
-                    { 12, 4, new DateTime(2024, 3, 17, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5711), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 3 },
-                    { 13, 5, new DateTime(2024, 3, 14, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5721), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
-                    { 14, 6, new DateTime(2024, 3, 15, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5730), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
-                    { 15, 1, new DateTime(2024, 3, 14, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5737), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 2 },
-                    { 16, 5, new DateTime(2024, 3, 15, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5745), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
-                    { 17, 5, new DateTime(2024, 3, 16, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5753), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 2 },
-                    { 18, 5, new DateTime(2024, 3, 17, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5762), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 3 },
-                    { 19, 6, new DateTime(2024, 3, 12, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5771), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
-                    { 20, 6, new DateTime(2024, 3, 13, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5778), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
-                    { 21, 6, new DateTime(2024, 3, 14, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5786), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
-                    { 22, 6, new DateTime(2024, 3, 15, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5794), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
-                    { 23, 6, new DateTime(2024, 3, 16, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5803), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 2 },
-                    { 24, 6, new DateTime(2024, 3, 17, 14, 28, 59, 131, DateTimeKind.Local).AddTicks(5811), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 3 }
+                    { 1, 1, null, new DateTime(2024, 3, 13, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8162), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
+                    { 2, 2, null, new DateTime(2024, 3, 13, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8177), new TimeSpan(0, 8, 30, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 1 },
+                    { 3, 3, null, new DateTime(2024, 3, 13, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8185), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
+                    { 4, 4, null, new DateTime(2024, 3, 13, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8192), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
+                    { 5, 5, null, new DateTime(2024, 3, 13, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8200), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
+                    { 6, 6, null, new DateTime(2024, 3, 13, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8209), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
+                    { 7, 2, null, new DateTime(2024, 3, 14, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8216), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
+                    { 8, 2, null, new DateTime(2024, 3, 14, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8223), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
+                    { 9, 3, null, new DateTime(2024, 3, 14, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8230), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
+                    { 10, 4, null, new DateTime(2024, 3, 16, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8239), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
+                    { 11, 4, null, new DateTime(2024, 3, 17, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8246), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 2 },
+                    { 12, 4, null, new DateTime(2024, 3, 18, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8253), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 3 },
+                    { 13, 5, null, new DateTime(2024, 3, 15, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8260), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
+                    { 14, 6, null, new DateTime(2024, 3, 16, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8267), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
+                    { 15, 1, null, new DateTime(2024, 3, 15, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8274), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 2 },
+                    { 16, 5, null, new DateTime(2024, 3, 16, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8282), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
+                    { 17, 5, null, new DateTime(2024, 3, 17, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8290), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 2 },
+                    { 18, 5, null, new DateTime(2024, 3, 18, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8298), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 3 },
+                    { 19, 6, null, new DateTime(2024, 3, 13, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8305), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
+                    { 20, 6, null, new DateTime(2024, 3, 14, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8312), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
+                    { 21, 6, null, new DateTime(2024, 3, 15, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8319), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 2 },
+                    { 22, 6, null, new DateTime(2024, 3, 16, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8326), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), true, 3 },
+                    { 23, 6, null, new DateTime(2024, 3, 17, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8332), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 2 },
+                    { 24, 6, null, new DateTime(2024, 3, 18, 10, 24, 50, 277, DateTimeKind.Local).AddTicks(8339), new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), false, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -523,18 +573,18 @@ namespace Clinique2000_DataAccess.Migrations
                 columns: new[] { "PlageHoraireID", "HeureDebut", "HeureFin", "ListeAttenteID" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 3, 12, 8, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 8, 30, 0, 0, DateTimeKind.Local), 1 },
-                    { 2, new DateTime(2024, 3, 12, 8, 30, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 9, 0, 0, 0, DateTimeKind.Local), 1 },
-                    { 3, new DateTime(2024, 3, 12, 9, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 9, 30, 0, 0, DateTimeKind.Local), 1 },
-                    { 4, new DateTime(2024, 3, 12, 9, 30, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 10, 0, 0, 0, DateTimeKind.Local), 1 },
-                    { 5, new DateTime(2024, 3, 12, 10, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 10, 30, 0, 0, DateTimeKind.Local), 1 },
-                    { 6, new DateTime(2024, 3, 12, 10, 30, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 11, 0, 0, 0, DateTimeKind.Local), 1 },
-                    { 7, new DateTime(2024, 3, 12, 11, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 11, 30, 0, 0, DateTimeKind.Local), 1 },
-                    { 8, new DateTime(2024, 3, 12, 11, 30, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 12, 0, 0, 0, DateTimeKind.Local), 1 },
-                    { 9, new DateTime(2024, 3, 12, 12, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 12, 30, 0, 0, DateTimeKind.Local), 1 },
-                    { 10, new DateTime(2024, 3, 12, 12, 30, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 13, 0, 0, 0, DateTimeKind.Local), 1 },
-                    { 11, new DateTime(2024, 3, 12, 13, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 13, 30, 0, 0, DateTimeKind.Local), 1 },
-                    { 12, new DateTime(2024, 3, 12, 17, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 12, 17, 30, 0, 0, DateTimeKind.Local), 1 }
+                    { 1, new DateTime(2024, 3, 13, 8, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 8, 30, 0, 0, DateTimeKind.Local), 1 },
+                    { 2, new DateTime(2024, 3, 13, 8, 30, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 9, 0, 0, 0, DateTimeKind.Local), 1 },
+                    { 3, new DateTime(2024, 3, 13, 9, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 9, 30, 0, 0, DateTimeKind.Local), 1 },
+                    { 4, new DateTime(2024, 3, 13, 9, 30, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 10, 0, 0, 0, DateTimeKind.Local), 1 },
+                    { 5, new DateTime(2024, 3, 13, 10, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 10, 30, 0, 0, DateTimeKind.Local), 1 },
+                    { 6, new DateTime(2024, 3, 13, 10, 30, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 11, 0, 0, 0, DateTimeKind.Local), 1 },
+                    { 7, new DateTime(2024, 3, 13, 11, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 11, 30, 0, 0, DateTimeKind.Local), 1 },
+                    { 8, new DateTime(2024, 3, 13, 11, 30, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 12, 0, 0, 0, DateTimeKind.Local), 1 },
+                    { 9, new DateTime(2024, 3, 13, 12, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 12, 30, 0, 0, DateTimeKind.Local), 1 },
+                    { 10, new DateTime(2024, 3, 13, 12, 30, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 13, 0, 0, 0, DateTimeKind.Local), 1 },
+                    { 11, new DateTime(2024, 3, 13, 13, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 13, 30, 0, 0, DateTimeKind.Local), 1 },
+                    { 12, new DateTime(2024, 3, 13, 17, 0, 0, 0, DateTimeKind.Local), new DateTime(2024, 3, 13, 17, 30, 0, 0, DateTimeKind.Local), 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -542,30 +592,30 @@ namespace Clinique2000_DataAccess.Migrations
                 columns: new[] { "ConsultationID", "HeureDateDebutPrevue", "HeureDateDebutReele", "HeureDateFinPrevue", "HeureDateFinReele", "ListeAttenteID", "MedecinEmployeCliniqueID", "MedecinId", "PatientID", "PlageHoraireID", "StatutConsultation" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 3, 12, 8, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 8, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 1, 1, 2 },
-                    { 2, new DateTime(2024, 3, 12, 8, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 8, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 2, 1, 2 },
-                    { 3, new DateTime(2024, 3, 12, 8, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 9, 0, 0, 0, DateTimeKind.Local), null, null, null, null, 3, 2, 2 },
-                    { 4, new DateTime(2024, 3, 12, 8, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 9, 0, 0, 0, DateTimeKind.Local), null, null, null, null, 4, 2, 2 },
-                    { 5, new DateTime(2024, 3, 12, 9, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 9, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 5, 3, 2 },
-                    { 6, new DateTime(2024, 3, 12, 9, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 9, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 6, 3, 2 },
-                    { 7, new DateTime(2024, 3, 12, 9, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 10, 0, 0, 0, DateTimeKind.Local), null, null, null, null, 7, 4, 2 },
-                    { 8, new DateTime(2024, 3, 12, 9, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 10, 0, 0, 0, DateTimeKind.Local), null, null, null, null, 8, 4, 2 },
-                    { 9, new DateTime(2024, 3, 12, 10, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 10, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 9, 5, 2 },
-                    { 10, new DateTime(2024, 3, 12, 10, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 10, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 10, 5, 2 },
-                    { 11, new DateTime(2024, 3, 12, 10, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 11, 0, 0, 0, DateTimeKind.Local), null, null, null, null, 11, 6, 2 },
-                    { 12, new DateTime(2024, 3, 12, 10, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 11, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 6, 6 },
-                    { 13, new DateTime(2024, 3, 12, 11, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 11, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 7, 6 },
-                    { 14, new DateTime(2024, 3, 12, 11, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 11, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 7, 6 },
-                    { 15, new DateTime(2024, 3, 12, 12, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 12, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 8, 6 },
-                    { 16, new DateTime(2024, 3, 12, 12, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 12, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 8, 6 },
-                    { 17, new DateTime(2024, 3, 12, 12, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 13, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 9, 6 },
-                    { 18, new DateTime(2024, 3, 12, 12, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 13, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 9, 6 },
-                    { 19, new DateTime(2024, 3, 12, 13, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 13, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 10, 6 },
-                    { 20, new DateTime(2024, 3, 12, 13, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 13, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 10, 6 },
-                    { 21, new DateTime(2024, 3, 12, 13, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 14, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 11, 6 },
-                    { 22, new DateTime(2024, 3, 12, 13, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 14, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 11, 6 },
-                    { 23, new DateTime(2024, 3, 12, 15, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 15, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 12, 6 },
-                    { 24, new DateTime(2024, 3, 12, 16, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 12, 17, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 12, 6 }
+                    { 1, new DateTime(2024, 3, 13, 8, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 8, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 1, 1, 2 },
+                    { 2, new DateTime(2024, 3, 13, 8, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 8, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 2, 1, 2 },
+                    { 3, new DateTime(2024, 3, 13, 8, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 9, 0, 0, 0, DateTimeKind.Local), null, null, null, null, 3, 2, 2 },
+                    { 4, new DateTime(2024, 3, 13, 8, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 9, 0, 0, 0, DateTimeKind.Local), null, null, null, null, 4, 2, 2 },
+                    { 5, new DateTime(2024, 3, 13, 9, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 9, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 5, 3, 2 },
+                    { 6, new DateTime(2024, 3, 13, 9, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 9, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 6, 3, 2 },
+                    { 7, new DateTime(2024, 3, 13, 9, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 10, 0, 0, 0, DateTimeKind.Local), null, null, null, null, 7, 4, 2 },
+                    { 8, new DateTime(2024, 3, 13, 9, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 10, 0, 0, 0, DateTimeKind.Local), null, null, null, null, 8, 4, 2 },
+                    { 9, new DateTime(2024, 3, 13, 10, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 10, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 9, 5, 2 },
+                    { 10, new DateTime(2024, 3, 13, 10, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 10, 30, 0, 0, DateTimeKind.Local), null, null, null, null, 10, 5, 2 },
+                    { 11, new DateTime(2024, 3, 13, 10, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 11, 0, 0, 0, DateTimeKind.Local), null, null, null, null, 11, 6, 2 },
+                    { 12, new DateTime(2024, 3, 13, 10, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 11, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 6, 6 },
+                    { 13, new DateTime(2024, 3, 13, 11, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 11, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 7, 6 },
+                    { 14, new DateTime(2024, 3, 13, 11, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 11, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 7, 6 },
+                    { 15, new DateTime(2024, 3, 13, 12, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 12, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 8, 6 },
+                    { 16, new DateTime(2024, 3, 13, 12, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 12, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 8, 6 },
+                    { 17, new DateTime(2024, 3, 13, 12, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 13, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 9, 6 },
+                    { 18, new DateTime(2024, 3, 13, 12, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 13, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 9, 6 },
+                    { 19, new DateTime(2024, 3, 13, 13, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 13, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 10, 6 },
+                    { 20, new DateTime(2024, 3, 13, 13, 0, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 13, 30, 0, 0, DateTimeKind.Local), null, null, null, null, null, 10, 6 },
+                    { 21, new DateTime(2024, 3, 13, 13, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 14, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 11, 6 },
+                    { 22, new DateTime(2024, 3, 13, 13, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 14, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 11, 6 },
+                    { 23, new DateTime(2024, 3, 13, 15, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 15, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 12, 6 },
+                    { 24, new DateTime(2024, 3, 13, 16, 30, 0, 0, DateTimeKind.Local), null, new DateTime(2024, 3, 13, 17, 0, 0, 0, DateTimeKind.Local), null, null, null, null, null, 12, 6 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -608,6 +658,16 @@ namespace Clinique2000_DataAccess.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CliniqueRefusees_AdresseID",
+                table: "CliniqueRefusees",
+                column: "AdresseID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CliniqueRefusees_CreateurID",
+                table: "CliniqueRefusees",
+                column: "CreateurID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cliniques_AdresseID",
                 table: "Cliniques",
                 column: "AdresseID",
@@ -644,6 +704,11 @@ namespace Clinique2000_DataAccess.Migrations
                 column: "CliniqueID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EmployesClinique_CliniqueRefuseeID",
+                table: "EmployesClinique",
+                column: "CliniqueRefuseeID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EmployesClinique_UserID",
                 table: "EmployesClinique",
                 column: "UserID");
@@ -652,6 +717,11 @@ namespace Clinique2000_DataAccess.Migrations
                 name: "IX_ListeAttentes_CliniqueID",
                 table: "ListeAttentes",
                 column: "CliniqueID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ListeAttentes_CliniqueRefuseeID",
+                table: "ListeAttentes",
+                column: "CliniqueRefuseeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PatientACharges_PatientId",
@@ -710,6 +780,9 @@ namespace Clinique2000_DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "ListeAttentes");
+
+            migrationBuilder.DropTable(
+                name: "CliniqueRefusees");
 
             migrationBuilder.DropTable(
                 name: "Cliniques");
