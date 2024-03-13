@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -78,5 +79,9 @@ namespace Clinique2000_Core.Models
 
         [Display(Name = "Est Approuvée")]
         public bool EstApprouvee { get; set; }
+
+        [ValidateNever]
+        public virtual ICollection<Critique> Critique { get; set; }
+
     }
 }
