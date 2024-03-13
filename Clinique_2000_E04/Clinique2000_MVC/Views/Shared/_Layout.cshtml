@@ -20,6 +20,7 @@
 
     <link href="~/lib/Toastr/toastr.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     @*<link rel="stylesheet" type="text/css" href="~/Clinique2000_MVC.styles.css" asp-append-version="true" />*@
 </head>
 <body>
@@ -145,7 +146,7 @@
 
 </body>
 
-<div id="chatbox-container">
+<div id="chatbox-container" class="animate__animated animate__fadeInBottomLeft">
     <div id="chatbox-toggle" onclick="toggleChat()">
         <div class="chat-icon">
             <i class="fas fa-comment-dots"></i> <!-- FontAwesome Chat Icon -->
@@ -154,17 +155,16 @@
 
     <div id="chatbox" class="chatbox">
         <div class="chatbox-header">
-            Aidez-nous à vous aider
+            Aidez-nous à vous aider 
             <span id="chatbox-close" class="chatbox-close" onclick="toggleChat()">&times;</span> <!-- Close Button -->
         </div>
-        <div class="chatbox-messages">
-            <!-- Dynamically added messages will appear here -->
-        </div>
+        <div class="chatbox-messages"> </div>
+
         <div class="chatbox-questions">
-            <button onclick="postQuestion(1)">Dois-je m'enregisterer en tant que patient pour prendre rendez-vous ?</button>
-            <button onclick="postQuestion(2)">Comment est ce que je prends rendez-vous dans une clinique ?</button>
-            <button onclick="postQuestion(3)">Comment est ce que j'annule un rendez-vous ?</button>
-            <button onclick="postQuestion(4)">En tant que patient, comment est ce que je modifie mes informations ?</button>
+            <button onclick="postQuestion(1)">Dois-je m'enregistrer en tant que patient pour prendre rendez-vous ?</button>
+            <button onclick="postQuestion(2)">Comment puis-je prendre rendez-vous dans une clinique ?</button>
+            <button onclick="postQuestion(3)">Comment puis-je annuler un rendez-vous ?</button>
+            <button onclick="postQuestion(4)">En tant que patient, comment puis-je modifier mes informations ?</button>
         </div>
     </div>
 </div>
@@ -175,26 +175,13 @@
 
     function toggleChat() {
         var chatbox = document.getElementById("chatbox");
-        var messages = document.querySelector('.chatbox-messages');
-        var questions = document.querySelector('.chatbox-questions');
+        var toggleButton = document.getElementById("chatbox-toggle");
 
-        chatbox.classList.toggle("expanded");
-        if (chatbox.classList.contains("expanded")) {
-            messages.style.display = 'block';
-            questions.style.display = 'block';
-        } else {
-            messages.style.display = 'none';
-            questions.style.display = 'none';
-        }
+        // Toggle the chatbox visibility
+        chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
 
-        var toggleIcon = document.querySelector("#chatbox-toggle i");
-        if (chatbox.classList.contains("expanded")) {
-            toggleIcon.classList.remove("fa-arrow-up");
-            toggleIcon.classList.add("fa-arrow-down");
-        } else {
-            toggleIcon.classList.remove("fa-arrow-down");
-            toggleIcon.classList.add("fa-arrow-up");
-        }
+        // Toggle the opened class for toggle button
+        toggleButton.classList.toggle("opened");
     }
 
     var lastBg = 2; // Start with 2 so the first one will be 1
@@ -223,7 +210,6 @@
                 answer = 'Pour modifier vos informations, vous devez cliquer sur la section "Patient" dans notre en-tête de page, puis sur "Mon profil". Vous serez alors redirigé vers la page de votre profil. Cliquez ensuite sur le bouton vert "Modifier". Vous serez redirigé vers un formulaire contenant les informations précédemment entrées. À ce moment, vous pouvez modifier les champs à votre guise, puis appuyer sur "Enregistrer pour confirmer les changements."';
                 break;
         }
-        
 
         // Toggle the background color
         lastBg = lastBg === 1 ? 2 : 1;
