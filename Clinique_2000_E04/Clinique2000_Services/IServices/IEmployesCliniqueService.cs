@@ -14,5 +14,7 @@ namespace Clinique2000_Services.IServices
         Task<bool> EmployeCliniqueEstReceptionniste(EmployesClinique employeclinique);
         Task UpdateEmployeCliniqueAsync(EmployesClinique employeClinique);
         public bool EmployeCliniqueExists(int id);
+        Task<EmployesClinique> AjouterEmployerAsync(EmployesClinique employesClinique);
+        Task<bool> DevraitAjouterEmployer(EmployesClinique employesClinique);
     }
 }

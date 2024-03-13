@@ -9,6 +9,8 @@ using System.Text.Json.Serialization;
 using Clinique2000_DataAccess.Initializer;
 using Microsoft.IdentityModel.Tokens;
 using Clinique2000_Utility.Constants;
+using Clinique2000_Core.Models;
+using Google;
 
 var builder = WebApplication.CreateBuilder(args);
 //DbContext
@@ -21,6 +23,11 @@ builder.Services.AddDbContext<CliniqueDbContext>(options =>
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CliniqueDbContext>();
+
+//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>()
+//    .AddDefaultUI()
+//    .AddDefaultTokenProviders();
 
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>

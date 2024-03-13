@@ -1383,6 +1383,11 @@ table td {
     margin-bottom :15px;
 }
 
+.img-access-denied {
+    max-width: 40rem;
+    margin-top: 80px;
+    margin-bottom: 15px;
+}
 .margin-container-index{
     margin-top:60px;
     margin-bottom: 60px;

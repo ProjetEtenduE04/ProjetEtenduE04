@@ -1,3 +1,6 @@
+@inject Clinique2000_Services.IServices.IClinique2000Services _service;
+@using System.Security.Claims;
+
 @model Patient
 
 @{
@@ -84,7 +87,15 @@
                             </div>
                             <div class="row justify-content-center text-center">
                                 <div class="col col-md-8 col-xl-6 mb-2 mt-2">
-                                    <a asp-action="Index" class="smBtn button-white-action">Retour à la liste</a>
+                                    @if (this.User.IsInRole(AppConstants.SuperAdminRole))
+                                    {
+                                        <a asp-action="Index" class="smBtn button-white-action">Retour à la liste</a>    
+                                    }
+                                    else
+                                    {
+                                        <a asp-area="" asp-controller="Home" asp-action="Index" class="smBtn button-white-action">Retour</a>
+                                    }
+                                    
                                 </div>
                             </div>
                         </div>
