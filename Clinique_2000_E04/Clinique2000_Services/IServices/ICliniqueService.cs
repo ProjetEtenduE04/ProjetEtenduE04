@@ -30,5 +30,6 @@ namespace Clinique2000_Services.IServices
         Task<bool> VerifierSiUserAuthEstCreateurClinique(IdentityUser user);
         List<Clinique> GetAllClinique();
         string GetClinicNameById(int id);
+        Task<Critique> CreerCritiqueAsync(Critique critique);
     }
 }

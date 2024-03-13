@@ -358,12 +358,27 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
         }
 
-        public IActionResult RevueClinique(int id)
+        [HttpGet]
+        public IActionResult CreateCritique(int id)
         {
             var clinicName = _services.clinique.GetClinicNameById(id);
             ViewData["ClinicName"] = clinicName;
 
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCritique(Critique critique)
+        {
+            // Add validation logic
+            if (ModelState.IsValid)
+            {
+                _services.clinique.CreerCritiqueAsync(critique);
+
+                return RedirectToAction("IndexCliniquesAProximite"); // Redirect to a different page after successful review submission
+            }
+
+            return View(critique); // Return the view with validation errors
         }
     }
 }

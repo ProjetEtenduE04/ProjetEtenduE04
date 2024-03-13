@@ -389,5 +389,15 @@ namespace Clinique2000_Services.Services
             var clinic = _context.Cliniques.FirstOrDefault(c => c.CliniqueID == id);
             return clinic?.NomClinique;
         }
+
+        public async Task<Critique> CreerCritiqueAsync(Critique critique)
+        {
+            _context.Critiques.Add(critique);
+            _context.SaveChanges();
+
+            var critiqueClinique = critique;
+
+            return (critiqueClinique);
+        }
     }
 }
