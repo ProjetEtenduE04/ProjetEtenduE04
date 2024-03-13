@@ -403,7 +403,7 @@ namespace Clinique2000_Services.Services
         //    return null;
         //}
 
-        public async Task<ListeAttenteVM> TerminerConsultationEtAppellerProchainPatient(int consultaionID, int employeCliniqueID)
+        public async Task<ListeAttenteVM> TerminerConsultationEtAppellerProchainPatient(int consultaionID, int employeCliniqueID, DetailsConsultation details)
         {
             // R�cup�re la consultation en fonction de l'ID pass� en param�tre.
             Consultation consultation = await _context.Consultations.FirstOrDefaultAsync(c => c.ConsultationID == consultaionID);
@@ -436,7 +436,7 @@ namespace Clinique2000_Services.Services
 
                     var prochaineconsultationID = await _context.Consultations.Where(x => x.StatutConsultation == StatutConsultation.EnAttente).FirstOrDefaultAsync();
                     // Associe le m�decin s�lectionn� � la consultation.
-
+                    consultation.DetailsConsultation = details;
                     await AppelerProchainPatient(prochaineconsultationID.ConsultationID, employeCliniqueID);
                     await _context.SaveChangesAsync();
                     //}
@@ -456,7 +456,7 @@ namespace Clinique2000_Services.Services
 
 
 
-        public async Task<ListeAttenteVM> TerminerConsultation(int consultaionID)
+        public async Task<ListeAttenteVM> TerminerConsultation(int consultaionID, DetailsConsultation details)
         {
             // R�cup�re la consultation en fonction de l'ID pass� en param�tre.
             Consultation consultation = await _context.Consultations.FirstOrDefaultAsync(c => c.ConsultationID == consultaionID);
@@ -473,6 +473,8 @@ namespace Clinique2000_Services.Services
                     // Enregistre l'heure de fin r�elle de la consultation � l'heure actuelle.
                     consultation.HeureDateFinReele = DateTime.Now;
 
+                    // Mettre à jour les détails de la consultation avec les données fournies.
+                    consultation.DetailsConsultation = details;
                     // Enregistre les modifications dans la base de donn�es.
                     await _context.SaveChangesAsync();
 

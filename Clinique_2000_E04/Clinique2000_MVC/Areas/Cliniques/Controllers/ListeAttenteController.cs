@@ -512,11 +512,11 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         //}
 
         [HttpPost]
-        public async Task<IActionResult> ChangerStatutConsultation(int consultationID, int employesID)
+        public async Task<IActionResult> ChangerStatutConsultation(int consultationID, int employesID, DetailsConsultation details)
         {
 
 
-            var ListeSalleAttenteVM = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employesID);
+            var ListeSalleAttenteVM = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employesID, details);
 
             if (ListeSalleAttenteVM == null)
             {
@@ -557,12 +557,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TerminerConsultationEtAppellerProchainPatient(int consultationID, int employeCliniqueID)
+        public async Task<IActionResult> TerminerConsultationEtAppellerProchainPatient(int consultationId, int employeCliniqueID, EmployesCliniqueVM employes)
         {
             try
             {
                 // Call the service method to complete the current consultation and call the next patient.
-                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employeCliniqueID);
+                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationId, employeCliniqueID, employes.DetailsConsultation);
 
                 if (updatedListeSalleAttente != null)
                 {
@@ -585,12 +585,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TerminerConsultation(int consultationID, int employeCliniqueID)
+        public async Task<IActionResult> TerminerConsultation(int consultationId, int employeCliniqueID, EmployesCliniqueVM employes)
         {
             try
             {
                 // Call the service method to complete the current consultation.
-                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultation(consultationID);
+                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultation(consultationId, employes.DetailsConsultation);
 
                 if (updatedListeSalleAttente != null)
                 {

@@ -17,5 +17,7 @@ namespace Clinique2000_Core.ViewModels
         public Consultation? ProchaineConsultation { get; set; }
 
         public Consultation? ConsultationEnCours { get; set; }
+
+        public DetailsConsultation? DetailsConsultation { get; set; } = new DetailsConsultation();  
     }
 }

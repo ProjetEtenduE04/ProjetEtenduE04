@@ -25,8 +25,8 @@ namespace Clinique2000_Services.IServices
         Task<ListeAttenteVM> GetListeAttenteOrdonnee(int listeAttenteID);
         Task<ListeAttenteVM> GetListeSalleAttenteOrdonnee(int listeAttenteID);
         Task<ListeAttenteVM> AppelerProchainPatient(int consultaionID, int employeCliniqueID);
-        Task<ListeAttenteVM> TerminerConsultationEtAppellerProchainPatient(int consultaionID, int employeCliniqueID);
-        Task<ListeAttenteVM> TerminerConsultation(int consultaionID);
+        Task<ListeAttenteVM> TerminerConsultationEtAppellerProchainPatient(int consultaionID, int employeCliniqueID, DetailsConsultation details);
+        Task<ListeAttenteVM> TerminerConsultation(int consultaionID, DetailsConsultation details);
         Task AnnulerConsultationAsync(Patient patient);
         void AssignerCliniqueIDaListeAttente(ListeAttente listeAttente, int cliniqueID);
     }
