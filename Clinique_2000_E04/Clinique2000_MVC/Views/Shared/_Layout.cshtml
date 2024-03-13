@@ -145,27 +145,29 @@
 
 </body>
 
-<!-- Chatbox with Toggle Button -->
 <div id="chatbox-container">
     <div id="chatbox-toggle" onclick="toggleChat()">
-        <span>FAQ</span>
-        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        <div class="chat-icon">
+            <i class="fas fa-comment-dots"></i> <!-- FontAwesome Chat Icon -->
+        </div>
     </div>
 
     <div id="chatbox" class="chatbox">
-        <div class="chatbox-header">How can we help you?</div>
+        <div class="chatbox-header">
+            Aidez-nous à vous aider
+            <span id="chatbox-close" class="chatbox-close" onclick="toggleChat()">&times;</span> <!-- Close Button -->
+        </div>
         <div class="chatbox-messages">
             <!-- Dynamically added messages will appear here -->
         </div>
         <div class="chatbox-questions">
-            <button onclick="postQuestion(1)">Question 1</button>
-            <button onclick="postQuestion(2)">Question 2</button>
-            <button onclick="postQuestion(3)">Question 3</button>
-            <!-- Additional questions here -->
+            <button onclick="postQuestion(1)">Dois-je m'enregisterer en tant que patient pour prendre rendez-vous ?</button>
+            <button onclick="postQuestion(2)">Comment est ce que je prends rendez-vous dans une clinique ?</button>
+            <button onclick="postQuestion(3)">Comment est ce que j'annule un rendez-vous ?</button>
+            <button onclick="postQuestion(4)">En tant que patient, comment est ce que je modifie mes informations ?</button>
         </div>
     </div>
 </div>
-
 
 </html>
 
@@ -195,6 +197,8 @@
         }
     }
 
+    var lastBg = 2; // Start with 2 so the first one will be 1
+
     function postQuestion(questionId) {
         var messages = document.querySelector('.chatbox-messages');
         var question = '';
@@ -203,25 +207,37 @@
         // Define your questions and answers
         switch (questionId) {
             case 1:
-                question = 'What is Question 1?';
-                answer = 'This is the answer to Question 1.';
+                question = 'Dois-je m\'enregistrer en tant que patient pour prendre rendez-vous ?';
+                answer = 'Oui, vous devez cliquer sur la section "Patient" dans notre en-tête de page, puis sélectionner "Créer le dossier". Vous serez alors redirigé vers notre formulaire d\'inscription.';
                 break;
             case 2:
-                question = 'What is Question 2?';
-                answer = 'This is the answer to Question 2.';
+                question = 'Comment puis-je prendre rendez-vous dans une clinique ?';
+                answer = 'Pour prendre rendez-vous, vous devez cliquer sur la section "Clinique" dans notre en-tête de page, puis sur "Cliniques à proximité". Vous serez alors redirigé vers une liste des 5 cliniques les plus proches de chez vous ayant de la disponibilité. Ensuite, vous devez choisir la clinique qui vous convient le mieux en cliquant sur "Voir la liste d\'attente". Finalement, vous devez sélectionner la consultation qui vous convient le mieux parmi celles disponibles en cliquant sur "Réserver".';
                 break;
             case 3:
-                question = 'What is Question 3?';
-                answer = 'This is the answer to Question 3.';
+                question = 'Comment puis-je annuler un rendez-vous ?';
+                answer = 'Pour annuler un rendez-vous, vous devez cliquer sur la section "Patient" dans notre en-tête de page, puis sur "Mon profil". Vous serez alors redirigé vers la page de votre profil, où vous trouverez un bouton "Annuler" si vous avez un rendez-vous réservé. Si le bouton "Annuler" est affiché, cliquez dessus puis confirmez l\'annulation de votre rendez-vous.';
                 break;
-            // Add more cases as needed
+            case 4:
+                question = 'En tant que patient, comment puis-je modifier mes informations ?';
+                answer = 'Pour modifier vos informations, vous devez cliquer sur la section "Patient" dans notre en-tête de page, puis sur "Mon profil". Vous serez alors redirigé vers la page de votre profil. Cliquez ensuite sur le bouton vert "Modifier". Vous serez redirigé vers un formulaire contenant les informations précédemment entrées. À ce moment, vous pouvez modifier les champs à votre guise, puis appuyer sur "Enregistrer pour confirmer les changements."';
+                break;
         }
+        
 
-        // Add the question and answer to the messages div
-        messages.innerHTML += '<div><strong>You:</strong> ' + question + '</div>';
-        messages.innerHTML += '<div><strong>Bot:</strong> ' + answer + '</div>';
+        // Toggle the background color
+        lastBg = lastBg === 1 ? 2 : 1;
+        var questionDiv = document.createElement('div');
+        questionDiv.classList.add('question-response', `bg-color-${lastBg}`);
+        questionDiv.innerHTML = `<strong>You:</strong> ${question}`;
+        messages.appendChild(questionDiv);
 
-        // Scroll to the bottom
+        var answerDiv = document.createElement('div');
+        answerDiv.classList.add('question-response', `bg-color-${lastBg}`);
+        answerDiv.innerHTML = `<strong>Bot:</strong> ${answer}`;
+        messages.appendChild(answerDiv);
+
+        // Ensure the latest entry is visible
         messages.scrollTop = messages.scrollHeight;
     }
 </script>

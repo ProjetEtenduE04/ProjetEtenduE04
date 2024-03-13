@@ -1383,6 +1383,11 @@ table td {
     margin-bottom :15px;
 }
 
+.img-access-denied {
+    max-width: 40rem;
+    margin-top: 80px;
+    margin-bottom: 15px;
+}
 .margin-container-index{
     margin-top:60px;
     margin-bottom: 60px;
@@ -1780,77 +1785,119 @@ table td {
 /*chatbox */
 #chatbox-container {
     position: fixed;
-    bottom: 0;
-    left: 20px;
+    bottom: 20px;
+    left: 20px; /* Changed from right to left */
     z-index: 1000;
 }
 
 #chatbox-toggle {
+    background-color: #007bff; /* Primary Color */
+    border-radius: 50%; /* Circular shape */
+    width: 60px; /* Size of the button */
+    height: 60px; /* Size of the button */
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    background-color: #007bff;
-    color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Shadow for depth */
     cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover */
+}
+
+    #chatbox-toggle:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+        transform: scale(1.1); /* Slight pop effect */
+    }
+
+.chat-icon {
+    color: white;
+    font-size: 24px; /* Size of the chat icon */
 }
 
 #chatbox {
-    background: #fff;
+    background: #fff; /* White Background */
     border-radius: 15px 15px 0 0;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow for depth */
     overflow: hidden;
-    max-height: 0; /* Initial state is collapsed */
-    width: 300px; /* Define a specific width */
-    transition: max-height 0.3s ease-out;
+    max-height: 0; /* Initially hidden */
+    width: 350px; /* Width of the chatbox */
+    transition: max-height 0.5s ease; /* Smooth transition for max-height */
     position: absolute;
-    bottom: 40px; /* Adjust based on the toggle button's size */
-    left: 0;
+    bottom: 80px; /* Positioned above the toggle button */
+    left: 0; /* Adjusted to match the toggle button position */
 }
 
 .chatbox-header {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker Blue */
     color: white;
-    padding: 15px;
-    font-size: 16px;
+    padding: 10px 20px;
+    font-size: 18px;
     text-align: center;
+    position: relative; /* Needed for absolute positioning of the close button */
 }
 
+.chatbox-close {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+    .chatbox-close:hover {
+        color: #ff0000; /* Red color on hover for visibility */
+    }
+
 .chatbox-messages {
-    max-height: 200px; /* Allows scrolling within a smaller area */
-    overflow-y: auto; /* Enables vertical scrolling */
+    max-height: 300px; /* Enough height to show several messages */
+    overflow-y: auto; /* Scrollable for overflow */
     padding: 15px;
+    color: #333; /* Darker text for readability */
 }
 
 .chatbox-questions {
-    max-height: 150px; /* Adjust as needed */
-    overflow-y: auto; /* Enables scrolling for questions area */
-    padding: 15px;
+    padding: 10px;
+    overflow-y: auto; /* Scrollable for overflow */
 }
 
     .chatbox-questions button {
         display: block;
-        width: 100%;
+        width: 100%; /* Full width buttons */
         padding: 10px;
-        margin-bottom: 10px;
-        background-color: #007bff;
+        margin-bottom: 8px;
+        background-color: #007bff; /* Primary Color */
         color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
     }
 
         .chatbox-questions button:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Darker on Hover */
+            transform: translateY(-2px); /* Raised effect on hover */
         }
 
 #chatbox.expanded {
-    max-height: 500px; /* Adjust based on content */
+    max-height: 500px; /* Increased height when expanded */
 }
+
+/* Styles for alternating background colors */
+.question-response {
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #333;
+    transition: background-color 0.3s; /* Smooth transition for background color change */
+}
+
+.bg-color-1 {
+    background-color: #e8f4fa; /* Soft Light Blue */
+}
+
+.bg-color-2 {
+    background-color: #e8f9f1; /* Soft Light Green */
+}
+
 
     /*chatbox end*/

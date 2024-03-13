@@ -30,6 +30,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
 
         // GET: PatientsController
+        [Authorize(Roles = AppConstants.SuperAdminRole)]
         public async Task<IActionResult> Index()
         {
 
@@ -153,7 +154,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var patientInit = await _services.patient.ObtenirPatientParNAMAsync(patient.NAM);
+                    var patientInit = await _services.patient.ObtenirParIdAsync(patient.PatientId);
                     try
                     {
                         await _services.patient.EnregistrerOuModifierPatient(patient);
@@ -171,7 +172,10 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                         }
                     }
                     TempData[AppConstants.Success] = $"Les données du patient {patientInit.Nom} {patientInit.Prenom} ont été modifiées avec succès";
-                    return RedirectToAction(nameof(Index));
+                    if (User.IsInRole(AppConstants.SuperAdminRole))
+                        return RedirectToAction(nameof(Index));
+                    else
+                        return RedirectToAction("Details", "Patients", new { id = patient.PatientId });
                 }
                 TempData[AppConstants.Error] = $"Les champs obligatoires n'ont pas été remplis correctement";
                 return View(patient);
