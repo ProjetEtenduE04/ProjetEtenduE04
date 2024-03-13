@@ -58,6 +58,12 @@ namespace Clinique2000_Core.Models
         public virtual EmployesClinique? Medecin { get; set; }
 
 
+        [ForeignKey("DetailsConsultation")]
+        public int? DetailsConsultationId { get; set; }
+
+        [ValidateNever]
+        public virtual DetailsConsultation? DetailsConsultation { get; set; }
+
         //FK PATIENTACHARGEID
         //PUBLIC PATIENTACHARGE PATIENTACHARGE                                                    
 
