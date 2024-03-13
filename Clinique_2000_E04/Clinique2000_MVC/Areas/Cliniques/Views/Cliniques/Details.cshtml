@@ -13,55 +13,65 @@
             <h4>Clinique : @Model.NomClinique</h4>
             <hr />
             <dl class="row">
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.NomClinique)
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.NomClinique)
                 </dd>
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.Courriel)
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.Courriel)
                 </dd>
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.NumTelephone)
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.NumTelephone)
                 </dd>
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.HeureOuverture)
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.HeureOuverture)
                 </dd>
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.HeureFermeture)
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.HeureFermeture)
                 </dd>
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.TempsMoyenConsultation)
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.TempsMoyenConsultation)
                 </dd>
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.HeurePauseDebut)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.HeurePauseDebut)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.HeurePauseFin)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.HeurePauseFin)
+                </dd>
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.EstActive)
                 </dt>
-                <dd class="col-sm-10" >
+                <dd class="col-sm-9" >
                     @Html.DisplayFor(model => model.EstActive)
 
                 </dd>
-
-               
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.Adresse)
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9">
                     @{
                         // Concatène toutes les propriétés pertinentes de l'objet Adresse en une chaîne de caractères.
                         string concatenatedAddress = $"{Model.Adresse.Numero} {Model.Adresse.Rue}, {Model.Adresse.Ville}, {Model.Adresse.Province}, {Model.Adresse.Pays}, {Model.Adresse.CodePostal}";

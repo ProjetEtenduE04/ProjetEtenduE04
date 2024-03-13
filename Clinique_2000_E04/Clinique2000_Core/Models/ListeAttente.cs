@@ -45,6 +45,16 @@ namespace Clinique2000_Core.Models
         [Range(minimum:1, maximum:int.MaxValue,ErrorMessage ="Veuillez entrer un nombre de medecins valide.")]
         public int NbMedecinsDispo { get; set; }
 
+        [Display(Name = "Début de la pause dîner")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
+        public TimeSpan HeurePauseDebut { get; set; }
+
+        [Display(Name = "Fin de la pause dîner")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
+        public TimeSpan HeurePauseFin { get; set; }
+
 
         //public int? DureeConsultationMinutes { get; set; }
 
