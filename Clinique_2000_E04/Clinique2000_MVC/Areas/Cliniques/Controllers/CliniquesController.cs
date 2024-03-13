@@ -357,6 +357,14 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             return View();
 
         }
+
+        public IActionResult RevueClinique(int id)
+        {
+            var clinicName = _services.clinique.GetClinicNameById(id);
+            ViewData["ClinicName"] = clinicName;
+
+            return View();
+        }
     }
 }
 

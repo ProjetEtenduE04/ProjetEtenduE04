@@ -47,7 +47,7 @@
                         <table class="table hover order-column" id="dataTableDistance">
                             <thead>
                                 <tr>
-                                    <th>@Html.DisplayNameFor(model => model.Clinique.NomClinique)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Clinique.NomClinique)</a></th>
                                     <th>@Html.DisplayNameFor(model => model.HeureProchaineConsultation)</th>
                                     <th class="justify-content-center align-items-center">
                                         @Html.DisplayNameFor(model => model.Distance) (kilomètres)
@@ -64,6 +64,7 @@
                                     <th>@Html.DisplayNameFor(model => model.Clinique.Adresse)</th>
 
                                     <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,7 +74,9 @@
                                     string concatenatedAddress = $"{item.Clinique.Adresse.Numero} {item.Clinique.Adresse.Rue}, {item.Clinique.Adresse.Ville}, {item.Clinique.Adresse.Province}, {item.Clinique.Adresse.Pays}, {item.Clinique.Adresse.CodePostal}";
 
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Clinique.NomClinique)</td>
+                                        <td>
+                                            <a>@Html.DisplayFor(modelItem => item.Clinique.NomClinique)</a>
+                                        </td>
                                         <td>@Html.DisplayFor(modelItem => item.HeureProchaineConsultation)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Distance)</td>
                                         <td>@concatenatedAddress</td>
@@ -82,6 +85,9 @@
                                             {
                                                 <a asp-area="Cliniques" asp-controller="ListeAttente" asp-action="DetailsOrdonnes" asp-route-id="@listeAttenteId" class="smBtn button-blue-action " style="width:auto">Voir la liste d'attente</a>
                                             }
+                                        </td>
+                                        <td>
+                                            <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="RevueClinique" asp-route-id="@item.Clinique.CliniqueID" class="smBtn button-blue-action" style="width:auto">Écrire une critique</a>
                                         </td>
                                     </tr>
                                 }
