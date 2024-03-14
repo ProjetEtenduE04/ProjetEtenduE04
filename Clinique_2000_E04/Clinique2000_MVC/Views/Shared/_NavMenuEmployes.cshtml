@@ -7,6 +7,7 @@
 
     var btnTitre1 = "Tableau de bord";
     var btnTitre2 = "Liste des employés";
+    var btnTitre3 = "Approbation employé";
     var user = await _service.patient.GetUserAuthAsync();
     var employe = await _service.employesClinique.VerifierSiUserAuthEstEmploye(user.Email);
     var patient = await _service.patient.GetPatientParUserIdAsync(user.Id);
@@ -46,6 +47,21 @@
                             </div>
                             <div class="col text-end">
                                 <i class="fa-solid fa-people-group"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+            @if (this.User.IsInRole(AppConstants.SuperAdminRole))
+            {
+                <li>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="Admin" asp-action="Approbation" asp-route-id="utilisateur">
+                        <div class="row">
+                            <div class="col text-start">
+                                @btnTitre3
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa-solid fa-check"></i>
                             </div>
                         </div>
                     </a>

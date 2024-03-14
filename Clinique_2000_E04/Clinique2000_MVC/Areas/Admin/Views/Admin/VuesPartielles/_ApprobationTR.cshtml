@@ -18,9 +18,9 @@
                 @Html.DisplayFor(modelItem => addresse)
             </td>
             <td>
-                <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="Details" asp-route-id="@item.CliniqueID" class="btn btn-primary">Détails</a>
-                <a asp-action="ApprobationClinique" asp-route-id="@item.CliniqueID" class="btn btn-success">Approuver</a>
-                <a asp-action="RefuserClinique" asp-route-id="@item.CliniqueID" class="btn btn-danger">Refuser</a>
+                <a class="btn btn-success btn-circle btn-sm" asp-action="ApprobationClinique" asp-route-id="@item.CliniqueID"><i class="fa-solid fa-check"></i></a>
+                <a class="btn btn-info btn-circle btn-sm" asp-area="Cliniques" asp-controller="Cliniques" asp-action="Details" asp-route-id="@item.CliniqueID"><i class="fa-solid fa-info fa-lg"></i></a>
+                <a class="btn btn-danger btn-circle btn-sm" asp-action="RefuserClinique" asp-route-id="@item.CliniqueID"> <i class="fas fa-xmark"></i></a>
             </td>
         </tr>
     }
@@ -34,9 +34,9 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a class="btn btn-primary" id="@item.Id">Détails</a>
-                <a asp-action="ApprobationUtilisateur" asp-route-id="@item.Id" class="btn btn-success">Approuver</a>
-                <a asp-action="RefuserUtilisateur" asp-route-id="@item.Id" class="btn btn-danger">Refuser</a>
+                <a class="btn btn-success btn-circle btn-sm" asp-action="ApprobationUtilisateur" asp-route-id="@item.Id"><i class="fa-solid fa-check"></i></a>
+                <a class="btn btn-info btn-circle btn-sm" asp-area="Cliniques" asp-controller="Cliniques" asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-info fa-lg"></i></a>
+                <a class="btn btn-danger btn-circle btn-sm" asp-action="RefuserUtilisateur" asp-route-id="@item.Id"> <i class="fas fa-xmark"></i></a>
             </td>
         </tr>
     }
