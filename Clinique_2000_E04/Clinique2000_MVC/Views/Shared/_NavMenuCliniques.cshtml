@@ -10,6 +10,8 @@
     var btnTitre2 = "Inscrire une clinique";
     var btnTitre3 = "Cliniques à proximité";
     var btnTitre4 = "Listes d'attente";
+    var btnTitre5 = "Approbation cliniques";
+    var btnTitre6 = "Cliniques refusées";
     var email = User.FindFirstValue(ClaimTypes.Email);
     var estPatient = await _service.patient.UserAuthEstPatientAsync();
     var employe = await _service.employesClinique.VerifierSiUserAuthEstEmploye(email);
@@ -76,6 +78,33 @@
                             </div>
                         </div>
                   
+                    </a>
+                </li>
+            }
+        @if (User.IsInRole(AppConstants.SuperAdminRole))
+            {
+                <li>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="Admin" asp-action="Approbation" asp-route-id="clinique">
+                        <div class="row">
+                            <div class="col text-start">
+                                @btnTitre5
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="Admin" asp-action="Approbation" asp-route-id="cliniquesrefusees">
+                        <div class="row">
+                            <div class="col text-start">
+                                @btnTitre6
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                        </div>
                     </a>
                 </li>
             }
