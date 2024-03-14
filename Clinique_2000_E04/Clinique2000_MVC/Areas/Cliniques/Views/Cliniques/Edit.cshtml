@@ -102,6 +102,24 @@
                     </div>
                 </div>
 
+                <!-- HeurePauseDebut -->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Clinique.HeurePauseDebut" class="form-label mt-3 mb-1">Début de la pause dîner </label>
+                        <input type="time" asp-for="Clinique.HeurePauseDebut" class="form-control form-control-lg" id="HeurePauseDebutEdit">
+                        <span asp-validation-for="Clinique.HeurePauseDebut" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- HeurePauseFin -->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6 ">
+                        <label asp-for="Clinique.HeurePauseFin" class="form-label mt-3 mb-1">Fin de la pause dîner </label>
+                        <input type="time" asp-for="Clinique.HeurePauseFin" class="form-control form-control-lg" id="HeurePauseFinEdit">
+                        <span asp-validation-for="Clinique.HeurePauseFin" class="text-danger"></span>
+                    </div>
+                </div>
+
                 <br />
                 <!-- Propriétés pour Adresse -->
                 <div class="row justify-content-center">

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Clinique2000_Utility.Enum;
 using Clinique2000_Utility.Constants;
+using Microsoft.AspNetCore.Identity;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
@@ -147,8 +148,18 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var user = await _services.patient.GetUserAuthAsync();
+            var userid = await _services.employesClinique.GetEmployeUserID(user.Email, user.Id);
+            var employee = await _services.employesClinique.FindOneAsync(x => x.UserID == user.Id && x.EmployeCliniquePosition == EmployeCliniquePosition.Receptionniste);
+            if (employee != null)
+            {
+                ListeAttente listeAttente = await _services.listeAttente.GenererListeAttenteParDefaut(employee);
+
+                return View(listeAttente);
+            }
+
             return View();
         }
 
@@ -177,7 +188,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                        _services.listeAttente.AssignerCliniqueIDaListeAttente(listeAttente, employee.CliniqueID);
                         await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
                         TempData[AppConstants.Success] = "Vous avez créé avec succès la liste d'attente";
+                        listeAttente = null;
                         RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData[AppConstants.Error] = "Vous n'êtes pas un employé clinique valide";
                     }
                 }
             }

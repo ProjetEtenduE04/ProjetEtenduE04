@@ -221,7 +221,7 @@ namespace Clinique2000_Services.Services
                 heureDebut = nouvelleHeureFin;
             }
             await _context.SaveChangesAsync();
-
+            await RetirerPausesListeAttente(listeAttente);
         }
 
 
@@ -522,7 +522,41 @@ namespace Clinique2000_Services.Services
 
 
         }
+
+        public async Task<DateTime> ObtenirDerniereListeAttenteParClinique(int cliniqueID)
+        {
+            DateTime date = await _context.ListeAttentes.Where(la => la.CliniqueID == cliniqueID).MaxAsync(la => la.DateEffectivite);
+            
+            return date.AddDays(1);
+        }
+
+        public async Task<ListeAttente> GenererListeAttenteParDefaut(EmployesClinique ec)
+        {
+            ListeAttente listeAttente = new ListeAttente
+            {
+                DateEffectivite = await ObtenirDerniereListeAttenteParClinique(ec.CliniqueID),
+                HeureOuverture = (TimeSpan)ec.Clinique.HeureOuverture,
+                HeureFermeture = (TimeSpan)ec.Clinique.HeureFermeture,
+                NbMedecinsDispo = ec.Clinique.EmployesCliniques.Count(x => x.EmployeCliniquePosition == EmployeCliniquePosition.Medecin),
+                CliniqueID = ec.CliniqueID,
+                HeurePauseDebut = (TimeSpan)ec.Clinique.HeurePauseDebut,
+                HeurePauseFin = (TimeSpan)ec.Clinique.HeurePauseFin
+            };
+
+            return listeAttente;
+        }
+
+        public async Task RetirerPausesListeAttente(ListeAttente listeAttente)
+        {
+            var plagesHoraires = await _context.PlagesHoraires.Where(ph => ph.ListeAttenteID == listeAttente.ListeAttenteID).ToListAsync();
+            foreach (var plage in plagesHoraires)
+            {
+                if (plage.HeureDebut.TimeOfDay >= listeAttente.HeurePauseDebut && plage.HeureFin.TimeOfDay <= listeAttente.HeurePauseFin)
+                {
+                    _context.PlagesHoraires.Remove(plage);
+                }
+            }
+            await _context.SaveChangesAsync();
+        }
     }
-
-
 }

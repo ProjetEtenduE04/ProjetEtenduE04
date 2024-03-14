@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Clinique2000_Core.Models
 {
@@ -78,5 +79,15 @@ namespace Clinique2000_Core.Models
 
         [Display(Name = "Est Approuvée")]
         public bool EstApprouvee { get; set; }
+
+        [Display(Name = "Heure de début de la pause")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
+        public TimeSpan? HeurePauseDebut { get; set; }
+
+        [Display(Name = "Heure de fin de la pause")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
+        public TimeSpan? HeurePauseFin { get; set; }
     }
 }

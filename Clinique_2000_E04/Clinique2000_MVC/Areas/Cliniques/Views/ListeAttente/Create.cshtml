@@ -69,6 +69,18 @@
                             <span asp-validation-for="NbMedecinsDispo" class="text-danger"></span>
                         </div>
 
+                        <div class="form-group mb-3">
+                            <label asp-for="HeurePauseDebut" class="form-label">Début pause dîner</label>
+                            <input type="time" asp-for="HeurePauseDebut" class="form-control form-control-lg" id="HeurePauseDebut">
+                            <span asp-validation-for="HeurePauseDebut" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="HeurePauseFin" class="form-label">Fin pause dîner</label>
+                            <input type="time" asp-for="HeurePauseFin" id="HeurePauseFin" class="form-control form-control-lg">
+                            <span asp-validation-for="HeurePauseFin" class="text-danger"></span>
+                        </div>
+
                         <!--CreateBTN-->
                         <div class="row justify-content-center text-center">
                             <div class="col col-md-8 col-xl-6 mb-2 mt-4">
