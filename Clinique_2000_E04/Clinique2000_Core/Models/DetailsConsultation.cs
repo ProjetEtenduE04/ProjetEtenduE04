@@ -21,8 +21,8 @@ namespace Clinique2000_Core.Models
         public string? Symptomes { get; set; }
 
         [StringLength(250)]
-        [Display (Name = "Résultats")]
-        public string? Resultats { get; set; }
+        [Display (Name = "Diagnostic")]
+        public string? Diagnostic { get; set; }
 
         [StringLength(250)]
         [Display(Name = "Medicaments Prescrits")]

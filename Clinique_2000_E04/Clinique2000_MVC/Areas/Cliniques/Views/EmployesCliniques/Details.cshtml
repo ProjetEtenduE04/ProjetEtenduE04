@@ -60,7 +60,7 @@
                             <div id="task-item-1">
                                 <div class="card task-box rounded-3">
                                     <div class="card-body">
-                                        <div class="row align-items-center">
+                                        <div class="row ">
 @*                                             <div class="" style="display: flex;margin:20px 0"> *@
                                                 @if (Model.ConsultationEnCours != null)
                                                 {
@@ -138,23 +138,23 @@
                                                         </div>
 
                                                         <div class="row justify-content-center">
-                                                            <div class="col col-md-8 col-lg-8 col-xl-8 ">
-                                                                <label asp-for="DetailsConsultation.Resultats" class="form-label mt-3 mb-1"></label>
-                                                                <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="DetailsConsultation.Resultats" id="resultats" placeholder="Exemple: Thelin" />
-                                                                <span asp-validation-for="DetailsConsultation.Resultats" class="text-danger"></span>
+                                                        <div class="col col-md-8 col-lg-8 col-xl-8">
+                                                                <label asp-for="DetailsConsultation.Diagnostic" class="form-label mt-3 mb-1"></label>
+                                                            <textarea class="form-control form-control-lg capitalize-first-letter summernote" asp-for="DetailsConsultation.Diagnostic" id="diagnostic" rows="3" placeholder="Saisir le diagnostic "></textarea>
+                                                                <span asp-validation-for="DetailsConsultation.Diagnostic" class="text-danger"></span>
                                                             </div>
                                                         </div>
                                                         <div class="row justify-content-center">
                                                             <div class="col col-md-8 col-lg-8 col-xl-8 ">
                                                                 <label asp-for="DetailsConsultation.MedicamentsPrescrits" class="form-label mt-3 mb-1"></label>
-                                                                <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="DetailsConsultation.MedicamentsPrescrits" id="medicamentsPrescrits" placeholder="Exemple: Thelin" />
+                                                                <textarea class="form-control form-control-lg capitalize-first-letter summernote" asp-for="DetailsConsultation.MedicamentsPrescrits" id="medicamentsPrescrits" rows="3" placeholder="Proposer les médicaments recommandés "></textarea>
                                                                 <span asp-validation-for="DetailsConsultation.MedicamentsPrescrits" class="text-danger"></span>
                                                             </div>
                                                         </div>
                                                         <div class="row justify-content-center">
                                                             <div class="col col-md-8 col-lg-8 col-xl-8 ">
                                                                 <label asp-for="DetailsConsultation.Notes" class="form-label mt-3 mb-1"></label>
-                                                                <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="DetailsConsultation.Notes" id="notes" placeholder="Exemple: Thelin" />
+                                                                <textarea class="form-control form-control-lg capitalize-first-letter summernote" asp-for="DetailsConsultation.Notes" id="notes" rows="3" placeholder="Renseignements complémentaires"></textarea>
                                                                 <span asp-validation-for="DetailsConsultation.Notes" class="text-danger"></span>
                                                             </div>
                                                         </div>

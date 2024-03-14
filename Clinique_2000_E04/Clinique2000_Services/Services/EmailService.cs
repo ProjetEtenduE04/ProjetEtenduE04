@@ -237,7 +237,7 @@ namespace Clinique2000_Services.Services
             string patientEmail = user.Email;
 
             // Supprimer du dictionnaire tous les enregistrements associés à l'adresse électronique du patient.
-            RemoveEntriesForEmail(patientEmail);
+           RemoveEntriesForEmail(patientEmail);
         }
 
     }

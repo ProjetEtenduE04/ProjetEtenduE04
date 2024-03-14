@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Clinique2000_Utility.Enum;
 using Clinique2000_Utility.Constants;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
@@ -535,7 +536,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             try
             {
                 // Call the service method to process calling the next patient.
-                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(consultationID, employeCliniqueID);
+                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(employeCliniqueID);
 
 
                 if (updatedListeSalleAttente != null)
@@ -561,8 +562,10 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             try
             {
-                // Call the service method to complete the current consultation and call the next patient.
-                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationId, employeCliniqueID, employes.DetailsConsultation);
+                // Call the service method to complete the current consultation and call the next patient.s
+                 await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationId, employeCliniqueID, employes.DetailsConsultation);
+
+                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(employeCliniqueID);
 
                 if (updatedListeSalleAttente != null)
                 {

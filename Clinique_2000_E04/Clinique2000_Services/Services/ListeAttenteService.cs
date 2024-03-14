@@ -342,11 +342,11 @@ namespace Clinique2000_Services.Services
 
 
 
-        public async Task<ListeAttenteVM> AppelerProchainPatient(int consultaionID, int employeCliniqueID)
+        public async Task<ListeAttenteVM> AppelerProchainPatient(int employeCliniqueID)
         {
-
+            var consultation = await _context.Consultations.Where(x => x.StatutConsultation == StatutConsultation.EnAttente).FirstOrDefaultAsync();
             var employeClinique = await _context.EmployesClinique.FirstAsync(e => e.EmployeCliniqueID == employeCliniqueID);
-            var consultation = await _context.Consultations.FirstAsync(c => c.ConsultationID == consultaionID);
+            //var consultation = await _context.Consultations.FirstAsync(c => c.ConsultationID == prochaineConsultation.ConsultationID);
             if (consultation != null)
             {
                 consultation.MedecinId = employeClinique.UserID;
@@ -424,7 +424,7 @@ namespace Clinique2000_Services.Services
                     // Met � jour le statut de la consultation pour la marquer comme termin�e.
                     consultation.StatutConsultation = StatutConsultation.Termine;
 
-                    _emailService.ConsultationCompleted(consultation.Patient);
+                    //_emailService.ConsultationCompleted(consultation.Patient);
 
 
                     // D�termine la logique pour s�lectionner le prochain m�decin disponible.
@@ -434,10 +434,9 @@ namespace Clinique2000_Services.Services
                     //if (!string.IsNullOrEmpty(nextAvailableDoctorId))
                     //{
 
-                    var prochaineconsultationID = await _context.Consultations.Where(x => x.StatutConsultation == StatutConsultation.EnAttente).FirstOrDefaultAsync();
+                    
                     // Associe le m�decin s�lectionn� � la consultation.
                     consultation.DetailsConsultation = details;
-                    await AppelerProchainPatient(prochaineconsultationID.ConsultationID, employeCliniqueID);
                     await _context.SaveChangesAsync();
                     //}
                 }
@@ -446,8 +445,8 @@ namespace Clinique2000_Services.Services
 
 
                 // Obtient la liste d'attente mise � jour.
-                ListeAttenteVM nouvelleListeAttenteVM = await GetListeSalleAttenteOrdonnee(consultation.PlageHoraire.ListeAttenteID);
-                return nouvelleListeAttenteVM;
+                //ListeAttenteVM nouvelleListeAttenteVM = await GetListeSalleAttenteOrdonnee(consultation.PlageHoraire.ListeAttenteID);
+                //return nouvelleListeAttenteVM;
             }
 
             // Si aucune consultation n'a �t� trouv�e, retourne null.
@@ -476,6 +475,7 @@ namespace Clinique2000_Services.Services
                     // Mettre à jour les détails de la consultation avec les données fournies.
                     consultation.DetailsConsultation = details;
                     // Enregistre les modifications dans la base de donn�es.
+                    _context.Update(consultation);
                     await _context.SaveChangesAsync();
 
                     // Obtient la liste d'attente mise � jour.
