@@ -517,9 +517,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
 
 
-            var ListeSalleAttenteVM = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employesID, details);
+            //var ListeSalleAttenteVM = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employesID, details);
+            var listeSalleAttenteVm = await _services.consultation.TerminerConsultation(consultationID, details);
+            await _services.consultation.AppelerProchainPatient(employesID);
 
-            if (ListeSalleAttenteVM == null)
+
+            if (listeSalleAttenteVm == null)
             {
                 TempData[AppConstants.Warning] = $"Désolé, mais aucune consultation avec l'identifiant {consultationID} n'a été trouvée.";
                 return View("NotFound");
@@ -536,7 +539,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             try
             {
                 // Call the service method to process calling the next patient.
-                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(employeCliniqueID);
+                var updatedListeSalleAttente = await _services.consultation.AppelerProchainPatient(employeCliniqueID);
 
 
                 if (updatedListeSalleAttente != null)
@@ -563,9 +566,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             try
             {
                 // Call the service method to complete the current consultation and call the next patient.s
-                 await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationId, employeCliniqueID, employes.DetailsConsultation);
-
-                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(employeCliniqueID);
+                 //await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationId, employeCliniqueID, employes.DetailsConsultation);
+                await _services.consultation.TerminerConsultation(consultationId, employes.DetailsConsultation);
+                var updatedListeSalleAttente = await _services.consultation.AppelerProchainPatient(employeCliniqueID);
 
                 if (updatedListeSalleAttente != null)
                 {
@@ -593,7 +596,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             try
             {
                 // Call the service method to complete the current consultation.
-                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultation(consultationId, employes.DetailsConsultation);
+                var updatedListeSalleAttente = await _services.consultation.TerminerConsultation(consultationId, employes.DetailsConsultation);
 
                 if (updatedListeSalleAttente != null)
                 {
@@ -624,7 +627,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     TempData[AppConstants.Warning] = $"Désolé, mais aucune patient avec l'identifiant {PatientId} n'a été trouvée.";
                     return View("NotFound");
                 }
-                await _services.listeAttente.AnnulerConsultationAsync(patient);
+                await _services.consultation.AnnulerConsultationAsync(patient);
                 return RedirectToAction("Details", "Patients", new { area = "Patients", id = PatientId });
                
             }

@@ -275,6 +275,10 @@ namespace Clinique2000_Services.Services
         }
 
 
+        /// <summary>
+        /// Obtient les listes d'attentes (la vue pour les employes)
+        /// </summary>
+        /// <returns> Les listes d'attentes sont ouvert pour un clinique a choisi</returns>
         public async Task<IEnumerable<CliniqueDistanceVM>> ObtenirLes5CliniquesLesPlusProches()
         {
             var patientID = await _consultationService.ObtenirIdPatientAsync();
@@ -323,7 +327,11 @@ namespace Clinique2000_Services.Services
         }
 
 
-
+        /// <summary>
+        /// Verifie si l'utilisateur est le créateur d'une clinique.
+        /// </summary>
+        /// <param name="User"> utilisateur authentifié</param>
+        /// <returns> true si l'utilisateur est le créateur d'une clinique, sinon false.</returns>
         public async Task<bool> UserEstAdminClinique(IdentityUser User)
         {
             if (_context.Cliniques.Any(x=>x.CreateurID==User.Id))
@@ -372,6 +380,11 @@ namespace Clinique2000_Services.Services
             return clinique != null && clinique.CreateurID == appUser.Id;        
         }
 
+        /// <summary>
+        /// Modifier le statut de la clinique pour l'activer.
+        /// </summary>
+        /// <param name="clinique"> La clinique à activer.</param>
+        /// <returns> La clinique activée.</returns>
         public async Task ApproverClinique(Clinique clinique)
         {
             clinique.EstActive = true;

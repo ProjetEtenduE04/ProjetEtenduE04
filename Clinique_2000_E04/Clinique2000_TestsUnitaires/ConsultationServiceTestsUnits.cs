@@ -20,11 +20,15 @@ namespace Clinique2000_TestsUnitaires
     {
         private readonly Mock<IPatientService> _mockPatientService;
         private readonly Mock<IHttpContextAccessor> _mockHttpContextAccessor;
+        private readonly Mock<IListeAttenteService> _mockListeAttenteService;
+        private readonly Mock<IEmailService> _mockEmailService;
 
         public ConsultationServiceTestsUnits()
         {
             _mockPatientService = new Mock<IPatientService>();
             _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            _mockListeAttenteService = new Mock<IListeAttenteService>();
+            _mockEmailService = new Mock<IEmailService>();
         }
 
         private CliniqueDbContext CreateAndSeedContext()
@@ -131,7 +135,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task ReserverConsultationAsync_ExceptionPourConsultationInexistante()
         {
             var context = CreateAndSeedContext();
-            var service = new ConsultationService(context, _mockPatientService.Object, _mockHttpContextAccessor.Object);
+            var service = new ConsultationService(context, _mockPatientService.Object, _mockHttpContextAccessor.Object, _mockListeAttenteService.Object , _mockEmailService.Object);
             int nonExistentConsultationId = -1;
 
             // Tente de réserver une consultation inexistante et vérifie si une exception est lancée
@@ -147,7 +151,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task ReserverConsultationAsync_ReservationReussie()
         {
             var context = CreateAndSeedContext();
-            var service = new ConsultationService(context, _mockPatientService.Object, _mockHttpContextAccessor.Object);
+            var service = new ConsultationService(context, _mockPatientService.Object, _mockHttpContextAccessor.Object, _mockListeAttenteService.Object, _mockEmailService.Object);
             int consultationId = 1;
 
             // Configuration du mock pour simuler un utilisateur connecté
@@ -174,7 +178,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task ReserverConsultationAsync_ExceptionSiListeAttenteFermee()
         {
             var context = CreateAndSeedContext();
-            var service = new ConsultationService(context, _mockPatientService.Object, _mockHttpContextAccessor.Object);
+            var service = new ConsultationService(context, _mockPatientService.Object, _mockHttpContextAccessor.Object, _mockListeAttenteService.Object , _mockEmailService.Object);
             int consultationId = 1;
 
             var plageHoraire = await context.PlagesHoraires.FirstOrDefaultAsync(ph => ph.PlageHoraireID == consultationId);
@@ -205,7 +209,7 @@ namespace Clinique2000_TestsUnitaires
         {
             using (var context = CreateAndSeedContext())
             {
-                var service = new ConsultationService(context, _mockPatientService.Object, _mockHttpContextAccessor.Object);
+                var service = new ConsultationService(context, _mockPatientService.Object, _mockHttpContextAccessor.Object, _mockListeAttenteService.Object, _mockEmailService.Object);
                 int patientId = 1;
 
                 // Vérifie si le patient a déjà une consultation planifiée et attend une exception
@@ -225,7 +229,7 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var consultationId = 1;
             var dbContext = CreateAndSeedContext();
-            var service = new ConsultationService(dbContext, _mockPatientService.Object, _mockHttpContextAccessor.Object);
+            var service = new ConsultationService(dbContext, _mockPatientService.Object, _mockHttpContextAccessor.Object, _mockListeAttenteService.Object, _mockEmailService.Object);
 
             // Act
             var result = await service.ObtenirConsultationParIdAsync(consultationId);
@@ -243,9 +247,9 @@ namespace Clinique2000_TestsUnitaires
         public async Task ObtenirConsultationParIdAsync_WithInvalidId_ReturnsNull()
         {
             // Arrange
-            var consultationId = -1; 
+            var consultationId = -1;
             var dbContext = CreateAndSeedContext();
-            var service = new ConsultationService(dbContext, _mockPatientService.Object, _mockHttpContextAccessor.Object);
+            var service = new ConsultationService(dbContext, _mockPatientService.Object, _mockHttpContextAccessor.Object, _mockListeAttenteService.Object, _mockEmailService.Object);
 
             // Act
             var result = await service.ObtenirConsultationParIdAsync(consultationId);

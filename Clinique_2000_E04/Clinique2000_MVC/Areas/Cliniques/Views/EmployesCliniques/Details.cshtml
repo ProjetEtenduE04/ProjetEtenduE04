@@ -8,7 +8,7 @@
 
 <div class="container" style="max-width: 1080px; margin-top: 50px;">
 
-    <h1 class="text-center">Profil du medecin</h1>
+    <h1 class="text-center">Tableau de bord</h1>
 
     <div>
         <h4>
@@ -50,8 +50,6 @@
 
     <div class="card">
         <div class="tab-content p-4">
-
-
             <div class="tab-pane active show " id="patient" role="tabpanel">
                 <h4 class="card-title mb-4">Consultations</h4>
                 <div class="row">
@@ -61,60 +59,28 @@
                                 <div class="card task-box rounded-3">
                                     <div class="card-body">
                                         <div class="row ">
-@*                                             <div class="" style="display: flex;margin:20px 0"> *@
-                                                @if (Model.ConsultationEnCours != null)
-                                                {
-                                @*                     <div class="row">
-                                                        <h4>Details du patient</h4>
-                                                            <table class="dataTable">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            Nom
-                                                                        </th>
-                                                                        <th>
-                                                                            Prenom
-                                                                        </th>
-                                                                        <th>
-                                                                            Date de naissance
-                                                                        </th>
 
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => @Model.ConsultationEnCours.Patient.Nom)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => @Model.ConsultationEnCours.Patient.Prenom)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => @Model.ConsultationEnCours.Patient.DateDeNaissance)
-                                                                        </td>
-
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                </div> *@
-                                                    <div class="row align-items-center justify-content-center mt-5">
-                                                        <div class="col col-sm-4 col-md-2 col-lg-2 col-xl-2 ">
-                                                            <img src="/images/avatargenerique.png" alt="" class="w-75 rounded-circle">
-                                                        </div>
-                                                        <div class="col col-md-6 col-lg-6 col-xl-6 ">
-                                                            <h2>@Model.ConsultationEnCours.Patient.Nom @Model.ConsultationEnCours.Patient.Prenom</h2>
-                                                            <h4>@Model.ConsultationEnCours.Patient.DateDeNaissance.ToShortDateString()</h4>
-                                                        </div>
+                                            @if (Model.ConsultationEnCours != null)
+                                            {
+                                                <!-- Profil patient -->
+                                                <div class="row align-items-center justify-content-center mt-5">
+                                                    <div class="col col-sm-4 col-md-2 col-lg-2 col-xl-2 ">
+                                                        <img src="/images/avatargenerique.png" alt="" class="w-75 rounded-circle">
                                                     </div>
+                                                    <div class="col col-md-6 col-lg-6 col-xl-6 ">
+                                                        <h2>@Model.ConsultationEnCours.Patient.Nom @Model.ConsultationEnCours.Patient.Prenom</h2>
+                                                        <h4>@Model.ConsultationEnCours.Patient.DateDeNaissance.ToShortDateString()</h4>
+                                                    </div>
+                                                </div>
 
-                                                    <!-- Terminer Consultation button -->
+                                                <!-- Form DetailsConsultation et btn terminerConsultation -->
 
-                                                    <form asp-area="Cliniques" asp-controller="ListeAttente" method="post">
+                                                <form asp-area="Cliniques" asp-controller="ListeAttente" method="post">
 
-                                                        <input type="hidden" name="consultationId" value="@Model.ConsultationEnCours.ConsultationID" />
-                                                        <input type="hidden" name="employeCliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
+                                                    <input type="hidden" name="consultationId" value="@Model.ConsultationEnCours.ConsultationID" />
+                                                    <input type="hidden" name="employeCliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
 
-                                                        <div class="row justify-content-center">
+                                                    <div class="row justify-content-center">
                                                         <div class="col col-md-8 col-lg-8 col-xl-8 ">
                                                             <label asp-for="DetailsConsultation.MotifRendezVous" class="form-label mt-3 mb-1"></label>
                                                             <select asp-for="DetailsConsultation.MotifRendezVous" class="form-select form-select-lg capitalize-first-letter" id="motifRendezVous">
@@ -125,83 +91,72 @@
                                                                 }
                                                             </select>
                                                             <span asp-validation-for="DetailsConsultation.MotifRendezVous" class="text-danger"></span>
-                                                            </div>
                                                         </div>
+                                                    </div>
 
 
-                                                        <div class="row justify-content-center">
-                                                            <div class="col col-md-8 col-lg-8 col-xl-8 ">
-                                                                <label asp-for="DetailsConsultation.Symptomes" class="form-label mt-3 mb-1"></label>
-                                                                <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="DetailsConsultation.Symptomes" id="symptomes" placeholder="Exemple: Thelin" />
-                                                                <span asp-validation-for="DetailsConsultation.Symptomes" class="text-danger"></span>
-                                                            </div>
+                                                    <div class="row justify-content-center">
+                                                        <div class="col col-md-8 col-lg-8 col-xl-8 ">
+                                                            <label asp-for="DetailsConsultation.Symptomes" class="form-label mt-3 mb-1"></label>
+                                                            <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="DetailsConsultation.Symptomes" id="symptomes" placeholder="Exemple: Thelin" />
+                                                            <span asp-validation-for="DetailsConsultation.Symptomes" class="text-danger"></span>
                                                         </div>
+                                                    </div>
 
-                                                        <div class="row justify-content-center">
+                                                    <div class="row justify-content-center">
                                                         <div class="col col-md-8 col-lg-8 col-xl-8">
-                                                                <label asp-for="DetailsConsultation.Diagnostic" class="form-label mt-3 mb-1"></label>
+                                                            <label asp-for="DetailsConsultation.Diagnostic" class="form-label mt-3 mb-1"></label>
                                                             <textarea class="form-control form-control-lg capitalize-first-letter summernote" asp-for="DetailsConsultation.Diagnostic" id="diagnostic" rows="3" placeholder="Saisir le diagnostic "></textarea>
-                                                                <span asp-validation-for="DetailsConsultation.Diagnostic" class="text-danger"></span>
-                                                            </div>
+                                                            <span asp-validation-for="DetailsConsultation.Diagnostic" class="text-danger"></span>
                                                         </div>
-                                                        <div class="row justify-content-center">
-                                                            <div class="col col-md-8 col-lg-8 col-xl-8 ">
-                                                                <label asp-for="DetailsConsultation.MedicamentsPrescrits" class="form-label mt-3 mb-1"></label>
-                                                                <textarea class="form-control form-control-lg capitalize-first-letter summernote" asp-for="DetailsConsultation.MedicamentsPrescrits" id="medicamentsPrescrits" rows="3" placeholder="Proposer les médicaments recommandés "></textarea>
-                                                                <span asp-validation-for="DetailsConsultation.MedicamentsPrescrits" class="text-danger"></span>
-                                                            </div>
+                                                    </div>
+                                                    <div class="row justify-content-center">
+                                                        <div class="col col-md-8 col-lg-8 col-xl-8 ">
+                                                            <label asp-for="DetailsConsultation.MedicamentsPrescrits" class="form-label mt-3 mb-1"></label>
+                                                            <textarea class="form-control form-control-lg capitalize-first-letter summernote" asp-for="DetailsConsultation.MedicamentsPrescrits" id="medicamentsPrescrits" rows="3" placeholder="Proposer les médicaments recommandés "></textarea>
+                                                            <span asp-validation-for="DetailsConsultation.MedicamentsPrescrits" class="text-danger"></span>
                                                         </div>
-                                                        <div class="row justify-content-center">
-                                                            <div class="col col-md-8 col-lg-8 col-xl-8 ">
-                                                                <label asp-for="DetailsConsultation.Notes" class="form-label mt-3 mb-1"></label>
-                                                                <textarea class="form-control form-control-lg capitalize-first-letter summernote" asp-for="DetailsConsultation.Notes" id="notes" rows="3" placeholder="Renseignements complémentaires"></textarea>
-                                                                <span asp-validation-for="DetailsConsultation.Notes" class="text-danger"></span>
-                                                            </div>
+                                                    </div>
+                                                    <div class="row justify-content-center">
+                                                        <div class="col col-md-8 col-lg-8 col-xl-8 ">
+                                                            <label asp-for="DetailsConsultation.Notes" class="form-label mt-3 mb-1"></label>
+                                                            <textarea class="form-control form-control-lg capitalize-first-letter summernote" asp-for="DetailsConsultation.Notes" id="notes" rows="3" placeholder="Renseignements complémentaires"></textarea>
+                                                            <span asp-validation-for="DetailsConsultation.Notes" class="text-danger"></span>
                                                         </div>
+                                                    </div>
 
-                                                        <div class="row justify-content-center">
-                                                            <div class="col col-md-8 col-lg-8 col-xl-8 ">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col col-md-8 col-lg-8 col-xl-8 ">
                                                             <label class="form-label mt-3 mb-1">
-                                                                    <input asp-for="DetailsConsultation.EstAlergique" class="form-check-input" />
-                                                                    <span class="ml-2">Est allergique</span>
-                                                                </label>
-                                                            </div>
+                                                                <input asp-for="DetailsConsultation.EstAlergique" class="form-check-input" />
+                                                                <span class="ml-2">Est allergique</span>
+                                                            </label>
                                                         </div>
-                                                        <div class="row justify-content-center mt-3">
-                                                            <button type="submit" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="TerminerConsultation" class="button-green-action form-control" style="width:fit-content; margin-right:26px">
-                                                                Terminer Consultation
-                                                            </button>
-                                                            <button type="submit" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="TerminerConsultationEtAppellerProchainPatient" class="button-green-action form-control" style="width:fit-content">
-                                                                Terminer et appeler le prochain patient
-                                                            </button>
-                                                        </div>
-
-                                                    </form>
-
-                                                    <!-- Terminer Consultation et Appeler Prochain Patient button -->
-
-@*                                                     <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="TerminerConsultationEtAppellerProchainPatient">
-                                                        <input type="hidden" name="consultationId" value="@Model.ConsultationEnCours.ConsultationID" />
-                                                        <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" /> <!-- Corrected case -->
-                                                        <button type="submit" class="button-green-action form-control" style="width:fit-content">
+                                                    </div>
+                                                    <div class="row justify-content-center mt-3">
+                                                        <button type="submit" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="TerminerConsultation" class="button-green-action form-control" style="width:fit-content; margin-right:26px">
+                                                            Terminer Consultation
+                                                        </button>
+                                                        <button type="submit" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="TerminerConsultationEtAppellerProchainPatient" class="button-green-action form-control" style="width:fit-content">
                                                             Terminer et appeler le prochain patient
                                                         </button>
-                                                    </form> *@
-                                                    
-                                                }
-                                                else if (Model.ProchaineConsultation != null)
-                                                {
-                                                    <!-- Appeler Prochain Patient button -->
-                                                    <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="AppelerProchainPatient">
-                                                        <input type="hidden" name="consultationId" value="@Model.ProchaineConsultation.ConsultationID" />
-                                                        <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
-                                                        <button type="submit" class="button-blue-action form-control" style="width:fit-content">
-                                                            Appeler le prochain patient
-                                                        </button>
-                                                    </form>
-                                                }
-@*                                             </div> *@
-                                           
+                                                    </div>
+
+                                                </form>
+
+                                            }
+                                            else if (Model.ProchaineConsultation != null)
+                                            {
+                                                <!-- Appeler Prochain Patient button -->
+                                                <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="AppelerProchainPatient">
+                                                    <input type="hidden" name="consultationId" value="@Model.ProchaineConsultation.ConsultationID" />
+                                                    <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
+                                                    <button type="submit" class="button-blue-action form-control" style="width:fit-content">
+                                                        Appeler le prochain patient
+                                                    </button>
+                                                </form>
+                                            }
+
                                         </div>
                                     </div>
                                 </div>
@@ -210,8 +165,6 @@
                     </div>
                 </div>
             </div>
-
-
 
 
             <div class="tab-pane " id="myClinique" role="tabpanel">
@@ -257,7 +210,7 @@
                                                     @Html.DisplayNameFor(model => model.EmployesClinique.Clinique.HeureFermeture)
                                                 </dt>
                                                 <dd class="col-sm-9">
-                                                    @Html.DisplayFor(model => model.EmployesClinique.Clinique.HeureFermeture )
+                                                    @Html.DisplayFor(model => model.EmployesClinique.Clinique.HeureFermeture)
                                                 </dd>
 
                                                 <dt class="col-sm-3 mb-2">
@@ -279,7 +232,6 @@
                     </div>
                 </div>
             </div>
-
 
 
             <div class="tab-pane " id="info" role="tabpanel">
@@ -321,25 +273,19 @@
                                             </dl>
                                         </div>
                                     </div>
-                                     <div class="row justify-content-center text-center" style="margin-bottom: 20px">
+                                    <div class="row justify-content-center text-center" style="margin-bottom: 20px">
                                         <div class="col col-md-8 col-xl-6 mb-2 mt-2">
                                             <a asp-controller="EmployesCliniques" asp-action="Edit" asp-route-id="@Model?.EmployesClinique.EmployeCliniqueID" class="button-green-action form-control" style="width:auto">@btnText</a>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
-
     </div>
-
 
     <div>
 
