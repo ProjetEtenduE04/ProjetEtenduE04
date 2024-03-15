@@ -534,7 +534,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AppelerProchainPatient(int consultationID, int employeCliniqueID)
+        public async Task<IActionResult> AppelerProchainPatient(int employeCliniqueID)
         {
             try
             {
@@ -545,18 +545,22 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 if (updatedListeSalleAttente != null)
                 {
                     // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
+                    TempData[AppConstants.Success] = $"Le prochain patient a été appelé.";
                     return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
                 else
                 {
-                    // Handle the case where no updated waiting room data is available.
-                    return NotFound();
+                    TempData[AppConstants.Info] = $"Il n'y a pas de patient en attente.";
+                    return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
+
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions and return an appropriate error response.
-                return BadRequest(ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+
+                return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
             }
         }
 
@@ -565,8 +569,6 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         {
             try
             {
-                // Call the service method to complete the current consultation and call the next patient.s
-                 //await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationId, employeCliniqueID, employes.DetailsConsultation);
                 await _services.consultation.TerminerConsultation(consultationId, employes.DetailsConsultation);
                 var updatedListeSalleAttente = await _services.consultation.AppelerProchainPatient(employeCliniqueID);
 
@@ -580,13 +582,16 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 else
                 {
                     // Handle the case where no updated waiting room data is available.
-                    return NotFound();
+                    TempData[AppConstants.Info] = $"Il n'y a pas de patient en attente.";
+                    return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions and return an appropriate error response.
-                return BadRequest(ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+
+                return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
             }
         }
 
@@ -606,13 +611,16 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 else
                 {
                     // Handle the case where no updated waiting room data is available.
-                    return NotFound();
+                    TempData[AppConstants.Info] = $"Il n'y a pas de patient en attente.";
+                    return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions and return an appropriate error response.
-                return BadRequest(ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+
+                return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
             }
         }
 
@@ -633,6 +641,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             }
             return View();
         }
+
 
     }
 }
