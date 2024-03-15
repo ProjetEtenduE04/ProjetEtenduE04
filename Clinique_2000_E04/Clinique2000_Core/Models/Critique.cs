@@ -24,8 +24,6 @@ namespace Clinique2000_Core.Models
         [Range(1, 5, ErrorMessage = "La note doit être comprise entre 1 et 5.")]
         public int Note { get; set; }
 
-        [Required(ErrorMessage = "L'ID du patient est obligatoire.")]
-        public string PatientId { get; set; }
 
         [ForeignKey("Clinique")]
         public int CliniqueId { get; set; }

@@ -364,6 +364,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             var clinicName = _services.clinique.GetClinicNameById(id);
             ViewData["ClinicName"] = clinicName;
 
+            ViewData["CliniqueID"] = id;
+
             return View();
         }
 
@@ -374,6 +376,8 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             if (ModelState.IsValid)
             {
                 _services.clinique.CreerCritiqueAsync(critique);
+
+                TempData[AppConstants.Success] = $"Merci infiniment d'avoir pris le temps d'écrire une critique, votre feedback est précieux pour nous!";
 
                 return RedirectToAction("IndexCliniquesAProximite"); // Redirect to a different page after successful review submission
             }
