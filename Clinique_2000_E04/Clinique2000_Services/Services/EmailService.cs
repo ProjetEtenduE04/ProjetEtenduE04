@@ -33,7 +33,34 @@ namespace Clinique2000_Services.Services
         /// Envoie un courriel en utilisant les paramètres spécifiés dans l'objet EmailVM.
         /// </summary>
         /// <param name="request">L'objet EmailVM contenant les informations du courriel à envoyer.</param>
-        public void SendEmail(EmailVM request)
+        //public void SendEmail(EmailVM request)
+        //{
+        //    try
+        //    {
+        //        var email = new MimeMessage();
+        //        email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+        //        email.To.Add(MailboxAddress.Parse(request.To));
+        //        email.Subject = request.Subject;
+        //        email.Body = new TextPart(TextFormat.Html) { Text = request.Body };
+
+        //        using var smtp = new SmtpClient();
+        //        smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.Auto);
+        //        smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+        //        smtp.Send(email);
+        //        smtp.Disconnect(true);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Erreur lors de l'envoi du courrier électronique : {ex.Message}");
+        //    }
+        //}
+
+
+        /// <summary>
+        /// Envoie un courriel en utilisant les paramètres spécifiés dans l'objet EmailVM.
+        /// </summary>
+        /// <param name="request">L'objet EmailVM contenant les informations du courriel à envoyer.</param>
+        public async Task SendEmail(EmailVM request)
         {
             try
             {
@@ -44,14 +71,14 @@ namespace Clinique2000_Services.Services
                 email.Body = new TextPart(TextFormat.Html) { Text = request.Body };
 
                 using var smtp = new SmtpClient();
-                smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.Auto);
-                smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
-                smtp.Send(email);
-                smtp.Disconnect(true);
+                await smtp.ConnectAsync(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.Auto);
+                await smtp.AuthenticateAsync(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+                await smtp.SendAsync(email);
+                await smtp.DisconnectAsync(true);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erreur lors de l'envoi du courrier électronique : {ex.Message}");
+                Console.WriteLine($"Erreur lors de l'envoi du courrier électronique : {ex.Message}");  
             }
         }
 
@@ -122,13 +149,13 @@ namespace Clinique2000_Services.Services
         {
             var reminderEmail = await CreateReminderEmail(consultation, consultation.Patient, notificationTime);
             // Vérifier si la notification a déjà été envoyée pour cet email et ce NotificationTime
-            if (IsNotificationAlreadySent(reminderEmail.To, notificationTime))
+            if (await IsNotificationAlreadySent(reminderEmail.To, notificationTime))
             {
                 return; // Ne pas renvoyer la notification
             }
             SendEmail(reminderEmail);
             // Mise à jour de la structure de données avec les informations relatives à la notification envoyée
-            UpdateSentNotifications(reminderEmail.To, notificationTime);
+            await UpdateSentNotifications(reminderEmail.To, notificationTime);
         }
 
         /// <summary>
@@ -137,7 +164,7 @@ namespace Clinique2000_Services.Services
         /// <param name="email">L'adresse e-mail pour laquelle vérifier l'envoi de la notification.</param>
         /// <param name="notificationTime">Le moment auquel vérifier l'envoi de la notification.</param>
         /// <returns>True si une notification a déjà été envoyée pour l'adresse e-mail et le moment donné ; sinon, False.</returns>
-        private bool IsNotificationAlreadySent(string email, NotificationTime notificationTime)
+        private async Task<bool> IsNotificationAlreadySent(string email, NotificationTime notificationTime)
         {
             if (_sentNotifications.ContainsKey(email))
             {
@@ -151,20 +178,21 @@ namespace Clinique2000_Services.Services
         /// </summary>
         /// <param name="email">L'adresse e-mail pour laquelle mettre à jour les notifications envoyées.</param>
         /// <param name="notificationTime">Le moment auquel mettre à jour les notifications envoyées.</param>
-        private void UpdateSentNotifications(string email, NotificationTime notificationTime)
+        private async Task UpdateSentNotifications(string email, NotificationTime notificationTime)
         {
             if (!_sentNotifications.ContainsKey(email))
             {
                 _sentNotifications[email] = new HashSet<NotificationTime>();
             }
             _sentNotifications[email].Add(notificationTime);
+            await Task.CompletedTask;
         }
 
         /// <summary>
         /// Nettoie les notifications envoyées en supprimant celles qui ont expiré.
         /// </summary>
         /// <exception cref="ArgumentException">NotificationTime is not valid</exception>
-        public void CleanUpSentNotifications()
+        public async Task CleanUpSentNotifications()
         {
             var currentTime = DateTime.Now;
 
@@ -208,6 +236,7 @@ namespace Clinique2000_Services.Services
                     }
                 }
             }
+            await Task.CompletedTask;
         }
 
       
@@ -215,7 +244,7 @@ namespace Clinique2000_Services.Services
         /// Méthode pour supprimer du dictionnaire tous les enregistrements associés à un courriel
         /// </summary>
         /// <param name="email">Courriel</param>
-        private void RemoveEntriesForEmail(string email)
+        private async Task RemoveEntriesForEmail(string email)
         {
             // Vérifier si le dictionnaire contient la clé spécifiée
             if (_sentNotifications.ContainsKey(email))
@@ -223,6 +252,7 @@ namespace Clinique2000_Services.Services
                 // Supprimer l'ensemble de l'entrée associée à l'e-mail spécifié
                 _sentNotifications.Remove(email);
             }
+            await Task.CompletedTask;
         }
 
 
@@ -231,13 +261,13 @@ namespace Clinique2000_Services.Services
         /// Supprime toutes les notifications associées à un patient après la fin de la consultation.
         /// </summary>
         /// <param name="patient"> patient </param>
-        public async void ConsultationCompleted(Patient patient)
+        public async Task ConsultationCompleted(Patient patient)
         {
             var user = await _patientService.GetUserByUserId(patient.UserId);
             string patientEmail = user.Email;
 
             // Supprimer du dictionnaire tous les enregistrements associés à l'adresse électronique du patient.
-           RemoveEntriesForEmail(patientEmail);
+            await RemoveEntriesForEmail(patientEmail);
         }
 
     }
