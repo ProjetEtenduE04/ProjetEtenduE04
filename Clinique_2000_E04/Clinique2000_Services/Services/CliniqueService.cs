@@ -4,6 +4,7 @@ using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Utility.Constants;
 using Clinique2000_Utility.Enum;
+using Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -381,6 +382,22 @@ namespace Clinique2000_Services.Services
         public List<Clinique> GetAllClinique()
         {
             return _context.Cliniques.ToList();
+        }
+
+        public string GetClinicNameById(int id)
+        {
+            var clinic = _context.Cliniques.FirstOrDefault(c => c.CliniqueID == id);
+            return clinic?.NomClinique;
+        }
+
+        public async Task<Critique> CreerCritiqueAsync(Critique critique)
+        {
+            _context.Critiques.Add(critique);
+            _context.SaveChanges();
+
+            var critiqueClinique = critique;
+
+            return (critiqueClinique);
         }
     }
 }

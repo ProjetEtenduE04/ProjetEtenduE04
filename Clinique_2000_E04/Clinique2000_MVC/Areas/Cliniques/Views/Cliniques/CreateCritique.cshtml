@@ -1,0 +1,40 @@
+﻿@model Critique
+
+@{
+    var clinicId = ViewData["CliniqueID"] as int?;
+}
+
+<h1 style="text-align: center; margin-top: 40px; margin-bottom: 40px">Critique pour la @ViewData["ClinicName"]</h1>
+
+<form asp-action="CreateCritique" method="post" style="text-align: center;">
+    <input type="hidden" asp-for="@Model.CliniqueId" value="@clinicId" />
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8 col-xxl-7">
+            <h3 style="text-align: center; margin-top: 20px">Donnez-nous une note sur 5 étoiles!</h3>
+            <div class="rate">
+                <input type="radio" id="star5" name="Note" value="5" />
+                <label for="star5" title="5 stars">5 stars</label>
+                <input type="radio" id="star4" name="Note" value="4" />
+                <label for="star4" title="4 stars">4 stars</label>
+                <input type="radio" id="star3" name="Note" value="3" />
+                <label for="star3" title="3 stars">3 stars</label>
+                <input type="radio" id="star2" name="Note" value="2" />
+                <label for="star2" title="2 stars">2 stars</label>
+                <input type="radio" id="star1" name="Note" value="1" />
+                <label for="star1" title="1 star">1 star</label>
+            </div>
+
+            <h3 style="text-align: center; margin-top: 20px">Titre de la critique</h3>
+            <input type="text" asp-for="@Model.Titre" placeholder="Écrivez le titre de votre critique" style="margin-bottom: 20px; width: 30%" />
+            <span asp-validation-for="@Model.Titre" class="text-danger"></span>
+
+            <h3 style="text-align: center;">Comment était votre expérience?</h3>
+            <textarea asp-for="@Model.Texte" rows="5" cols="33" style="margin-bottom: 20px; width: 50%"></textarea>
+            <span asp-validation-for="@Model.Texte" class="text-danger"></span>
+
+            <div>
+                <button type="submit" class="button-green-action" style="margin-bottom: 40px;">Envoyer</button>
+            </div>
+        </div>
+    </div>
+</form>
