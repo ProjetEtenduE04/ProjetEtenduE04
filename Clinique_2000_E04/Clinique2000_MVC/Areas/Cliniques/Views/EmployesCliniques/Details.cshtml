@@ -87,7 +87,8 @@
                                                                 <option value="" class="text-secondary">Choisissez une raison</option>
                                                                 @foreach (var motif in Enum.GetValues(typeof(MotifRendezVousMedical)))
                                                                 {
-                                                                    <option value="@motif">@Enum.GetName(typeof(MotifRendezVousMedical), motif)</option>
+                                                                    var displayName = (motif as MotifRendezVousMedical?)?.GetDisplayName();
+                                                                    <option value="@motif">@displayName</option>
                                                                 }
                                                             </select>
                                                             <span asp-validation-for="DetailsConsultation.MotifRendezVous" class="text-danger"></span>

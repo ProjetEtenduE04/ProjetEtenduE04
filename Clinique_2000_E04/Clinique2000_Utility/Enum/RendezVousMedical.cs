@@ -34,5 +34,19 @@ namespace Clinique2000_Utility.Enum
         [Display(Name = "Autre")]
         Autre
     }
-    
+
+
+    public static class MotifRendezVousMedicalExtensions
+    {
+        public static string GetDisplayName(this MotifRendezVousMedical enumValue)
+        {
+            var displayAttribute = enumValue.GetType()
+                .GetField(enumValue.ToString())
+                .GetCustomAttributes(typeof(DisplayAttribute), false)
+                .SingleOrDefault() as DisplayAttribute;
+
+            return displayAttribute != null ? displayAttribute.Name.Replace(" / ", " / ") : enumValue.ToString();
+        }
+    }
+
 }

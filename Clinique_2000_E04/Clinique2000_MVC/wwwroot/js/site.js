@@ -149,7 +149,7 @@ $(document).ready(function () {
 
             ['Menu', ['style', 'bold', 'italic', 'underline',
                 'clear', 'fontname', 'fontsize', 'color', 'ul', 'ol',
-                'paragraph', 'link', 'picture',
+                'paragraph'
                 /*'video', 'fullscreen', 'codeview', 'help'*/
             ]],
         ],
