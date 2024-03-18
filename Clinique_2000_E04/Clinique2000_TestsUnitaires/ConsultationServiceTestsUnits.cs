@@ -258,6 +258,25 @@ namespace Clinique2000_TestsUnitaires
             Assert.Null(result);
         }
 
+        [Fact]
+        public async Task ObtenirConsultationParIdAsync_RetourneConsultationSiExiste()
+        {
+            // Arrange
+            var consultationId = 1;
+
+            var dbContext = CreateAndSeedContext();
+            var consultation = await dbContext.Consultations.FindAsync(consultationId);
+
+
+            var consultationService =  new ConsultationService(dbContext, _mockPatientService.Object, _mockHttpContextAccessor.Object, _mockListeAttenteService.Object, _mockEmailService.Object);
+
+            // Act
+            var result = await consultationService.ObtenirConsultationParIdAsync(consultationId);
+
+            // Assert
+            Assert.Equal(consultation, result);
+        }
+
     }
 }
 
