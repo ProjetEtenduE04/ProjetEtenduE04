@@ -21,6 +21,7 @@ namespace Clinique2000_Services.Services
         public IEmployesCliniqueService employesClinique { get; private set; }
         public IEmailService email { get; private set; }
         public IAdminService admin { get; private set; }
+        public IPatientAchargeService patientAcharge { get; private set; }
 
 
         public Clinique2000Services(
@@ -32,19 +33,20 @@ namespace Clinique2000_Services.Services
             IConsultationService consultationService,
             IEmployesCliniqueService employesCliniqueService,
             IEmailService emailService,
-            IAdminService adminService
+            IAdminService adminService,
+            IPatientAchargeService patientAchargeService
             )
         {
             listeAttente = listeAttenteService;
             patient = patientService;
             authenGoogle = authenGoogleService;
             consultation = consultationService;
-            
             clinique = cliniqueService;
             adresse = adresseService;
             email = emailService;
             employesClinique = employesCliniqueService;
             admin = adminService;
+            patientAcharge = patientAchargeService;
         }
     }
 }

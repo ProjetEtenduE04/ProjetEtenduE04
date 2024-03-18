@@ -73,7 +73,7 @@
                         @{
                             string formattedDate = Model.DateDeNaissance == DateTime.MinValue ? null : Model.DateDeNaissance.ToString("yyyy-MM-dd");
                         }
-                        <input id="DateDeNaissance" class="form-control form-control-lg" asp-for="@Model.DateDeNaissance" value="@formattedDate" type="date" min="1900-01-01" max="@DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd")">
+                        @* <input id="DateDeNaissance" class="form-control form-control-lg" asp-for="@Model.DateDeNaissance" value="@formattedDate" type="date" min="1900-01-01" max="@DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd")"> *@
                         <span asp-validation-for="@Model.DateDeNaissance" class="text-danger"></span>
                     </div>
                 </div>
