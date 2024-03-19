@@ -3,10 +3,10 @@
 
 @if (this.User.Identity.IsAuthenticated)
 {
-    var btnTitre1 = "Liste des patients";
-    var btnTitre2 = "Créer le dossier";
-    var btnTitre3 = "Mon profil";
-    var btnTitre4 = "";
+    var btnTitre1 = Locals["btnTitre1"];
+    var btnTitre2 = Locals["btnTitre2"];
+    var btnTitre3 = Locals["btnTitre3"];
+    var btnTitre4 = Locals["btnTitre4"];
     var user = await _service.patient.GetUserAuthAsync();
     var employe = await _service.employesClinique.VerifierSiUserAuthEstEmploye(user.Email);
     var patient = await _service.patient.GetPatientParUserIdAsync(user.Id);
