@@ -102,11 +102,12 @@
                     <li />
                     <li><a class="p1 " asp-controller="#" asp-action="#">@Locals["FooterAPropos"]</a>
                     <li />
-                    <li><a class="p1 " asp-controller="#" asp-action="Privacy">Privacy</a><li/>
+                    <li><a class="p1 " asp-controller="#" asp-action="Privacy">@Locals["FooterConfidentialite"]</a>
+                    <li />
                 </ul>
             </div>
             <div id="col-nousjoindre" >
-                <h5>Nous Joindre</h5>
+                <h5>@Locals["FooterJoindre"]</h5>
                 <div>
                     <i class="fa-solid fa-location-dot fa-xl icons-rs"></i>
                     945 Ch. de Chambly,
@@ -133,7 +134,7 @@
        
         <section id="copyright">
             <div class="copyright-content py-2">
-                Copyright &copy; 2024 Clinique2000 <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                Copyright &copy; 2024 Clinique2000 <a asp-area="" asp-controller="Home" asp-action="Privacy">@Locals["FooterConfidentialite"]</a>
             </div>
         </section>
     </footer>

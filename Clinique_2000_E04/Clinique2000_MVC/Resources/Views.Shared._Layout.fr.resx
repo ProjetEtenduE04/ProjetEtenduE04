@@ -120,8 +120,14 @@
   <data name="FooterAPropos" xml:space="preserve">
     <value>À propos de nous</value>
   </data>
+  <data name="FooterConfidentialite" xml:space="preserve">
+    <value>Confidentialité</value>
+  </data>
   <data name="FooterConnexion" xml:space="preserve">
     <value>Se connecter</value>
+  </data>
+  <data name="FooterJoindre" xml:space="preserve">
+    <value>Nous Joindre</value>
   </data>
   <data name="FooterLienHome1" xml:space="preserve">
     <value>CLINIQUE2000</value>

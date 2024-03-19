@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FooterAPropos" xml:space="preserve">
-    <value>About Us</value>
+  <data name="btnTitre1" xml:space="preserve">
+    <value>List of clinics</value>
   </data>
-  <data name="FooterConfidentialite" xml:space="preserve">
-    <value>Privacy</value>
+  <data name="btnTitre2" xml:space="preserve">
+    <value>Register a clinic</value>
   </data>
-  <data name="FooterConnexion" xml:space="preserve">
-    <value>Log in</value>
+  <data name="btnTitre3" xml:space="preserve">
+    <value>Nearby clinics</value>
   </data>
-  <data name="FooterJoindre" xml:space="preserve">
-    <value>Contact Us</value>
+  <data name="btnTitre4" xml:space="preserve">
+    <value>Waiting lists</value>
   </data>
-  <data name="FooterLienHome1" xml:space="preserve">
-    <value>CLINIC2000</value>
+  <data name="btnTitre5" xml:space="preserve">
+    <value>Clinical approval</value>
   </data>
-  <data name="FooterLienHome2" xml:space="preserve">
-    <value>Home page</value>
+  <data name="btnTitre6" xml:space="preserve">
+    <value>Clinics refused</value>
   </data>
-  <data name="FooterLienRapides" xml:space="preserve">
-    <value>Quick Links</value>
+  <data name="navLinkClinique" xml:space="preserve">
+    <value>Clinic</value>
   </data>
 </root>
