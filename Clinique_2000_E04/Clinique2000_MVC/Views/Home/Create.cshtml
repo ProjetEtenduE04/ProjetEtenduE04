@@ -3,9 +3,9 @@
 
 @{
 
-    var btnText = "S'enregistrer";
+    var btnText = Locals["btnText"];
 
-    ViewData["Title"] = "Créer un profil";
+    ViewData["Title"] = Locals["Titre1"];
 
 }
 
@@ -17,15 +17,15 @@
 
             <div>
 
-                <h1 class="h0">Renseignements Obligatoires</h1>
+                <h1 class="h0">@Locals["Titre2"]</h1>
 
                 <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
 
                 <p class="p1">
 
-                    Veuillez compléter ces informations <br />
+                    @Locals["SousTitre1"] <br />
 
-                    <span class="p3">Les champs marqués d'un astérisque (*) doivent être renseignés.</span>
+                    <span class="p3">@Locals["SousTitre2"]</span>
 
                 </p>
 
@@ -50,7 +50,7 @@
 
                         <label asp-for="@Model.Nom" class="form-label mt-3 mb-1"></label>
 
-                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Nom" id="nomPatient" placeholder="Exemple: Jhon">
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Nom" id="nomPatient" placeholder=@Locals["PlaceHolderNom"]>
 
                         <span asp-validation-for="@Model.Nom" class="text-danger"></span>
 
@@ -66,7 +66,7 @@
 
                         <label asp-for="@Model.Prenom" class="form-label mt-3 mb-1"></label>
 
-                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Prenom" placeholder="Exemple: Smith">
+                        <input type="text" class="form-control capitalize-first-letter" asp-for="@Model.Prenom" placeholder=@Locals["PlaceHolderPrenom"]>
 
                         <span asp-validation-for="@Model.Prenom" class="text-danger"></span>
 
@@ -84,11 +84,11 @@
 
                         <select class="form-select" asp-for="@Model.Genre" aria-label="Genre">
 
-                            <option selected value="">Choisissez parmi les options proposées</option>
+                            <option selected value="">@Locals["ChampGenreOptions"]</option>
 
-                            <option selected value="Féminine">Féminine</option>
+                            <option selected value="Féminine">@Locals["ChampGenreFeminin"]</option>
 
-                            <option selected value="Masculin">Masculin</option>
+                            <option selected value="Masculin">@Locals["ChampGenreMasculin"]</option>
 
                         </select>
 
@@ -106,7 +106,7 @@
 
                         <label asp-for="@Model.NAM" class="form-label mt-3 mb-1"></label>
 
-                        <input type="text" class="form-control" asp-for="@Model.NAM" placeholder="Exemple: CULA-1234-5678">
+                        <input type="text" class="form-control" asp-for="@Model.NAM" placeholder=@Locals["PlaceHolderNAM"]>
 
                         <span asp-validation-for="@Model.NAM" class="text-danger"></span>
 
@@ -144,7 +144,7 @@
 
                         <label asp-for="@Model.CodePostal" class="form-label mt-3 mb-1"></label>
 
-                        <input type="text" class="form-control" asp-for="@Model.CodePostal" placeholder="Exemple: J4K 2T4">
+                        <input type="text" class="form-control" asp-for="@Model.CodePostal" placeholder=@Locals["PlaceHolderPostal"]>
 
                         <span asp-validation-for="@Model.CodePostal" class="text-danger"></span>
 
