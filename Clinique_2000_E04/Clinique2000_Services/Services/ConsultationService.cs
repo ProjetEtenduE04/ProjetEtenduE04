@@ -209,7 +209,7 @@ namespace Clinique2000_Services.Services
             //var consultation = await _context.Consultations.FirstAsync(c => c.ConsultationID == prochaineConsultation.ConsultationID);
             if (consultation != null)
             {
-                consultation.MedecinId = employeClinique.UserID;
+                consultation.EmployeCliniqueID = employeCliniqueID;
                 consultation.StatutConsultation = StatutConsultation.EnCours;
                 consultation.HeureDateDebutReele = DateTime.Now;
                 await EditerAsync(consultation);
