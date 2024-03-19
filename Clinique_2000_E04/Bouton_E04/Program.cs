@@ -103,7 +103,7 @@ namespace Bouton_E04
                 if (_btn1.Read() == PinValue.High && debounce != "btn1")
                 {
                     Console.WriteLine("Bouton 1 pressé");
-                    kbd.Send(Keys.Keypad.Keypad1);
+                    kbd.Send(Keys.Numeric.Keyboard1);
                     //debounce = "btn1";
                     _del2Rouge.Write(PinValue.High);
                     _del2Vert.Write(PinValue.Low);
@@ -114,7 +114,7 @@ namespace Bouton_E04
                 if (_btn2.Read() == PinValue.High && debounce != "btn2")
                 {
                     Console.WriteLine("Bouton 2 pressé");
-                    kbd.Send(Keys.Keypad.Keypad2);
+                    kbd.Send(Keys.Numeric.Keyboard2);
                     //debounce = "btn2";
                     _del2Rouge.Write(PinValue.High);
                     _del2Vert.Write(PinValue.Low);
@@ -124,7 +124,7 @@ namespace Bouton_E04
                 if (_btn3.Read() == PinValue.High && debounce != "btn3")
                 {
                     Console.WriteLine("Bouton 3 pressé");
-                    kbd.Send(Keys.Keypad.Keypad3);
+                    kbd.Send(Keys.Numeric.Keyboard3);
                     //debounce = "btn3";
                     _del2Rouge.Write(PinValue.Low);
                     _del2Vert.Write(PinValue.High);
@@ -134,7 +134,7 @@ namespace Bouton_E04
                 if (_btn4.Read() == PinValue.High && debounce != "btn4")
                 {
                     Console.WriteLine("Bouton 4 pressé");
-                    kbd.Send(Keys.Keypad.Keypad4);
+                    kbd.Send(Keys.Numeric.Keyboard4);
                     //debounce = "btn4";
                     _del2Rouge.Write(PinValue.High);
                     _del2Vert.Write(PinValue.Low);
