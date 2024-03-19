@@ -16,6 +16,13 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+CultureInfo[] supportedCultures = new[]
+{
+    new CultureInfo("en-US"),
+    new CultureInfo("fr-CA"),
+};
+
 //DbContext
 builder.Services.AddDbContext<CliniqueDbContext>(options =>
 { 
@@ -26,14 +33,6 @@ builder.Services.AddDbContext<CliniqueDbContext>(options =>
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CliniqueDbContext>();
-
-CultureInfo[] supportedCultures = new[]
-{
-    new CultureInfo("en-US"),
-    new CultureInfo("fr-CA"),
-};
-
-builder.Services.AddLocalization(options => options.ResourcesPath = "Ressources");
 
 //builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -83,17 +82,20 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 //    new DataImportBackgroundService(provider, AppConstants.CsvFilePath));
 
 #endregion
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddControllersWithViews()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-    })
-    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-    .AddDataAnnotationsLocalization();
+    });
+    
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en_US");
+    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });

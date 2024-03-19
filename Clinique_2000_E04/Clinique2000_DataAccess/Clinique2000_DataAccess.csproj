@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.64.0.1869" />
+    <PackageReference Include="jQuery.Validation" Version="1.19.5" />
+    <PackageReference Include="jQuery.Validation.Globalize" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.25" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
     <PackageReference Include="Microsoft.DotNet.Scaffolding.Shared" Version="6.0.16" />

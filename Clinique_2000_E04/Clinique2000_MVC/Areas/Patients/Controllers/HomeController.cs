@@ -1,6 +1,7 @@
 ﻿using Clinique2000_Core.Models;
 using Clinique2000_MVC.Models;
 using Clinique2000_Services.IServices;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
