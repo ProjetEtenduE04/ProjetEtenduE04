@@ -1,6 +1,7 @@
 ﻿using Clinique2000_Core.Models;
 using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
+using Clinique2000_Utility.Constants;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Debugger.Contracts.HotReload;
@@ -37,7 +38,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
             {
                 var userconnecter = await _services.patient.GetUserAuthAsync();
                 Patient parent = await _services.patient.GetPatientParUserIdAsync(userconnecter.Id);
-
+              
                 ViewBag.PatientId = parent.PatientId; // Setting PatientId in ViewBag
 
                 return View();
@@ -64,7 +65,8 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
                     patientACharge.Age = age.Annees;
                     await _services.patientAcharge.AjouterPatientaCharge(patientACharge);
-                    return RedirectToAction(nameof(Index));
+                    TempData[AppConstants.Success] = "Patient à charge ajouté avec succès";
+                    return RedirectToAction("Index", "home", new {area=""});
                 }
                 else
                 {
@@ -77,6 +79,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 return View(patientACharge);
             }
         }
+
 
         // GET: PatientAchargeController/Edit/5
         public ActionResult Edit(int id)
