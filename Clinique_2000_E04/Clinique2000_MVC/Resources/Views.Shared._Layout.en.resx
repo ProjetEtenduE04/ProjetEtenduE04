@@ -117,31 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoutonConnexion" xml:space="preserve">
-    <value>Vous Connecter</value>
+  <data name="FooterAPropos" xml:space="preserve">
+    <value>About Us</value>
   </data>
-  <data name="SloganHero" xml:space="preserve">
-    <value>Clinique2000 vous relie aux meilleurs soins médicaux près de chez vous en quelques clics.</value>
+  <data name="FooterConnexion" xml:space="preserve">
+    <value>Log in</value>
   </data>
-  <data name="TexteConnexion1" xml:space="preserve">
-    <value>Vous pouvez facilement vous connecter a notre systeme avec un simple clic</value>
+  <data name="FooterLienHome1" xml:space="preserve">
+    <value>CLINIC2000</value>
   </data>
-  <data name="TexteConnexion2" xml:space="preserve">
-    <value>avec votre compte gmail. Simple et secour.</value>
+  <data name="FooterLienHome2" xml:space="preserve">
+    <value>Home page</value>
   </data>
-  <data name="TexteHero1" xml:space="preserve">
-    <value>Votre santé, notre priorité :</value>
-  </data>
-  <data name="TexteHero2" xml:space="preserve">
-    <value>Clinique2000 à votre écoute.</value>
-  </data>
-  <data name="TexteInvitantPatient1" xml:space="preserve">
-    <value>Inscrivez-vous pour un Rendez-Vous</value>
-  </data>
-  <data name="TexteInvitantPatient2" xml:space="preserve">
-    <value>Prendre un Rendez-Vous</value>
-  </data>
-  <data name="TexteInvitantPatient3" xml:space="preserve">
-    <value>Voir mon Rendez-Vous</value>
+  <data name="FooterLienRapides" xml:space="preserve">
+    <value>Quick Links</value>
   </data>
 </root>

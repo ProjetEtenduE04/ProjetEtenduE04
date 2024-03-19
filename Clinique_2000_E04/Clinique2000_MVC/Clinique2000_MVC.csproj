@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\Views.Shared._Layout.en.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="appsettings.Development.json~RF26d765c.TMP" />
     <None Remove="appsettings.json~RF14ec06e2.TMP" />
     <None Remove="Areas\Cliniques\Views\Cliniques\Edit.cshtml~RFcb7168d.TMP" />
@@ -63,6 +67,7 @@
     <None Include="Areas\Cliniques\Views\EmployesCliniques\Details.cshtml" />
     <None Include="Areas\Cliniques\Views\EmployesCliniques\Edit.cshtml" />
     <None Include="Areas\Cliniques\Views\EmployesCliniques\Index.cshtml" />
+    <None Include="Resources\Views.Shared._Layout.en.resx" />
     <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap.js" />
     <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap.min.js" />
     <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap4.js" />

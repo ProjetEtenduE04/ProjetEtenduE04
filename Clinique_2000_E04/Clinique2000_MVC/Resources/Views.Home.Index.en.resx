@@ -117,7 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TexteHero" xml:space="preserve">
+  <data name="BoutonConnexion" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="SloganHero" xml:space="preserve">
+    <value>Clinique2000 connects you to the best medical care near you in just a few clicks.</value>
+  </data>
+  <data name="TexteConnexion1" xml:space="preserve">
+    <value>You can easily log into our system with a single click</value>
+  </data>
+  <data name="TexteConnexion2" xml:space="preserve">
+    <value>with your gmail account. Simple and helpful.</value>
+  </data>
+  <data name="TexteHero1" xml:space="preserve">
     <value>Your health, our priority :</value>
+  </data>
+  <data name="TexteHero2" xml:space="preserve">
+    <value>Clinique2000 at your service.</value>
+  </data>
+  <data name="TexteInvitantPatient1" xml:space="preserve">
+    <value>Register for an Appointment</value>
+  </data>
+  <data name="TexteInvitantPatient2" xml:space="preserve">
+    <value>Make an appointment</value>
+  </data>
+  <data name="TexteInvitantPatient3" xml:space="preserve">
+    <value>See my Appointment</value>
   </data>
 </root>

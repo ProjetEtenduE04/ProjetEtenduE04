@@ -16,9 +16,9 @@
 <section class="hero-home row g-0" data-aos="fade-up">
     <div class="container-fluid hero-home-content">
         <div class="hero-text">
-            <h1 class="text-left">@Locals["TexteHero"]<br>Clinique2000 à votre écoute.</h1>
+            <h1 class="text-left">@Locals["TexteHero1"]<br>@Locals["TexteHero2"]</h1>
             <h4 class="text-left">
-                Clinique2000 vous relie aux meilleurs soins médicaux près de chez vous en quelques clics.
+                @Locals["SloganHero"]
             </h4>
         </div>
 
@@ -28,19 +28,21 @@
                 <form id="external-account" asp-area="Identity" asp-page="/Account/ExternalLogin" asp-route-returnUrl="@Url.Content("~/")" method="post" class="form-horizontal">
                     <div>
                         <button type="submit" class="btn button-green-action ms-0 px-3" name="provider" value="Google" title="Log in using your Google account">
-                            Vous Connecter  
+                            @Locals["BoutonConnexion"]
                             <i class="fa-solid fa-right-to-bracket"></i>
                         </button>
                     </div>
 
                 </form>
-                <p>Vous pouvez facilement vous connecter a notre systeme avec un simple clic <br />
-                    avec votre compte gmail. Simple et secour. </p>
+                <p>
+                    @Locals["TexteConnexion1"] <br />
+                    @Locals["TexteConnexion2"]
+                </p>
             }
             else if (estConnecte && !estPatient)
             {
                 <a asp-area="Patients" asp-controller="Patients" asp-action="Create" class="btn button-green-action ms-0 px-3">
-                    Inscrivez-vous pour un Rendez-Vous
+                    @Locals["TexteInvitantPatient1"]
                 </a>
             }
             else if (estConnecte && estPatient)
@@ -50,14 +52,14 @@
                
                 @if (!aRendezVous )
                 {
-                    <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="IndexCliniquesAProximite" class="btn button-green-action ms-0 px-3">
-                    Prendre un Rendez-Vous
+                   <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="IndexCliniquesAProximite" class="btn button-green-action ms-0 px-3">
+                        @Locals["TexteInvitantPatient2"]
                    </a>
                 }
                 else if (aRendezVous)
                 {
                     <a asp-area="Patients" asp-controller="Patients" asp-action="Details" asp-route-id="@Model.PatientId" class="btn button-green-action ms-0 px-3">
-                       Voir mon Rendez-Vous
+                        @Locals["TexteInvitantPatient3"]
                     </a>
                 }
             }

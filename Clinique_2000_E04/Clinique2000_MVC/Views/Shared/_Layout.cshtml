@@ -91,14 +91,17 @@
     <footer class="border-top footer text-muted">
         <section class="footer-col">
             <div>
-                <a id="clinque" asp-controller="Home" asp-action="Index">CLINIQUE2000 @* <img src="~/Images/Logo.png" alt="logo footer" class="logo"> *@</a>
+                <a id="clinque" asp-controller="Home" asp-action="Index">@Locals["FooterLienHome1"] @* <img src="~/Images/Logo.png" alt="logo footer" class="logo"> *@</a>
             </div>
             <div>
-                <h5 class="">Liens Rapides</h5>
+                <h5 class="">@Locals["FooterLienRapides"]</h5>
                 <ul class="mb-3 px-1 footer-links white-link">
-                    <li><a class="p1 " asp-area="" asp-controller="Home" asp-action="Index">Page d'accueil</a><li/>
-                    <li><a class="p1 " asp-area="Identity" asp-page="/Account/Login">Se connecter</a><li/>
-                    <li><a class="p1 " asp-controller="#" asp-action="#">A propos de nous</a><li />
+                    <li><a class="p1 " asp-area="" asp-controller="Home" asp-action="Index">@Locals["FooterLienHome1"]</a>
+                    <li />
+                    <li><a class="p1 " asp-area="Identity" asp-page="/Account/Login">@Locals["FooterConnexion"]</a>
+                    <li />
+                    <li><a class="p1 " asp-controller="#" asp-action="#">@Locals["FooterAPropos"]</a>
+                    <li />
                     <li><a class="p1 " asp-controller="#" asp-action="Privacy">Privacy</a><li/>
                 </ul>
             </div>
