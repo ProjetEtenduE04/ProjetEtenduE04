@@ -1,4 +1,5 @@
 ﻿using Clinique2000_Core.Models;
+using Clinique2000_Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace Clinique2000_Services.IServices
         Task FermerOuLaisserOuverteListeAttente(int listeattenteid);
         Task<Consultation> ObtenirConsultationParIdAsync(int consultationId);
         //Task<List<Consultation>> ObtenirListesConsultationIncludeUsersCourriel();
-
+        Task<ListeAttenteVM> AppelerProchainPatient(int employeCliniqueID);
+        Task<ListeAttenteVM> TerminerConsultation(int consultaionID, DetailsConsultation details);
+        Task AnnulerConsultationAsync(Patient patient);
     }
 }

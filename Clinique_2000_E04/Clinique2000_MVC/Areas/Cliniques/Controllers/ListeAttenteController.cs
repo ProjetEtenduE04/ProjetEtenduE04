@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using Clinique2000_Utility.Enum;
 using Clinique2000_Utility.Constants;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
@@ -528,13 +529,16 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         //}
 
         [HttpPost]
-        public async Task<IActionResult> ChangerStatutConsultation(int consultationID, int employesID)
+        public async Task<IActionResult> ChangerStatutConsultation(int consultationID, int employesID, DetailsConsultation details)
         {
 
 
-            var ListeSalleAttenteVM = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employesID);
+            //var ListeSalleAttenteVM = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employesID, details);
+            var listeSalleAttenteVm = await _services.consultation.TerminerConsultation(consultationID, details);
+            await _services.consultation.AppelerProchainPatient(employesID);
 
-            if (ListeSalleAttenteVM == null)
+
+            if (listeSalleAttenteVm == null)
             {
                 TempData[AppConstants.Warning] = $"Désolé, mais aucune consultation avec l'identifiant {consultationID} n'a été trouvée.";
                 return View("NotFound");
@@ -546,39 +550,43 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AppelerProchainPatient(int consultationID, int employeCliniqueID)
+        public async Task<IActionResult> AppelerProchainPatient(int employeCliniqueID)
         {
             try
             {
                 // Call the service method to process calling the next patient.
-                var updatedListeSalleAttente = await _services.listeAttente.AppelerProchainPatient(consultationID, employeCliniqueID);
+                var updatedListeSalleAttente = await _services.consultation.AppelerProchainPatient(employeCliniqueID);
 
 
                 if (updatedListeSalleAttente != null)
                 {
                     // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
+                    TempData[AppConstants.Success] = $"Le prochain patient a été appelé.";
                     return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
                 else
                 {
-                    // Handle the case where no updated waiting room data is available.
-                    return NotFound();
+                    TempData[AppConstants.Info] = $"Il n'y a pas de patient en attente.";
+                    return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
+
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions and return an appropriate error response.
-                return BadRequest(ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+
+                return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> TerminerConsultationEtAppellerProchainPatient(int consultationID, int employeCliniqueID)
+        public async Task<IActionResult> TerminerConsultationEtAppellerProchainPatient(int consultationId, int employeCliniqueID, EmployesCliniqueVM employes)
         {
             try
             {
-                // Call the service method to complete the current consultation and call the next patient.
-                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employeCliniqueID);
+                await _services.consultation.TerminerConsultation(consultationId, employes.DetailsConsultation);
+                var updatedListeSalleAttente = await _services.consultation.AppelerProchainPatient(employeCliniqueID);
 
                 if (updatedListeSalleAttente != null)
                 {
@@ -590,23 +598,26 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 else
                 {
                     // Handle the case where no updated waiting room data is available.
-                    return NotFound();
+                    TempData[AppConstants.Info] = $"Il n'y a pas de patient en attente.";
+                    return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions and return an appropriate error response.
-                return BadRequest(ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+
+                return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> TerminerConsultation(int consultationID, int employeCliniqueID)
+        public async Task<IActionResult> TerminerConsultation(int consultationId, int employeCliniqueID, EmployesCliniqueVM employes)
         {
             try
             {
                 // Call the service method to complete the current consultation.
-                var updatedListeSalleAttente = await _services.listeAttente.TerminerConsultation(consultationID);
+                var updatedListeSalleAttente = await _services.consultation.TerminerConsultation(consultationId, employes.DetailsConsultation);
 
                 if (updatedListeSalleAttente != null)
                 {
@@ -616,13 +627,16 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 else
                 {
                     // Handle the case where no updated waiting room data is available.
-                    return NotFound();
+                    TempData[AppConstants.Info] = $"Il n'y a pas de patient en attente.";
+                    return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions and return an appropriate error response.
-                return BadRequest(ex.Message);
+                ModelState.AddModelError("Erreur", ex.Message);
+                TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+
+                return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
             }
         }
 
@@ -637,12 +651,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     TempData[AppConstants.Warning] = $"Désolé, mais aucune patient avec l'identifiant {PatientId} n'a été trouvée.";
                     return View("NotFound");
                 }
-                await _services.listeAttente.AnnulerConsultationAsync(patient);
+                await _services.consultation.AnnulerConsultationAsync(patient);
                 return RedirectToAction("Details", "Patients", new { area = "Patients", id = PatientId });
                
             }
             return View();
         }
+
 
     }
 }
