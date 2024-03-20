@@ -1,20 +1,20 @@
 ﻿@model CliniqueAdresseVM
 
 @{
-    var btnText = "Enregistrer la clinique";
-    ViewData["Title"] = "Enregistrer";
+    var btnText = Locals["btnText"];
+    ViewData["Title"] = Locals["Enregistrer"];
 }
 
 <div class="container-fluid custom-bg" style="margin-bottom:40px">
     <div class="row justify-content-around text-center">
         <div class="col col-lg-10 col-xl-9">
             <div>
-                <h1 class="h0" style="margin-top:50px">Enregistrer la clinique</h1>
+                <h1 class="h0" style="margin-top:50px">@Locals["Titre1"]</h1>
                 <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
 
                 <p class="p1">
-                    Veuillez compléter ces informations <br />
-                    <span class="p3">Les champs marqués d'un astérisque (<span class="champs-obligatoires">*</span>) doivent être renseignés.</span>
+                    @Locals["SousTitre1"] <br />
+                    <span class="p3">@Locals["SousTitre2"]<span class="champs-obligatoires">*</span>@Locals["SousTitre3"]</span>
                 </p>
             </div>
             <form asp-controller="Cliniques" asp-action="Create" method="post" enctype="multipart/form-data" class="text-start p1">
@@ -26,7 +26,7 @@
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
                         <div class="divider d-flex align-items-center my-4">
-                            <p class="p1 text-center fw-bold mx-3 mb-0 text-muted">1. Informations sur la clinique</p>
+                            <p class="p1 text-center fw-bold mx-3 mb-0 text-muted">1. @Locals["TexteChamp1"]</p>
                         </div>
                     </div>
                 </div>
