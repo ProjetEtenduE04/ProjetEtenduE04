@@ -240,7 +240,18 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             return View("NotFound");
         }
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DetailsConsultation(int consultationId)
+        {
+            var model = await _services.consultation.ObtenirParIdAsync(consultationId);
+            if (model != null)
+            {
+                return View("DtailsConsultation", model);
+            }
+            TempData[AppConstants.Warning] = $"D�sol�, mais la consultation n'a pas �t� trouv�e.";
+            return View("NotFound");
+        }
 
 
        

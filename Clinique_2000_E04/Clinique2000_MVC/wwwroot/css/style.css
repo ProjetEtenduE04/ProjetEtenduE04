@@ -1803,7 +1803,7 @@ table td {
 }
 
     #chatbox-toggle::before {
-        content: "\22EE"; /* Three dots character */
+        /*content: "\22EE";*/ /* Three dots character */
         position: absolute;
         top: 50%;
         left: 50%;
@@ -1812,12 +1812,12 @@ table td {
         font-size: 24px;
     }
 
-    #chatbox-toggle.opened::before {
-        content: "\25BC"; /* Down arrow character */
-    }
+    /*#chatbox-toggle.opened::before {*/
+        /*content: "\25BC";*/ /* Down arrow character */
+    /*}*/
 
     #chatbox-toggle:hover {
-        background-color: #0056b3;
+        background-color: #25ca41;
         transform: scale(1.1);
     }
 
@@ -1828,7 +1828,7 @@ table td {
 
 #chatbox {
     background: #fff;
-    border-radius: 15px 15px 0 0;
+    border-radius: 15px 15px 15px 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden; /* Change overflow to hidden */
     max-height: 800px; /* Change max-height to a fixed value */
@@ -1863,14 +1863,14 @@ table td {
     }
 
 .chatbox-messages {
-    max-height: 300px; /* Set a fixed height for the messages container */
+    max-height: 400px; /* Set a fixed height for the messages container */
     overflow-y: auto;
     padding: 15px;
     color: #333;
 }
 
 .chatbox-questions {
-    max-height: 200px;
+    max-height: 400px;
     overflow-y: auto;
     padding: 10px;
 }
