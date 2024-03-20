@@ -11,12 +11,12 @@ namespace Clinique2000_Services.IServices
 {
     public interface IEmailService
     {
-        void SendEmail(EmailVM request);
+        Task SendEmail(EmailVM request);
         Task<EmailVM> CreateConsultationConfirmationEmail(Consultation consultation);
         Task SendConsultationConfirmationEmail(Consultation consultation);
         Task SendConsultationNotificationAsync(Consultation consultation, NotificationTime notificationTime);
-        void CleanUpSentNotifications();
-        void ConsultationCompleted(Patient patient);
+        Task CleanUpSentNotifications();
+        Task ConsultationCompleted(Patient patient);
 
     }
 }

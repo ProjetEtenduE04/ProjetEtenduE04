@@ -24,10 +24,6 @@ namespace Clinique2000_Services.IServices
         Task GenererPlagesHorairesAsync(int ID);
         Task<ListeAttenteVM> GetListeAttenteOrdonnee(int listeAttenteID);
         Task<ListeAttenteVM> GetListeSalleAttenteOrdonnee(int listeAttenteID);
-        Task<ListeAttenteVM> AppelerProchainPatient(int consultaionID, int employeCliniqueID);
-        Task<ListeAttenteVM> TerminerConsultationEtAppellerProchainPatient(int consultaionID, int employeCliniqueID);
-        Task<ListeAttenteVM> TerminerConsultation(int consultaionID);
-        Task AnnulerConsultationAsync(Patient patient);
         void AssignerCliniqueIDaListeAttente(ListeAttente listeAttente, int cliniqueID);
         Task<DateTime> ObtenirDerniereListeAttenteParClinique(int cliniqueID);
         Task<ListeAttente> GenererListeAttenteParDefaut(EmployesClinique ec);

@@ -864,7 +864,7 @@ divider-2 {
     }*/
 
 
-#heroDetails h4, p, hr {
+#heroDetails h4 hr {
     /*position: absolute;*/
     color: #2567bd;
     text-align: center;
