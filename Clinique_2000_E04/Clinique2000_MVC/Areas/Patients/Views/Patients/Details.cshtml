@@ -7,6 +7,7 @@
     ViewData["Title"] = "Details";
     var btnText = "Modifier";
 }
+
 <div class="layout-content">
 
     <!-- Content -->
@@ -14,18 +15,34 @@
 
         <!-- Header -->
         <div class="row align-items-center mt-5">
-            <div class="col-2">
-                <img src="/images/avatargenerique.png" alt="" class="w-75 rounded-circle">
-            </div>
-            <div class="col-6">
-                <h2>@Model.Nom @Model.Prenom</h2>
+            <div class="col-9">
+                <div class="row align-items-center">
+                    <div class="col-2">
+                        <img src="/images/avatargenerique.png" alt="" class="w-75 rounded-circle">
+                    </div>
+                    <div class="col-10">
+                        <h2>@Model.Nom @Model.Prenom</h2>
+                    </div>
                 </div>
+            </div>
+
         </div>
+
         <!-- Header -->
         <div class="row">
             <div class="col">
                 <!-- Info -->
                 <div class="card mb-4">
+                    <div class="card-header p-3">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h4 class="mt-2">Vos informations</h4>
+                            </div>
+                            <div class="col-4 text-end">
+                                <a asp-action="Edit" asp-route-id="@Model?.PatientId" class="button-white-action form-control" style="width:auto"><i class="fa-solid fa-user-pen fa fa-xl"></i></a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body ">
                         <dl class="row p-4">
                             <dt class="col-sm-3 hr5">
@@ -78,33 +95,12 @@
                             </dd>
                         </dl>
                     </div>
-                    <div class="card-footer text-center p-0">
-                        <div class="row no-gutters ">
-                            <div class="row justify-content-center text-center">
-                                <div class="col col-md-8 col-xl-6 mb-2 mt-4">
-                                    <a asp-action="Edit" asp-route-id="@Model?.PatientId" class="button-green-action form-control" style="width:auto">@btnText</a>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center text-center">
-                                <div class="col col-md-8 col-xl-6 mb-2 mt-2">
-                                    @if (this.User.IsInRole(AppConstants.SuperAdminRole))
-                                    {
-                                        <a asp-action="Index" class="smBtn button-white-action">Retour à la liste</a>    
-                                    }
-                                    else
-                                    {
-                                        <a asp-area="" asp-controller="Home" asp-action="Index" class="smBtn button-white-action">Retour</a>
-                                    }
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class="col-xl-4">
 
-                <div class="card mb-4" >
+                <div class="card mb-4">
                     <div class="card-header">
                         <h4 class="mt-2">Prochain rendez-vous</h4>
                     </div>
@@ -145,31 +141,28 @@
                         {
                             <div class="card-body" style="height:200px;">
                                 <h5 class="card-title"> Vous n'avez pas de rendez-vous prévu </h5>
-
                                 <p class="p1"></p>
                                 <div class="row justify-content-center">
                                     <div class="col-8">
-                                            <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="IndexCliniquesAProximite" class="button-blue-action ms-0 px-3">
-                                                Prendre un Rendez-Vous
-                                            </a>
-                                    </div> 
+                                        <a asp-area="Cliniques" asp-controller="Cliniques" asp-action="IndexCliniquesAProximite" class="button-blue-action ms-0 px-3">
+                                            Prendre un Rendez-Vous
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>   
+                            </div>
                         }
                     }
-  
                 </div>
                 <div class="card mb-4">
-                @{
-                    var consultationHist = @Model.Consultations.Where(x => x.PatientID == Model.PatientId && x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.Termine).Take(5);
-
-                        <div class="card-header ">
-                            <h4 class="mt-2">Historique du rendez-vous</h4>
+                    @{
+                        var consultationHist = @Model.Consultations.Where(x => x.PatientID == Model.PatientId && x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.Termine).Take(5);
+                    }
+                    <div class="card-header">
+                        <h4 class="mt-2">Historique du rendez-vous</h4>
                     </div>
-
-                    if (consultationHist.Count() > 0)
+                    @if (consultationHist.Count() > 0)
                     {
-                            <div class="card-header">
+                        <div class="card-header">
                             <p class="mb-2">
                                 Vous y trouverez l'historique de vos consultations.
                             </p>
@@ -185,15 +178,15 @@
                                     </tr>
                                 </thead>
                                 <tbody class="">
-                                @foreach ( var item in consultationHist)
-                                {
-                                    <tr>
-                                        <td>@item.HeureDateDebutReele.ToString()</td>
-                                        <td>@item.HeureDateFinReele.ToString()</td>
-                                        <td>medicin</td>
-                                        <td>@item.StatutConsultation</td>
-                                    </tr>
-                                }
+                                    @foreach (var item in consultationHist)
+                                    {
+                                        <tr>
+                                            <td>@item.HeureDateDebutReele.ToString()</td>
+                                            <td>@item.HeureDateFinReele.ToString()</td>
+                                            <td>medicin</td>
+                                            <td>@item.StatutConsultation</td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
 
@@ -207,9 +200,56 @@
                             </p>
                         </div>
                     }
-                }
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- DataTable for PatientACharge -->
+        <div class="row">
+            <div class="col">
+                <div class="card mb-4">
+                    <div class="card-header p-3" >
+                        <div class=" row align-items-center ">
+                            <div class="col-9">
+                                <h4 class="mt-2 text-start">Patients à charge</h4>
+                            </div>
+                            <div class="col-3 d-flex justify-content-end align-items-center">
+                                <a asp-action="Create" asp-controller="PatientACharge" class=" button-white-action"><i class="fa-solid fa-user-plus fa fa-xl"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="patientAChargeTable" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Genre</th>
+                                    <th>Age</th>
+                                    <!-- Add more columns as needed -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populate table rows with data -->
+                                @foreach (var patient in Model.PatientsACharge)
+                                {
+                                    <tr>
+                                        <td>@patient.Prenom @patient.Nom</td>
+                                        <td>@patient.Genre</td>
+                                        <td>@patient.Age ans</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </div>
+
+<!-- Initialize DataTable -->
+<script>
+    $(document).ready(function () {
+        $('#patientAChargeTable').DataTable();
+    });
+</script>
