@@ -66,7 +66,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                     patientACharge.Age = age.Annees;
                     await _services.patientAcharge.AjouterPatientaCharge(patientACharge);
                     TempData[AppConstants.Success] = "Patient à charge ajouté avec succès";
-                    return RedirectToAction("Index", "home", new {area=""});
+                    return RedirectToAction("Details", "patients", new { area = "Patients" });
                 }
                 else
                 {
@@ -82,58 +82,108 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
 
 
         // GET: PatientAchargeController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            try
+            {
+                // Get the patientACharge object from the database based on the id
+                PatientACharge patientACharge = await _services.patientAcharge.ObtenirParIdAsync(id);
+
+                if (patientACharge == null)
+                {
+                    return NotFound();
+                }
+
+                return View(patientACharge);
+            }
+            catch (Exception ex)
+            {
+                // Handle exception if necessary
+                return RedirectToAction(nameof(Index)); // Redirect to index or another action
+            }
         }
 
         // POST: PatientAchargeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, PatientACharge patientACharge)
+        public async Task<ActionResult> Edit(PatientACharge patientACharge)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     // Update the patientACharge object in the database
-                    // Code to update the patientACharge object goes here
+                    await _services.patientAcharge.UpdatePatientAChargeAsync(patientACharge);
 
-                    return RedirectToAction(nameof(Index));
+                    TempData[AppConstants.Success] = "Patient à charge modifié avec succès";
+                    return RedirectToAction("Details", "patients", new { area = "Patients" });
                 }
                 else
                 {
                     return View(patientACharge);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", $"An error occurred: {ex.Message}");
+                return View(patientACharge);
             }
         }
 
-        // GET: PatientAchargeController/Delete/5
-        public ActionResult Delete(int id)
+
+
+
+
+        [HttpGet]
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            try
+            {
+                // Get the patientACharge object from the database based on the id
+                PatientACharge patientACharge = await _services.patientAcharge.ObtenirParIdAsync(id);
+
+                if (patientACharge == null)
+                {
+                    return NotFound();
+                }
+
+                return View(patientACharge);
+            }
+            catch (Exception ex)
+            {
+                // Handle exception if necessary
+                return RedirectToAction("Details", "patients", new { area = "Patients" });
+            }
         }
 
         // POST: PatientAchargeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
             try
             {
-                // Delete the patientACharge object from the database
-                // Code to delete the patientACharge object goes here
+                // Get the patientACharge object from the database based on the id
+                PatientACharge patientACharge = await _services.patientAcharge.ObtenirParIdAsync(id);
 
-                return RedirectToAction(nameof(Index));
+                if (patientACharge == null)
+                {
+                    return NotFound();
+                }
+
+                // Delete the patientACharge object from the database
+                await _services.patientAcharge.DeletePatientAChargeAsync(patientACharge);
+               
+
+                TempData[AppConstants.Success] = "Patient à charge supprimé avec succès";
+                return RedirectToAction("Details", "patients", new { area = "Patients" });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                // Handle exception if necessary
+                return RedirectToAction("Details", "patients", new { area = "Patients" }); // Redirect to index or another action
             }
         }
     }
 }
+
