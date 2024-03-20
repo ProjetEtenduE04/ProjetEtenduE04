@@ -4,20 +4,20 @@
 {
     <div class="card-header card-header-datatables h4 text-light">
         <i class="fa-solid fa-hospital me-1" style="color: #fff;"></i>
-        Cliniques enregistrées
+        @Locals["CliniqueEnregistre"]
     </div>
 }
 @if (Model.Param == "utilisateur")
 {
     <div class="card-header card-header-datatables h4 text-light">
         <i class="fa-solid fa-user me-1" style="color: #fff;"></i>
-        Utilisateurs enregistrés
+        @Locals["UtilisateurEnregistre"]
     </div>
 }
 @if (Model.Param == "cliniquesrefusees")
 {
     <div class="card-header card-header-datatables h4 text-light">
         <i class="fa-solid fa-hospital me-1" style="color: #fff;"></i>
-        Cliniques refusées
+        @Locals["CliniqueRefusee"]
     </div>
 }
