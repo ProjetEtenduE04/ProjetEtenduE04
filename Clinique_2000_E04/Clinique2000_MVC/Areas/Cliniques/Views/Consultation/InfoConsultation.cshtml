@@ -1,0 +1,57 @@
+﻿@model Consultation
+
+
+<h2>Raport Medical</h2>
+
+<div class="row">
+    <div class="col-xl-8">
+        <div class="task-list-box" id="landing-task">
+            <div id="task-item-1">
+                <div class="card task-box rounded-3">
+                    <div class="card-body">
+                        <div class="row ">
+                            <div class="card mb-4">
+                                <div class="card-body ">
+                                    <h2>Raport Medical</h2>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h4>Détails de la consultation</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <p class="p1">
+                                                        Date de la consultation : @Model.HeureDateDebutReele.Value.Date
+                                                    </p>
+                                                    <p class="p1">
+                                                        Date de la consultation : @Model.HeureDateDebutReele.Value.Date
+                                                    </p>
+                                                    <p class="p1">
+                                                        Heure de la consultation : @Model.HeureDateDebutReele.Value.ToShortTimeString();
+                                                    </p>
+                                                    <p class="p1">
+                                                        Médecin : @Model.EmployeClinique.EmployeCliniqueNom
+                                                    </p>
+                                                </div>
+                                        </div>
+                                        <div class="col">
+                                            <h4>Détails de la clinique</h4>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <p class="p1">
+                                                        Patient : 
+                                                    </p>
+                                                    This is some text within a card body.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

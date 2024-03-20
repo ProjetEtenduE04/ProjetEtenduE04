@@ -187,14 +187,12 @@
                                     <tbody class="">
                                         @foreach (var item in consultationHist)
                                         {
-                                            <tr id="consultationHistorique" onclick="submitForm('@item.ConsultationID')">
-                                                <form method="post" asp-area="Cliniques" asp-controller="Consultation" asp-action="DetailsConsultation">
+                                            <tr onclick="submitForm('@item.ConsultationID')" style="cursor:pointer;">
+      
                                                 <td>@item.HeureDateDebutReele.ToString()</td>
                                                 <td>@item.HeureDateFinReele.ToString()</td>
                                                 <td>Dr. @item.EmployeClinique.EmployeCliniqueNom</td>
                                                 <td>@item.StatutConsultation</td>
-                                                <input type="hidden" name="consultationId" value="@item.ConsultationID" />
-                                                </form>
                                             </tr>
                                         }
                                     </tbody>
@@ -218,13 +216,8 @@
 </div>
 <script>
     function submitForm(consultationId) {
-        var form = event.target.closest('form');
-        if (form) {
-            var consultationId = form.querySelector('input[name="consultationId"]');
-            if (consultationId) {
-                consultationId.value = consultationId;
-                form.submit();
-            }
-        }
+
+        window.location.href = '/Cliniques/Consultation/InfoConsultation/' + consultationId;
+
     }
 </script>
