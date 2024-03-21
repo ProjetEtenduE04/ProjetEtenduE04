@@ -228,6 +228,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                         throw;
                     }
                 }
+                TempData[AppConstants.Success] = "Les informations de l'employé ont été mises à jour avec succès.";
                 return RedirectToAction(nameof(Details), new { id = employesClinique.EmployeCliniqueID });
             }
             return View(employesClinique);
