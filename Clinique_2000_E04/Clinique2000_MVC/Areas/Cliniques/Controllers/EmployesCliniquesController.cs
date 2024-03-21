@@ -65,24 +65,14 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     return View(listEmployesCliniques);
                 }
 
-                // Vérifier si l'utilisateur est l'employe d'une clinique 
-                //var estEmploye = await _services.employesClinique.VerifierSiUserAuthEstEmploye(userAuth.Email);
-                //if (estEmploye != null)
-                //{
-                //    // L'utilisateur est l'employe d'une clinique, il ne peut donc voir que  les cliniques où ils travaillent.
-                //    var listCliniqueEmploye = await _services.employesClinique.ObtenirCliniquesDeLEmploye(estEmploye);
-                //    var listEmployesCliniques = await _services.employesClinique.GetEmployeSelonLaListeClinique(listCliniqueEmploye);
-                //    return View(listEmployesCliniques);
-                //}
+             
 
                 // L'utilisateur n'est pas le créateur ou l'administrateur d'une clinique, nous redirigeons donc vers la page principale.
                 TempData[AppConstants.Error] = "Accès refusé. Seuls les superadministrateurs, les créateurs de cliniques ou les administrateurs de cliniques sont autorisés à accéder à cette page";
                 return RedirectToAction("Index", "Home", new { area = "" });
                 //}
 
-                // L'utilisateur n'a pas l'un des rôles requis, nous redirigeons donc vers la page principale et affichons un message d'erreur.
-                //TempData[AppConstants.Error] = "Accès refusé. Seuls les superadministrateurs et les administrateurs de cliniques sont autorisés à accéder à cette page";
-                //return RedirectToAction("Index", "Home", new { area = "" });
+              
             }
             catch (Exception ex)
             {
@@ -242,58 +232,105 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             }
             return View(employesClinique);
         }
-        // GET: EmployesCliniques/Create
+
+
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-
             var user = await _services.patient.GetUserAuthAsync();
-            var userAuth = await _userManager.GetUserAsync(User);
+            // Assuming this method returns the current user based on authentication context.
+            // var userAuth = await _userManager.GetUserAsync(User);
 
             if (User.IsInRole(AppConstants.SuperAdminRole))
             {
-                // User is an admin, display dropdown list of clinics
+                // User is a SuperAdmin: Display dropdown list of all clinics.
                 ViewData["CliniqueID"] = new SelectList(await _services.clinique.ObtenirToutAsync(), "CliniqueID", "NomClinique");
-            }
-            else if (await _services.clinique.VerifierSiUserAuthEstCreateurClinique(user) == true)
-            {
-                // User is a gestionnaireDeClinique, use the clinic they work for as the default value
-                var clinique = await _services.clinique.ObtenirCliniqueParCreteurId(user.Id);
-                ViewData["CliniqueID"] = clinique.CliniqueID;
             }
             else
             {
-                // For example, redirect to an error page or display an error message
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
+                // Check if the user is a "gestionnaireDeClinique" (clinic manager).
+                bool isGestionnaire = await _services.clinique.VerifierSiUserAuthEstCreateurClinique(user);
+                if (isGestionnaire)
+                {
+                    // User is a clinic manager: Use the clinic they manage as the default value.
+                    var cliniques = await _services.clinique.ObtenirLESCliniquesParCreateurId(user.Id);
 
+                    if (cliniques.Count > 1)
+                    {
+                        // If the manager has more than one clinic, provide a selection.
+                        ViewData["CliniqueID"] = new SelectList(cliniques, "CliniqueID", "NomClinique");
+                    }
+                    else if (cliniques.Count == 1)
+                    {
+                        // For a single clinic, still use a SelectList to keep the view logic consistent.
+                        ViewData["CliniqueID"] = new SelectList(cliniques, "CliniqueID", "NomClinique", cliniques.First().CliniqueID);
+                    }
+                
+                }
+                else
+                {
+                    // Redirect non-authorized users to a suitable page.
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
 
             return View();
         }
+
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EmployesClinique employesClinique)
         {
+            var user = await _services.patient.GetUserAuthAsync();
+            var userAuth = await _userManager.GetUserAsync(User);
+
+            // Repopulate the clinic SelectList for the form based on the user role
+            if (User.IsInRole(AppConstants.SuperAdminRole))
+            {
+                // SuperAdmins see all clinics
+                ViewData["CliniqueID"] = new SelectList(await _services.clinique.ObtenirToutAsync(), "CliniqueID", "NomClinique");
+            }
+            else if (await _services.clinique.VerifierSiUserAuthEstCreateurClinique(user))
+            {
+                // For clinic managers, get the list of clinics they manage
+                var cliniquesGerees = await _services.clinique.ObtenirLESCliniquesParCreateurId(user.Id);
+
+                if (cliniquesGerees.Count > 1)
+                {
+                    // If the manager handles multiple clinics, provide a dropdown selection
+                    ViewData["CliniqueID"] = new SelectList(cliniquesGerees, "CliniqueID", "NomClinique");
+                }
+                else if (cliniquesGerees.Count == 1)
+                {
+                    // If only one clinic is managed, set it directly (though this should already be set by the model or hidden input)
+                    employesClinique.CliniqueID = cliniquesGerees.First().CliniqueID;
+                    ViewData["CliniqueID"] = new SelectList(cliniquesGerees, "CliniqueID", "NomClinique", employesClinique.CliniqueID);
+                }
+                
+            }
+            // else, potentially handle other roles or redirect if unauthorized
+
             if (ModelState.IsValid)
             {
                 var addedEmploye = await _services.employesClinique.AjouterEmployerAsync(employesClinique);
+
                 if (addedEmploye != null)
                 {
-                    // Redirect to a suitable page after successful creation
-                    return RedirectToAction("Index"); // Adjust 'Index' to your actual success landing action method
+                    return RedirectToAction("employescliniques", "Cliniques", new {area=""});
                 }
                 else
                 {
-                    // Handle the case where the employee couldn't be added (e.g., already exists)
-                    TempData["ErrorMessage"] = "Cet employé existe déja.";
-                    return View("Create", employesClinique);
+                    TempData[AppConstants.Warning] = "Cet employé existe déjà ou n'a pas pu être ajouté.";
+                    // No need to repopulate ViewData here, as it's already done above
                 }
             }
+
+            // If we get here, something failed; re-display form
             return View(employesClinique);
         }
-
 
 
         //    // GET: EmployesCliniques/Delete/5
