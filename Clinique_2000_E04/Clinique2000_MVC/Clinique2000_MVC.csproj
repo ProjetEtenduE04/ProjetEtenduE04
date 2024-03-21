@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Content Remove="Areas\Patients\Views\Patients\NewFile.cshtml" />
+    <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,6 +62,7 @@
     <None Include="Areas\Cliniques\Views\EmployesCliniques\Details.cshtml" />
     <None Include="Areas\Cliniques\Views\EmployesCliniques\Edit.cshtml" />
     <None Include="Areas\Cliniques\Views\EmployesCliniques\Index.cshtml" />
+    <None Include="compilerconfig.json" />
     <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap.js" />
     <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap.min.js" />
     <None Include="wwwroot\lib\DataTables\DataTables-1.13.8\js\dataTables.bootstrap4.js" />

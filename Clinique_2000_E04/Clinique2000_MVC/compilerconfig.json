@@ -1,0 +1,13 @@
+﻿[
+  {
+    "outputFile": "wwwroot/style.css",
+    "inputFile": "wwwroot/style.scss",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "wwwroot/css/style.css",
+    "inputFile": "wwwroot/css/style.scss"
+  }
+]
