@@ -1993,3 +1993,28 @@ table td {
         transform: scale(1.1);
     }
 
+
+.btn-group .btn {
+    background-color: transparent;
+    border: none;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.btn-group .btn:hover {
+    color: #333;
+}
+
+.btn-group .btn i {
+    font-size: 1rem;
+}
+
+.patient-info {
+    transition: transform 0.3s ease;
+}
+
+    .patient-info:hover {
+        transform: translateY(-5px);
+    }
+
+

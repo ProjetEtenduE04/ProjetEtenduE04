@@ -66,7 +66,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                     patientACharge.Age = age.Annees;
                     await _services.patientAcharge.AjouterPatientaCharge(patientACharge);
                     TempData[AppConstants.Success] = "Patient à charge ajouté avec succès";
-                    return RedirectToAction("Details", "patients", new { area = "Patients" });
+                    return RedirectToAction("Details", "patients", new { area = "Patients", id = patientACharge.PatientId });
                 }
                 else
                 {
@@ -116,7 +116,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                     await _services.patientAcharge.UpdatePatientAChargeAsync(patientACharge);
 
                     TempData[AppConstants.Success] = "Patient à charge modifié avec succès";
-                    return RedirectToAction("Details", "patients", new { area = "Patients" });
+                    return RedirectToAction("Details", "patients", new { area = "Patients", id = patientACharge.PatientId });
                 }
                 else
                 {
@@ -176,7 +176,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                
 
                 TempData[AppConstants.Success] = "Patient à charge supprimé avec succès";
-                return RedirectToAction("Details", "patients", new { area = "Patients" });
+                return RedirectToAction("Details", "patients", new { area = "Patients", id=patientACharge.PatientId });
             }
             catch (Exception ex)
             {
