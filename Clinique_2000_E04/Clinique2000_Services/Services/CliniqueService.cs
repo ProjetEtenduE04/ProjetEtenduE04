@@ -23,20 +23,20 @@ namespace Clinique2000_Services.Services
         private readonly CliniqueDbContext _context;
         private readonly IAdresseService _adresseService;
         private readonly IConsultationService _consultationService;
-       
+
 
 
         public CliniqueService(
             CliniqueDbContext dbContext,
             IAdresseService adresseService,
             IConsultationService consultationService
-            
+
             ) : base(dbContext)
         {
             _context = dbContext;
             _adresseService = adresseService;
             _consultationService = consultationService;
-          
+
         }
 
 
@@ -298,7 +298,7 @@ namespace Clinique2000_Services.Services
                 if (aListeAttenteOuverteAvecConsultations)
                 {
                     var adresseClinique = await _adresseService.GetLocationByPostalCodeAsync(clinique.Adresse.CodePostal);
-                    double distance = await  _adresseService.CalculerDistanceEntre2CodesPostaux( patientLocation.PostalCode,adresseClinique.PostalCode);
+                    double distance = await _adresseService.CalculerDistanceEntre2CodesPostaux(patientLocation.PostalCode, adresseClinique.PostalCode);
 
                     var prochainePlageHoraire = _context.PlagesHoraires
                         .Include(ph => ph.Consultations)
@@ -335,7 +335,7 @@ namespace Clinique2000_Services.Services
         /// <returns> true si l'utilisateur est le créateur d'une clinique, sinon false.</returns>
         public async Task<bool> UserEstAdminClinique(IdentityUser User)
         {
-            if (_context.Cliniques.Any(x=>x.CreateurID==User.Id))
+            if (_context.Cliniques.Any(x => x.CreateurID == User.Id))
             {
                 return true;
             }
@@ -351,6 +351,18 @@ namespace Clinique2000_Services.Services
         public async Task<Clinique> ObtenirCliniqueParCreteurId(string? createurId)
         {
             var clinique = await _dbContext.Cliniques.Where(c => c.CreateurID == createurId).FirstOrDefaultAsync();
+
+            return clinique;
+        }
+
+        /// <summary>
+        /// Obtient la clinique associée à l'identifiant du créateur.
+        /// </summary>
+        /// <param name="createurId">L'identifiant du créateur.</param>
+        /// <returns>La clinique correspondante, ou null si non trouvée.</returns>
+        public async Task<List<Clinique>> ObtenirLESCliniquesParCreateurId(string? createurId)
+        {
+            var clinique = await _dbContext.Cliniques.Where(c => c.CreateurID == createurId).ToListAsync();
 
             return clinique;
         }
