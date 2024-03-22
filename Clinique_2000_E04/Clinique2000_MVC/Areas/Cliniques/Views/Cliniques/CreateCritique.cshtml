@@ -1,4 +1,4 @@
-﻿@model Critique
+﻿@* @model Critique
 
 @{
     var clinicId = ViewData["CliniqueID"] as int?;
@@ -37,4 +37,111 @@
             </div>
         </div>
     </div>
-</form>
+</form> *@
+@model Critique
+
+@{
+    var clinicId = ViewData["CliniqueID"] as int?;
+}
+<div class="my-5 text-center">
+    <h1 class="pt-5">Critique pour la @ViewData["ClinicName"]</h1>
+
+    <form asp-action="CreateCritique" method="post" style="text-align: center;">
+        <input type="hidden" asp-for="@Model.CliniqueId" value="@clinicId" />
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8 col-xxl-7">
+                <h3 style="text-align: center; margin-top: 20px">Veuillez évaluer la clinique concernée. Votre avis est important pour nous.</h3>
+                <div class="feedback my-4">
+                    <label class="angry">
+                        <input type="radio" value="1" name="Note" />
+                        <div>
+                            <svg class="eye left">
+                                <use xlink:href="#eye">
+                            </svg>
+                            <svg class="eye right">
+                                <use xlink:href="#eye">
+                            </svg>
+                            <svg class="mouth">
+                                <use xlink:href="#mouth">
+                            </svg>
+                        </div>
+                    </label>
+                    <label class="sad">
+                        <input type="radio" value="2" name="Note" />
+                        <div>
+                            <svg class="eye left">
+                                <use xlink:href="#eye">
+                            </svg>
+                            <svg class="eye right">
+                                <use xlink:href="#eye">
+                            </svg>
+                            <svg class="mouth">
+                                <use xlink:href="#mouth">
+                            </svg>
+                        </div>
+                    </label>
+                    <label class="ok">
+                        <input type="radio" value="3" name="Note" checked />
+                        <div></div>
+                    </label>
+                    <label class="good">
+                        <input type="radio" value="4" name="Note" />
+                        <div>
+                            <svg class="eye left">
+                                <use xlink:href="#eye">
+                            </svg>
+                            <svg class="eye right">
+                                <use xlink:href="#eye">
+                            </svg>
+                            <svg class="mouth">
+                                <use xlink:href="#mouth">
+                            </svg>
+                        </div>
+                    </label>
+                    <label class="happy">
+                        <input type="radio" value="5" name="Note" />
+                        <div>
+                            <svg class="eye left">
+                                <use xlink:href="#eye">
+                            </svg>
+                            <svg class="eye right">
+                                <use xlink:href="#eye">
+                            </svg>
+                        </div>
+                    </label>
+                </div>
+
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 4" id="eye">
+                        <path d="M1,1 C1.83333333,2.16666667 2.66666667,2.75 3.5,2.75 C4.33333333,2.75 5.16666667,2.16666667 6,1"></path>
+                    </symbol>
+                    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 7" id="mouth">
+                        <path d="M1,5.5 C3.66666667,2.5 6.33333333,1 9,1 C11.6666667,1 14.3333333,2.5 17,5.5"></path>
+                    </symbol>
+                </svg>
+
+                <h3 class="m-3">Titre de la critique</h3>
+                <div class="row justify-content-center mb-4">
+                    <div class="col col-md-8 col-lg-8 col-xl-8 ">
+                        <input type="text" asp-for="@Model.Titre" placeholder="Écrivez le titre de votre critique" class="form-control form-control-lg capitalize-first-letter" />
+                        <span asp-validation-for="@Model.Titre" class="text-danger p1"></span>
+                    </div>
+                </div>
+
+
+                <h3 class="m-3">Comment était votre expérience?</h3>
+                <div class="row justify-content-center mb-2">
+                    <div class="col col-md-8 col-lg-8 col-xl-8 ">
+                        <textarea asp-for="@Model.Texte" rows="5" cols="33" class="form-control form-control-lg capitalize-first-letter" placeholder="Exemple: J'ai été très satisfait de la qualité des soins et de l'attention que j'ai reçu. Merci à toute l'équipe!"></textarea>
+                        <span asp-validation-for="@Model.Texte" class="text-danger p1"></span>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="button-green-action my-4">Envoyer &nbsp; <i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
