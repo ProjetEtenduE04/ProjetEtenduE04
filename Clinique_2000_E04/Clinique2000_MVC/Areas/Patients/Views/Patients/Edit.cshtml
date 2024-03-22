@@ -29,7 +29,7 @@
                 <!--Nom Patient-->
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
-                        <label asp-for="@Model.Nom" class="form-label mt-3 mb-1"></label>
+                        <label asp-for="@Model.Nom" class="form-label mt-3 mb-1">Nom<span style="color:red"> *</span></label>
                         <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="@Model.Nom" id="nomPatient" placeholder="Exemple: Jhon">
                         <span asp-validation-for="@Model.Nom" class="text-danger"></span>
                     </div>
@@ -38,7 +38,7 @@
                 <!--Prenom Patient-->
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
-                        <label asp-for="@Model.Prenom" class="form-label mt-3 mb-1"></label>
+                        <label asp-for="@Model.Prenom" class="form-label mt-3 mb-1">Prénom<span style="color:red"> *</span></label>
                         <input type="text" class="form-control form-control-lg capitalize-first-letter" asp-for="@Model.Prenom" placeholder="Exemple: Smith">
                         <span asp-validation-for="@Model.Prenom" class="text-danger"></span>
                     </div>
@@ -47,7 +47,7 @@
                 <!--Genre-->
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6">
-                        <label asp-for="@Model.Genre" class="form-label mt-3 mb-1"></label>
+                        <label asp-for="@Model.Genre" class="form-label mt-3 mb-1">Genre<span style="color:red"> *</span></label>
                         <select class="form-select form-select-lg" asp-for="@Model.Genre" aria-label="Genre">
                             <option selected value="">Choisissez parmi les options proposées</option>
                             <option selected value="Féminine">Féminine</option>
@@ -60,7 +60,7 @@
                 <!--NAM-->
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
-                        <label asp-for="@Model.NAM" class="form-label mt-3 mb-1"></label>
+                        <label asp-for="@Model.NAM" class="form-label mt-3 mb-1">Numéro d'assurances maladie<span class="champs-obligatoires"> *</span></label>
                         <input type="text" class="form-control form-control-lg" asp-for="@Model.NAM" placeholder="Exemple: CULA 12345678">
                         <span asp-validation-for="@Model.NAM" class="text-danger"></span>
                     </div>
@@ -69,7 +69,7 @@
                 <!--La date de naissance-->
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
-                        <label asp-for="@Model.DateDeNaissance" class="form-label mt-3 mb-1"></label>
+                        <label asp-for="@Model.DateDeNaissance" class="form-label mt-3 mb-1">Date de naissance<span class="champs-obligatoires"> *</span></label>
                         <input id="DateDeNaissance" class="form-control form-control-lg" asp-for="@Model.DateDeNaissance" type="date" min="1900-01-01" max="@DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd")">
                         <span asp-validation-for="@Model.DateDeNaissance" class="text-danger"></span>
                     </div>
@@ -78,7 +78,7 @@
                 <!--Code Postal-->
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6 ">
-                        <label asp-for="@Model.CodePostal" class="form-label mt-3 mb-1"></label>
+                        <label asp-for="@Model.CodePostal" class="form-label mt-3 mb-1">Code postal<span class="champs-obligatoires"> *</span></label>
                         <input type="text" class="form-control form-control-lg" asp-for="@Model.CodePostal" placeholder="Exemple: J4K 2T4">
                         <span asp-validation-for="@Model.CodePostal" class="text-danger"></span>
                     </div>
