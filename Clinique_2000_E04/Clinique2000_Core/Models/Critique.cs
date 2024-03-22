@@ -24,11 +24,22 @@ namespace Clinique2000_Core.Models
         [Range(1, 5, ErrorMessage = "La note doit être comprise entre 1 et 5.")]
         public int Note { get; set; }
 
+        [Display(Name = "Date de l'évaluation")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime Date { get; set; } = DateTime.Now;
 
         [ForeignKey("Clinique")]
         public int CliniqueId { get; set; }
 
         [ValidateNever]
         public virtual Clinique Clinique { get; set; }
+
+
+        [ForeignKey("Patient")]
+        public int PatientId { get; set; }
+
+        [ValidateNever]
+        public virtual Patient Patient { get; set; }
     }
 }

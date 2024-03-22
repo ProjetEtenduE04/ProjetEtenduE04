@@ -81,10 +81,6 @@ namespace Clinique2000_Core.Models
         [Display(Name = "Est Approuvée")]
         public bool EstApprouvee { get; set; }
 
-        [ValidateNever]
-        public virtual ICollection<Critique> Critique { get; set; }
-
-
         [Display(Name = "Heure de début de la pause")]
         [DataType(DataType.Time)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
@@ -94,5 +90,8 @@ namespace Clinique2000_Core.Models
         [DataType(DataType.Time)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
         public TimeSpan? HeurePauseFin { get; set; }
+
+        [ValidateNever]
+        public virtual ICollection<Critique>? Critiques { get; set; }
     }
 }

@@ -48,6 +48,12 @@ namespace Clinique2000_DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Critique>()
+                .HasOne(c => c.Patient)
+                .WithMany(p => p.Critiques)
+                .HasForeignKey(c => c.PatientId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CliniqueDbContext).Assembly);
