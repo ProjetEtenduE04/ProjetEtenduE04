@@ -27,5 +27,6 @@ namespace Clinique2000_Services.IServices
         void AssignerCliniqueIDaListeAttente(ListeAttente listeAttente, int cliniqueID);
         Task<DateTime> ObtenirDerniereListeAttenteParClinique(int cliniqueID);
         Task<ListeAttente> GenererListeAttenteParDefaut(EmployesClinique ec);
+        Task<int> ObtenirIDListeAttente(int cliniqueID, DateTime dateEffectivite);
     }
 }
