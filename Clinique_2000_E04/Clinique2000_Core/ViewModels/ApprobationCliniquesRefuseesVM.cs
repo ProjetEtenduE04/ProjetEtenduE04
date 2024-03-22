@@ -13,6 +13,6 @@ namespace Clinique2000_Core.ViewModels
         public string Param { get; set; }
 
         // Liste des cliniques à approuver
-        public List<CliniqueRefusee> CliniquesRefusees { get; set; }
+        public List<Clinique> CliniquesRefusees { get; set; }
     }
 }

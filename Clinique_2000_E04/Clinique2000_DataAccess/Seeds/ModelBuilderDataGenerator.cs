@@ -99,7 +99,7 @@ namespace Clinique2000_DataAccess.Seeds
                  AdresseID = 1,
                  NumTelephone = "(450) 646-4445",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                 EstApprouvee = true,
+                 Statut = StatutApprobationEnum.Approuve,
                  HeurePauseDebut = new TimeSpan(12, 0, 0),
                  HeurePauseFin = new TimeSpan(13, 0, 0)
              },
@@ -115,7 +115,7 @@ namespace Clinique2000_DataAccess.Seeds
                  AdresseID = 2,
                  NumTelephone = "(450) 468-6223",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                 EstApprouvee = true,
+                 Statut = StatutApprobationEnum.Approuve,
                  HeurePauseDebut = new TimeSpan(12, 0, 0),
                  HeurePauseFin = new TimeSpan(13, 0, 0)
              },
@@ -131,7 +131,7 @@ namespace Clinique2000_DataAccess.Seeds
                  AdresseID = 3,
                  NumTelephone = "(450) 679-4333",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                 EstApprouvee =  false,
+                 Statut = StatutApprobationEnum.EnAttente,
                  HeurePauseDebut = new TimeSpan(12, 0, 0),
                  HeurePauseFin = new TimeSpan(13, 0, 0)
              },
@@ -147,7 +147,7 @@ namespace Clinique2000_DataAccess.Seeds
                  AdresseID = 4,
                  NumTelephone = "(450) 466-7892",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                 EstApprouvee = false,
+                 Statut = StatutApprobationEnum.EnAttente,
                  HeurePauseDebut = new TimeSpan(12, 0, 0),
                  HeurePauseFin = new TimeSpan(13, 0, 0)
              },
@@ -163,7 +163,7 @@ namespace Clinique2000_DataAccess.Seeds
                  AdresseID = 5,
                  NumTelephone = "(514) 954-1444",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                 EstApprouvee = false,
+                 Statut = StatutApprobationEnum.EnAttente,
                  HeurePauseDebut = new TimeSpan(12, 0, 0),
                  HeurePauseFin = new TimeSpan(13, 0, 0)
              },
@@ -179,7 +179,7 @@ namespace Clinique2000_DataAccess.Seeds
                  AdresseID = 6,
                  NumTelephone = "(450) 926-2236",
                  CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                 EstApprouvee = false,
+                 Statut = StatutApprobationEnum.EnAttente,
                  HeurePauseDebut = new TimeSpan(12, 0, 0),
                  HeurePauseFin = new TimeSpan(13, 0, 0)
              }

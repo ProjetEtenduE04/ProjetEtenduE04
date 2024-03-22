@@ -319,7 +319,6 @@ namespace Clinique2000_TestsUnitaires
         }
 
 
-<<<<<<< HEAD
         ////Ce test v�rifie que l'action Create (GET) renvoie la vue par d�faut pour cr�er une nouvelle entr�e.
         //[Fact]
         //public async Task Create_Get_RetourneVueParDefaut()
@@ -337,7 +336,6 @@ namespace Clinique2000_TestsUnitaires
         //    var viewResult = result as ViewResult;
         //    Assert.Null(viewResult.Model); // Confirme que la vue est retourn�e sans mod�le
         //}
-=======
         //Ce test v�rifie que l'action Create (GET) renvoie la vue par d�faut pour cr�er une nouvelle entr�e.
         [Fact]
         public async Task Create_Get_RetourneVueParDefaut()
@@ -355,7 +353,6 @@ namespace Clinique2000_TestsUnitaires
             var viewResult = await result as ViewResult;
             Assert.Null(viewResult.Model); // Confirme que la vue est retourn�e sans mod�le
         }
->>>>>>> Developpement
 
 
         /// <summary>
