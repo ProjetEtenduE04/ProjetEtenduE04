@@ -25,14 +25,16 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         public IClinique2000Services _services { get; set; }
-
+        public readonly SignInManager<IdentityUser> _signinmanager;
         public CliniquesController(
             IClinique2000Services service,
-            UserManager<IdentityUser> userManager
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager
             )
         {
             _services = service;
             _userManager = userManager;
+            _signinmanager = signInManager;
         }
 
         // GET: Cliniques
@@ -118,6 +120,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     var cliniqueEnregistre = await _services.clinique.EnregistrerCliniqueAsync(viewModel);
                     var user = await _services.patient.GetUserAuthAsync();
                     await _userManager.AddToRoleAsync(user, AppConstants.AdminCliniqueRole);
+                    // Assuming `user` is the user object you've just updated
+                    await _signinmanager.SignOutAsync(); // Sign out to clear the current session
+                    await _signinmanager.SignInAsync(user, isPersistent: false); // Sign in again to refresh the session
+
+
+
                     TempData[AppConstants.Success] = $"Vous avez enregistré avec succès la clinique  {cliniqueEnregistre.NomClinique}";
 
                     return RedirectToAction("Details", "Cliniques", new { id = cliniqueEnregistre.CliniqueID });
