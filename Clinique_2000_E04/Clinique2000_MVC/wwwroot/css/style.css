@@ -166,6 +166,7 @@ body {
   /* Close Button */
   /*Card header styles*/
   /* petits boutons ronds pour la suppression, l'édition et les détails (index)*/
+  /* Styles for your other button classes remain the same */
   /*Liste Salle Attente*/
   /*DATATABLES STYLE CUSTOM*/
   /*Start : Styles pour la montre et la page ListeSalleDAttente */
@@ -1502,10 +1503,18 @@ body .btn-circle {
   border-radius: 100%;
   height: 2.5rem;
   width: 2.5rem;
+  padding: 0; /* Remove default padding */
   font-size: 1rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative; /* Required for the shadow */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Subtle box shadow */
+  transition: all 0.2s ease-in-out; /* Smooth transition on hover */
+}
+body .btn-circle:hover {
+  transform: translateY(-2px); /* Simulate slight button lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
 }
 body .btn-sm > .btn {
   padding: 0.25rem 0.5rem;
