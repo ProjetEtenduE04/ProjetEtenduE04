@@ -4,6 +4,7 @@ using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
 using Clinique2000_Utility.Constants;
+using Clinique2000_Utility.Enum;
 using Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -40,7 +41,6 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         // GET: Cliniques
         public async Task<IActionResult> Index()
         {
-            
             var userAuth = await _services.patient.GetUserAuthAsync();
 
             // Vérifier si l'utilisateur est un superadministrateur
@@ -48,7 +48,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 // L'utilisateur est un superadministrateur, il peut donc voir toutes les cliniques
                 var employesClinique = await _services.clinique.ObtenirToutAsync();
-                return View(employesClinique);
+                return View(employesClinique.Where(e => e.Statut == StatutApprobationEnum.Approuve));
             }
             //Vérifier si l'utilisateur est le créateur d'une clinique
             if (User.IsInRole(AppConstants.AdminCliniqueRole))
