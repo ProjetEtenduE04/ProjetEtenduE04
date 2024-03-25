@@ -158,10 +158,31 @@ namespace Clinique2000_Services.Services
         }
 
 
+        /// <summary>
+        /// vérifier si un patient est enregistré en tant que patient à charge dans la base de données à l'aide d'une NAM.
+        /// </summary>
+        /// <param name="nam"> numéro d'assurance médicale du patient à charge pour vérification.
+        /// </param>
+        /// <returns> Vrai si le patient est enregistré en tant que patient à charge dans la base de données, sinon Faux.
+        /// </returns>
         public async Task<bool> VerifierExistencePatientAchargeParNAM(string nam)
         {
             var patientTrouve = await ObtenirPatientParNAMAsync(nam);
             return patientTrouve != null;
+        }
+
+        /// <summary>
+        /// Verifier si un NAM est unique dans la base de données.
+        /// </summary>
+        /// <param name="NAM"> Numéro d'assurance médicale à vérifier. /// </param>
+        /// <returns> Vrai si le NAM est unique, sinon Faux.
+        /// </returns>
+        public async Task<bool> VerifierSiNAMestUnique(string NAM)
+        {
+            if (await VerifierExistencePatientParNAM(NAM) || await VerifierExistencePatientAchargeParNAM(NAM))
+                return false;
+            else
+                return true;
         }
 
         /// <summary>
