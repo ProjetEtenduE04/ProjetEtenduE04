@@ -31,5 +31,6 @@ namespace Clinique2000_Services.IServices
         List<Clinique> GetAllClinique();
         string GetClinicNameById(int id);
         Task<Critique> CreerCritiqueAsync(Critique critique);
+        Task<List<Clinique>> ObtenirLESCliniquesParCreateurId(string? createurId);
     }
 }

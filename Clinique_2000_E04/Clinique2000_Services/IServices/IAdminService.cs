@@ -11,6 +11,6 @@ namespace Clinique2000_Services.IServices
         public Task<int> RefuserCliniqueParID(int id);
         public Task<int> ApprobationUtilisateurParID(int id);
         public Task<int> RefuserUtilisateurParID(int id);
-        public Task<List<CliniqueRefusee>> ListeCliniquesRefusees();
+        public Task<List<Clinique>> ListeCliniquesRefusees();
     }
 }

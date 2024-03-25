@@ -140,22 +140,25 @@ namespace Clinique2000_Services.Services
         {
             return _context.EmployesClinique.Any(e => e.EmployeCliniqueID == id);
         }
-      
+
 
         public async Task<EmployesClinique> AjouterEmployerAsync(EmployesClinique employesClinique)
         {
             if (await DevraitAjouterEmployer(employesClinique))
             {
                 await _context.EmployesClinique.AddAsync(employesClinique);
-
+                await _context.SaveChangesAsync(); // Assuming asynchronous operation
+                return employesClinique;
             }
-            _context.SaveChanges();
-            return employesClinique;
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<bool> DevraitAjouterEmployer(EmployesClinique employesClinique)
         {
-            if (_context.EmployesClinique.Any(x=>x.EmployeCliniqueID==employesClinique.EmployeCliniqueID))
+            if (_context.EmployesClinique.Any(x=>x.EmployeCliniqueCourriel==employesClinique.EmployeCliniqueCourriel))
             {
                 return false;
                 throw new ValidationException("L'employé entré existe déjà.");
@@ -163,8 +166,6 @@ namespace Clinique2000_Services.Services
             else
             {
                 return true;
-                   
-                
             }
         }
 

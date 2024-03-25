@@ -186,8 +186,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
                     if (employee != null)
                     {
-                       _services.listeAttente.AssignerCliniqueIDaListeAttente(listeAttente, employee.CliniqueID);
+                        _services.listeAttente.AssignerCliniqueIDaListeAttente(listeAttente, employee.CliniqueID);
                         await _services.listeAttente.CreerListeAttenteAsync(listeAttente);
+                        await _services.listeAttente.GenererPlagesHorairesAsync(listeAttente.ListeAttenteID);
                         TempData[AppConstants.Success] = "Vous avez créé avec succès la liste d'attente";
                         listeAttente = null;
                         RedirectToAction("Index");
@@ -202,9 +203,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 ModelState.AddModelError("", ex.Message);
                 TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
+                return View("create", listeAttente);
             }
-
-            return View("create", listeAttente);
+            return RedirectToAction("Index");
         }
 
         // GET: ListeAttenteController/Edit/5

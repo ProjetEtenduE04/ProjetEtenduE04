@@ -1,9 +1,13 @@
-﻿@using Clinique2000_Utility.Enum
+@using Clinique2000_Utility.Enum
 @model Clinique2000_Core.ViewModels.EmployesCliniqueVM
 
 @{
     ViewData["Title"] = "Details";
     var btnText = "Modifier";
+}
+
+@section Scripts {
+    <script src="~/js/shim-nf.js"></script>
 }
 
 <div class="container" style="max-width: 1080px; margin-top: 50px;">
@@ -81,7 +85,7 @@
                                                 
                                                 <!-- Form DetailsConsultation et btn terminerConsultation -->
 
-                                                <form asp-area="Cliniques" asp-controller="ListeAttente" method="post">
+                                                <form asp-area="Cliniques" asp-controller="ListeAttente" method="post" id="form2">
 
                                                     <input type="hidden" name="consultationId" value="@Model.ConsultationEnCours.ConsultationID" />
                                                     <input type="hidden" name="employeCliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
@@ -155,7 +159,7 @@
                                             else if (Model.ProchaineConsultation != null)
                                             {
                                                 <!-- Appeler Prochain Patient button -->
-                                                <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="AppelerProchainPatient">
+                                                <form method="post" asp-area="Cliniques" asp-controller="listeattente" asp-action="AppelerProchainPatient" id="form1">
                                                     <input type="hidden" name="consultationId" value="@Model.ProchaineConsultation.ConsultationID" />
                                                     <input type="hidden" name="employecliniqueID" value="@Model.EmployesClinique.EmployeCliniqueID" />
                                                     <button type="submit" class="button-blue-action form-control" style="width:fit-content">

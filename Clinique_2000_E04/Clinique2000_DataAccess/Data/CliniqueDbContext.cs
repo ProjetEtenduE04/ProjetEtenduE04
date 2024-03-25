@@ -27,7 +27,6 @@ namespace Clinique2000_DataAccess.Data
         public DbSet<Adresse> Adresses { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<EmployesClinique> EmployesClinique { get; set; }
-        public DbSet<CliniqueRefusee> CliniqueRefusees { get; set; }
         public DbSet<Critique> Critiques { get; set; }
 
 

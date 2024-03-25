@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Clinique2000_Utility.Enum;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,6 @@ namespace Clinique2000_Core.Models
         public virtual ICollection<EmployesClinique> EmployesCliniques { get; set; }
 
         [ValidateNever]
-        public virtual bool EstApprouvee { get; set; }
+        public virtual StatutApprobationEnum? Statut { get; set; }
     }
 }

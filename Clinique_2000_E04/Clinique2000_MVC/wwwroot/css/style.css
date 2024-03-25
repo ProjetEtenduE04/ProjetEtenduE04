@@ -2172,3 +2172,63 @@ body *:before, body *:after {
     color: rgb(0, 0, 0, 0.3);
 }
 /* Rapport end */
+
+
+
+
+/* Add custom styles for table */
+#patientAChargeTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#patientAChargeTable th,
+#patientAChargeTable td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#patientAChargeTable th {
+    background-color: #f2f2f2;
+}
+
+/* Add hover effect on table rows */
+#patientAChargeTable tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Add transition effect */
+.btn-circle {
+    transition: all 0.3s ease;
+}
+
+    .btn-circle:hover {
+        transform: scale(1.1);
+    }
+
+
+.btn-group .btn {
+    background-color: transparent;
+    border: none;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.btn-group .btn:hover {
+    color: #333;
+}
+
+.btn-group .btn i {
+    font-size: 1rem;
+}
+
+.patient-info {
+    transition: transform 0.3s ease;
+}
+
+    .patient-info:hover {
+        transform: translateY(-5px);
+    }
+
+

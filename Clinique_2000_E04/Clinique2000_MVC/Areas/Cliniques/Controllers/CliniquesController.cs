@@ -4,6 +4,7 @@ using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
 using Clinique2000_Utility.Constants;
+using Clinique2000_Utility.Enum;
 using Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -25,20 +26,21 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         public IClinique2000Services _services { get; set; }
-
+        public readonly SignInManager<IdentityUser> _signinmanager;
         public CliniquesController(
             IClinique2000Services service,
-            UserManager<IdentityUser> userManager
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager
             )
         {
             _services = service;
             _userManager = userManager;
+            _signinmanager = signInManager;
         }
 
         // GET: Cliniques
         public async Task<IActionResult> Index()
         {
-            
             var userAuth = await _services.patient.GetUserAuthAsync();
 
             // Vérifier si l'utilisateur est un superadministrateur
@@ -46,7 +48,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 // L'utilisateur est un superadministrateur, il peut donc voir toutes les cliniques
                 var employesClinique = await _services.clinique.ObtenirToutAsync();
-                return View(employesClinique);
+                return View(employesClinique.Where(e => e.Statut == StatutApprobationEnum.Approuve));
             }
             //Vérifier si l'utilisateur est le créateur d'une clinique
             if (User.IsInRole(AppConstants.AdminCliniqueRole))
@@ -118,6 +120,12 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     var cliniqueEnregistre = await _services.clinique.EnregistrerCliniqueAsync(viewModel);
                     var user = await _services.patient.GetUserAuthAsync();
                     await _userManager.AddToRoleAsync(user, AppConstants.AdminCliniqueRole);
+                    // Assuming `user` is the user object you've just updated
+                    await _signinmanager.SignOutAsync(); // Sign out to clear the current session
+                    await _signinmanager.SignInAsync(user, isPersistent: false); // Sign in again to refresh the session
+
+
+
                     TempData[AppConstants.Success] = $"Vous avez enregistré avec succès la clinique  {cliniqueEnregistre.NomClinique}";
 
                     return RedirectToAction("Details", "Cliniques", new { id = cliniqueEnregistre.CliniqueID });

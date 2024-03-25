@@ -192,7 +192,8 @@ namespace Clinique2000_Services.Services
 
             while (heureDebut < finService)
             {
-                DateTime nouvelleHeureFin = heureDebut.AddMinutes((double)listeAttente.Clinique.TempsMoyenConsultation);
+                Clinique clinique = await _context.Cliniques.FindAsync(listeAttente.CliniqueID);
+                DateTime nouvelleHeureFin = heureDebut.AddMinutes((double)clinique.TempsMoyenConsultation);
                 plageHoraire = new PlageHoraire
                 {
                     HeureDebut = heureDebut,
@@ -360,6 +361,12 @@ namespace Clinique2000_Services.Services
                 }
             }
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> ObtenirIDListeAttente (int cliniqueID, DateTime dateEffectivite)
+        {
+            var listeAttente = await _context.ListeAttentes.FirstOrDefaultAsync(la => la.CliniqueID == cliniqueID && la.DateEffectivite == dateEffectivite);
+            return listeAttente.ListeAttenteID;
         }
     }
 }

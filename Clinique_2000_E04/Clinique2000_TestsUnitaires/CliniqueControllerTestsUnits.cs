@@ -21,6 +21,7 @@ namespace Clinique2000_TestsUnitaires
     {
         private readonly Mock<UserManager<IdentityUser>> _userManagerMock;
         private readonly Mock<IClinique2000Services> _servicesMock;
+        private readonly Mock<SignInManager<IdentityUser>> _signinManagerMock;
 
         private ApplicationUser _createur;
         private Adresse _adresse;
@@ -30,13 +31,25 @@ namespace Clinique2000_TestsUnitaires
 
         public CliniqueControllerTestsUnits()
         {
-            _userManagerMock = new Mock<UserManager<IdentityUser>>(new Mock<IUserStore<IdentityUser>>().Object, null, null, null, null, null, null, null, null);
+            var userStoreMock = new Mock<IUserStore<IdentityUser>>();
+            _userManagerMock = new Mock<UserManager<IdentityUser>>(userStoreMock.Object, null, null, null, null, null, null, null, null);
+
+            var contextAccessorMock = new Mock<IHttpContextAccessor>();
+            var userPrincipalFactoryMock = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
+
+            _signinManagerMock = new Mock<SignInManager<IdentityUser>>(
+                _userManagerMock.Object,
+                contextAccessorMock.Object,
+                userPrincipalFactoryMock.Object,
+                null, null, null, null);
+
             _servicesMock = new Mock<IClinique2000Services>();
 
             _cliniqueControllerMock = new CliniquesController(
-                                    _servicesMock.Object,
-                                    _userManagerMock.Object
-                                );
+                                        _servicesMock.Object,
+                                        _userManagerMock.Object,
+                                        _signinManagerMock.Object
+                                    );
 
             _createur = new ApplicationUser()
             {

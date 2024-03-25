@@ -46,6 +46,18 @@ namespace Clinique2000_Services.Services
                 .FirstOrDefaultAsync();
         }
 
+
+        public async Task<PatientACharge?> ObtenirPatientAchargeParNAMAsync(string nam)
+        {
+            if (nam == null)
+            {
+                return null;
+            }
+            return await _dbContext.Set<PatientACharge>()
+                .Where(p => p.NAM.ToUpper() == nam.ToUpper())
+                .FirstOrDefaultAsync();
+        }
+
         /// <summary>
         /// Obtenir un patient de manière asynchrone par nom
         /// </summary>
@@ -119,7 +131,7 @@ namespace Clinique2000_Services.Services
         /// <returns>Vrai si l'âge est supérieur ou égal à l'âge de la majorité ; sinon Faux.</returns>
         public bool EstMajeurAge(int ageEnAnnees)
         {
-            return ageEnAnnees >= AppConstants.AgeMajorite; ;
+            return ageEnAnnees >= AppConstants.AgeMajorite; 
         }
 
         /// <summary>
@@ -140,6 +152,13 @@ namespace Clinique2000_Services.Services
         /// <param name="nam">Le numéro d'assurance médicale du patient pour vérification.</param>
         /// <returns>Vrai si le patient existe dans la base de données, sinon Faux.</returns>
         public async Task<bool> VerifierExistencePatientParNAM(string nam)
+        {
+            var patientTrouve = await ObtenirPatientParNAMAsync(nam);
+            return patientTrouve != null;
+        }
+
+
+        public async Task<bool> VerifierExistencePatientAchargeParNAM(string nam)
         {
             var patientTrouve = await ObtenirPatientParNAMAsync(nam);
             return patientTrouve != null;

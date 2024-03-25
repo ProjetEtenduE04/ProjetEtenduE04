@@ -292,5 +292,16 @@ namespace Clinique2000_Services.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task DebutterConsultation(int consultationId)
+        {
+            var consultation = await _context.Consultations.FindAsync(consultationId);
+            if (consultation != null)
+            {
+                consultation.StatutConsultation = StatutConsultation.EnCours;
+                consultation.HeureDateDebutReele = DateTime.Now;
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
