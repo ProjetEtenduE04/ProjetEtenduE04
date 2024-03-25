@@ -119,7 +119,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
 
 
-            Consultation? consultationEnCour = consultationList.Where(x => x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnCours && x.MedecinId == employee.UserID).FirstOrDefault();
+            Consultation? consultationEnCour = consultationList.Where(x => x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnCours && x.EmployeCliniqueID == employee.EmployeCliniqueID).FirstOrDefault();
 
             if (consultationEnCour == null && prochaineconsultation == null)
             {

@@ -114,6 +114,17 @@ namespace Clinique2000_Services.Services
         }
 
         /// <summary>
+        /// calculer le delai à partir de la date fournie.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public Age CalculerDelai(DateTime date)
+        {
+            return new Age(date, DateTime.Now);
+        }
+
+
+        /// <summary>
         /// Vérifier si l'âge spécifié est supérieur ou égal à l'âge de la majorité.
         /// </summary>
         /// <param name="age">Âge à vérifier.</param>
@@ -435,28 +446,34 @@ namespace Clinique2000_Services.Services
                 return this;
             }
 
-
-
         }
 
-
-        //==============================================Methodes patient a charge START=======================================
-
-
-        public async Task<bool> VerifierSiNAMestUnique(string NAM)
+        /// <summary>
+        /// Verifier si un patient peut ajouter une critique à une clinique.
+        /// </summary>
+        /// <param name="patientId">L'identifiant du patient.
+        /// </param>
+        /// <param name="cliniqueId">L'identifiant de la clinique.
+        /// </param>
+        /// <returns>True si le patient peut ajouter une critique à la clinique, sinon False.
+        /// </returns>
+        public async Task<bool> PeutAjouterNoteAClinique(int patientId, int cliniqueId)
         {
-            if (await VerifierExistencePatientParNAM(NAM) || await VerifierExistencePatientAchargeParNAM(NAM))
-                return false;
+            var critique = await _context.Critiques
+                .Where(c => c.PatientId == patientId && c.CliniqueId == cliniqueId)
+                .OrderByDescending(c => c.Date)
+                .FirstOrDefaultAsync();
+
+            if (critique != null)
+            {
+                var intervalleDeTemps = CalculerDelai(critique.Date).Mois;
+                return intervalleDeTemps >= 1; // Si l'intervalle de temps est supérieur à 1 mois, le patient peut ajouter une critique
+            }
             else
-                return true;
+            {
+                return true; // En supposant que le patient puisse ajouter un avis pour la première fois
+            }
         }
 
-
-
-
-
-
-
-        //==============================================Methodes patient a charge END=======================================
     }
 }

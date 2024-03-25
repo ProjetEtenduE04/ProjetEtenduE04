@@ -29,13 +29,13 @@
                         <h1 class="h0 text-center" style="margin-top:50px;">Créer une liste d'attente</h1>
                         <div class="divider-2 mb-3"></div><!--devider linear gradient cian-->
 
-                        <p class="p1">
+                        <p class="p1 text-center">
                             Veuillez compléter ces informations <br />
                             <span class="p3" style="color:black">Les champs marqués d'un astérisque (<span class="champs-obligatoires">*</span>) doivent être renseignés.</span>
                         </p>
                     </div>
 
-                    <form asp-area="Cliniques" enctype="multipart/form-data" asp-controller="ListeAttente" asp-action="Create" method="post" class="m-4">
+                    <form asp-area="Cliniques" enctype="multipart/form-data" asp-controller="ListeAttente" asp-action="Create" method="post" class="m-4 p1">
                         @Html.AntiForgeryToken()
                         
                         <div class="form-group mb-3">

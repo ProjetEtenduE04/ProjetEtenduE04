@@ -378,19 +378,33 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCritique(Critique critique)
+        public async Task<IActionResult> CreateCritiqueAsync(Critique critique)
         {
             // Add validation logic
             if (ModelState.IsValid)
             {
-                _services.clinique.CreerCritiqueAsync(critique);
 
-                TempData[AppConstants.Success] = $"Merci infiniment d'avoir pris le temps d'écrire une critique, votre feedback est précieux pour nous!";
+                var patientId = critique.PatientId;
+                var cliniqueId = critique.CliniqueId;
+                var canAddReview = await _services.patient.PeutAjouterNoteAClinique(patientId, cliniqueId);
+                if (canAddReview)
+                {
+                    // Permettre au patient d'ajouter un commentaire
+                    await _services.clinique.CreerCritiqueAsync(critique);
 
-                return RedirectToAction("IndexCliniquesAProximite"); // Redirect to a different page after successful review submission
+                    TempData[AppConstants.Success] = $"Merci infiniment d'avoir pris le temps d'écrire une critique, votre feedback est précieux pour nous!";
+
+                    return RedirectToAction("IndexCliniquesAProximite"); // Redirection vers une autre page après la soumission réussie de l'examen
+                }
+                else
+                {
+                    // Le patient ne peut pas encore ajouter un avis, afficher un message d'erreur
+                    TempData[AppConstants.Error] = "Vous ne pouvez pas ajouter une critique pour cette clinique pour le moment. Veuillez attendre au moins un mois entre les critiques.";
+                    return RedirectToAction("IndexCliniquesAProximite");
+                }
             }
 
-            return View(critique); // Return the view with validation errors
+            return View(critique); // Retourne la vue avec les erreurs de validation
         }
     }
 }

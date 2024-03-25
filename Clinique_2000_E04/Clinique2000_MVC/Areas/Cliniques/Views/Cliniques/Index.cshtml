@@ -69,10 +69,20 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.TempsMoyenConsultation)
                                         </td>
-                                        <td>
+@*                                         <td>
                                             @Html.DisplayFor(modelItem => item.EstActive)
-                                        </td>
+                                        </td> *@
                                         <td>
+                                            @if (item.EstActive)
+                                            {
+                                                <span class="badge rounded-pill text-bg-success">Ouverte</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge rounded-pill text-bg-danger">Fermée</span>
+                                            }
+                                        </td>
+                                        <td >
                                             @{
                                                 // Concatène toutes les propriétés pertinentes de l'objet Adresse en une chaîne de caractères.
                                                 string concatenatedAddress = $"{item.Adresse.Numero} {item.Adresse.Rue}, {item.Adresse.Ville}, {item.Adresse.Province}, {item.Adresse.Pays}, {item.Adresse.CodePostal}";
@@ -81,7 +91,7 @@
                                                 @Html.DisplayFor(modelItem => concatenatedAddress)
                                             }
                                         </td>
-                                        <td class="" style="width: 100px;">
+                                        <td class="" style="width: 120px;">
                                             <a class="btn btn-warning btn-circle btn-sm" asp-action="Edit" asp-route-id="@item.CliniqueID"><i class="fa-solid fa-pen"></i></a> 
                                             <a class="btn btn-info btn-circle btn-sm" asp-action="Details" asp-route-id="@item.CliniqueID"><i class="fa-solid fa-info fa-lg"></i></a> 
                                             <a class="btn btn-danger btn-circle btn-sm" asp-action="Delete" asp-route-id="@item.CliniqueID"> <i class="fas fa-trash"></i></a>

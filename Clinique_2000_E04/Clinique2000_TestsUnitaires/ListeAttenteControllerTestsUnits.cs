@@ -349,8 +349,7 @@ namespace Clinique2000_TestsUnitaires
             var result = controller.Create();
 
             // Assert
-            Assert.IsType<ViewResult>(result);
-            var viewResult = await result as ViewResult;
+            var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Null(viewResult.Model); // Confirme que la vue est retourn�e sans mod�le
         }
 

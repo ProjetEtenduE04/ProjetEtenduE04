@@ -1,0 +1,158 @@
+﻿@model Consultation
+
+<div class="container" style="margin-bottom: 40px">
+    <div id="rapport">
+        <div class="row justify-content-around align-items-center" style="margin-bottom: 30px">
+            <div class="col-3">
+                <h1>Rapport</h1>
+            </div>
+            <div class="col-3">
+            </div>
+            <div class="col-3">
+            </div>
+        </div>
+        <div class="row justify-content-around align-items-center">
+            <div class="col-3">
+                <h3 class="sous-titre-carte">Détails de la consultation</h3>
+                <p>Consultation Id: <a class="consultationDetails">N: 000027</a></p>
+                <p>Date Début: <a class="consultationDetails">@Model.HeureDateDebutReele.Value.Date</a></p>
+                <p>Date Fin: <a class="consultationDetails">@Model.HeureDateFinReele.Value.Date</a></p>
+            </div>
+            <div class="col-3">
+                <h3 class="sous-titre-carte">@Model.EmployeClinique.Clinique.NomClinique</h3>
+                <p>@Model.EmployeClinique.Clinique.NumTelephone</p>
+                <p>@Model.EmployeClinique.Clinique.Adresse</p>
+                <p>@Model.EmployeClinique.Clinique.Courriel</p>
+            </div>
+            <div id="patientCarte" class="col-3">
+                <h3 class="sous-titre-carte">Patient: </h3>
+                <h2 style="margin-bottom: 16px"><i class="fa-solid fa-user mr-2"></i> @Model.Patient.Prenom @Model.Patient.Nom</h2>
+                <p>@Model.Patient.CodePostal</p>
+                <p>Canada</p>
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 60px">
+         <h3 style="margin-bottom: 30px">Données relatives aux consultations médicale</h3>
+         <div class="row champ align-items-center">
+            <p class="champNom col-6">Nom du médecin</p>
+            <p class="champValue col-6">@Model.EmployeClinique.EmployeCliniqueNom</p>
+         </div>
+        <div class="row champ align-items-center">
+            <p class="champNom col-6">Motif du rendez-vous</p>
+            <p class="champValue col-6">@Model.DetailsConsultation.MotifRendezVous</p>
+        </div>
+        <div class="row champ align-items-center">
+            <p class="champNom col-6">Est allergique</p>
+            <p class="champValue col-6">@Model.DetailsConsultation.EstAlergique</p>
+        </div>
+        <div class="row champ align-items-center"> 
+            <p class="champNom col-6">Symptôme</p>
+            <p class="champValue col-6">@Model.DetailsConsultation.Symptomes</p>
+        </div>
+        <div class="row champ align-items-center">
+            <p class="champNom col-6">Diagnostic</p>
+            <p class="champValue col-6">@Model.DetailsConsultation.Diagnostic</p>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 60px">
+        <h3 style="margin-bottom: 20px">Médicaments prescrits</h3>
+        <p id="medicaments">
+            @Model.DetailsConsultation.MedicamentsPrescrits
+        </p>
+    </div>
+
+    <div>
+        <h3 style="margin-bottom: 20px">Notes du médecin</h3>
+        <p id="noteMedecin">
+             @Model.DetailsConsultation.Notes
+        </p>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <div class="row">
+    <div class="col-xl-8">
+        <div class="task-list-box" id="landing-task">
+            <div id="task-item-1">
+                <div class="card task-box rounded-3">
+                    <div class="card-body">
+                        <div class="row ">
+                            <div class="card mb-4">
+                                <div class="card-body ">
+                                    <h2>Raport Medical</h2>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h4>Détails de la consultation</h4>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <p class="p1">
+                                                        Date de la consultation : @* @Model.HeureDateDebutReele.Value.Date *@
+                                                    @* </p>
+                                                    <p class="p1">
+                                                        Date de la consultation : @* @Model.HeureDateDebutReele.Value.Date *@
+                                                    @* @* @* </p>
+                                                    <p class="p1">
+                                                        Heure de la consultation : @* @Model.HeureDateDebutReele.Value.ToShortTimeString(); *@
+                                                   @*  </p>
+                                                    <p class="p1">
+                                                        Médecin : @* @Model.EmployeClinique.EmployeCliniqueNom *@
+                                                   @*  </p>
+                                                </div> *@ 
+                                        @* </div>
+                                        <div class="col">
+                                            <h4>Détails de la clinique</h4>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <p class="p1">
+                                                        Patient : 
+                                                    </p>
+                                                    This is some text within a card body.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@ 

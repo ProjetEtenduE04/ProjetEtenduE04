@@ -33,7 +33,7 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.EmployeCliniquePrenom)
                                     </th>
-                                    <th>
+                                    <th >
                                         @Html.DisplayNameFor(model => model.EmployeCliniqueCourriel)
                                     </th>
                                     <th>
@@ -42,7 +42,7 @@
                                    @*  <th>
                                         @Html.DisplayNameFor(model => model.User)
                                     </th> *@
-                                    <th>
+                                    <th style="width:150px;">
                                         @Html.DisplayNameFor(model => model.Clinique)
                                     </th>
                                     <th></th>
@@ -69,7 +69,7 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Clinique.NomClinique)
                                         </td>
-                                        <td class="" style="width: 100px;">
+                                        <td class="text-center" style="width: 150px;">
                                             <a class="btn btn-warning btn-circle btn-sm" asp-action="Edit" asp-route-id="@item.EmployeCliniqueID"><i class="fa-solid fa-pen"></i></a>
                                             <a class="btn btn-info btn-circle btn-sm"  asp-action="Details" asp-route-id="@item.EmployeCliniqueID"><i class="fa-solid fa-info fa-lg"></i></a>
                                             <a class="btn btn-danger btn-circle btn-sm" asp-action="Delete" asp-route-id="@item.EmployeCliniqueID"><i class="fas fa-trash"></i></a>

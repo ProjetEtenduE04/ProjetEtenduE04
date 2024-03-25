@@ -15,9 +15,9 @@
     <h1 class="h0 text-center" style="margin-top:50px;">Modifier une liste d'attente</h1>
     <div class="divider-2 mb-3 "></div><!--devider linear gradient cian-->
 
-    <p class="p1">
+    <p class="p1 text-center">
         Veuillez compléter ces informations <br />
-        <span class="p3" style="color:black">Les champs marqués d'un astérisque (*) doivent être renseignés.</span>
+        <span class="p3" style="color:black">Les champs marqués d'un astérisque (<span class="champs-obligatoires"> * </span>) doivent être renseignés.</span>
     </p>
 </div>
 
@@ -27,7 +27,7 @@
             <div class="row justify-content-around">
                 <div class="col col-lg-10 col-xl-9">
 
-                    <form asp-area="Cliniques" asp-controller="ListeAttente" asp-action="Edit" method="post" enctype="multipart/form-data" class="m-4">
+                    <form asp-area="Cliniques" asp-controller="ListeAttente" asp-action="Edit" method="post" enctype="multipart/form-data" class="m-4 p1">
                         @Html.AntiForgeryToken()
                         <input type="hidden" asp-for="ListeAttenteID">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>

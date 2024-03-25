@@ -323,3 +323,102 @@ $(document).ready(function () {
 
 
 //
+
+//Fonction pour dessiner des lignes pointillées dans jsPDF
+//================================================== 
+function drawDashedLine(doc, xFrom, yFrom, xTo, yTo, dashLength) {
+    var deltaX = xTo - xFrom;
+    var deltaY = yTo - yFrom;
+    var numDashes = Math.floor(Math.sqrt(deltaX * deltaX + deltaY * deltaY) / dashLength);
+    var xStep = deltaX / numDashes;
+    var yStep = deltaY / numDashes;
+
+    for (var i = 0; i < numDashes; i++) {
+        if (i % 2 === 0) {
+            doc.line(xFrom + i * xStep, yFrom + i * yStep, xFrom + (i + 1) * xStep, yFrom + (i + 1) * yStep);
+        }
+    }
+}
+
+//================================================== 
+
+// Fonction pour générer un PDF avec les détails de la consultation
+//================================================== 
+function generateDetailsConsultationPdf(diagnostic, symptomes, medicamentsPrescrits, notes, cliniqueNom, cliniqueNumTelephone, cliniqueAdresse, patientNom, patientPrenom, patientDateNaissance, employeCliniquePrenom, employeCliniqueNom, motifRendezVous, estAlergique) {
+
+    var pdf = new jsPDF();
+
+    pdf.setFillColor(255, 245, 238);
+    pdf.setFontSize(15); 
+    pdf.rect(10, 10, 190, 55, 'F');
+    pdf.text(15, 20, 'Informations sur la clinique');
+
+    pdf.setFontSize(10);
+    pdf.text(20, 40, 'Nom de la clinique : ' + cliniqueNom);
+    pdf.text(20, 50, 'Numéro de téléphone de la clinique: ' + cliniqueNumTelephone);
+    pdf.text(20, 60, 'Adresse de la clinique : ' + cliniqueAdresse);
+
+    drawDashedLine(pdf, 10, 70, 200, 70, 2);
+
+    pdf.setFontSize(15);
+    pdf.text(15, 80, 'Informations sur le patient');
+    pdf.setFontSize(10);
+    pdf.text(20, 90, 'Nom du patient: ' + patientNom + ' ' + patientPrenom);
+    pdf.text(20, 100, 'Date de naissance: ' + patientDateNaissance);
+
+    drawDashedLine(pdf, 10, 110, 200, 110, 2);
+
+    pdf.setFontSize(15);
+    pdf.text(15, 120, 'Données relatives aux consultations médicales');
+    pdf.setFontSize(10);
+    pdf.text(20, 130, 'Nom du médecin : ' + employeCliniquePrenom + ' ' + employeCliniqueNom);
+    pdf.text(20, 30, 'Date et heure de la consultation: ' + new Date().toLocaleString());
+
+    pdf.text(20, 140, 'Motif du rendez-vous : ' + motifRendezVous);
+
+    pdf.text(20, 150, 'Est allergique : ' + (estAlergique ? 'Oui' : 'Non'));
+
+    pdf.text(20, 160, 'Diagnostic: ' + diagnostic);
+    pdf.text(20, 170, 'Symptômes: ' + symptomes);
+    pdf.text(20, 180, 'Médicaments prescrits: ' + medicamentsPrescrits);
+    pdf.text(20, 190, 'Notes: ' + notes);
+
+    drawDashedLine(pdf, 10, 200, 200, 200, 2);
+    pdf.save('consultation_details.pdf');
+}
+
+//================================================== 
+
+// Fonction pour obtenir Motif de RDV dans un format lisible
+//================================================== 
+function getDisplayName(enumValue) {
+    switch (enumValue) {
+        case 'ExamenRoutine':
+            return 'Examen de routine';
+        case 'DouleurDisconfort':
+            return 'Douleur / Disconfort';
+        case 'ProblemeRespiratoire':
+            return 'Problème respiratoire';
+        case 'ProblemeDigestif':
+            return 'Problème digestif';
+        case 'BlessureTraumatisme':
+            return 'Blessure / Traumatisme';
+        case 'SuiviMaladieChronique':
+            return 'Suivi d\'une maladie chronique';
+        case 'ConsultationPreventive':
+            return 'Consultation préventive';
+        case 'Autre':
+            return 'Autre';
+        default:
+            return enumValue;
+    }
+}
+
+//Fonction permettant de supprimer les balises HTML d'une chaîne de caractères
+//================================================== 
+    function stripHtmlTags(html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
+    }
+
+    //================================================== 

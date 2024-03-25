@@ -240,7 +240,16 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             return View("NotFound");
         }
 
-
+        public async Task<ActionResult> InfoConsultation(int id)
+        {
+            var model = await _services.consultation.ObtenirParIdAsync(id);
+            if (model != null)
+            {
+                return View("InfoConsultation", model);
+            }
+            TempData[AppConstants.Warning] = $"Désole, mais la consultation n'a pas été trouvée.";
+            return View("NotFound");
+        }
 
 
        

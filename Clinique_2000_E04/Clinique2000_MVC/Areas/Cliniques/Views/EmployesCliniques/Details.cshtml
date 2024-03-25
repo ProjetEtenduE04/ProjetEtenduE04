@@ -48,14 +48,10 @@
         </li>
     </ul>
 
-
-
-    @*aa*@
-
     <div class="card">
         <div class="tab-content p-4">
             <div class="tab-pane active show " id="patient" role="tabpanel">
-                <h4 class="card-title mb-4">Consultations</h4>
+                <h4 class="card-title mb-4">Consultations</h4>           
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="task-list-box" id="landing-task">
@@ -66,17 +62,27 @@
 
                                             @if (Model.ConsultationEnCours != null)
                                             {
+                                                <!-- Section telecharger pdf-->
+                                                 <div class="row justify-content-end">                                                  
+                                                    <div class="col col-md-4 col-lg-4 col-xl-4 text-end">
+                                                        <button id="generatePdfBtn" class="smBtn button-white-action"> Télécharger 
+                                                        <i class="fa-solid fa-file-pdf fa-lg ms-2" style="color: #c90d29;"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
                                                 <!-- Profil patient -->
+                                               
                                                 <div class="row align-items-center justify-content-center mt-5">
                                                     <div class="col col-sm-4 col-md-2 col-lg-2 col-xl-2 ">
                                                         <img src="/images/avatargenerique.png" alt="" class="w-75 rounded-circle">
                                                     </div>
                                                     <div class="col col-md-6 col-lg-6 col-xl-6 ">
-                                                        <h2>@Model.ConsultationEnCours.Patient.Nom @Model.ConsultationEnCours.Patient.Prenom</h2>
-                                                        <h4>@Model.ConsultationEnCours.Patient.DateDeNaissance.ToShortDateString()</h4>
+                                                        <h2 id="patientName">@Model.ConsultationEnCours.Patient.Nom @Model.ConsultationEnCours.Patient.Prenom</h2>
+                                                        <h4 id="patientDateOfBirth">@Model.ConsultationEnCours.Patient.DateDeNaissance.ToShortDateString()</h4>
                                                     </div>
                                                 </div>
-
+                                                
                                                 <!-- Form DetailsConsultation et btn terminerConsultation -->
 
                                                 <form asp-area="Cliniques" asp-controller="ListeAttente" method="post" id="form2">
@@ -133,11 +139,11 @@
                                                     <div class="row justify-content-center">
                                                         <div class="col col-md-8 col-lg-8 col-xl-8 ">
                                                             <label class="form-label mt-3 mb-1">
-                                                                <input asp-for="DetailsConsultation.EstAlergique" class="form-check-input" />
+                                                                <input asp-for="DetailsConsultation.EstAlergique" class="form-check-input" id="estAlergique" />
                                                                 <span class="ml-2">Est allergique</span>
                                                             </label>
                                                         </div>
-                                                    </div>
+                                                    </div>                                           
                                                     <div class="row justify-content-center mt-3">
                                                         <button type="submit" asp-area="Cliniques" asp-controller="ListeAttente" asp-action="TerminerConsultation" class="button-green-action form-control" style="width:fit-content; margin-right:26px">
                                                             Terminer Consultation
@@ -148,7 +154,7 @@
                                                     </div>
 
                                                 </form>
-
+                                                                                                          
                                             }
                                             else if (Model.ProchaineConsultation != null)
                                             {
@@ -162,7 +168,7 @@
                                                 </form>
                                             }
                                             else
-{
+                                            {
                                                 <div class="row justify-content-center text-center">
                                                     <div class="col col-md-8 col-lg-8 col-xl-8 ">
 @*                                                         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -206,7 +212,7 @@
                                                 <dt class="col-sm-3 mb-2">
                                                     @Html.DisplayNameFor(model => model.EmployesClinique.Clinique.NomClinique)
                                                 </dt>
-                                                <dd class="col-sm-9">
+                                                <dd class="col-sm-9" id="clinicName">
                                                     @Html.DisplayFor(model => model.EmployesClinique.Clinique.NomClinique)
                                                 </dd>
 
@@ -266,7 +272,7 @@
                                                 <dt class="col-sm-2">
                                                     @Html.DisplayNameFor(model => model.EmployesClinique.EmployeCliniqueNom)
                                                 </dt>
-                                                <dd class="col-sm-10">
+                                                <dd class="col-sm-10" id="doctorName">
                                                     @Html.DisplayFor(model => model.EmployesClinique.EmployeCliniqueNom)
                                                 </dd>
                                                 <dt class="col-sm-2">
@@ -344,8 +350,38 @@
             });
         });
     });
-</script>
 
+if (@(Model.ConsultationEnCours != null ? "true" : "false")) {
+    document.getElementById('generatePdfBtn').addEventListener('click', function () {
+
+
+        //Vérifier si ConsultationEnCours est différent de null
+
+
+            var cliniqueNom = '@Html.Raw(Model.EmployesClinique.Clinique.NomClinique)';
+            var cliniqueNumTelephone = '@Html.Raw(Model.EmployesClinique.Clinique.NumTelephone)';
+            var cliniqueAdresse = '@Html.Raw(Model.EmployesClinique.Clinique.Adresse.Numero + " " + Model.EmployesClinique.Clinique.Adresse.Rue + " " + Model.EmployesClinique.Clinique.Adresse.CodePostal)';
+            var patientNom = '@(Model.ConsultationEnCours != null && Model.ConsultationEnCours.Patient != null ? Model.ConsultationEnCours.Patient.Nom : "")';
+            var patientPrenom = '@(Model.ConsultationEnCours != null && Model.ConsultationEnCours.Patient != null ? Html.Raw(Model.ConsultationEnCours.Patient.Prenom) : "")';
+            var patientDateNaissance = '@(Model.ConsultationEnCours != null && Model.ConsultationEnCours.Patient != null ? Model.ConsultationEnCours.Patient.DateDeNaissance.ToString("dd/MM/yyyy") : "")';
+            var employeCliniquePrenom = '@Html.Raw(Model.EmployesClinique.EmployeCliniquePrenom)';
+            var employeCliniqueNom = '@Html.Raw(Model.EmployesClinique.EmployeCliniqueNom)';
+
+                var motifRendezVous = getDisplayName(document.getElementById('motifRendezVous').value);
+            var diagnostic = stripHtmlTags(document.getElementById('diagnostic').value);
+            var symptomes = stripHtmlTags(document.getElementById('symptomes').value);
+            var medicamentsPrescrits = stripHtmlTags(document.getElementById('medicamentsPrescrits').value);
+            var estAlergique = document.getElementById('estAlergique').checked;
+            var notes = stripHtmlTags(document.getElementById('notes').value);
+
+            generateDetailsConsultationPdf(diagnostic, symptomes, medicamentsPrescrits, notes, cliniqueNom, cliniqueNumTelephone, cliniqueAdresse, patientNom, patientPrenom, patientDateNaissance, employeCliniquePrenom, employeCliniqueNom, motifRendezVous, estAlergique);
+        
+        });
+} 
+else {
+    console.log("ConsultationEnCours est nul. L'événement de génération de PDF ne sera pas déclenché.");
+}
+</script>
 
 
 

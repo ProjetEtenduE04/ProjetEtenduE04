@@ -52,10 +52,10 @@ namespace Clinique2000_Core.Models
 
 
         [ForeignKey("EmployesClinique")]
-        public string? MedecinId { get; set; }
+        public int? EmployeCliniqueID { get; set; }
 
         [ValidateNever]
-        public virtual EmployesClinique? Medecin { get; set; }
+        public virtual EmployesClinique? EmployeClinique { get; set; }
 
 
         [ForeignKey("DetailsConsultation")]
