@@ -12,6 +12,7 @@ using Clinique2000_Utility.Constants;
 using Clinique2000_Core.Models;
 using Google;
 
+
 var builder = WebApplication.CreateBuilder(args);
 //DbContext
 builder.Services.AddDbContext<CliniqueDbContext>(options =>
@@ -73,12 +74,34 @@ builder.Services.AddScoped<IPatientAchargeService, PatientAchargeService>();
 //    new DataImportBackgroundService(provider, AppConstants.CsvFilePath));
 
 #endregion
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAlmostAll", policy =>
+    {
+        policy.WithOrigins("http://localhost", "https:localhost");
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowCredentials();
+    });
+
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = false;
+});
+
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     });
-
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "Clinique2000_MVC", Version = "v1" });
+});
 
 var app = builder.Build();
 
@@ -118,4 +141,13 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Clinique2000_MVC v1"));
+}
+
+app.UseCors("AllowAlmostAll");
+
 app.Run();
