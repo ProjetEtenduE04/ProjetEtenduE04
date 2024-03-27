@@ -2,10 +2,13 @@ using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_MVC.Areas.Cliniques.Controllers;
 using Clinique2000_MVC.Controllers;
+using Clinique2000_MVC.Hubs;
 using Clinique2000_Services.IServices;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.SignalR;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -51,10 +54,13 @@ namespace Clinique2000_TestsUnitaires
 
             var mockUserAuth = new Mock<ApplicationUser>();
             var mockEmployesCliniqueService = new Mock<IEmployesCliniqueService>();
+
             mockEmployesCliniqueService.Setup(s => s.GetEmployeUserID(It.IsAny<string>(), It.IsAny<string>()))
                                        .ReturnsAsync(employe);
 
             var mockClinique2000Services = new Mock<IClinique2000Services>();
+
+
             mockClinique2000Services.Setup(s => s.patient.GetUserAuthAsync())
                                     .ReturnsAsync(mockUserAuth.Object);
             mockClinique2000Services.Setup(s => s.employesClinique.GetEmployeUserID(It.IsAny<string>(), It.IsAny<string>()))
@@ -62,7 +68,14 @@ namespace Clinique2000_TestsUnitaires
             mockClinique2000Services.Setup(s => s.listeAttente.ObtenirToutAsync())
                                     .ReturnsAsync(listeAttenteTest);
 
-            var controller = new ListeAttenteController(mockClinique2000Services.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockClinique2000Services.Object, mockHubContext.Object);
 
             // Act
             var result = await controller.Index();
@@ -130,7 +143,14 @@ namespace Clinique2000_TestsUnitaires
             mockClinique2000Services.Setup(s => s.listeAttente.ObtenirToutAsync())
                                     .ReturnsAsync(listeAttenteTest);
 
-            var controller = new ListeAttenteController(mockClinique2000Services.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockClinique2000Services.Object, mockHubContext.Object);
 
             // Act
             var result = await controller.Index();
@@ -173,7 +193,14 @@ namespace Clinique2000_TestsUnitaires
 
             mockService.Setup(s => s.listeAttente.ObtenirParIdAsync(1)).ReturnsAsync(listeAttenteAttendue);
 
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
 
             // Act
             var result = await controller.Details(1);
@@ -210,7 +237,14 @@ namespace Clinique2000_TestsUnitaires
 
             mockService.Setup(s => s.listeAttente.ObtenirParIdAsync(It.IsAny<int>())).ReturnsAsync((ListeAttente)null);
 
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
 
             //mock tempData
             var tempDataMock = new Mock<ITempDataDictionary>();
@@ -243,7 +277,14 @@ namespace Clinique2000_TestsUnitaires
             };
             mockService.Setup(s => s.listeAttente.ObtenirParIdAsync(1)).ReturnsAsync(listeAttenteTest);
 
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
 
             // Act
             var result = await controller.Edit(1);
@@ -260,7 +301,7 @@ namespace Clinique2000_TestsUnitaires
         public async Task Edit_Post_AvecModeleValide_RedirigeVersIndex()
         {
             // Arrange
-            var mockService = new Mock<IClinique2000Services>();
+            var mockClinique2000Services = new Mock<IClinique2000Services>();
             var listeAttente = new ListeAttente
             {
                 ListeAttenteID = 1,
@@ -272,9 +313,16 @@ namespace Clinique2000_TestsUnitaires
                 //DureeConsultationMinutes = 30,
             };
             // Set up the mock to return a completed Task<ListeAttente> with the listeAttente entity
-            mockService.Setup(s => s.listeAttente.EditerAsync(listeAttente)).Returns(Task.FromResult(listeAttente));
+            mockClinique2000Services.Setup(s => s.listeAttente.EditerAsync(listeAttente)).Returns(Task.FromResult(listeAttente));
 
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockClinique2000Services.Object, mockHubContext.Object);
 
             //mock tempData
             var tempDataMock = new Mock<ITempDataDictionary>();
@@ -301,7 +349,14 @@ namespace Clinique2000_TestsUnitaires
             var mockService = new Mock<IClinique2000Services>();
             var listeAttente = new ListeAttente();
 
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
 
             //mock tempData
             var tempDataMock = new Mock<ITempDataDictionary>();
@@ -343,7 +398,14 @@ namespace Clinique2000_TestsUnitaires
 
             // Arrange
             var mockService = new Mock<IClinique2000Services>();
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
             ListeAttente listeAttente1 = new ListeAttente { ListeAttenteID = 1, };
             // Act
             var result = controller.Create();
@@ -365,7 +427,14 @@ namespace Clinique2000_TestsUnitaires
         {
             // Arrange
             var mockService = new Mock<IClinique2000Services>();
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
 
             //mock tempData
             var tempDataMock = new Mock<ITempDataDictionary>();
@@ -418,7 +487,14 @@ namespace Clinique2000_TestsUnitaires
                 CliniqueID = 1,
             };
             var mockService = new Mock<IClinique2000Services>();
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
 
             //mock tempData
             var tempDataMock = new Mock<ITempDataDictionary>();
@@ -446,7 +522,14 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var invalidId = -1;
             var mockService = new Mock<IClinique2000Services>();
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
 
             //mock tempData
             var tempDataMock = new Mock<ITempDataDictionary>();
@@ -474,7 +557,14 @@ namespace Clinique2000_TestsUnitaires
             var mockListeAttenteService = new Mock<IListeAttenteService>();
             mockServices.Setup(s => s.listeAttente).Returns(mockListeAttenteService.Object);
 
-            var controller = new ListeAttenteController(mockServices.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockServices.Object, mockHubContext.Object); ;
 
             //mock tempData
             var tempDataMock = new Mock<ITempDataDictionary>();
@@ -509,7 +599,14 @@ namespace Clinique2000_TestsUnitaires
             // Arrange
             var listeAttente = new ListeAttente { ListeAttenteID = -1 };
             var mockService = new Mock<IClinique2000Services>();
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
             controller.ModelState.AddModelError("Error", "Error message");
 
             // Act
@@ -533,7 +630,14 @@ namespace Clinique2000_TestsUnitaires
                        .ReturnsAsync(new ListeAttenteVM()); // Adjust return value as needed
 
             var tempData = new Mock<ITempDataDictionary>();
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
             controller.TempData = tempData.Object;
 
             // Act
@@ -558,7 +662,14 @@ namespace Clinique2000_TestsUnitaires
                        .ReturnsAsync(listeAttenteVM); // 
 
             var tempData = new Mock<ITempDataDictionary>();
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
             controller.TempData = tempData.Object;
 
             // Act
@@ -581,7 +692,14 @@ namespace Clinique2000_TestsUnitaires
                        .ReturnsAsync(listeAttenteVM);
 
             var tempData = new Mock<ITempDataDictionary>();
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
             controller.TempData = tempData.Object;
 
             // Act
@@ -606,7 +724,14 @@ namespace Clinique2000_TestsUnitaires
                        .Returns(Task.CompletedTask); 
 
             var tempData = new Mock<ITempDataDictionary>();
-            var controller = new ListeAttenteController(mockService.Object);
+            var mockHubClients = new Mock<IHubClients>();
+            var mockClients = new Mock<IClientProxy>();
+            mockHubClients.Setup(x => x.All).Returns(mockClients.Object);
+
+            var mockHubContext = new Mock<Microsoft.AspNetCore.SignalR.IHubContext<MiseAJourListeAttentePatientHub>>();
+            mockHubContext.Setup(x => x.Clients).Returns(mockHubClients.Object);
+
+            var controller = new ListeAttenteController(mockService.Object, mockHubContext.Object);
             controller.TempData = tempData.Object;
 
             // Act

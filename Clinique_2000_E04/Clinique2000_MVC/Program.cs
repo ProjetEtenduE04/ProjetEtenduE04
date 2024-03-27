@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using Clinique2000_Utility.Constants;
 using Clinique2000_Core.Models;
 using Google;
+using Clinique2000_MVC.Hubs;
+
 
 var builder = WebApplication.CreateBuilder(args);
 //DbContext
@@ -79,6 +81,7 @@ builder.Services.AddControllersWithViews()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     });
 
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -118,4 +121,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+app.MapHub<MiseAJourListeAttentePatientHub>("/MiseAJourListeAttentePatientHub");
 app.Run();
