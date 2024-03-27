@@ -8,7 +8,7 @@
     int contador = 1;
 }
 
-<div class="table-responsive mx-auto" id="SalleAttenteTable">
+<div class="table-responsive mx-auto" id="SalleAttenteTable" >
     <table class="table hover align-middle">
     <table class="table hover align-middle">
         <thead>
@@ -61,9 +61,32 @@
     </table>
 </div>
 <script>
-    // Funcția pentru refresh la fiecare 60 de secunde
-    setInterval(function () {
-        location.reload();
-    }, 60000);
+
+    // Fonction de rafraîchissement toutes les 60 secondes
+    // setInterval(function () {
+    //     location.reload();
+    // }, 60000);
+
+
+    // Connecter le hub SignalR.
+    var connection = new signalR.HubConnectionBuilder()
+        .withUrl("/MiseAJourListeAttentePatientHub") // Spécifier l'itinéraire vers le concentrateur
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    // Définir la fonction qui recevra les mises à jour du serveur
+    connection.on("MiseAJourListeSalleDAttentePatient", function () {
+        console.log("SignalR: MiseAJourListeSalleDAttentePatient event received");
+        $('#SalleAttenteTable').load(location.href + ' #SalleAttenteTable');
+    });
+
+    // Démarrage de la connexion au concentrateur
+    connection.start().then(function () {
+        console.log("Connecté au hub SignalR pour les mises à jour des listes d'attente.");
+    }).catch(function (err) {
+        console.error(err.toString());
+    });
+    // Fin du code SignalR
+
 </script>
                 
