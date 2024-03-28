@@ -22,6 +22,7 @@ namespace Clinique2000_Services.IServices
         public IEmailService email { get; }
         public IAdminService admin { get; }
         public IPatientAchargeService patientAcharge { get; }
+        public IBackupService backup { get; }
     }
 
 }

@@ -66,7 +66,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 return View(listCliniqueDeLEmployee);
             }
             //L'utilisateur n'est pas le créateur ou l'administrateur d'une clinique, nous redirigeons donc vers la page principale.
-            TempData["ErrorMessage"] = "Accès refusé. Seuls les superadministrateurs, les créateurs de cliniques ou les administrateurs de cliniques sont autorisés à accéder à cette page.";
+            TempData[AppConstants.Error] = "Accès refusé. Seuls les superadministrateurs, les créateurs de cliniques ou les administrateurs de cliniques sont autorisés à accéder à cette page.";
             return RedirectToAction("Index", "Home");
         }
 

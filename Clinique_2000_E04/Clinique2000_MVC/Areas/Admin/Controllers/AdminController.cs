@@ -4,11 +4,17 @@ using Clinique2000_Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.SqlClient;
+using System.Configuration;
+using Clinique2000_DataAccess.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
+using Clinique2000_Utility.Constants;
 
 namespace Clinique2000_MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize/*(Roles = "Admin")*/]
+    [Authorize(Roles = AppConstants.SuperAdminRole)]
     public class AdminController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -139,6 +145,29 @@ namespace Clinique2000_MVC.Areas.Admin.Controllers
             await _services.admin.RefuserUtilisateurParID(id);
 
             return RedirectToAction("Approbation", new { id = "utilisateur" });
+        }
+
+
+        /// <summary>
+        /// Générer une sauvegarde de la base de données
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> BackupDatabase()
+        {
+            try
+            {
+                // Appel du service de sauvegarde
+                await _services.backup.BackupDatabaseAsync();
+
+                TempData[AppConstants.Success] = "La sauvegarde de la base de données a été effectuée avec succès!";
+
+            }
+            catch (Exception ex)
+            {
+                TempData[AppConstants.Error] = $"Erreur de sauvegarde : {ex.Message}";
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

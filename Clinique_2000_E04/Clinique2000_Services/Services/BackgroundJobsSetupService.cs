@@ -16,14 +16,24 @@ namespace Clinique2000_Services.Services
         /// <param name="options">Les options Quartz à configurer.</param>
         public void Configure(QuartzOptions options)
         {
-            var jobKey = JobKey.Create(nameof(EmailService));
+            var emailJobKey = JobKey.Create(nameof(EmailService));
             options
-                    .AddJob<EmailBackgroundJobService>(jobBuilder => jobBuilder.WithIdentity(jobKey))
+                    .AddJob<EmailBackgroundJobService>(jobBuilder => jobBuilder.WithIdentity(emailJobKey))
                     .AddTrigger(trigger =>
                         trigger
-                            .ForJob(jobKey)
+                            .ForJob(emailJobKey)
                             .WithSimpleSchedule(schedule =>
                             schedule.WithIntervalInMinutes(60).RepeatForever()));
+
+            // Configuration de la tâche de sauvegarde
+            var backupJobKey = JobKey.Create(nameof(BackupService));
+            options
+                    .AddJob<BackUpBackgroundJobService>(jobBuilder => jobBuilder.WithIdentity(backupJobKey))
+                    .AddTrigger(trigger =>
+                        trigger
+                            .ForJob(backupJobKey)
+                            .WithSimpleSchedule(schedule =>
+                            schedule.WithIntervalInHours(24).RepeatForever()));
         }
     }
 }

@@ -12,6 +12,7 @@ using Clinique2000_Utility.Constants;
 using Clinique2000_Core.Models;
 using Google;
 using Clinique2000_MVC.Hubs;
+using Microsoft.Build.Framework;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,6 +70,7 @@ builder.Services.AddScoped<IEmployesCliniqueService, EmployesCliniqueService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IPatientAchargeService, PatientAchargeService>();
+builder.Services.AddScoped<IBackupService, BackupService>();
 
 //builder.Services.AddTransient<DataImportService>();
 //builder.Services.AddHostedService(provider =>
