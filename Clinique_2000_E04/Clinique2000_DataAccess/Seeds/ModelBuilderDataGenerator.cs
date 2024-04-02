@@ -857,7 +857,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "J4J 1Z4",
                 DateDeNaissance = new DateTime(1990, 1, 1),
                 Age = 32,
-                UserId = "7cc96785-8933-4eac-8d7f-a289b28df223" // Replace with the corresponding UserId
+                UserId = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                NumTelephone="+15142290514"// Replace with the corresponding UserId
             });
 
             builder.Entity<Patient>().HasData(new Patient()
@@ -870,7 +871,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "J4J 1V2",
                 DateDeNaissance = new DateTime(1995, 5, 5),
                 Age = 27,
-                UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2" // Replace with the corresponding UserId
+                UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2", // Replace with the corresponding UserId
+                NumTelephone = "+15142290514"
             });
 
             builder.Entity<Patient>().HasData(new Patient()
@@ -883,7 +885,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "J4J 1G4",
                 DateDeNaissance = new DateTime(1985, 10, 10),
                 Age = 36,
-                UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3" // Replace with the corresponding UserId
+                UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3", // Replace with the corresponding UserId
+                NumTelephone = "+15142290514"
             });
 
             builder.Entity<Patient>().HasData(new Patient()
@@ -896,7 +899,9 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "J4J 1H6",
                 DateDeNaissance = new DateTime(1980, 8, 8),
                 Age = 44,
-                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4"
+                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4", // Replace with the corresponding UserId
+                NumTelephone = "+15142290514"
+
             });
 
             builder.Entity<Patient>().HasData(new Patient()
@@ -909,7 +914,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "V9S 1N2",
                 DateDeNaissance = new DateTime(1971, 4, 29),
                 Age = 53,
-                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g5"
+                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g5", // Replace with the corresponding UserId
+                NumTelephone = "+15142290514"
             });
 
             builder.Entity<Patient>().HasData(new Patient()
@@ -922,7 +928,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "C1U 7Y0",
                 DateDeNaissance = new DateTime(1996, 2, 27),
                 Age = 28,
-                UserId = "7cc96785-8933-4eac-8d7f-a289b28df226"
+                UserId = "7cc96785-8933-4eac-8d7f-a289b28df226", // Replace with the corresponding UserId
+                NumTelephone = "+15142290514"
             });
 
             builder.Entity<Patient>().HasData(new Patient()
@@ -935,7 +942,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "T5E 4Z2",
                 DateDeNaissance = new DateTime(1991, 9, 19),
                 Age = 33,
-                UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7"
+                UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7", // Replace with the corresponding UserId
+                NumTelephone = "+15142290514"
             });
 
            
@@ -949,7 +957,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "E9C 8W3",
                 DateDeNaissance = new DateTime(1982, 10, 26),
                 Age = 42,
-                UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38"
+                UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38", // Replace with the corresponding UserId
+                NumTelephone = "+15142290514"
             });
 
        
@@ -963,7 +972,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "H4Z 0C5",
                 DateDeNaissance = new DateTime(1995, 5, 5),
                 Age = 29,
-                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g9"
+                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g9", // Replace with the corresponding UserId
+                NumTelephone = "+15142290514"
             });
 
             
@@ -977,7 +987,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "D2R 4Q3",
                 DateDeNaissance = new DateTime(1950, 9, 5),
                 Age = 74,
-                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g410"
+                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g410",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
             
@@ -991,7 +1002,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "F1G 2H4",
                 DateDeNaissance = new DateTime(1978, 3, 21),
                 Age = 46,
-                UserId = "7cc96785-8933-4eac-8d7f-a289b28df211"
+                UserId = "7cc96785-8933-4eac-8d7f-a289b28df211",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
           
@@ -1005,7 +1017,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "J3K 5L8",
                 DateDeNaissance = new DateTime(1988, 7, 15),
                 Age = 36,
-                UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d212"
+                UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d212",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
          
@@ -1019,7 +1032,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "K2L 6M8",
                 DateDeNaissance = new DateTime(1992, 11, 30),
                 Age = 32,
-                UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313"
+                UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
             
@@ -1033,7 +1047,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "X8F 4I7",
                 DateDeNaissance = new DateTime(1994, 5, 29),
                 Age = 30,
-                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g414"
+                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g414",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
          
@@ -1047,7 +1062,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "S9K 3Z3",
                 DateDeNaissance = new DateTime(1985, 4, 15),
                 Age = 39,
-                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g415"
+                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g415",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
           
@@ -1061,7 +1077,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "H3N 3Z8",
                 DateDeNaissance = new DateTime(1985, 1, 8),
                 Age = 39,
-                UserId = "7cc96785-8933-4eac-8d7f-a289b28df216"
+                UserId = "7cc96785-8933-4eac-8d7f-a289b28df216",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
             
@@ -1075,7 +1092,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "M1F 6Z2",
                 DateDeNaissance = new DateTime(1958, 11, 26),
                 Age = 66,
-                UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d217"
+                UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d217",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
            
@@ -1089,7 +1107,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "G3W 7Q1",
                 DateDeNaissance = new DateTime(1950, 7, 29),
                 Age = 74,
-                UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318"
+                UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
           
@@ -1103,7 +1122,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "D1D 3D9",
                 DateDeNaissance = new DateTime(1975, 5, 24),
                 Age = 49,
-                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g419"
+                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g419",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
             
@@ -1117,7 +1137,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "M4F 2S8",
                 DateDeNaissance = new DateTime(1955, 10, 2),
                 Age = 69,
-                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g420"
+                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g420",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
             builder.Entity<Patient>().HasData(new Patient()
@@ -1130,7 +1151,8 @@ namespace Clinique2000_DataAccess.Seeds
                 CodePostal = "M4F 2S8",
                 DateDeNaissance = new DateTime(1954, 10, 2),
                 Age = 70,
-                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g421"
+                UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g421",
+                NumTelephone = "+15142290514"// Replace with the corresponding UserId
             });
 
 

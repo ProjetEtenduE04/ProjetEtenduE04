@@ -49,6 +49,11 @@ namespace Clinique2000_Core.Models
 
         public NotificationPreference NotificationPreference { get; set; }
 
+
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+
+        public string NumTelephone { get; set; }
+
         //public double Latitude { get; set; }
 
         //public double Longitude { get; set; }

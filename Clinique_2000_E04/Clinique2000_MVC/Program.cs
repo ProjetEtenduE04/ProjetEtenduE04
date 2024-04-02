@@ -69,6 +69,7 @@ builder.Services.AddScoped<IEmployesCliniqueService, EmployesCliniqueService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IPatientAchargeService, PatientAchargeService>();
+builder.Services.AddScoped<ISMSService,SMSService>();
 
 //builder.Services.AddTransient<DataImportService>();
 //builder.Services.AddHostedService(provider =>
