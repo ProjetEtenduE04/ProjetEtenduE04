@@ -53,11 +53,11 @@ namespace Clinique2000_Core.Models
 
         [ForeignKey("UserId")]
         [JsonIgnore]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
        
         [ValidateNever]
         [JsonIgnore]
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser? User { get; set; }
 
         [ValidateNever]
         [JsonIgnore]

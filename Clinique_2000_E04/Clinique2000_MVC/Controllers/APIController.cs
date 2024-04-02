@@ -98,16 +98,46 @@ namespace Clinique2000_MVC.Controllers
 
                 if (majorPatients == null || majorPatients.Count == 0)
                 {
-                    return NotFound("Aucun patient n'a été trouvé qui était plus âgé ou égal à l'âge de la majorité.");
+                    return StatusCode(StatusCodes.Status404NotFound, new { Message = "Aucun patient n'a été trouvé qui était plus âgé ou égal à l'âge de la majorité." });
                 }
 
                 return Ok(majorPatients);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Une erreur s'est produite : {ex.Message}");
+                return StatusCode(StatusCodes.Status404NotFound, new { Message = $"Une erreur s'est produite : {ex.Message}" });
             }
         }
 
+        /// <summary>
+        /// Ajoute des patients à la base de données.
+        /// </summary>
+        /// <param name="patients"></param>
+        /// <returns></returns>
+        [HttpPost("ListPatients")]
+        public async Task<IActionResult> PostListPatients([FromBody] List<Patient> patients)
+        {
+            List<Patient> patientsSaved = new List<Patient>();
+            List<string> errors = new List<string>();
+
+            foreach (var patient in patients)
+            {
+                try
+                {           
+                    var savedPatient = await _services.patient.EnregistrerOuModifierPatient(patient);
+                    patientsSaved.Add(savedPatient);
+                }
+                catch (Exception ex)
+                {
+                    errors.Add($"Erreur dans l'enregistrement des patients auprès de la NAM {patient.NAM}: {ex.Message}");
+                }
+            }
+
+            if (errors.Any())
+            {
+                return BadRequest(errors);
+            }
+            return Ok(patientsSaved);
+        }
     }
 }
