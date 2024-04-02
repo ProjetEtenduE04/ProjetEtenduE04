@@ -24,5 +24,6 @@ namespace Clinique2000_Services.IServices
         Task<bool> PeutAjouterNoteAClinique(int patientId, int cliniqueId);
         Task<bool> VerifierSiNAMestUnique(string NAM);
         Task<List<Patient>> ObtenirPatientsMajeurAsync();
+        Task<bool> PatientExisteSelonLeCourrielAsync(string courriel);
     }
 }

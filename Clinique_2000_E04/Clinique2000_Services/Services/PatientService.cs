@@ -302,6 +302,17 @@ namespace Clinique2000_Services.Services
         }
 
         /// <summary>
+        /// verifier si un patient est enregistré en tant que patient dans la base de données.
+        /// </summary>
+        /// <param name="userId"> Courriel de l'utilisateur connecté</param>
+        /// <returns> Vrai si un patient avec le courriel existe, sinon Faux.
+        /// </returns>s
+        public async Task<bool> PatientExisteSelonLeCourrielAsync(string courriel)
+        {
+            return await _context.Patients.AnyAsync(p => p.Courriel == courriel);
+        }
+
+        /// <summary>
         /// Récupère un patient en fonction de l'identifiant de l'utilisateur.
         /// </summary>
         /// <param name="userId">L'identifiant de l'utilisateur associé au patient.</param>

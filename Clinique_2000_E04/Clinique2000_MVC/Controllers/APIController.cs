@@ -123,7 +123,12 @@ namespace Clinique2000_MVC.Controllers
             foreach (var patient in patients)
             {
                 try
-                {           
+                {
+                    var user = await _userManager.FindByEmailAsync(patient.Courriel);      
+                    if(user != null && !await _services.patient.PatientExisteSelonLeCourrielAsync(patient.Courriel))
+                    {
+                        patient.UserId = user.Id;
+                    }
                     var savedPatient = await _services.patient.EnregistrerOuModifierPatient(patient);
                     patientsSaved.Add(savedPatient);
                 }

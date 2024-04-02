@@ -71,7 +71,9 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 {
                     var patientModel = new Patient
                     {
-                        UserId = user.Id
+                        UserId = user.Id,
+                        Courriel = user.Email
+                        
                     };
                     TempData[AppConstants.Info] = $"Pour bénéficier de tous nos services, veuillez créer un dossier patient.";
                     return View(patientModel);

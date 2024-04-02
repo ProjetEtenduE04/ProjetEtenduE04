@@ -47,6 +47,10 @@ namespace Clinique2000_Core.Models
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         public int Age { get; set; }
 
+        [Display(Name = "Courriel")]
+        [EmailAddress(ErrorMessage = "Le format du courriel n'est pas valide.")]
+        public string? Courriel { get; set; }
+
         //public double Latitude { get; set; }
 
         //public double Longitude { get; set; }
