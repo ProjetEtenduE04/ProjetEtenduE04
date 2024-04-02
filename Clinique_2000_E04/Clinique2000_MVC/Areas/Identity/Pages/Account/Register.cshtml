@@ -228,7 +228,7 @@ media screen and (max-width: 32rem){
 					</div>
 					<div class="back">
 						<div class="inner">
-							<button class="button-blue-action">Se connecter</button>
+							<button class="button-blue-action" asp-area="Identity" asp-page="/Account/Login">Se connecter</button>
 						</div>
 					</div>
 				</div>
@@ -251,25 +251,36 @@ media screen and (max-width: 32rem){
 		</div>
 		<div class="col-8 hauteur" id="right-side-register">
 			<h1 style="margin-bottom: 20px">Créer votre compte</h1>
-			<button class="button-white-action" style="margin-bottom: 20px"><i class="fa-brands fa-google" style="margin-right: 15px"></i>S'enregistrer avec Google</button>
+			<form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+				@foreach (var provider in Model.ExternalLogins!)
+				{
+				//<button type="submit" class="btn btn-create" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">Se connecter avec Google</button>
+					<button class="button-white-action" name="provider" value="@provider.Name" title="Connectez-vous en utilisant votre @provider.DisplayName account"
+							type="submit" style="margin-bottom: 20px">
+						<i class="fab fa-google me-2"></i> S'enregistrer avec Google
+					</button>
+				}
+			</form>
 			<p style="margin-bottom: 20px; text-align: center">-OU-</p>
-			<div class="form-floating" style="margin-bottom: 20px">
-				<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-				<label asp-for="Input.Email">Courriel</label>
-				<span asp-validation-for="Input.Email" class="text-danger"></span>
-			</div>
-			<div class="form-floating" style="margin-bottom: 20px">
-				<input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
-				<label asp-for="Input.Password">Mot de passe</label>
-				<span asp-validation-for="Input.Password" class="text-danger"></span>
-			</div>
-			<div class="form-floating" style="margin-bottom: 20px">
-				<input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-				<label asp-for="Input.ConfirmPassword">Confirmer mot de passe</label>
-				<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-			</div>
-			<button class="button-blue-action" style="margin-bottom: 20px">Créer Compte</button>
-			<p id="dejaCompte">Avez vous déjà un compte? <a style="color:#5D8CCB">Se connecter</a></p>
+			<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+				<div class="form-floating" style="margin-bottom: 20px">
+					<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+					<label asp-for="Input.Email">Courriel</label>
+					<span asp-validation-for="Input.Email" class="text-danger"></span>
+				</div>
+				<div class="form-floating" style="margin-bottom: 20px">
+					<input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+					<label asp-for="Input.Password">Mot de passe</label>
+					<span asp-validation-for="Input.Password" class="text-danger"></span>
+				</div>
+				<div class="form-floating" style="margin-bottom: 20px">
+					<input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+					<label asp-for="Input.ConfirmPassword">Confirmer mot de passe</label>
+					<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+				</div>
+				<button class="button-blue-action" type="submit" style="margin-bottom: 20px">Créer Compte</button>
+				<p id="dejaCompte">Avez vous déjà un compte? <a style="color:#5D8CCB" asp-area="Identity" asp-page="/Account/Login">Se connecter</a></p>
+			</form>
 		</div>
 	</div>
 </div>
