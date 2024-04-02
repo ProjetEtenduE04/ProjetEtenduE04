@@ -2,6 +2,7 @@ using Clinique2000_Utility.CustomAttributesValidation;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Clinique2000_Core.Models
 {
@@ -51,18 +52,23 @@ namespace Clinique2000_Core.Models
         //public double Longitude { get; set; }
 
         [ForeignKey("UserId")]
+        [JsonIgnore]
         public string UserId { get; set; }
-
+       
         [ValidateNever]
+        [JsonIgnore]
         public virtual ApplicationUser User { get; set; }
 
         [ValidateNever]
+        [JsonIgnore]
         public virtual List<PatientACharge>? PatientsACharge { get; set; }
 
         [ValidateNever]
+        [JsonIgnore]
         public virtual List<Consultation>? Consultations { get; set; }
 
         [ValidateNever]
+        [JsonIgnore]
         public virtual List<Critique>? Critiques { get; set; }
 
 

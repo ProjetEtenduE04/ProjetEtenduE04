@@ -496,5 +496,14 @@ namespace Clinique2000_Services.Services
             }
         }
 
+        /// <summary>
+        /// Obtenir la liste des patients majeurs de la base de données.
+        /// </summary>
+        /// <returns> Liste des patients majeurs./// </returns>
+        public async Task<List<Patient>> ObtenirPatientsMajeurAsync()
+        {
+            return await _context.Patients.Where(p => p.Age > AppConstants.AgeMajorite).ToListAsync();
+        }
+
     }
 }

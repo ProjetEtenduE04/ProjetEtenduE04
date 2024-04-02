@@ -12,25 +12,34 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Protocol.Plugins;
+using NuGet.Protocol.Core.Types;
+using Clinique2000_Services.Services;
 
 namespace Clinique2000_MVC.Controllers
 {
-    //[Route("api/[controller]")]
+
+
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class APIController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly CliniqueDbContext _db;
-        public IClinique2000Services _services { get; set; }
 
-        public APIController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, CliniqueDbContext db, IClinique2000Services services)
+        private readonly UserManager<IdentityUser> _userManager;
+        private IClinique2000Services _services { get; set; }
+        private readonly SignInManager<IdentityUser> _signInManager;
+
+        public APIController(
+            IClinique2000Services service,
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager
+            )
         {
-            userManager = _userManager;
-            signInManager = _signInManager;
-            db = _db;
-            services = _services;
+            _services = service;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
+
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
@@ -59,5 +68,46 @@ namespace Clinique2000_MVC.Controllers
 
             return Ok();
         }
+
+        [HttpGet("{NAM}")]
+        public async Task<IActionResult> ObtenirPatientSelonNAM(string NAM)
+        {
+            if (_services == null || _services.patient == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new { Message = "Nous ne trouvons aucun patient dans le BD" });
+            }
+
+            var patient = await _services.patient.ObtenirPatientParNAMAsync(NAM);
+
+
+            if (patient == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new { Message = "Nous avons essayé de récupérer le patient mais une erreur s'est produite." });
+            }
+
+            return Ok(patient);
+        }
+
+        // GET: api/patient/majorPatients
+        [HttpGet("obtenirPatientsMajeur")]
+        public async Task<IActionResult> GetMajorPatients()
+        {
+            try
+            {
+                var majorPatients = await _services.patient.ObtenirPatientsMajeurAsync();
+
+                if (majorPatients == null || majorPatients.Count == 0)
+                {
+                    return NotFound("Aucun patient n'a été trouvé qui était plus âgé ou égal à l'âge de la majorité.");
+                }
+
+                return Ok(majorPatients);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Une erreur s'est produite : {ex.Message}");
+            }
+        }
+
     }
 }

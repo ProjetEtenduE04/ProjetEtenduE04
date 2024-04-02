@@ -1,0 +1,25 @@
+﻿@Clinique2000_MVC_HostAddress = https://localhost:7240
+
+POST {{Clinique2000_MVC_HostAddress}}/transfert
+
+###
+
+POST {{Clinique2000_MVC_HostAddress}}/transfert
+
+###
+
+POST {{Clinique2000_MVC_HostAddress}}/transfert
+
+###
+
+POST {{Clinique2000_MVC_HostAddress}}/transfert
+
+###
+
+GET {{Clinique2000_MVC_HostAddress}}/api/api/string
+
+###
+
+GET {{Clinique2000_MVC_HostAddress}}/api/api/PORT 3443 3433
+
+###

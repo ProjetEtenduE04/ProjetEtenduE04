@@ -23,5 +23,6 @@ namespace Clinique2000_Services.IServices
         Task<int> GetPatientIdFromUserIdAsync(string userId);
         Task<bool> PeutAjouterNoteAClinique(int patientId, int cliniqueId);
         Task<bool> VerifierSiNAMestUnique(string NAM);
+        Task<List<Patient>> ObtenirPatientsMajeurAsync();
     }
 }
