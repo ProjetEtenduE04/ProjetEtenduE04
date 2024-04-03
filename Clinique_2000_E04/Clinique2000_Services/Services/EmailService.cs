@@ -114,7 +114,7 @@ namespace Clinique2000_Services.Services
         public async Task SendConsultationConfirmationEmail(Consultation consultation)
         {
             var confirmationEmail = await CreateConsultationConfirmationEmail(consultation);
-            SendEmail(confirmationEmail);
+            await SendEmail(confirmationEmail);
         }
 
 
@@ -153,9 +153,41 @@ namespace Clinique2000_Services.Services
             {
                 return; // Ne pas renvoyer la notification
             }
-            SendEmail(reminderEmail);
+            await SendEmail(reminderEmail);
             // Mise à jour de la structure de données avec les informations relatives à la notification envoyée
             await UpdateSentNotifications(reminderEmail.To, notificationTime);
+        }
+
+        /// <summary>
+        /// Crée et retourne un objet EmailVM pour la notification d'importation du patient.
+        /// </summary>
+        /// <param name="patient">PATIENT</param>
+        /// <returns> EmailVM/// </returns>
+        public async Task<EmailVM> CreateNotification_PatientImport_Async(Patient patient)
+        {
+            var subject = "Importation de votre dossier patient";
+            var body = $"    <p>Bonjour, {patient.Nom} {patient.Prenom} !</p>" +
+                        $"    <p>Votre dossier de patient a été importé avec succès dans notre système - Clinique2000.</p>" +
+                        $"    <p>Vous pouvez maintenant accéder à votre dossier patient en ligne.</p>" +
+                        $"    <p>Cordialement,<br />L'équipe Clinique2000</p>";
+     
+            return new EmailVM
+            {
+                To = patient.Courriel,
+                Subject = subject,
+                Body = body
+            }; 
+        }
+
+
+        /// <summary>
+        /// Envoie une notification pour l'importation du patient spécifié.
+        /// </summary>
+        /// <param name="patient"> patient/// </param>
+        public async Task SendNotificationPatienImportAsync(Patient patient)
+        {
+            var notificationEmail = await CreateNotification_PatientImport_Async(patient);
+            await SendEmail(notificationEmail);
         }
 
         /// <summary>

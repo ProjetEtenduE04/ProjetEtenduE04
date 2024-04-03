@@ -131,6 +131,7 @@ namespace Clinique2000_MVC.Controllers
                     }
                     var savedPatient = await _services.patient.EnregistrerOuModifierPatient(patient);
                     patientsSaved.Add(savedPatient);
+                    await _services.email.SendNotificationPatienImportAsync(patient);
                 }
                 catch (Exception ex)
                 {
