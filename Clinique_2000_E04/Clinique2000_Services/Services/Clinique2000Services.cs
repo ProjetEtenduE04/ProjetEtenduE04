@@ -23,6 +23,9 @@ namespace Clinique2000_Services.Services
         public IAdminService admin { get; private set; }
         public IPatientAchargeService patientAcharge { get; private set; }
         public IAPIService api { get; private set; }
+        public IAPIKeyService apiKey { get; private set; }
+        private IApiKeyAuthenticationService apiKeyAuthenticationService;
+        
 
 
         public Clinique2000Services(
@@ -36,7 +39,9 @@ namespace Clinique2000_Services.Services
             IEmailService emailService,
             IAdminService adminService,
             IPatientAchargeService patientAchargeService,
-            IAPIService apiService
+            IAPIService apiService,
+            IAPIKeyService apiKeyService,
+            IApiKeyAuthenticationService apiKeyAuthenticationService
             )
         {
             listeAttente = listeAttenteService;
@@ -50,6 +55,9 @@ namespace Clinique2000_Services.Services
             admin = adminService;
             patientAcharge = patientAchargeService;
             api = apiService;
+            apiKey = apiKeyService;
+            this.apiKeyAuthenticationService = apiKeyAuthenticationService;
+           
         }
     }
 }

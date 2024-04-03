@@ -11,25 +11,25 @@ using Microsoft.IdentityModel.Tokens;
 using Clinique2000_Utility.Constants;
 using Clinique2000_Core.Models;
 using Google;
-
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
-//DbContext
+
+// DbContext
 builder.Services.AddDbContext<CliniqueDbContext>(options =>
-{ 
+{
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")).UseLazyLoadingProxies();
-  
 });
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CliniqueDbContext>();
-
-//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDbContext>()
-//    .AddDefaultUI()
-//    .AddDefaultTokenProviders();
-
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
@@ -40,20 +40,56 @@ builder.Services.AddQuartzServices();
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 
-//builder.Services.AddAuthentication(options =>
-//{
-//    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-//    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-//})
-//.AddCookie()
-//.AddGoogle(GoogleDefaults.AuthenticationScheme, option =>
-//{
-//    option.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
-//    option.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
-//});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAlmostAll", policy =>
+    {
+        policy.WithOrigins("http://localhost", "https:localhost");
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowCredentials();
+    });
+});
+
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    });
+
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Clinique2000_MVC", Version = "v1" });
+
+    // Define the security scheme for API Key Authentication
+    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.ApiKey,
+        Name = "X-API-Key", // This is the name of the header to be used
+        In = ParameterLocation.Header, // Location of the API Key (Header)
+        Description = "API Key needed to access the endpoints"
+    });
+
+    // Make sure each endpoint in Swagger requires the defined security scheme
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiKey"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 
 // Add services to the container.
-
 #region Servivces
 builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBaseAsync<>));
 builder.Services.AddScoped<IClinique2000Services, Clinique2000Services>();
@@ -69,40 +105,10 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IPatientAchargeService, PatientAchargeService>();
 builder.Services.AddScoped<IAPIService, APIService>();
-
-//builder.Services.AddTransient<DataImportService>();
-//builder.Services.AddHostedService(provider =>
-//    new DataImportBackgroundService(provider, AppConstants.CsvFilePath));
+builder.Services.AddScoped<IAPIKeyService, APIKeyService>();
+builder.Services.AddScoped<IApiKeyAuthenticationService, ApiKeyAuthenticationService>();
 
 #endregion
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAlmostAll", policy =>
-    {
-        policy.WithOrigins("http://localhost", "https:localhost");
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-        policy.AllowCredentials();
-    });
-
-});
-
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.HttpOnly = false;
-});
-
-builder.Services.AddControllersWithViews()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-    });
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new() { Title = "Clinique2000_MVC", Version = "v1" });
-});
 
 var app = builder.Build();
 
@@ -110,13 +116,11 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("Area/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseAuthentication();
@@ -133,6 +137,9 @@ void SeedDatabase()
 
 SeedDatabase();
 
+app.UseCors("AllowAlmostAll");
+
+
 app.MapControllerRoute(
     name: "areaRoute",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
@@ -148,7 +155,5 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Clinique2000_MVC v1"));
 }
-
-app.UseCors("AllowAlmostAll");
 
 app.Run();

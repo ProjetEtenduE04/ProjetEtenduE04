@@ -19,7 +19,7 @@ namespace Clinique2000_MVC.Controllers
 {
 
 
-    [Route("api/[controller]/[action]")]
+    //[Route("api/[controller]/[action]")]
     [ApiController]
     public class APIController : ControllerBase
     {
@@ -58,8 +58,6 @@ namespace Clinique2000_MVC.Controllers
                 return NotFound(new { Error = "L'utilisateur est introuvable ou le mot de passe de concorde pas" });
             }
             
-
-
         }
 
         [HttpPost("transfert")]
@@ -144,5 +142,15 @@ namespace Clinique2000_MVC.Controllers
             }
             return Ok(patientsSaved);
         }
+
+
+
+
+      
+
+
+
+
+
     }
 }

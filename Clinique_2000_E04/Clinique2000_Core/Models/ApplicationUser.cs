@@ -24,5 +24,9 @@ namespace Clinique2000_Core.Models
 
         [ValidateNever]
         public virtual StatutApprobationEnum? Statut { get; set; }
+
+
+        [ValidateNever]
+        public virtual ApiKey ApiKey { get; set; }
     }
 }

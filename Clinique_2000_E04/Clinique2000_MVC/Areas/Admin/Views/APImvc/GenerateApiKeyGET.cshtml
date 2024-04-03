@@ -1,0 +1,31 @@
+﻿@model string // Assuming the model passed to the view is a string representing the generated API key
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate API Key</title>
+</head>
+<body>
+    <h1>Generate API Key</h1>
+    <p>Your API Key:</p>
+    <div id="apiKey">@Model</div>
+    <button onclick="copyApiKey()">Copy API Key</button>
+
+    <script>
+        function copyApiKey() {
+            var apiKeyElement = document.getElementById("apiKey");
+            var apiKey = apiKeyElement.innerText;
+
+            var dummyTextArea = document.createElement("textarea");
+            dummyTextArea.value = apiKey;
+            document.body.appendChild(dummyTextArea);
+
+            dummyTextArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummyTextArea);
+
+            alert("API Key copied to clipboard: " + apiKey);
+        }
+    </script>
+</body>
+</html>
