@@ -25,5 +25,6 @@ namespace Clinique2000_Services.IServices
         Task<bool> VerifierSiNAMestUnique(string NAM);
         Task<List<Patient>> ObtenirPatientsMajeurAsync();
         Task<bool> PatientExisteSelonLeCourrielAsync(string courriel);
+        Task<Patient> ObtenirPatientSelonCourrielAsync(string courriel);
     }
 }

@@ -313,6 +313,16 @@ namespace Clinique2000_Services.Services
         }
 
         /// <summary>
+        /// Obtenir un patient en fonction de courriel de l'utilisateur authentifié.
+        /// </summary>
+        /// <param name="courriel"> Courriel de l'utilisateur authentifié. /// </param>
+        /// <returns> Patient/// </returns>
+        public async Task<Patient> ObtenirPatientSelonCourrielAsync(string courriel)
+        {
+            return await _context.Patients.FirstOrDefaultAsync(p => p.Courriel == courriel);
+        }
+
+        /// <summary>
         /// Récupère un patient en fonction de l'identifiant de l'utilisateur.
         /// </summary>
         /// <param name="userId">L'identifiant de l'utilisateur associé au patient.</param>

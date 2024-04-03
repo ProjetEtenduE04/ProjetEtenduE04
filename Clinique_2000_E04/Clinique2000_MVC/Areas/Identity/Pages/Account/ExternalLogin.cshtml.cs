@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Clinique2000_Core.Models;
 using Clinique2000_Utility.Constants;
+using Clinique2000_Services.IServices;
 
 namespace Clinique2000_MVC.Areas.Identity.Pages.Account
 {
@@ -31,13 +32,16 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
+        public IClinique2000Services _services;
 
         public ExternalLoginModel(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IClinique2000Services services
+            )
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -45,6 +49,7 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _logger = logger;
             _emailSender = emailSender;
+            _services = services;
         }
 
         /// <summary>
@@ -133,7 +138,7 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
-                TempData[AppConstants.Success] = $" {info.Principal.Identity.Name} ,vous êtes connecté avec succès :.";
+                TempData[AppConstants.Success] = $" {info.Principal.Identity.Name} ,vous êtes connecté avec succès :.";     
                 return LocalRedirect(returnUrl);
             }
             if (result.IsLockedOut)
@@ -203,6 +208,18 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
 
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
                         TempData[AppConstants.Success] = $"Votre compte a été créé avec succès : {user.Email}";
+
+                        if (!await _services.patient.UserEstPatientAsync(user.Id))
+                        {
+                            var patient = await _services.patient.ObtenirPatientSelonCourrielAsync(user.Email);
+                            if (patient != null)
+                            {
+                                patient.UserId = user.Id;
+                                await _services.patient.EnregistrerOuModifierPatient(patient);
+                                TempData[AppConstants.Info] = $" {info.Principal.Identity.Name} - Votre dossier de patient a été importé avec succès";
+                            }
+                        }
+
                         return LocalRedirect(returnUrl);
                     }
                 }
