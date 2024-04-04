@@ -42,22 +42,11 @@ namespace Clinique2000_MVC.Areas.Admin.Controllers
                 var apiKey = await _services.apiKey.GenerateApiKeyAsync(user.Id);
                 return View("GenerateApiKeyGET", apiKey.Key);
             }
-            return View("Error"); // Handle the scenario where the user is not found
+            return View("Error"); 
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> GenerateApiKeyPOST()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user != null)
-            {
-                var apiKey = await _services.apiKey.GenerateApiKeyAsync(user.Id);
-                TempData["ApiKey"] = apiKey; // Store the generated API key in TempData
-                return RedirectToAction("GenerateAPIKey"); // Redirect to another action method to display the API key
-            }
-            return View("Error"); // Handle the scenario where the user is not found
-        }
+
 
 
 
