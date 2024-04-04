@@ -1,14 +1,21 @@
 ﻿@model Consultation
 
-<div class="container" style="margin-bottom: 40px">
+
+<div class="container" id="PDF" style="margin-bottom: 40px">
     <div id="rapport">
         <div class="row justify-content-around align-items-center" style="margin-bottom: 30px">
             <div class="col-3">
-                <h1>Rapport</h1>
+                        <h1>Rapport</h1>
+
+                <!-- Section telecharger pdf-->
             </div>
             <div class="col-3">
             </div>
-            <div class="col-3">
+            <div class="col-3 text-end">
+            <button onclick="printPDF()" class="smBtn button-white-action">
+                Télécharger
+                <i class="fa-solid fa-file-pdf fa-lg ms-2" style="color: #c90d29;"></i>
+            </button>
             </div>
         </div>
         <div class="row justify-content-around align-items-center">
@@ -21,7 +28,7 @@
             <div class="col-3">
                 <h3 class="sous-titre-carte">@Model.EmployeClinique.Clinique.NomClinique</h3>
                 <p>@Model.EmployeClinique.Clinique.NumTelephone</p>
-                <p>@Model.EmployeClinique.Clinique.Adresse</p>
+                <p>@Model.EmployeClinique.Clinique.Adresse.Numero  @Model.EmployeClinique.Clinique.Adresse.Rue @Model.EmployeClinique.Clinique.Adresse.CodePostal</p>
                 <p>@Model.EmployeClinique.Clinique.Courriel</p>
             </div>
             <div id="patientCarte" class="col-3">
@@ -49,32 +56,44 @@
         </div>
         <div class="row champ align-items-center"> 
             <p class="champNom col-6">Symptôme</p>
-            <p class="champValue col-6">@Model.DetailsConsultation.Symptomes</p>
+            <div class="champValue col-6">
+                @Html.Raw(@Model.DetailsConsultation.Symptomes)
+            </div>
         </div>
         <div class="row champ align-items-center">
             <p class="champNom col-6">Diagnostic</p>
-            <p class="champValue col-6">@Model.DetailsConsultation.Diagnostic</p>
+            <div class="champValue col-6">
+                @Html.Raw(@Model.DetailsConsultation.Diagnostic)
+            </div>
         </div>
     </div>
 
     <div style="margin-bottom: 60px">
         <h3 style="margin-bottom: 20px">Médicaments prescrits</h3>
-        <p id="medicaments">
-            @Model.DetailsConsultation.MedicamentsPrescrits
-        </p>
+        <div id="medicaments">
+            @Html.Raw(@Model.DetailsConsultation.MedicamentsPrescrits)
+        </div>
     </div>
 
     <div>
         <h3 style="margin-bottom: 20px">Notes du médecin</h3>
-        <p id="noteMedecin">
-             @Model.DetailsConsultation.Notes
-        </p>
+        <div id="noteMedecin">
+            @Html.Raw(Model.DetailsConsultation.Notes)
+        </div>
     </div>
-    
 </div>
 
 
 
+
+<script>
+    function printPDF() {
+        var printDoc = new jsPDF();
+        printDoc.fromHTML($('#PDF').get(0), 10, 10, { 'width': 180 });
+    //  printDoc.autoPrint(); //(+ after this the PDF opens the print window view but there are browser inconsistencies with how this is handled
+        printDoc.output("dataurlnewwindow"); // this opens a new popup, 
+    }
+</script>
 
 
 

@@ -160,6 +160,33 @@ $(document).ready(function () {
         minHeight: 65,
         maxHeight: 400,
         inheritPlaceholder: true,
+        callbacks: {
+            onKeydown: function (e) {
+                var t = e.currentTarget.innerText;
+                if (t.trim().length >= 400) {
+                    //delete keys, arrow keys, copy, cut, select all
+                    if (e.keyCode != 8 && !(e.keyCode >= 37 && e.keyCode <= 40) && e.keyCode != 46 && !(e.keyCode == 88 && e.ctrlKey) && !(e.keyCode == 67 && e.ctrlKey) && !(e.keyCode == 65 && e.ctrlKey))
+                        e.preventDefault();
+                }
+            },
+            onKeyup: function (e) {
+                var t = e.currentTarget.innerText;
+                $('#maxContentPost').text(400 - t.trim().length);
+            },
+            onPaste: function (e) {
+                var t = e.currentTarget.innerText;
+                var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+                e.preventDefault();
+                var maxPaste = bufferText.length;
+                if (t.length + bufferText.length > 400) {
+                    maxPaste = 400 - t.length;
+                }
+                if (maxPaste > 0) {
+                    document.execCommand('insertText', false, bufferText.substring(0, maxPaste));
+                }
+                $('#maxContentPost').text(400 - t.length);
+            }
+        }
         
     })
 });
@@ -349,7 +376,7 @@ function generateDetailsConsultationPdf(diagnostic, symptomes, medicamentsPrescr
     var pdf = new jsPDF();
 
     pdf.setFillColor(255, 245, 238);
-    pdf.setFontSize(15); 
+    pdf.setFontSize(15);
     pdf.rect(10, 10, 190, 55, 'F');
     pdf.text(15, 20, 'Informations sur la clinique');
 
@@ -363,29 +390,50 @@ function generateDetailsConsultationPdf(diagnostic, symptomes, medicamentsPrescr
     pdf.setFontSize(15);
     pdf.text(15, 80, 'Informations sur le patient');
     pdf.setFontSize(10);
-    pdf.text(20, 90, 'Nom du patient: ' + patientNom + ' ' + patientPrenom);
-    pdf.text(20, 100, 'Date de naissance: ' + patientDateNaissance);
+    pdf.text(20, 90, 'Nom du patient: ' );
+    pdf.text(60, 90, patientNom + ' ' + patientPrenom);
+    pdf.text(20, 100, 'Date de naissance: ');
+    pdf.text(60, 100, patientDateNaissance);
 
     drawDashedLine(pdf, 10, 110, 200, 110, 2);
 
     pdf.setFontSize(15);
     pdf.text(15, 120, 'Données relatives aux consultations médicales');
     pdf.setFontSize(10);
-    pdf.text(20, 130, 'Nom du médecin : ' + employeCliniquePrenom + ' ' + employeCliniqueNom);
+    pdf.text(20, 130, 'Nom du médecin : ');
+    pdf.text(60, 130, employeCliniquePrenom + ' ' + employeCliniqueNom);
     pdf.text(20, 30, 'Date et heure de la consultation: ' + new Date().toLocaleString());
 
-    pdf.text(20, 140, 'Motif du rendez-vous : ' + motifRendezVous);
+    pdf.text(20, 140, 'Motif du rendez-vous : ');
+    var motifLines = pdf.splitTextToSize(motifRendezVous, 140); 
+    pdf.text(60, 140, motifLines);
 
-    pdf.text(20, 150, 'Est allergique : ' + (estAlergique ? 'Oui' : 'Non'));
+    pdf.text(20, 160, 'Est allergique : ');
+    var Alergique = pdf.splitTextToSize((estAlergique ? 'Oui' : 'Non'), 140);
+    pdf.text(60, 160, Alergique);
 
-    pdf.text(20, 160, 'Diagnostic: ' + diagnostic);
-    pdf.text(20, 170, 'Symptômes: ' + symptomes);
-    pdf.text(20, 180, 'Médicaments prescrits: ' + medicamentsPrescrits);
-    pdf.text(20, 190, 'Notes: ' + notes);
+    pdf.text(20, 170, 'Symptômes: ');
+    var symptomesLines = pdf.splitTextToSize(symptomes, 140);
+    pdf.text(60, 170, symptomesLines);
 
-    drawDashedLine(pdf, 10, 200, 200, 200, 2);
+    pdf.text(20, 200, 'Diagnostic: ');
+    var diagnosticLines = pdf.splitTextToSize(diagnostic, 140);
+    pdf.text(60, 200, diagnosticLines);
+
+
+
+    pdf.text(20, 230, 'Médicaments prescrits: ');
+    var medicamentsLines = pdf.splitTextToSize(medicamentsPrescrits, 140);
+    pdf.text(60, 230, medicamentsLines);
+
+    pdf.text(20, 260, 'Notes: ');
+    var notesLines = pdf.splitTextToSize(notes, 140);
+    pdf.text(60, 260, notesLines);
+
+/*    drawDashedLine(pdf, 10, 270, 200, 270, 2);*/
     pdf.save('consultation_details.pdf');
 }
+
 
 //================================================== 
 
