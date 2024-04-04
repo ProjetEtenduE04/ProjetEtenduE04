@@ -16,15 +16,15 @@ namespace Clinique2000_Core.Models
         [Display(Name = "Motif du rendez-vous médical")]
         public MotifRendezVousMedical? MotifRendezVous { get; set; }
 
-        [StringLength(250)]
+        [StringLength(500)]
         [Display(Name = "Symptômes")]
         public string? Symptomes { get; set; }
 
-        [StringLength(250)]
+        [StringLength(500)]
         [Display (Name = "Diagnostic")]
         public string? Diagnostic { get; set; }
 
-        [StringLength(250)]
+        [StringLength(500)]
         [Display(Name = "Medicaments Prescrits")]
         public string? MedicamentsPrescrits { get; set; }
 

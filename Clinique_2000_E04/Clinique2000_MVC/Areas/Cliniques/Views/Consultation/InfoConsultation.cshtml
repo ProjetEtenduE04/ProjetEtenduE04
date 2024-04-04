@@ -1,5 +1,6 @@
 ﻿@model Consultation
 
+
 <div class="container" style="margin-bottom: 40px">
     <div id="rapport">
         <div class="row justify-content-around align-items-center" style="margin-bottom: 30px">
@@ -49,26 +50,30 @@
         </div>
         <div class="row champ align-items-center"> 
             <p class="champNom col-6">Symptôme</p>
-            <p class="champValue col-6">@Model.DetailsConsultation.Symptomes</p>
+            <div class="champValue col-6">
+                @Html.Raw(@Model.DetailsConsultation.Symptomes)
+            </div>
         </div>
         <div class="row champ align-items-center">
             <p class="champNom col-6">Diagnostic</p>
-            <p class="champValue col-6">@Model.DetailsConsultation.Diagnostic</p>
+            <div class="champValue col-6">
+                @Html.Raw(@Model.DetailsConsultation.Diagnostic)
+            </div>
         </div>
     </div>
 
     <div style="margin-bottom: 60px">
         <h3 style="margin-bottom: 20px">Médicaments prescrits</h3>
-        <p id="medicaments">
-            @Model.DetailsConsultation.MedicamentsPrescrits
-        </p>
+        <div id="medicaments">
+            @Html.Raw(@Model.DetailsConsultation.MedicamentsPrescrits)
+        </div>
     </div>
 
     <div>
         <h3 style="margin-bottom: 20px">Notes du médecin</h3>
-        <p id="noteMedecin">
-             @Model.DetailsConsultation.Notes
-        </p>
+        <div id="noteMedecin">
+            @Html.Raw(Model.DetailsConsultation.Notes)
+        </div>
     </div>
     
 </div>
