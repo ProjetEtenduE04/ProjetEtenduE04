@@ -48,20 +48,18 @@ namespace Clinique2000_Core.Models
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         public int Age { get; set; }
 
-        public NotificationPreference NotificationPreference { get; set; }
-
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
-
-        public string NumTelephone { get; set; }
-
         [Display(Name = "Courriel")]
         [EmailAddress(ErrorMessage = "Le format du courriel n'est pas valide.")]
         public string? Courriel { get; set; }
 
-        [Display(Name = "Numéro de téléphone")]
-        public string NumeroTelephone { get; set; }
 
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [Display(Name = "Numéro de téléphone")]
+        public string NumTelephone { get; set; }
+
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
         [Display(Name = "Préférence pour notifications")]
         public PreferenceNotification preferenceNotification { get; set; }    
 

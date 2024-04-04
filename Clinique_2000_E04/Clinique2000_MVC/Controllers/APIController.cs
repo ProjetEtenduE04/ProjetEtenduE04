@@ -141,11 +141,12 @@ namespace Clinique2000_MVC.Controllers
                         }
                         var savedPatient = await _services.patient.EnregistrerOuModifierPatient(patient);
                         patientsSaved.Add(savedPatient);
-                       
-                        if(patient.preferenceNotification!=PreferenceNotification.SMS)
+
+                        if (patient.preferenceNotification != PreferenceNotification.SMS)
                             await _services.email.SendNotificationPatienImportAsync(patient);
                         else
-                            await _services.SMS
+                            ;
+                            //await _services.sms.SendConfirmationSMS(patient); RESTE A IMPLEMENTER
                     }
                     catch (Exception ex)
                     {

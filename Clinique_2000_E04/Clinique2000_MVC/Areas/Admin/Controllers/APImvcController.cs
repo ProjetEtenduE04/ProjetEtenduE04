@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Clinique2000_Core.Models;
+﻿using Clinique2000_Core.Models;
 using Clinique2000_DataAccess.Data;
 using Clinique2000_Services.IServices;
 using Clinique2000_Services.Services;
@@ -15,7 +14,6 @@ namespace Clinique2000_MVC.Areas.Admin.Controllers
     [Area("Admin")]
     public class APImvcController : Controller
     {
-        private readonly Mapper _mapper;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IClinique2000Services _services;
         private readonly CliniqueDbContext _context;

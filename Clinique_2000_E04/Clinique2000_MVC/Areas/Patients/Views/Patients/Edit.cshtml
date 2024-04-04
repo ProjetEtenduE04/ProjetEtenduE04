@@ -26,6 +26,8 @@
                 <!--region input Hidden-->
                 <input asp-for="@Model.UserId" class="form-control" type="hidden" />
                 <input asp-for="@Model.PatientId" class="form-control" type="hidden" />
+                <input asp-for="@Model.Courriel" class="form-control" type="hidden" />
+
 
                 <!--Nom Patient-->
                 <div class="row justify-content-center">
@@ -88,9 +90,9 @@
                 <!-- NumeroTelephone -->
                 <div class="row justify-content-center">
                     <div class="col col-md-8 col-lg-7 col-xl-6">
-                        <label asp-for="@Model.NumeroTelephone" class="form-label mt-3 mb-1">Numéro de téléphone</label>
-                        <input type="tel" class="form-control form-control-lg" asp-for="@Model.NumeroTelephone" aria-label="Numéro de téléphone">
-                        <span asp-validation-for="@Model.NumeroTelephone" class="text-danger"></span>
+                        <label asp-for="@Model.NumTelephone" class="form-label mt-3 mb-1">Numéro de téléphone</label>
+                        <input type="tel" class="form-control form-control-lg" asp-for="@Model.NumTelephone" aria-label="Numéro de téléphone">
+                        <span asp-validation-for="@Model.NumTelephone" class="text-danger"></span>
                     </div>
                 </div>
 

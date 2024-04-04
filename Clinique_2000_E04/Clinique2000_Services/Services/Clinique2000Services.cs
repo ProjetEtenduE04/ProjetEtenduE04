@@ -42,7 +42,7 @@ namespace Clinique2000_Services.Services
             IPatientAchargeService patientAchargeService,
             IAPIService apiService,
             IAPIKeyService apiKeyService,
-            IApiKeyAuthenticationService apiKeyAuthenticationService
+            IApiKeyAuthenticationService apiKeyAuthenticationService,
             ISMSService sMSService
             )
         {
