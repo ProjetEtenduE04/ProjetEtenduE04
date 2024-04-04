@@ -40,6 +40,18 @@ namespace Clinique2000_Services.Services
             return NotFound(new { Error = "L'utilisateur est introuvable ou le mot de passe de concorde pas" });
         }
 
+
+        public async Task<bool> UserPossedeUneCleAPI()
+        {
+            var user1 = User.Identity.Name;
+            var appuser =await _db.ApplicationUser.Where(x=>x.UserName.ToUpper()==user1.ToUpper()).FirstOrDefaultAsync();
+
+            if (_db.ApiKeys.Any(x => x.UserId == appuser.Id))
+                return true;
+            else
+                return false;
+        }
+
         //[HttpPost]
         //public async Task<bool> VerifierLogin(LoginDTO loginDTO)
         //{

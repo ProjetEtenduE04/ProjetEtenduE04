@@ -115,33 +115,41 @@ namespace Clinique2000_MVC.Controllers
         [HttpPost("ListPatients")]
         public async Task<IActionResult> PostListPatients([FromBody] List<Patient> patients)
         {
-            List<Patient> patientsSaved = new List<Patient>();
-            List<string> errors = new List<string>();
-
-            foreach (var patient in patients)
+            if (await _services.api.UserPossedeUneCleAPI() == true)
             {
-                try
+                List<Patient> patientsSaved = new List<Patient>();
+                List<string> errors = new List<string>();
+
+                foreach (var patient in patients)
                 {
-                    var user = await _userManager.FindByEmailAsync(patient.Courriel);      
-                    if(user != null && !await _services.patient.PatientExisteSelonLeCourrielAsync(patient.Courriel))
+                    try
                     {
-                        patient.UserId = user.Id;
-                    }
-                    var savedPatient = await _services.patient.EnregistrerOuModifierPatient(patient);
-                    patientsSaved.Add(savedPatient);
-                    await _services.email.SendNotificationPatienImportAsync(patient);
-                }
-                catch (Exception ex)
-                {
-                    errors.Add($"Erreur dans l'enregistrement des patients auprès de la NAM {patient.NAM}: {ex.Message}");
-                }
-            }
+                        var user = await _userManager.FindByEmailAsync(patient.Courriel);
 
-            if (errors.Any())
-            {
-                return BadRequest(errors);
+                        if (user != null && !await _services.patient.PatientExisteSelonLeCourrielAsync(patient.Courriel))
+                        {
+                            patient.UserId = user.Id;
+                        }
+                        var savedPatient = await _services.patient.EnregistrerOuModifierPatient(patient);
+                        patientsSaved.Add(savedPatient);
+                        await _services.email.SendNotificationPatienImportAsync(patient);
+                    }
+                    catch (Exception ex)
+                    {
+                        errors.Add($"Erreur dans l'enregistrement des patients auprès de la NAM {patient.NAM}: {ex.Message}");
+                    }
+                }
+
+                if (errors.Any())
+                {
+                    return BadRequest(errors);
+                }
+                return Ok(patientsSaved);
             }
-            return Ok(patientsSaved);
+            else
+            {
+                return Unauthorized();
+            }
         }
 
 

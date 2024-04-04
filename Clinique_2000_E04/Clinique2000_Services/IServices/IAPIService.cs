@@ -11,6 +11,5 @@ namespace Clinique2000_Services.IServices
     public interface IAPIService
     {
         public Task<IActionResult> Login(LoginDTO loginDTO);
-        //public Task<bool> VerifierLogin(LoginDTO loginDTO);
-    }
+         Task<bool> UserPossedeUneCleAPI();    }
 }
