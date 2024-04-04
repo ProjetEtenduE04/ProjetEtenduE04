@@ -63,30 +63,35 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Clinique2000_MVC", Version = "v1" });
 
-    // Define the security scheme for API Key Authentication
+
+
     c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
     {
-        Type = SecuritySchemeType.ApiKey,
-        Name = "X-API-Key", // This is the name of the header to be used
-        In = ParameterLocation.Header, // Location of the API Key (Header)
-        Description = "API Key needed to access the endpoints"
+        Description = "Veuillez entrer la clé API comme suit: Bearer {votre clé ici}",
+        Name = "X-Api-Key", // Le nom de l'en-tête HTTP
+        In = ParameterLocation.Header, // Emplacement de l'en-tête
+        Type = SecuritySchemeType.ApiKey, // Type du schéma de sécurité
+        Scheme = "ApiKeyScheme"
     });
 
-    // Make sure each endpoint in Swagger requires the defined security scheme
+    // Un dictionnaire de requirements pour assurer que nos endpoints utilisent le schéma de sécurité
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
+{
     {
+        new OpenApiSecurityScheme
         {
-            new OpenApiSecurityScheme
+            Reference = new OpenApiReference
             {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "ApiKey"
-                }
+                Type = ReferenceType.SecurityScheme,
+                Id = "ApiKey" // L'ID doit correspondre à l'ID défini dans AddSecurityDefinition
             },
-            new string[] {}
-        }
-    });
+            Scheme = "ApiKeyScheme",
+            Name = "X-Api-Key",
+            In = ParameterLocation.Header
+        },
+        new List<string>()
+    }
+});
 });
 
 // Add services to the container.

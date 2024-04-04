@@ -65,7 +65,6 @@ namespace Clinique2000_Services.Services
                 randomNumberGenerator.GetBytes(apiKeyBytes);
                 return Convert.ToBase64String(apiKeyBytes);
             }
-
         }
 
 

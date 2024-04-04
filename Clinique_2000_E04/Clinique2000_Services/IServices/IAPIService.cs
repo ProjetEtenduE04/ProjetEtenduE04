@@ -10,6 +10,6 @@ namespace Clinique2000_Services.IServices
 {
     public interface IAPIService
     {
-        public Task<IActionResult> Login(LoginDTO loginDTO);
-         Task<bool> UserPossedeUneCleAPI();    }
+         Task<bool> UserPossedeUneCleAPI(string? userName); 
+    }
 }
