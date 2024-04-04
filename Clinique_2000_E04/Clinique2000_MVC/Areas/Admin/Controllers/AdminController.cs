@@ -140,5 +140,11 @@ namespace Clinique2000_MVC.Areas.Admin.Controllers
 
             return RedirectToAction("Approbation", new { id = "utilisateur" });
         }
+
+
+
+
+
+
     }
 }
