@@ -92,7 +92,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // POST: Patients/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,NAM,NumTelephone,CodePostal,DateDeNaissance,Age,PatientId,Nom,Prenom,Genre")] Patient patient)
+        public async Task<IActionResult> Create([Bind("UserId,NAM,CodePostal,DateDeNaissance,Age,PatientId,Nom,Prenom,Genre,preferenceNotification,NumeroTelephone")] Patient patient)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // POST: PatientsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PatientId,Nom,Prenom,Genre,NAM,CodePostal,DateDeNaissance,Age,UserId")] Patient patient)
+        public async Task<IActionResult> Edit(int id, [Bind("PatientId,Nom,Prenom,Genre,NAM,CodePostal,DateDeNaissance,Age,UserId,preferenceNotification,NumeroTelephone")] Patient patient)
         {
             try
             {

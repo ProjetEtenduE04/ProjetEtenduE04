@@ -59,6 +59,12 @@ namespace Clinique2000_Core.Models
         [EmailAddress(ErrorMessage = "Le format du courriel n'est pas valide.")]
         public string? Courriel { get; set; }
 
+        [Display(Name = "Numéro de téléphone")]
+        public string NumeroTelephone { get; set; }
+
+        [Display(Name = "Préférence pour notifications")]
+        public PreferenceNotification preferenceNotification { get; set; }    
+
         //public double Latitude { get; set; }
 
         //public double Longitude { get; set; }

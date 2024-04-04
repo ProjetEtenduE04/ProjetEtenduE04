@@ -1,5 +1,5 @@
 @model Patient
-
+@using Clinique2000_Utility.Enum;
 @{
     var btnText = "S'enregistrer";
     ViewData["Title"] = "Créer un profil";
@@ -96,15 +96,27 @@
                     </div>
                 </div>
 
+                <!-- NumeroTelephone -->
                 <div class="row justify-content-center">
-                    <div class="col col-md-8 col-lg-7 col-xl-6 ">                      
-                        <label asp-for="@Model.NotificationPreference" class="form-label mt-3 mb-1">Préférence de notification</label>
-                        <select class="form-select form-select-lg" asp-for="@Model.NotificationPreference" aria-label="Notification Preference">
-                            <option value="Aucun">Aucun</option>
-                            <option value="Courriel">Courriel</option>
-                            <option value="Texto">Texto</option>
+                    <div class="col col-md-8 col-lg-7 col-xl-6">
+                        <label asp-for="@Model.NumeroTelephone" class="form-label mt-3 mb-1">Numéro de téléphone</label>
+                        <input type="tel" class="form-control form-control-lg" asp-for="@Model.NumeroTelephone" aria-label="Numéro de téléphone">
+                        <span asp-validation-for="@Model.NumeroTelephone" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- PreferenceNotification -->
+                <div class="row justify-content-center">
+                    <div class="col col-md-8 col-lg-7 col-xl-6">
+                        <label asp-for="@Model.preferenceNotification" class="form-label mt-3 mb-1">Préférence pour notifications</label>
+                        <select class="form-select form-select-lg" asp-for="@Model.preferenceNotification" aria-label="Préférence pour notifications">
+                            <option selected value="">Choisissez parmi les options proposées</option>
+                            @foreach (var value in Enum.GetValues(typeof(PreferenceNotification)))
+                            {
+                                <option value="@value">@value</option>
+                            }
                         </select>
-                        <span asp-validation-for="@Model.NotificationPreference" class="text-danger"></span>
+                        <span asp-validation-for="@Model.preferenceNotification" class="text-danger"></span>
                     </div>
                 </div>
 

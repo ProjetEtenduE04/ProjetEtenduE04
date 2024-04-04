@@ -264,11 +264,15 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 1,
                             Courriel = "contact@adoncour.ca",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateCreation = new DateTime(2024, 4, 3, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9207),
 =======
                             DateCreation = new DateTime(2024, 3, 28, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9651),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateCreation = new DateTime(2024, 4, 4, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8866),
+>>>>>>> Stashed changes
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 15, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -285,11 +289,15 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 2,
                             Courriel = "contact@pboucher.ca",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateCreation = new DateTime(2024, 4, 3, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9262),
 =======
                             DateCreation = new DateTime(2024, 3, 28, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9698),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateCreation = new DateTime(2024, 4, 4, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8901),
+>>>>>>> Stashed changes
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 22, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -306,11 +314,15 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 3,
                             Courriel = "contact@camu.ca",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateCreation = new DateTime(2024, 4, 3, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9265),
 =======
                             DateCreation = new DateTime(2024, 3, 28, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9701),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateCreation = new DateTime(2024, 4, 4, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8904),
+>>>>>>> Stashed changes
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 18, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -327,11 +339,15 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 4,
                             Courriel = "contact@cigogne.ca",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateCreation = new DateTime(2024, 4, 3, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9268),
 =======
                             DateCreation = new DateTime(2024, 3, 28, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9705),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateCreation = new DateTime(2024, 4, 4, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8907),
+>>>>>>> Stashed changes
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 20, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -348,11 +364,15 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 5,
                             Courriel = "contact@cmenroute.ca",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateCreation = new DateTime(2024, 4, 3, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9270),
 =======
                             DateCreation = new DateTime(2024, 3, 28, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9710),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateCreation = new DateTime(2024, 4, 4, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8910),
+>>>>>>> Stashed changes
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 16, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -369,11 +389,15 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 6,
                             Courriel = "contact@chambly.com",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateCreation = new DateTime(2024, 4, 3, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9273),
 =======
                             DateCreation = new DateTime(2024, 3, 28, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9717),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateCreation = new DateTime(2024, 4, 4, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8912),
+>>>>>>> Stashed changes
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 16, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -448,6 +472,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 1,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 8, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 8, 30, 0, 0, DateTimeKind.Local),
@@ -455,6 +480,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 8, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 8, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 8, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 1,
                             PlageHoraireID = 1,
                             StatutConsultation = 2
@@ -462,6 +491,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 2,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 8, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 8, 30, 0, 0, DateTimeKind.Local),
@@ -469,6 +499,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 8, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 8, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 8, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 2,
                             PlageHoraireID = 1,
                             StatutConsultation = 2
@@ -476,6 +510,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 3,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 8, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 9, 0, 0, 0, DateTimeKind.Local),
@@ -483,6 +518,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 8, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 9, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 3,
                             PlageHoraireID = 2,
                             StatutConsultation = 2
@@ -490,6 +529,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 4,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 8, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 9, 0, 0, 0, DateTimeKind.Local),
@@ -497,6 +537,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 8, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 9, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 4,
                             PlageHoraireID = 2,
                             StatutConsultation = 2
@@ -504,6 +548,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 5,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 9, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 9, 30, 0, 0, DateTimeKind.Local),
@@ -511,6 +556,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 9, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 9, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 5,
                             PlageHoraireID = 3,
                             StatutConsultation = 2
@@ -518,6 +567,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 6,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 9, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 9, 30, 0, 0, DateTimeKind.Local),
@@ -525,6 +575,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 9, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 9, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 6,
                             PlageHoraireID = 3,
                             StatutConsultation = 2
@@ -532,6 +586,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 7,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 9, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 10, 0, 0, 0, DateTimeKind.Local),
@@ -539,6 +594,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 9, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 10, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 7,
                             PlageHoraireID = 4,
                             StatutConsultation = 2
@@ -546,6 +605,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 8,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 9, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 10, 0, 0, 0, DateTimeKind.Local),
@@ -553,6 +613,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 9, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 10, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 8,
                             PlageHoraireID = 4,
                             StatutConsultation = 2
@@ -560,6 +624,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 9,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 10, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 10, 30, 0, 0, DateTimeKind.Local),
@@ -567,6 +632,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 10, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 10, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 9,
                             PlageHoraireID = 5,
                             StatutConsultation = 2
@@ -574,6 +643,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 10,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 10, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 10, 30, 0, 0, DateTimeKind.Local),
@@ -581,6 +651,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 10, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 10, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 10,
                             PlageHoraireID = 5,
                             StatutConsultation = 2
@@ -588,6 +662,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 11,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 10, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 11, 0, 0, 0, DateTimeKind.Local),
@@ -595,6 +670,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 10, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 11, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PatientID = 11,
                             PlageHoraireID = 6,
                             StatutConsultation = 2
@@ -602,6 +681,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 12,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 10, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 11, 0, 0, 0, DateTimeKind.Local),
@@ -609,12 +689,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 10, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 11, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 6,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 13,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 11, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 11, 30, 0, 0, DateTimeKind.Local),
@@ -622,12 +707,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 11, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 11, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 11, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 7,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 14,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 11, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 11, 30, 0, 0, DateTimeKind.Local),
@@ -635,12 +725,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 11, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 11, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 11, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 7,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 15,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 12, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 12, 30, 0, 0, DateTimeKind.Local),
@@ -648,12 +743,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 12, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 12, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 12, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 8,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 16,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 12, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 12, 30, 0, 0, DateTimeKind.Local),
@@ -661,12 +761,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 12, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 12, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 12, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 8,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 17,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 12, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 13, 0, 0, 0, DateTimeKind.Local),
@@ -674,12 +779,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 12, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 13, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 9,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 18,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 12, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 13, 0, 0, 0, DateTimeKind.Local),
@@ -687,12 +797,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 12, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 13, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 9,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 19,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 13, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 13, 30, 0, 0, DateTimeKind.Local),
@@ -700,12 +815,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 13, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 13, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 13, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 10,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 20,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 13, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 13, 30, 0, 0, DateTimeKind.Local),
@@ -713,12 +833,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 13, 0, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 13, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 13, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 10,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 21,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 13, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 14, 0, 0, 0, DateTimeKind.Local),
@@ -726,12 +851,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 13, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 14, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 13, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 14, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 11,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 22,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 13, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 14, 0, 0, 0, DateTimeKind.Local),
@@ -739,12 +869,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 13, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 14, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 13, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 14, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 11,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 23,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 15, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 15, 0, 0, 0, DateTimeKind.Local),
@@ -752,12 +887,17 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 15, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 15, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 15, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 15, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 12,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 24,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDateDebutPrevue = new DateTime(2024, 4, 4, 16, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 4, 4, 17, 0, 0, 0, DateTimeKind.Local),
@@ -765,6 +905,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDateDebutPrevue = new DateTime(2024, 3, 29, 16, 30, 0, 0, DateTimeKind.Local),
                             HeureDateFinPrevue = new DateTime(2024, 3, 29, 17, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 16, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 17, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             PlageHoraireID = 12,
                             StatutConsultation = 6
                         });
@@ -961,11 +1105,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 1,
                             CliniqueID = 1,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 4, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9307),
 =======
                             DateEffectivite = new DateTime(2024, 3, 29, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9749),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 5, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8935),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -977,11 +1125,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 2,
                             CliniqueID = 2,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 4, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9321),
 =======
                             DateEffectivite = new DateTime(2024, 3, 29, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9763),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 5, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8944),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 8, 30, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -993,11 +1145,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 3,
                             CliniqueID = 3,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 4, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9330),
 =======
                             DateEffectivite = new DateTime(2024, 3, 29, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9773),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 5, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8951),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1009,11 +1165,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 4,
                             CliniqueID = 4,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 4, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9339),
 =======
                             DateEffectivite = new DateTime(2024, 3, 29, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9783),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 5, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8958),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1025,11 +1185,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 5,
                             CliniqueID = 5,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 4, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9348),
 =======
                             DateEffectivite = new DateTime(2024, 3, 29, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9795),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 5, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8964),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1041,11 +1205,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 6,
                             CliniqueID = 6,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 4, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9358),
 =======
                             DateEffectivite = new DateTime(2024, 3, 29, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9804),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 5, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8971),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1057,11 +1225,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 7,
                             CliniqueID = 2,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 5, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9366),
 =======
                             DateEffectivite = new DateTime(2024, 3, 30, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9815),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 6, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8979),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1073,11 +1245,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 8,
                             CliniqueID = 2,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 5, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9375),
 =======
                             DateEffectivite = new DateTime(2024, 3, 30, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9824),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 6, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8985),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1089,11 +1265,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 9,
                             CliniqueID = 3,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 5, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9384),
 =======
                             DateEffectivite = new DateTime(2024, 3, 30, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9832),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 6, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8992),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1105,11 +1285,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 10,
                             CliniqueID = 4,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 7, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9394),
 =======
                             DateEffectivite = new DateTime(2024, 4, 1, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9841),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 8, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(8999),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1121,11 +1305,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 11,
                             CliniqueID = 4,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 8, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9403),
 =======
                             DateEffectivite = new DateTime(2024, 4, 2, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9850),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 9, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9005),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1137,11 +1325,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 12,
                             CliniqueID = 4,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 9, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9475),
 =======
                             DateEffectivite = new DateTime(2024, 4, 3, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9858),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 10, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9012),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1153,11 +1345,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 13,
                             CliniqueID = 5,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 6, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9486),
 =======
                             DateEffectivite = new DateTime(2024, 3, 31, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9867),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 7, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9047),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1169,11 +1365,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 14,
                             CliniqueID = 6,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 7, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9495),
 =======
                             DateEffectivite = new DateTime(2024, 4, 1, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9874),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 8, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9055),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1185,11 +1385,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 15,
                             CliniqueID = 1,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 6, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9504),
 =======
                             DateEffectivite = new DateTime(2024, 3, 31, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9882),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 7, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9061),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1201,11 +1405,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 16,
                             CliniqueID = 5,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 7, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9512),
 =======
                             DateEffectivite = new DateTime(2024, 4, 1, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9928),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 8, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9067),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1217,11 +1425,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 17,
                             CliniqueID = 5,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 8, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9520),
 =======
                             DateEffectivite = new DateTime(2024, 4, 2, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9936),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 9, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9074),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1233,11 +1445,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 18,
                             CliniqueID = 5,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 9, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9531),
 =======
                             DateEffectivite = new DateTime(2024, 4, 3, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9945),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 10, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9081),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1249,11 +1465,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 19,
                             CliniqueID = 6,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 4, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9540),
 =======
                             DateEffectivite = new DateTime(2024, 3, 29, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9953),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 5, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9088),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1265,11 +1485,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 20,
                             CliniqueID = 6,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 5, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9548),
 =======
                             DateEffectivite = new DateTime(2024, 3, 30, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9961),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 6, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9094),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1281,11 +1505,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 21,
                             CliniqueID = 6,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 6, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9556),
 =======
                             DateEffectivite = new DateTime(2024, 3, 31, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9969),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 7, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9100),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1297,11 +1525,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 22,
                             CliniqueID = 6,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 7, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9565),
 =======
                             DateEffectivite = new DateTime(2024, 4, 1, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9976),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 8, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9106),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1313,11 +1545,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 23,
                             CliniqueID = 6,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 8, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9573),
 =======
                             DateEffectivite = new DateTime(2024, 4, 2, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9985),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 9, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9113),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1329,11 +1565,15 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 24,
                             CliniqueID = 6,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             DateEffectivite = new DateTime(2024, 4, 9, 10, 40, 12, 986, DateTimeKind.Local).AddTicks(9582),
 =======
                             DateEffectivite = new DateTime(2024, 4, 3, 13, 37, 0, 323, DateTimeKind.Local).AddTicks(9993),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            DateEffectivite = new DateTime(2024, 4, 10, 15, 26, 13, 827, DateTimeKind.Local).AddTicks(9119),
+>>>>>>> Stashed changes
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1378,10 +1618,14 @@ namespace Clinique2000_DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+<<<<<<< Updated upstream
                     b.Property<int>("NotificationPreference")
                         .HasColumnType("int");
 
                     b.Property<string>("NumTelephone")
+=======
+                    b.Property<string>("NumeroTelephone")
+>>>>>>> Stashed changes
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1392,6 +1636,9 @@ namespace Clinique2000_DataAccess.Migrations
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("preferenceNotification")
+                        .HasColumnType("int");
 
                     b.HasKey("PatientId");
 
@@ -1411,10 +1658,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Masculin",
                             NAM = "EASC 2342 4332",
                             Nom = "Eastwood",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290535",
+>>>>>>> Stashed changes
                             Prenom = "Clint",
-                            UserId = "7cc96785-8933-4eac-8d7f-a289b28df223"
+                            UserId = "7cc96785-8933-4eac-8d7f-a289b28df223",
+                            preferenceNotification = 0
                         },
                         new
                         {
@@ -1425,10 +1677,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Féminin",
                             NAM = "BLUE 4232 4332",
                             Nom = "Blunt",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290536",
+>>>>>>> Stashed changes
                             Prenom = "Emily",
-                            UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2"
+                            UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2",
+                            preferenceNotification = 0
                         },
                         new
                         {
@@ -1439,10 +1696,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Masculin",
                             NAM = "MARB 3244 2233",
                             Nom = "Brando",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290537",
+>>>>>>> Stashed changes
                             Prenom = "Marlon",
-                            UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3"
+                            UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3",
+                            preferenceNotification = 0
                         },
                         new
                         {
@@ -1453,10 +1715,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Féminin",
                             NAM = "PORT 3443 3433",
                             Nom = "Portman",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290538",
+>>>>>>> Stashed changes
                             Prenom = "Natalie",
-                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4"
+                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4",
+                            preferenceNotification = 0
                         },
                         new
                         {
@@ -1467,10 +1734,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "TREA 1234 4569",
                             Nom = "Tremblay",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290539",
+>>>>>>> Stashed changes
                             Prenom = "Anne",
-                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g5"
+                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g5",
+                            preferenceNotification = 0
                         },
                         new
                         {
@@ -1481,10 +1753,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "LAVJ 1234 4570",
                             Nom = "Lavoie",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290531",
+>>>>>>> Stashed changes
                             Prenom = "Jean",
-                            UserId = "7cc96785-8933-4eac-8d7f-a289b28df226"
+                            UserId = "7cc96785-8933-4eac-8d7f-a289b28df226",
+                            preferenceNotification = 0
                         },
                         new
                         {
@@ -1495,10 +1772,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "GAGA 1234 4571",
                             Nom = "Gagnon",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290532",
+>>>>>>> Stashed changes
                             Prenom = "Andrew",
-                            UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7"
+                            UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7",
+                            preferenceNotification = 0
                         },
                         new
                         {
@@ -1509,10 +1791,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Female",
                             NAM = "GAUJ 1234 4572",
                             Nom = "Gauthier",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290533",
+>>>>>>> Stashed changes
                             Prenom = "Jean",
-                            UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38"
+                            UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38",
+                            preferenceNotification = 0
                         },
                         new
                         {
@@ -1523,10 +1810,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "ROYS 1234 4573",
                             Nom = "Roy",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290515",
+>>>>>>> Stashed changes
                             Prenom = "Sophie",
-                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g9"
+                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g4g9",
+                            preferenceNotification = 0
                         },
                         new
                         {
@@ -1537,10 +1829,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Female",
                             NAM = "GAGJ 1234 4574",
                             Nom = "Gagnon",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290516",
+>>>>>>> Stashed changes
                             Prenom = "Julie",
-                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g410"
+                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g410",
+                            preferenceNotification = 0
                         },
                         new
                         {
@@ -1551,10 +1848,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "BOUM 1234 4575",
                             Nom = "Bouchard",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290517",
+>>>>>>> Stashed changes
                             Prenom = "Martin",
-                            UserId = "7cc96785-8933-4eac-8d7f-a289b28df211"
+                            UserId = "7cc96785-8933-4eac-8d7f-a289b28df211",
+                            preferenceNotification = 1
                         },
                         new
                         {
@@ -1565,10 +1867,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Female",
                             NAM = "COUA 1234 4576",
                             Nom = "Couto",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290518",
+>>>>>>> Stashed changes
                             Prenom = "Anne",
-                            UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d212"
+                            UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d212",
+                            preferenceNotification = 1
                         },
                         new
                         {
@@ -1579,10 +1886,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Female",
                             NAM = "FORJ 1234 4577",
                             Nom = "Fortin",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290519",
+>>>>>>> Stashed changes
                             Prenom = "Julie",
-                            UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313"
+                            UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313",
+                            preferenceNotification = 1
                         },
                         new
                         {
@@ -1593,10 +1905,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Female",
                             NAM = "FORM 1234 4578",
                             Nom = "Fortin",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290521",
+>>>>>>> Stashed changes
                             Prenom = "Martin",
-                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g414"
+                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g414",
+                            preferenceNotification = 1
                         },
                         new
                         {
@@ -1607,10 +1924,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "MORC 1234 4579",
                             Nom = "Morin",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290522",
+>>>>>>> Stashed changes
                             Prenom = "Claire",
-                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g415"
+                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g415",
+                            preferenceNotification = 1
                         },
                         new
                         {
@@ -1621,10 +1943,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "ROYC 1234 4580",
                             Nom = "Roy",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290523",
+>>>>>>> Stashed changes
                             Prenom = "Claire",
-                            UserId = "7cc96785-8933-4eac-8d7f-a289b28df216"
+                            UserId = "7cc96785-8933-4eac-8d7f-a289b28df216",
+                            preferenceNotification = 1
                         },
                         new
                         {
@@ -1635,10 +1962,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Female",
                             NAM = "GAUL 1234 4581",
                             Nom = "Gauthier",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290524",
+>>>>>>> Stashed changes
                             Prenom = "Louis",
-                            UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d217"
+                            UserId = "e2b8f367-6c94-4a3e-b5a6-45dabec4d217",
+                            preferenceNotification = 1
                         },
                         new
                         {
@@ -1649,10 +1981,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "COUM 1234 4582",
                             Nom = "Couto",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290525",
+>>>>>>> Stashed changes
                             Prenom = "Marie",
-                            UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318"
+                            UserId = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318",
+                            preferenceNotification = 1
                         },
                         new
                         {
@@ -1663,10 +2000,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "MORM 1234 4583",
                             Nom = "Morin",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290526",
+>>>>>>> Stashed changes
                             Prenom = "Michel",
-                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g419"
+                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g419",
+                            preferenceNotification = 1
                         },
                         new
                         {
@@ -1677,10 +2019,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "ROYM 1234 4584",
                             Nom = "Roy",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290527",
+>>>>>>> Stashed changes
                             Prenom = "Martin",
-                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g420"
+                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g420",
+                            preferenceNotification = 1
                         },
                         new
                         {
@@ -1691,10 +2038,15 @@ namespace Clinique2000_DataAccess.Migrations
                             Genre = "Male",
                             NAM = "ROYM 1234 4585",
                             Nom = "Roy",
+<<<<<<< Updated upstream
                             NotificationPreference = 0,
                             NumTelephone = "+15142290514",
+=======
+                            NumeroTelephone = "5142290528",
+>>>>>>> Stashed changes
                             Prenom = "Matheo",
-                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g421"
+                            UserId = "g4d0a589-2b02-4d36-9a85-39c028a4g421",
+                            preferenceNotification = 1
                         });
                 });
 
@@ -1768,6 +2120,7 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             PlageHoraireID = 1,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 8, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 8, 30, 0, 0, DateTimeKind.Local),
@@ -1775,11 +2128,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 8, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 8, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 8, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 2,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 8, 30, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 9, 0, 0, 0, DateTimeKind.Local),
@@ -1787,11 +2145,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 8, 30, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 9, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 3,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 9, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 9, 30, 0, 0, DateTimeKind.Local),
@@ -1799,11 +2162,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 9, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 9, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 4,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 9, 30, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 10, 0, 0, 0, DateTimeKind.Local),
@@ -1811,11 +2179,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 9, 30, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 10, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 5,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 10, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 10, 30, 0, 0, DateTimeKind.Local),
@@ -1823,11 +2196,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 10, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 10, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 6,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 10, 30, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 11, 0, 0, 0, DateTimeKind.Local),
@@ -1835,11 +2213,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 10, 30, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 11, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 7,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 11, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 11, 30, 0, 0, DateTimeKind.Local),
@@ -1847,11 +2230,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 11, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 11, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 11, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 8,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 11, 30, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 12, 0, 0, 0, DateTimeKind.Local),
@@ -1859,11 +2247,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 11, 30, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 12, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 11, 30, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 12, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 9,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 12, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 12, 30, 0, 0, DateTimeKind.Local),
@@ -1871,11 +2264,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 12, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 12, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 12, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 10,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 12, 30, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 13, 0, 0, 0, DateTimeKind.Local),
@@ -1883,11 +2281,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 12, 30, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 13, 0, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 11,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 13, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 13, 30, 0, 0, DateTimeKind.Local),
@@ -1895,11 +2298,16 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 13, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 13, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 13, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 12,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             HeureDebut = new DateTime(2024, 4, 4, 17, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 4, 4, 17, 30, 0, 0, DateTimeKind.Local),
@@ -1907,6 +2315,10 @@ namespace Clinique2000_DataAccess.Migrations
                             HeureDebut = new DateTime(2024, 3, 29, 17, 0, 0, 0, DateTimeKind.Local),
                             HeureFin = new DateTime(2024, 3, 29, 17, 30, 0, 0, DateTimeKind.Local),
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            HeureDebut = new DateTime(2024, 4, 5, 17, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 5, 17, 30, 0, 0, DateTimeKind.Local),
+>>>>>>> Stashed changes
                             ListeAttenteID = 1
                         });
                 });
@@ -2133,22 +2545,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "98ae5677-60fe-426f-a718-08f754aff286",
 =======
                             ConcurrencyStamp = "56623495-e651-45e2-9b99-a8a8cc881bbd",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "e4f4acb5-dbd3-4f5a-81c8-cfdfa9d20b10",
+>>>>>>> Stashed changes
                             Email = "patient1@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT1@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT1@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "af7ff445-9a0d-4ecb-b57a-e55836fc43f5",
 =======
                             SecurityStamp = "7ae460c0-eeb7-4c0f-80d0-68e8605255c5",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "85584bbe-40de-4e48-a5e3-60d19e7c6553",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient1@example.com"
                         },
@@ -2156,22 +2576,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "f4687f57-e82f-42b0-a2b0-11e06bf047ff",
 =======
                             ConcurrencyStamp = "ae4626b1-637f-4d64-af38-59c6bd9c9809",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "44d75e6d-6c67-46c3-b3b2-2920b4b51360",
+>>>>>>> Stashed changes
                             Email = "patient2@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT2@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT2@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "b0e4321a-a2ec-4cf6-b3f4-d2449e233d1a",
 =======
                             SecurityStamp = "4a48bf43-36e8-4695-816f-f2348473d0fc",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "b2e1be1b-a746-4de9-b779-faf9a4c8b9e2",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient2@example.com"
                         },
@@ -2179,22 +2607,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "67df4031-78d4-4469-b3e3-7beec86af00e",
 =======
                             ConcurrencyStamp = "42a6b2c2-5a6f-4326-8393-70dc3a62bc04",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "f2363e8c-88b7-4563-bbc6-a187ded4de33",
+>>>>>>> Stashed changes
                             Email = "patient3@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT3@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT3@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "018700b1-6add-45f0-9c12-d37d21f2c199",
 =======
                             SecurityStamp = "ca34ef5c-637a-4e52-b232-0db1885b8986",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "8335b2a7-484e-43c2-b3e4-81c581e00d4d",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient3@example.com"
                         },
@@ -2202,22 +2638,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "a98e1078-ca64-4b56-b31b-9e84641e7ae4",
 =======
                             ConcurrencyStamp = "426c70c1-2f6f-43d6-b63a-9244cede12c3",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "a1fa039e-c400-4f11-ba78-eab6f4fea2a5",
+>>>>>>> Stashed changes
                             Email = "patient4@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT4@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT4@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "ccde47c9-331c-4f81-b281-a655f89a7deb",
 =======
                             SecurityStamp = "061c278b-0048-456f-986b-a51bb6c0211d",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "b7062b0e-8259-48a4-885f-6edba817dd1e",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient4@example.com"
                         },
@@ -2225,22 +2669,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g5",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "02106a9e-bde3-4240-992a-a670532d5648",
 =======
                             ConcurrencyStamp = "126fc206-89de-4fe6-ba56-3a2eaa303424",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "127953b3-0e26-4d52-9841-dc4acca9450c",
+>>>>>>> Stashed changes
                             Email = "patient5@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT5@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT5@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "ae2110d3-51a7-4ce7-95ed-8d6d07fa3d57",
 =======
                             SecurityStamp = "f21e1bd5-88c3-487b-8ebd-0651550481f7",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "999dda24-3830-4b6b-ac47-ce4e465685bf",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient5@example.com"
                         },
@@ -2248,22 +2700,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df226",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "31d23393-6abd-49e3-9a9b-497e7478e077",
 =======
                             ConcurrencyStamp = "c52c1bf3-33a2-4219-b2aa-f5457651cf68",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "17f33856-f91e-43f5-99f5-7e879354e094",
+>>>>>>> Stashed changes
                             Email = "patient6@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT6@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT6@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "913d23ec-2ac5-4a1c-a489-a0b129126344",
 =======
                             SecurityStamp = "7e2f2116-ce5f-422b-a235-1a952fc84e16",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "44be3af1-45d1-4b6e-8e46-b4e73640b74a",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient6@example.com"
                         },
@@ -2271,22 +2731,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "f5e70efb-8373-41cd-8c09-72bf0d18798d",
 =======
                             ConcurrencyStamp = "49f18b86-6945-4a0f-a3e3-58420f64c866",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "ef7285ad-fcb9-4f94-9dd9-bb36f3cf3f42",
+>>>>>>> Stashed changes
                             Email = "patient7@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT7@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT7@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "ba3b45c5-4312-4dd2-997d-faf305911bcc",
 =======
                             SecurityStamp = "25028dff-2452-4b30-a3b2-daf8544ebca7",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "69a9afa5-c45d-479f-a315-512ba5cdde57",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient7@example.com"
                         },
@@ -2294,22 +2762,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "ac8a6e20-f3f3-48b0-8eea-b7890e11e626",
 =======
                             ConcurrencyStamp = "941f700c-ac05-4682-a8ae-36508eadee15",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "665dc76f-1c21-4af3-b3f4-4fc13bcb1dc7",
+>>>>>>> Stashed changes
                             Email = "patient8@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT8@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT8@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "d46852f0-6ef1-45b4-90f7-218e7454eeec",
 =======
                             SecurityStamp = "35ee97e3-24fe-4bb0-bc96-b220ea53d2e0",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "e442dbbe-2cff-496b-9220-38627fae53ad",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient8@example.com"
                         },
@@ -2317,22 +2793,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g9",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "968a484b-536d-4866-a4db-fa93b1689af2",
 =======
                             ConcurrencyStamp = "838098c0-f568-4749-b046-983fcf97759c",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "6048278d-86f6-4fcb-b985-39e624211880",
+>>>>>>> Stashed changes
                             Email = "patient9@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT9@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT9@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "b9a2ba2f-82a5-4253-8d33-d31b724a5a61",
 =======
                             SecurityStamp = "39604b55-a4d3-4abf-a430-18b696384a6a",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "73eafac1-6fa5-4bd7-bf19-6e09c27712a0",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient9@example.com"
                         },
@@ -2340,22 +2824,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g410",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "fcac022a-3c9c-49fa-8f05-722e008569c0",
 =======
                             ConcurrencyStamp = "e5b5d307-f096-4c64-97bc-9c352dde8b6d",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "a459b4f9-a162-488d-9248-a0603326e932",
+>>>>>>> Stashed changes
                             Email = "patient10@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT10@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT10@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "b3f9121a-ec44-4ab5-a251-cbef2666eb45",
 =======
                             SecurityStamp = "9fac66da-65ea-4d51-abc6-00c61d2dcd25",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "d8b59034-a109-4100-a552-bb1bdae9e08c",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient10@example.com"
                         },
@@ -2363,22 +2855,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df211",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "3e449e3b-725e-4291-9fb5-cb261d381a92",
 =======
                             ConcurrencyStamp = "cf36d757-b79a-411f-9d8c-c573096c22c7",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "19e85c87-f75e-48d2-abb2-1157c2fc9804",
+>>>>>>> Stashed changes
                             Email = "patient11@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT11@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT11@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "23810788-b0da-4d13-9249-a34c1c002146",
 =======
                             SecurityStamp = "e3de71d9-4768-4959-b1aa-2a719c2c0925",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "df5c7d23-3a07-435f-bfac-95bd20202934",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient11@example.com"
                         },
@@ -2386,22 +2886,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d212",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "c604bd54-88ce-4a31-98c3-6c638b8540ea",
 =======
                             ConcurrencyStamp = "ecbafb9d-f81c-490e-8918-df6e8560c218",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "fc2a4758-555c-49f2-ae41-e56dab6b88d5",
+>>>>>>> Stashed changes
                             Email = "patient12@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT12@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT12@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "44de8102-aec0-4ea8-b8be-5a30c74d65a1",
 =======
                             SecurityStamp = "2d5128cc-44e6-443b-99b6-42ad02c2233d",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "1667d79e-8dee-4de6-bb7f-ca4572c333c4",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient12@example.com"
                         },
@@ -2409,22 +2917,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "56589863-d383-4b2d-abff-fb12e7fa8d3f",
 =======
                             ConcurrencyStamp = "0f3a00fe-ab97-42b1-8075-7d412747f76d",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "55388739-b836-424c-8817-45da137717b1",
+>>>>>>> Stashed changes
                             Email = "patient13@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT13@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT13@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "6ee15b42-531a-4106-86db-923bdd1c4caf",
 =======
                             SecurityStamp = "25fb8202-67da-49a0-9f8d-686196c10f3b",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "7b1e91a0-cd3b-4cdd-ab29-70815c9904e1",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient13@example.com"
                         },
@@ -2432,22 +2948,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g414",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "e9060bb4-58d2-40d1-a248-b9e97428d861",
 =======
                             ConcurrencyStamp = "a06e7b77-15a9-48ca-a666-f455de215426",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "f8f15f26-14fc-491d-b0f2-b1fcc3bdf6d2",
+>>>>>>> Stashed changes
                             Email = "patient14@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT14@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT14@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "1b1d23a6-f11f-4434-8ac3-f9eb879a68ed",
 =======
                             SecurityStamp = "9c8b76cb-fc7f-4bda-922d-fbfeca873302",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "a3ee3ba5-b6d1-46d2-a5a8-defe7250a880",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient14@example.com"
                         },
@@ -2455,22 +2979,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g415",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "0ff90a3c-e125-4251-8232-9a3bad517804",
 =======
                             ConcurrencyStamp = "7f7e2397-9f5a-43dc-86b0-5688724aa3cf",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "ecea8788-8608-4e94-8fe4-d127e99e7446",
+>>>>>>> Stashed changes
                             Email = "patient15@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT15@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT15@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "3f45a951-0111-47f1-bbd7-30639b8148a5",
 =======
                             SecurityStamp = "29715200-968c-454d-9619-cf77e7d4bc1a",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "48ccfe41-159c-429f-a1a3-6f8a89f2333b",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient15@example.com"
                         },
@@ -2478,22 +3010,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df216",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "207086f1-d6c4-432d-afa3-45881208ebfe",
 =======
                             ConcurrencyStamp = "1d9583e2-ae7b-48a0-b3a9-097b76a5727e",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "160a0372-895b-4508-91fd-2f8b2961a377",
+>>>>>>> Stashed changes
                             Email = "patient16@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT16@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT16@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "12b8d98e-bfa9-415b-b5ed-022ad8e0d86a",
 =======
                             SecurityStamp = "3199903a-be3a-4015-ae18-5128d63bcec8",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "92ab46d5-7aa1-4ccf-a384-86e34e5762d9",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient16@example.com"
                         },
@@ -2501,22 +3041,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d217",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "3465d4ea-e98d-451c-8f4b-3a4bdc64c632",
 =======
                             ConcurrencyStamp = "cc6b8f09-1232-4ff8-b4e2-f5e7d3899e9f",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "6eb2a39f-3f44-4a4e-b8e9-4d7b319da99a",
+>>>>>>> Stashed changes
                             Email = "patient17@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT17@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT17@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "6c081710-bf4d-4437-8ffa-ce9567d940ae",
 =======
                             SecurityStamp = "d07f8776-dfcc-4f3b-a671-5a7f4fa72704",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "660fde4d-a878-4efc-9257-ba9082792066",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient17@example.com"
                         },
@@ -2524,22 +3072,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "ebabc570-d19f-470b-835a-50fb82d01e69",
 =======
                             ConcurrencyStamp = "d4aceda2-9c99-4276-af91-cff32b5dee06",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "7975227e-5468-4753-92e7-f6154985f53f",
+>>>>>>> Stashed changes
                             Email = "patient18@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT18@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT18@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "a3ff3909-1c7f-463f-b4a4-be420a7cec4b",
 =======
                             SecurityStamp = "1f68ff92-0f14-460c-912a-a7976b13c465",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "3b1a02c4-b798-4939-bc88-7d068f09f5e0",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient18@example.com"
                         },
@@ -2547,22 +3103,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g419",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "805c657c-d8ea-483e-b7e4-2f8a761518c3",
 =======
                             ConcurrencyStamp = "a657f55b-6dbb-47b4-83b5-4a8078191329",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "74c63f9f-6e3f-4781-9d7b-20be1f01d176",
+>>>>>>> Stashed changes
                             Email = "patient19@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT19@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT19@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "0e3b8dfa-e7e9-4c70-a77f-d7374dd299c9",
 =======
                             SecurityStamp = "1fbf7f88-d573-4a23-b2b2-6018d7ea360e",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "f8c190cc-f955-4b4b-af59-30a6a17935b4",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient19@example.com"
                         },
@@ -2570,22 +3134,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g420",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "d677ba0c-a5f6-4f2b-9b79-f3e1ec0d6b7d",
 =======
                             ConcurrencyStamp = "82b26ed7-2d06-414d-bdb8-93086397866d",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "da7d7597-3075-41d5-9ab5-cd9a021e2e34",
+>>>>>>> Stashed changes
                             Email = "patient20@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT20@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT20@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "8d8c6d4e-85b2-42d4-9a53-d3e2ca8a4ac7",
 =======
                             SecurityStamp = "3ab51c88-5781-44c9-b744-3346751cfabd",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "d009f8fc-555e-4c85-84df-01b6c2971935",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient20@example.com"
                         },
@@ -2593,22 +3165,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g421",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "82be0fa5-c430-471f-9886-7a5157ef6f13",
 =======
                             ConcurrencyStamp = "e1bacaf2-b232-4c4b-a9d4-144a0d340abf",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "7d2a9d9f-c1b2-4913-a885-e0157e52f9cf",
+>>>>>>> Stashed changes
                             Email = "patient21@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT21@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT21@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "074e3699-d6fa-45b7-82a7-6184d4a8d3c1",
 =======
                             SecurityStamp = "d9e79f43-30f6-4076-bc43-c9e448ac6080",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "9ac4eb15-17c5-49db-b6d1-622429662d1a",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient21@example.com"
                         },
@@ -2616,22 +3196,30 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g22",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "98a60414-1fc3-462b-9e00-ddaa81156112",
 =======
                             ConcurrencyStamp = "ef8cbfd9-1cd8-497c-9971-56f21455e7c9",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            ConcurrencyStamp = "438b57fb-1c5f-42a2-8034-b2b1d2234804",
+>>>>>>> Stashed changes
                             Email = "patient22@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT22@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT22@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "f88f98ad-8de4-4689-a6de-97bc406820c8",
 =======
                             SecurityStamp = "a24113b8-3170-4399-98ca-483e2de100e1",
 >>>>>>> origin/FCT_ConfirmationSMS
+=======
+                            SecurityStamp = "03ac8a04-434d-4cc2-8c04-6903bff23e1f",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "patient22@example.com"
                         });

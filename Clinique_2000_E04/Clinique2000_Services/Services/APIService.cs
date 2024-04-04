@@ -19,13 +19,11 @@ namespace Clinique2000_Services.Services
     {
         readonly UserManager<IdentityUser> _userManager;
         readonly CliniqueDbContext _db;
-        readonly SignInManager<IdentityUser> _signInManager;
 
-        public APIService(UserManager<IdentityUser> userManager, CliniqueDbContext db, SignInManager<IdentityUser> signInManager)
+        public APIService(UserManager<IdentityUser> userManager, CliniqueDbContext db)
         {
             _userManager = userManager;
             _db = db;
-            _signInManager = signInManager;
         }
 
 
@@ -39,26 +37,6 @@ namespace Clinique2000_Services.Services
             else
                 return false;
         }
-
-        //[HttpPost]
-        //public async Task<bool> VerifierLogin(LoginDTO loginDTO)
-        //{
-        //    var user = await _userManager.FindByNameAsync(loginDTO.Username);
-        //    if (user == null)
-        //    {
-        //        return false;
-        //    }
-        //    var result = await _signInManager.CheckPasswordSignInAsync(user, loginDTO.Password, false);
-        //    if (result.Succeeded)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
 
     }
 }

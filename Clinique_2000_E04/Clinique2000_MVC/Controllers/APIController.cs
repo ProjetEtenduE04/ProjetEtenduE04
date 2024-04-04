@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using NuGet.Protocol.Plugins;
 using NuGet.Protocol.Core.Types;
 using Clinique2000_Services.Services;
+using Clinique2000_Utility.Enum;
 
 namespace Clinique2000_MVC.Controllers
 {
@@ -140,7 +141,11 @@ namespace Clinique2000_MVC.Controllers
                         }
                         var savedPatient = await _services.patient.EnregistrerOuModifierPatient(patient);
                         patientsSaved.Add(savedPatient);
-                        await _services.email.SendNotificationPatienImportAsync(patient);
+                       
+                        if(patient.preferenceNotification!=PreferenceNotification.SMS)
+                            await _services.email.SendNotificationPatienImportAsync(patient);
+                        else
+                            await _services.SMS
                     }
                     catch (Exception ex)
                     {
