@@ -1,0 +1,17 @@
+﻿@{
+    Layout = null;
+}
+
+<h2>Send SMS</h2>
+
+@using (Html.BeginForm("SendSMS", "Patients", new { Area = "patients" }, FormMethod.Post))
+{
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" required>
+    <input type="submit" value="Send SMS">
+}
+
+@if (ViewBag.Message != null)
+{
+        <p>@ViewBag.Message</p>
+}

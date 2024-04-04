@@ -1,4 +1,5 @@
 using Clinique2000_Utility.CustomAttributesValidation;
+using Clinique2000_Utility.Enum;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -46,6 +47,13 @@ namespace Clinique2000_Core.Models
 
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         public int Age { get; set; }
+
+        public NotificationPreference NotificationPreference { get; set; }
+
+
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+
+        public string NumTelephone { get; set; }
 
         [Display(Name = "Courriel")]
         [EmailAddress(ErrorMessage = "Le format du courriel n'est pas valide.")]

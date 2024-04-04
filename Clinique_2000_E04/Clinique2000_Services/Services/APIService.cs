@@ -14,9 +14,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clinique2000_Services.Services
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class APIService : ControllerBase, IAPIService
+
+    public class APIService : IAPIService
     {
         readonly UserManager<IdentityUser> _userManager;
         readonly CliniqueDbContext _db;
@@ -29,24 +28,13 @@ namespace Clinique2000_Services.Services
             _signInManager = signInManager;
         }
 
-        [HttpPost()]
-        public async Task<IActionResult> Login(LoginDTO loginDTO)
+
+        [NonAction]
+        public async Task<bool> UserPossedeUneCleAPI(string? userName)
         {
-            var result = await _signInManager.PasswordSignInAsync(loginDTO.Username, loginDTO.Password, true, false);
-            if (result.Succeeded)
-            {
-                return Ok(); 
-            }
-            return NotFound(new { Error = "L'utilisateur est introuvable ou le mot de passe de concorde pas" });
-        }
+            var appuser1 =await _userManager.FindByNameAsync(userName);
 
-
-        public async Task<bool> UserPossedeUneCleAPI()
-        {
-            var user1 = User.Identity.Name;
-            var appuser =await _db.ApplicationUser.Where(x=>x.UserName.ToUpper()==user1.ToUpper()).FirstOrDefaultAsync();
-
-            if (_db.ApiKeys.Any(x => x.UserId == appuser.Id))
+            if (_db.ApiKeys.Any(x => x.UserId == appuser1.Id))
                 return true;
             else
                 return false;

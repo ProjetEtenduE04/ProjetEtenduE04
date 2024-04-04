@@ -94,7 +94,7 @@ namespace Clinique2000_Services.Services
             var subject = "Confirmation de réservation Consultation";
                 var body =  $"    <p>Bonjour, {patient.Nom} {consultation.Patient.Prenom} !</p>" +
                         $"    <p>Nous confirmons la réservation de la consultation prévue pour :</p>" +
-                        $"    <h3 style=\"color:red;\">{consultation.PlageHoraire.HeureDebut.ToShortDateString()} à {consultation.PlageHoraire.HeureDebut.ToShortTimeString()}</h3>" +
+                        $"    <h3 style=\"color:red;\">{consultation.HeureDateDebutPrevue.ToShortDateString()} à {consultation.HeureDateFinPrevue.ToShortTimeString()}</h3>" +
                         $"    <h3 style=\"color:red;\">Clinique : {consultation.PlageHoraire.ListeAttente.Clinique.NomClinique}</h3>" +
                         $"    <p>Nous vous remercions et nous nous réjouissons de vous voir lors de votre rendez-vous.</p>" +
                         $"    <p>Cordialement,<br />L'équipe Clinique2000</p>";
@@ -127,7 +127,7 @@ namespace Clinique2000_Services.Services
             var subject = "Rappel de Consultation";
             var body = $"    <p>Bonjour, {patient.Nom} {patient.Prenom} !</p>" +
                         $"    <p>Ceci est un rappel pour votre consultation prévue pour :</p>" +
-                        $"    <h3 style=\"color:red;\">{consultation.PlageHoraire.HeureDebut.ToShortDateString()} à {consultation.PlageHoraire.HeureDebut.ToShortTimeString()}</h3>" +
+                        $"    <h3 style=\"color:red;\">{consultation.HeureDateDebutPrevue.ToShortDateString()} à {consultation.HeureDateFinPrevue.ToShortTimeString()}</h3>" +
                         $"    <h3 style=\"color:red;\">Clinique : {consultation.PlageHoraire.ListeAttente.Clinique.NomClinique}</h3>" +
                         $"    <p>Nous vous attendons avec impatience.</p>" +
                         $"    <p>Cordialement,<br />L'équipe Clinique2000</p>";

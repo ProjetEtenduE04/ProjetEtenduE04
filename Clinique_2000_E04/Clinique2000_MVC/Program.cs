@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Clinique2000_Utility.Constants;
 using Clinique2000_Core.Models;
 using Google;
+using Clinique2000_MVC.Hubs;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +19,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,30 +65,35 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Clinique2000_MVC", Version = "v1" });
 
-    // Define the security scheme for API Key Authentication
+
+
     c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
     {
-        Type = SecuritySchemeType.ApiKey,
-        Name = "X-API-Key", // This is the name of the header to be used
-        In = ParameterLocation.Header, // Location of the API Key (Header)
-        Description = "API Key needed to access the endpoints"
+        Description = "Veuillez entrer la cl� API comme suit: Bearer {votre cl� ici}",
+        Name = "X-Api-Key", // Le nom de l'en-t�te HTTP
+        In = ParameterLocation.Header, // Emplacement de l'en-t�te
+        Type = SecuritySchemeType.ApiKey, // Type du sch�ma de s�curit�
+        Scheme = "ApiKeyScheme"
     });
 
-    // Make sure each endpoint in Swagger requires the defined security scheme
+    // Un dictionnaire de requirements pour assurer que nos endpoints utilisent le sch�ma de s�curit�
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
+{
     {
+        new OpenApiSecurityScheme
         {
-            new OpenApiSecurityScheme
+            Reference = new OpenApiReference
             {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "ApiKey"
-                }
+                Type = ReferenceType.SecurityScheme,
+                Id = "ApiKey" // L'ID doit correspondre � l'ID d�fini dans AddSecurityDefinition
             },
-            new string[] {}
-        }
-    });
+            Scheme = "ApiKeyScheme",
+            Name = "X-Api-Key",
+            In = ParameterLocation.Header
+        },
+        new List<string>()
+    }
+});
 });
 
 // Add services to the container.
@@ -104,11 +111,14 @@ builder.Services.AddScoped<IEmployesCliniqueService, EmployesCliniqueService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IPatientAchargeService, PatientAchargeService>();
+builder.Services.AddScoped<ISMSService,SMSService>();
 builder.Services.AddScoped<IAPIService, APIService>();
 builder.Services.AddScoped<IAPIKeyService, APIKeyService>();
 builder.Services.AddScoped<IApiKeyAuthenticationService, ApiKeyAuthenticationService>();
 
 #endregion
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -149,6 +159,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+app.MapHub<MiseAJourListeAttentePatientHub>("/MiseAJourListeAttentePatientHub");
 
 if (app.Environment.IsDevelopment())
 {

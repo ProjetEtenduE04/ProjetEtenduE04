@@ -7,6 +7,8 @@ using Clinique2000_Utility.Enum;
 using Clinique2000_Utility.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
+using Clinique2000_MVC.Hubs;
 
 namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 {
@@ -15,10 +17,13 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
     {
 
         public IClinique2000Services _services { get; set; }
+        private readonly IHubContext<MiseAJourListeAttentePatientHub> _hubContext;
 
-        public ListeAttenteController(IClinique2000Services service)
+        public ListeAttenteController(IClinique2000Services service,
+            IHubContext<MiseAJourListeAttentePatientHub> hubContext)
         {
             _services = service;
+            _hubContext = hubContext;
         }
 
 
@@ -391,6 +396,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
 
                 TempData[AppConstants.Success] = $"Vous avez réservé avec succès la consultation : {consultation.Patient.Nom} {consultation.Patient.Prenom} pour le {consultation.HeureDateDebutPrevue.ToShortDateString()} à {consultation.HeureDateDebutPrevue.ToShortTimeString()}";
                 await _services.email.SendConsultationConfirmationEmail(consultation);
+                await _hubContext.Clients.All.SendAsync("MiseAJourListeSalleDAttentePatient");
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             catch (ValidationException ex)
@@ -537,7 +543,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             //var ListeSalleAttenteVM = await _services.listeAttente.TerminerConsultationEtAppellerProchainPatient(consultationID, employesID, details);
             var listeSalleAttenteVm = await _services.consultation.TerminerConsultation(consultationID, details);
             await _services.consultation.AppelerProchainPatient(employesID);
-
+            await _hubContext.Clients.All.SendAsync("MiseAJourListeSalleDAttentePatient");
 
             if (listeSalleAttenteVm == null)
             {
@@ -563,6 +569,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 {
                     // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
                     TempData[AppConstants.Success] = $"Le prochain patient a été appelé.";
+                    await _hubContext.Clients.All.SendAsync("MiseAJourListeSalleDAttentePatient");
                     return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
                 else
@@ -588,7 +595,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 await _services.consultation.TerminerConsultation(consultationId, employes.DetailsConsultation);
                 var updatedListeSalleAttente = await _services.consultation.AppelerProchainPatient(employeCliniqueID);
-
+                await _hubContext.Clients.All.SendAsync("MiseAJourListeSalleDAttentePatient");
                 if (updatedListeSalleAttente != null)
                 {
                     TempData[AppConstants.Success] = $"Le prochain patient a été appelé.";
@@ -619,7 +626,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
             {
                 // Call the service method to complete the current consultation.
                 var updatedListeSalleAttente = await _services.consultation.TerminerConsultation(consultationId, employes.DetailsConsultation);
-
+                //await _hubContext.Clients.All.SendAsync("MiseAJourListeSalleDAttentePatient");
                 if (updatedListeSalleAttente != null)
                 {
                     // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
@@ -653,6 +660,7 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                     return View("NotFound");
                 }
                 await _services.consultation.AnnulerConsultationAsync(patient);
+                await _hubContext.Clients.All.SendAsync("MiseAJourListeSalleDAttentePatient");
                 return RedirectToAction("Details", "Patients", new { area = "Patients", id = PatientId });
                
             }

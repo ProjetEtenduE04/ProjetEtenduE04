@@ -115,8 +115,16 @@ namespace Clinique2000_MVC.Controllers
         [HttpPost("ListPatients")]
         public async Task<IActionResult> PostListPatients([FromBody] List<Patient> patients)
         {
-            if (await _services.api.UserPossedeUneCleAPI() == true)
+            var userName = User.Identity.Name;
+
+            if (userName == null)
             {
+                return Unauthorized();
+            }
+
+            if (await _services.api.UserPossedeUneCleAPI(userName) == true)
+            {
+
                 List<Patient> patientsSaved = new List<Patient>();
                 List<string> errors = new List<string>();
 
@@ -145,6 +153,7 @@ namespace Clinique2000_MVC.Controllers
                     return BadRequest(errors);
                 }
                 return Ok(patientsSaved);
+
             }
             else
             {
