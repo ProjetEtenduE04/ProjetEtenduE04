@@ -166,14 +166,5 @@ namespace Clinique2000_MVC.Controllers
             }
         }
 
-
-
-
-      
-
-
-
-
-
     }
 }
