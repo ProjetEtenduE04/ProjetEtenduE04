@@ -145,8 +145,7 @@ namespace Clinique2000_MVC.Controllers
                         if (patient.preferenceNotification != PreferenceNotification.SMS)
                             await _services.email.SendNotificationPatienImportAsync(patient);
                         else
-                            ;
-                            //await _services.sms.SendConfirmationSMS(patient); RESTE A IMPLEMENTER
+                           _services.sms.SendConfirmationSMSApresImportationPatient(patient.NumTelephone);
                     }
                     catch (Exception ex)
                     {

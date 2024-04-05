@@ -264,7 +264,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 1,
                             Courriel = "contact@adoncour.ca",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                            DateCreation = new DateTime(2024, 4, 4, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3516),
+                            DateCreation = new DateTime(2024, 4, 5, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2748),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 15, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -281,7 +281,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 2,
                             Courriel = "contact@pboucher.ca",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                            DateCreation = new DateTime(2024, 4, 4, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3547),
+                            DateCreation = new DateTime(2024, 4, 5, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2793),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 22, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -298,7 +298,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 3,
                             Courriel = "contact@camu.ca",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                            DateCreation = new DateTime(2024, 4, 4, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3550),
+                            DateCreation = new DateTime(2024, 4, 5, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2796),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 18, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -315,7 +315,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 4,
                             Courriel = "contact@cigogne.ca",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                            DateCreation = new DateTime(2024, 4, 4, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3552),
+                            DateCreation = new DateTime(2024, 4, 5, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2799),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 20, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -332,7 +332,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 5,
                             Courriel = "contact@cmenroute.ca",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                            DateCreation = new DateTime(2024, 4, 4, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3555),
+                            DateCreation = new DateTime(2024, 4, 5, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2802),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 16, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -349,7 +349,7 @@ namespace Clinique2000_DataAccess.Migrations
                             AdresseID = 6,
                             Courriel = "contact@chambly.com",
                             CreateurID = "7cc96785-8933-4eac-8d7f-a289b28df223",
-                            DateCreation = new DateTime(2024, 4, 4, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3557),
+                            DateCreation = new DateTime(2024, 4, 5, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2806),
                             EstActive = true,
                             HeureFermeture = new TimeSpan(0, 16, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
@@ -424,8 +424,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 1,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 8, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 8, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 8, 30, 0, 0, DateTimeKind.Local),
                             PatientID = 1,
                             PlageHoraireID = 1,
                             StatutConsultation = 2
@@ -433,8 +433,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 2,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 8, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 8, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 8, 30, 0, 0, DateTimeKind.Local),
                             PatientID = 2,
                             PlageHoraireID = 1,
                             StatutConsultation = 2
@@ -442,8 +442,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 3,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 8, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 9, 0, 0, 0, DateTimeKind.Local),
                             PatientID = 3,
                             PlageHoraireID = 2,
                             StatutConsultation = 2
@@ -451,8 +451,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 4,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 8, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 9, 0, 0, 0, DateTimeKind.Local),
                             PatientID = 4,
                             PlageHoraireID = 2,
                             StatutConsultation = 2
@@ -460,8 +460,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 5,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 9, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 9, 30, 0, 0, DateTimeKind.Local),
                             PatientID = 5,
                             PlageHoraireID = 3,
                             StatutConsultation = 2
@@ -469,8 +469,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 6,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 9, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 9, 30, 0, 0, DateTimeKind.Local),
                             PatientID = 6,
                             PlageHoraireID = 3,
                             StatutConsultation = 2
@@ -478,8 +478,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 7,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 9, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 10, 0, 0, 0, DateTimeKind.Local),
                             PatientID = 7,
                             PlageHoraireID = 4,
                             StatutConsultation = 2
@@ -487,8 +487,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 8,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 9, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 10, 0, 0, 0, DateTimeKind.Local),
                             PatientID = 8,
                             PlageHoraireID = 4,
                             StatutConsultation = 2
@@ -496,8 +496,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 9,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 10, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 10, 30, 0, 0, DateTimeKind.Local),
                             PatientID = 9,
                             PlageHoraireID = 5,
                             StatutConsultation = 2
@@ -505,8 +505,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 10,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 10, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 10, 30, 0, 0, DateTimeKind.Local),
                             PatientID = 10,
                             PlageHoraireID = 5,
                             StatutConsultation = 2
@@ -514,8 +514,8 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 11,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 10, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 11, 0, 0, 0, DateTimeKind.Local),
                             PatientID = 11,
                             PlageHoraireID = 6,
                             StatutConsultation = 2
@@ -523,104 +523,104 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             ConsultationID = 12,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 10, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 11, 0, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 6,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 13,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 11, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 11, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 11, 30, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 7,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 14,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 11, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 11, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 11, 30, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 7,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 15,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 12, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 12, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 12, 30, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 8,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 16,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 12, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 12, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 12, 30, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 8,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 17,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 12, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 13, 0, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 9,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 18,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 12, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 13, 0, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 9,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 19,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 13, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 13, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 13, 30, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 10,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 20,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 13, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 13, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 13, 30, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 10,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 21,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 13, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 14, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 13, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 14, 0, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 11,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 22,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 13, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 14, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 13, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 14, 0, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 11,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 23,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 15, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 15, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 15, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 15, 0, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 12,
                             StatutConsultation = 6
                         },
                         new
                         {
                             ConsultationID = 24,
-                            HeureDateDebutPrevue = new DateTime(2024, 4, 5, 16, 30, 0, 0, DateTimeKind.Local),
-                            HeureDateFinPrevue = new DateTime(2024, 4, 5, 17, 0, 0, 0, DateTimeKind.Local),
+                            HeureDateDebutPrevue = new DateTime(2024, 4, 6, 16, 30, 0, 0, DateTimeKind.Local),
+                            HeureDateFinPrevue = new DateTime(2024, 4, 6, 17, 0, 0, 0, DateTimeKind.Local),
                             PlageHoraireID = 12,
                             StatutConsultation = 6
                         });
@@ -817,7 +817,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 1,
                             CliniqueID = 1,
-                            DateEffectivite = new DateTime(2024, 4, 5, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3579),
+                            DateEffectivite = new DateTime(2024, 4, 6, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2847),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -829,7 +829,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 2,
                             CliniqueID = 2,
-                            DateEffectivite = new DateTime(2024, 4, 5, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3588),
+                            DateEffectivite = new DateTime(2024, 4, 6, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2861),
                             HeureFermeture = new TimeSpan(0, 8, 30, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -841,7 +841,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 3,
                             CliniqueID = 3,
-                            DateEffectivite = new DateTime(2024, 4, 5, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3594),
+                            DateEffectivite = new DateTime(2024, 4, 6, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2871),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -853,7 +853,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 4,
                             CliniqueID = 4,
-                            DateEffectivite = new DateTime(2024, 4, 5, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3601),
+                            DateEffectivite = new DateTime(2024, 4, 6, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2879),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -865,7 +865,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 5,
                             CliniqueID = 5,
-                            DateEffectivite = new DateTime(2024, 4, 5, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3606),
+                            DateEffectivite = new DateTime(2024, 4, 6, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2887),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -877,7 +877,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 6,
                             CliniqueID = 6,
-                            DateEffectivite = new DateTime(2024, 4, 5, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3613),
+                            DateEffectivite = new DateTime(2024, 4, 6, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2896),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -889,7 +889,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 7,
                             CliniqueID = 2,
-                            DateEffectivite = new DateTime(2024, 4, 6, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3619),
+                            DateEffectivite = new DateTime(2024, 4, 7, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2903),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -901,7 +901,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 8,
                             CliniqueID = 2,
-                            DateEffectivite = new DateTime(2024, 4, 6, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3625),
+                            DateEffectivite = new DateTime(2024, 4, 7, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2911),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -913,7 +913,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 9,
                             CliniqueID = 3,
-                            DateEffectivite = new DateTime(2024, 4, 6, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3630),
+                            DateEffectivite = new DateTime(2024, 4, 7, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2919),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -925,7 +925,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 10,
                             CliniqueID = 4,
-                            DateEffectivite = new DateTime(2024, 4, 8, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3658),
+                            DateEffectivite = new DateTime(2024, 4, 9, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2927),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -937,7 +937,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 11,
                             CliniqueID = 4,
-                            DateEffectivite = new DateTime(2024, 4, 9, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3664),
+                            DateEffectivite = new DateTime(2024, 4, 10, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2935),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -949,7 +949,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 12,
                             CliniqueID = 4,
-                            DateEffectivite = new DateTime(2024, 4, 10, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3669),
+                            DateEffectivite = new DateTime(2024, 4, 11, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2944),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -961,7 +961,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 13,
                             CliniqueID = 5,
-                            DateEffectivite = new DateTime(2024, 4, 7, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3675),
+                            DateEffectivite = new DateTime(2024, 4, 8, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2951),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -973,7 +973,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 14,
                             CliniqueID = 6,
-                            DateEffectivite = new DateTime(2024, 4, 8, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3681),
+                            DateEffectivite = new DateTime(2024, 4, 9, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2959),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -985,7 +985,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 15,
                             CliniqueID = 1,
-                            DateEffectivite = new DateTime(2024, 4, 7, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3686),
+                            DateEffectivite = new DateTime(2024, 4, 8, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2966),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -997,7 +997,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 16,
                             CliniqueID = 5,
-                            DateEffectivite = new DateTime(2024, 4, 8, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3692),
+                            DateEffectivite = new DateTime(2024, 4, 9, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2974),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1009,7 +1009,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 17,
                             CliniqueID = 5,
-                            DateEffectivite = new DateTime(2024, 4, 9, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3698),
+                            DateEffectivite = new DateTime(2024, 4, 10, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(2982),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1021,7 +1021,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 18,
                             CliniqueID = 5,
-                            DateEffectivite = new DateTime(2024, 4, 10, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3704),
+                            DateEffectivite = new DateTime(2024, 4, 11, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(3029),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1033,7 +1033,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 19,
                             CliniqueID = 6,
-                            DateEffectivite = new DateTime(2024, 4, 5, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3710),
+                            DateEffectivite = new DateTime(2024, 4, 6, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(3037),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1045,7 +1045,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 20,
                             CliniqueID = 6,
-                            DateEffectivite = new DateTime(2024, 4, 6, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3716),
+                            DateEffectivite = new DateTime(2024, 4, 7, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(3044),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1057,7 +1057,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 21,
                             CliniqueID = 6,
-                            DateEffectivite = new DateTime(2024, 4, 7, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3722),
+                            DateEffectivite = new DateTime(2024, 4, 8, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(3053),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1069,7 +1069,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 22,
                             CliniqueID = 6,
-                            DateEffectivite = new DateTime(2024, 4, 8, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3727),
+                            DateEffectivite = new DateTime(2024, 4, 9, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(3061),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1081,7 +1081,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 23,
                             CliniqueID = 6,
-                            DateEffectivite = new DateTime(2024, 4, 9, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3733),
+                            DateEffectivite = new DateTime(2024, 4, 10, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(3068),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1093,7 +1093,7 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             ListeAttenteID = 24,
                             CliniqueID = 6,
-                            DateEffectivite = new DateTime(2024, 4, 10, 16, 14, 15, 560, DateTimeKind.Local).AddTicks(3739),
+                            DateEffectivite = new DateTime(2024, 4, 11, 12, 0, 48, 738, DateTimeKind.Local).AddTicks(3076),
                             HeureFermeture = new TimeSpan(0, 17, 0, 0, 0),
                             HeureOuverture = new TimeSpan(0, 8, 0, 0, 0),
                             HeurePauseDebut = new TimeSpan(0, 0, 0, 0, 0),
@@ -1550,85 +1550,85 @@ namespace Clinique2000_DataAccess.Migrations
                         new
                         {
                             PlageHoraireID = 1,
-                            HeureDebut = new DateTime(2024, 4, 5, 8, 0, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 8, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 8, 30, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 2,
-                            HeureDebut = new DateTime(2024, 4, 5, 8, 30, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 8, 30, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 9, 0, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 3,
-                            HeureDebut = new DateTime(2024, 4, 5, 9, 0, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 9, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 9, 30, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 4,
-                            HeureDebut = new DateTime(2024, 4, 5, 9, 30, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 9, 30, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 10, 0, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 5,
-                            HeureDebut = new DateTime(2024, 4, 5, 10, 0, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 10, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 10, 30, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 6,
-                            HeureDebut = new DateTime(2024, 4, 5, 10, 30, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 10, 30, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 11, 0, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 7,
-                            HeureDebut = new DateTime(2024, 4, 5, 11, 0, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 11, 30, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 11, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 11, 30, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 8,
-                            HeureDebut = new DateTime(2024, 4, 5, 11, 30, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 12, 0, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 11, 30, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 12, 0, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 9,
-                            HeureDebut = new DateTime(2024, 4, 5, 12, 0, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 12, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 12, 30, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 10,
-                            HeureDebut = new DateTime(2024, 4, 5, 12, 30, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 12, 30, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 13, 0, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 11,
-                            HeureDebut = new DateTime(2024, 4, 5, 13, 0, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 13, 30, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 13, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 13, 30, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         },
                         new
                         {
                             PlageHoraireID = 12,
-                            HeureDebut = new DateTime(2024, 4, 5, 17, 0, 0, 0, DateTimeKind.Local),
-                            HeureFin = new DateTime(2024, 4, 5, 17, 30, 0, 0, DateTimeKind.Local),
+                            HeureDebut = new DateTime(2024, 4, 6, 17, 0, 0, 0, DateTimeKind.Local),
+                            HeureFin = new DateTime(2024, 4, 6, 17, 30, 0, 0, DateTimeKind.Local),
                             ListeAttenteID = 1
                         });
                 });
@@ -1855,14 +1855,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df223",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7190b096-40c9-4c9c-b342-a4ff33989927",
+                            ConcurrencyStamp = "39ff2785-78e7-4034-a1f7-6bed6cfbb298",
                             Email = "patient1@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT1@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT1@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "850ed8f3-55f1-4240-8345-40126ea91d3d",
+                            SecurityStamp = "dfc43121-afd1-481e-8f33-1836ea4f7297",
                             TwoFactorEnabled = false,
                             UserName = "patient1@example.com"
                         },
@@ -1870,14 +1870,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ccfd56c1-838e-4bb6-95b7-c95d2c913794",
+                            ConcurrencyStamp = "d4ceffc6-d8e7-40e3-892b-9819b731f4a0",
                             Email = "patient2@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT2@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT2@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ff44d6be-3572-43fe-8545-441e6a07e0cb",
+                            SecurityStamp = "815f8b77-9e50-45f1-bfce-d3965a277f58",
                             TwoFactorEnabled = false,
                             UserName = "patient2@example.com"
                         },
@@ -1885,14 +1885,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0d3d5c9f-0122-4756-b4b7-2ed5d77149be",
+                            ConcurrencyStamp = "53142b1c-e93a-4788-a4bd-16c46ea818f1",
                             Email = "patient3@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT3@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT3@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8292f517-c764-4162-8ce1-32d51c340eb0",
+                            SecurityStamp = "28a756c5-384f-4f41-baf2-1fc6fb064059",
                             TwoFactorEnabled = false,
                             UserName = "patient3@example.com"
                         },
@@ -1900,14 +1900,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c3063128-15c4-4045-afdd-5a0a23ceef74",
+                            ConcurrencyStamp = "90d29523-b24b-4b72-9d22-d95f2dbee1c2",
                             Email = "patient4@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT4@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT4@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "63589d82-5eaf-4af9-949f-a767ccef6cdb",
+                            SecurityStamp = "07e4ed05-a372-4939-9e58-0094aeeab69d",
                             TwoFactorEnabled = false,
                             UserName = "patient4@example.com"
                         },
@@ -1915,14 +1915,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9f9996c2-3480-4b3d-b2b1-8b1da8b74635",
+                            ConcurrencyStamp = "c2ca481d-196d-4817-a786-2a69c9bc7ab5",
                             Email = "patient5@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT5@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT5@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5174d2ee-53bb-4f03-9fc8-62765a11ab7c",
+                            SecurityStamp = "40913fb1-757d-4fec-a2f7-4040105e2554",
                             TwoFactorEnabled = false,
                             UserName = "patient5@example.com"
                         },
@@ -1930,14 +1930,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df226",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "70ab3c1c-d440-48b5-b28f-3eca64a8cb41",
+                            ConcurrencyStamp = "44f59141-12f6-4e78-85b8-18db01e0ff77",
                             Email = "patient6@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT6@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT6@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2640ca3e-e240-4d64-88fb-e6553a94d395",
+                            SecurityStamp = "ae8a334f-ed63-47ee-a8b9-4dff0ff3253d",
                             TwoFactorEnabled = false,
                             UserName = "patient6@example.com"
                         },
@@ -1945,14 +1945,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d2e7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cb4b9dd1-d6f5-486d-b72c-8cac668ef70b",
+                            ConcurrencyStamp = "582e78f8-5411-45a3-a01a-f0d7a708cc7a",
                             Email = "patient7@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT7@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT7@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ab770009-a679-4fee-bc3f-4c35d1a55bcd",
+                            SecurityStamp = "f27db345-9b83-462a-b4e6-7562249ba4b3",
                             TwoFactorEnabled = false,
                             UserName = "patient7@example.com"
                         },
@@ -1960,14 +1960,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f3f38",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b4190165-a32f-43d7-903f-c642d1a8227f",
+                            ConcurrencyStamp = "59e061de-d4aa-4342-83f3-8a005fa2ea33",
                             Email = "patient8@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT8@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT8@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7d7e76ba-d3d9-4624-9bba-a4927a7bcd9a",
+                            SecurityStamp = "a56458a8-8f37-4a8e-afd5-b94e65abaaf3",
                             TwoFactorEnabled = false,
                             UserName = "patient8@example.com"
                         },
@@ -1975,14 +1975,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g4g9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a1bf7639-562d-4296-8d8a-7b8fe22a7668",
+                            ConcurrencyStamp = "030ac1fb-7baa-430b-83fa-32a7d4a9eb75",
                             Email = "patient9@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT9@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT9@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "14c8af48-a4b4-4be3-8539-42afca4d65b5",
+                            SecurityStamp = "bf6dd52f-a036-49d3-8848-4e82f2ed0049",
                             TwoFactorEnabled = false,
                             UserName = "patient9@example.com"
                         },
@@ -1990,14 +1990,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g410",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "acd4912a-01f2-411d-9293-3f0887cf4588",
+                            ConcurrencyStamp = "2c021492-c191-4892-aeab-48955221568c",
                             Email = "patient10@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT10@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT10@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9a4f4288-b5af-4d48-a603-91d4d376e361",
+                            SecurityStamp = "0f36d563-d677-4310-81e1-5158a1b497ba",
                             TwoFactorEnabled = false,
                             UserName = "patient10@example.com"
                         },
@@ -2005,14 +2005,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df211",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a47048d1-422b-451a-9d0e-e7e33fa7b1bd",
+                            ConcurrencyStamp = "e712285d-fd5a-4bd5-9d0b-2acacefc132c",
                             Email = "patient11@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT11@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT11@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "de8d88e0-18d5-424a-a6eb-1cc7104c4a50",
+                            SecurityStamp = "fb1083a3-5afe-48cb-b2e7-460863fa8d1d",
                             TwoFactorEnabled = false,
                             UserName = "patient11@example.com"
                         },
@@ -2020,14 +2020,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d212",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b1faa4b6-a3fd-4b4b-8a60-ee0e1b804ac6",
+                            ConcurrencyStamp = "7cf06a0f-9f30-40b0-8afd-f0a41c8661c2",
                             Email = "patient12@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT12@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT12@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "62688dcb-0449-4f81-a24d-28ca2a986bb4",
+                            SecurityStamp = "c32f8acd-2c0a-4b6c-8e1d-5157bc486281",
                             TwoFactorEnabled = false,
                             UserName = "patient12@example.com"
                         },
@@ -2035,14 +2035,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f313",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "21c0ac55-3ac9-4e9e-9ba0-891810a4f08c",
+                            ConcurrencyStamp = "607de5cc-c319-421d-88ba-dd7023958e22",
                             Email = "patient13@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT13@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT13@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bc281e41-fa61-4f57-bc79-53cb120a9af1",
+                            SecurityStamp = "176c00a5-5a5c-494e-a1d1-0c39667f84cb",
                             TwoFactorEnabled = false,
                             UserName = "patient13@example.com"
                         },
@@ -2050,14 +2050,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g414",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4ecdb367-29cf-4a88-97fb-6fe4bff49de0",
+                            ConcurrencyStamp = "2297dedc-c57c-4cf6-ba0b-a7f5a7b3ceb9",
                             Email = "patient14@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT14@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT14@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4a7710a9-27e1-4352-99bb-fe6ecd5b1471",
+                            SecurityStamp = "aa9e342c-4e18-4d26-9ab6-510a15b8e982",
                             TwoFactorEnabled = false,
                             UserName = "patient14@example.com"
                         },
@@ -2065,14 +2065,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g415",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9cf3d517-c258-4a10-8e10-4ab34d5aa185",
+                            ConcurrencyStamp = "80ca26c8-42e2-41fa-a82b-6cc93e70794d",
                             Email = "patient15@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT15@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT15@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d5f59e40-fcb2-4b20-ab84-96184a4193df",
+                            SecurityStamp = "128ce13a-460e-4c58-94c5-60c8f7b49a59",
                             TwoFactorEnabled = false,
                             UserName = "patient15@example.com"
                         },
@@ -2080,14 +2080,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "7cc96785-8933-4eac-8d7f-a289b28df216",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ac70979d-5d83-4792-96a5-be08bb44ebf2",
+                            ConcurrencyStamp = "c9c1290f-1b99-4f50-962b-fb00297e28cc",
                             Email = "patient16@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT16@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT16@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ca6dd1dc-61a0-4d57-9d23-28a7dfeaf7b2",
+                            SecurityStamp = "8aeff8d3-6b55-4d03-85a9-7f7c2a4f0342",
                             TwoFactorEnabled = false,
                             UserName = "patient16@example.com"
                         },
@@ -2095,14 +2095,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "e2b8f367-6c94-4a3e-b5a6-45dabec4d217",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b4296692-5be2-422f-8eed-6b267a53d961",
+                            ConcurrencyStamp = "30d052ef-26f6-4bbf-9994-3979c690d180",
                             Email = "patient17@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT17@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT17@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c8390ba0-413c-4b68-9c25-fd2bf2172b23",
+                            SecurityStamp = "9b3f2686-65f5-4d33-a9a2-223de215ffa2",
                             TwoFactorEnabled = false,
                             UserName = "patient17@example.com"
                         },
@@ -2110,14 +2110,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "f3c9e478-8d81-4aaf-aa77-56e1d3f5f318",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d723fae6-1307-4002-9d18-0dd720bd9b0b",
+                            ConcurrencyStamp = "f08fb593-ddf2-4945-bfd1-638ee8c5a349",
                             Email = "patient18@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT18@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT18@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "efb79475-f58b-4d4f-be96-5b5e4dfc490e",
+                            SecurityStamp = "b41d8d64-c914-449c-b1df-270d27c6b4e3",
                             TwoFactorEnabled = false,
                             UserName = "patient18@example.com"
                         },
@@ -2125,14 +2125,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g419",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "89cc25cf-1837-4724-aeaa-9f7b801280c4",
+                            ConcurrencyStamp = "e5898f41-62cd-4344-a74d-8beee7b8a350",
                             Email = "patient19@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT19@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT19@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4522a34c-8801-4dff-b2df-1a5e4a996c4f",
+                            SecurityStamp = "f64dfe3d-d916-4749-99c4-6e28c78fff67",
                             TwoFactorEnabled = false,
                             UserName = "patient19@example.com"
                         },
@@ -2140,14 +2140,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g420",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3e9c2c9d-c7f0-4c47-8fcf-bde00f4f5914",
+                            ConcurrencyStamp = "07563681-ebd6-4a3a-b360-70dcf3d4b68f",
                             Email = "patient20@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT20@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT20@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "edc9c154-458f-44f6-9342-3cdca1219854",
+                            SecurityStamp = "11665678-4a15-421d-9474-166fb83fe9e8",
                             TwoFactorEnabled = false,
                             UserName = "patient20@example.com"
                         },
@@ -2155,14 +2155,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g421",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8e19a072-ce94-49f3-b339-f21f233f08f4",
+                            ConcurrencyStamp = "41c3c1d7-c88b-4229-a494-cd0a2e0d00cd",
                             Email = "patient21@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT21@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT21@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2786182d-3b60-4374-84a2-40412899457f",
+                            SecurityStamp = "224b2a3a-dfe3-4a01-8c0f-97a75c250ff6",
                             TwoFactorEnabled = false,
                             UserName = "patient21@example.com"
                         },
@@ -2170,14 +2170,14 @@ namespace Clinique2000_DataAccess.Migrations
                         {
                             Id = "g4d0a589-2b02-4d36-9a85-39c028a4g22",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0bda9c10-a61d-4ccf-a2a2-5618cad5e9b9",
+                            ConcurrencyStamp = "c7c7da7f-1fa3-452b-9be0-8b96129d33a3",
                             Email = "patient22@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATIENT22@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT22@EXAMPLE.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e1ca5820-9009-4b5a-b492-9d279aa7b8d1",
+                            SecurityStamp = "da3befd3-bb5c-43f7-98dd-fa0a7bbaa6b9",
                             TwoFactorEnabled = false,
                             UserName = "patient22@example.com"
                         });

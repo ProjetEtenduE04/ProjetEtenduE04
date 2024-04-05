@@ -25,11 +25,12 @@ namespace Clinique2000_TestsUnitaires
     {
         private readonly Mock<IPatientService> _patientServiceMock = new Mock<IPatientService>();
         private readonly Mock<IEmailService> _emailServiceMock = new Mock<IEmailService>();
-
+        private readonly Mock<ISMSService> mockSMSservice = new Mock<ISMSService>();
         public EmailTestsUnits()
         {
             _emailServiceMock = new Mock<IEmailService>();
             _patientServiceMock = new Mock<IPatientService>();
+            mockSMSservice= new Mock<ISMSService>();
         }
 
 
@@ -281,7 +282,7 @@ namespace Clinique2000_TestsUnitaires
 
             mockConsultationService.Setup(s => s.ObtenirToutAsync()).Returns(Task.FromResult(consultations));
 
-            var service = new EmailBackgroundJobService(Mock.Of<ILogger<EmailService>>(), mockEmailService.Object, mockConsultationService.Object);
+            var service = new EmailBackgroundJobService(Mock.Of<ILogger<EmailService>>(), mockEmailService.Object, mockConsultationService.Object, mockSMSservice.Object);
 
             // Act
             await service.Execute(It.IsAny<IJobExecutionContext>());
@@ -306,7 +307,7 @@ namespace Clinique2000_TestsUnitaires
 
             mockConsultationService.Setup(s => s.ObtenirToutAsync()).Returns(Task.FromResult(consultations));
 
-            var service = new EmailBackgroundJobService(Mock.Of<ILogger<EmailService>>(), mockEmailService.Object, mockConsultationService.Object);
+            var service = new EmailBackgroundJobService(Mock.Of<ILogger<EmailService>>(), mockEmailService.Object, mockConsultationService.Object,mockSMSservice.Object);
 
             // Act
             await service.Execute(It.IsAny<IJobExecutionContext>());
@@ -332,7 +333,7 @@ namespace Clinique2000_TestsUnitaires
 
             mockConsultationService.Setup(s => s.ObtenirToutAsync()).Returns(Task.FromResult(consultations));
 
-            var service = new EmailBackgroundJobService(Mock.Of<ILogger<EmailService>>(), mockEmailService.Object, mockConsultationService.Object);
+            var service = new EmailBackgroundJobService(Mock.Of<ILogger<EmailService>>(), mockEmailService.Object, mockConsultationService.Object, mockSMSservice.Object);
 
             // Act
             await service.Execute(It.IsAny<IJobExecutionContext>());

@@ -53,7 +53,7 @@ namespace Clinique2000_Services.Services
           };
 
             var smsCollection = new SmsMessageCollection(listOfSms);
-            var response = smsApi.SmsSendPost(smsCollection);
+            smsApi.SmsSendPost(smsCollection);
         }
 
 
@@ -68,17 +68,58 @@ namespace Clinique2000_Services.Services
                               $"Merci, Clinique2000.";
 
             var listOfSms = new List<SmsMessage>
-    {
+         {
         new SmsMessage(to: phoneNumber, body: messageBody, source: "sdk", from: "+15142290514")
-    };
+          };
 
             var smsCollection = new SmsMessageCollection(listOfSms);
-            var response =  smsApi.SmsSendPostAsync(smsCollection);
+             smsApi.SmsSendPostAsync(smsCollection);
 
-         
         }
 
-      
+
+        public void SendConfirmationSMSApresImportationPatient(string phoneNumber)
+        {
+            var user= _dbcontext.Users.FirstOrDefault(u => u.PhoneNumber == phoneNumber);
+            var patient =  _patientService.GetPatientParUserIdAsync(user.Id).Result;
+
+
+            var messageBody = $"Bonjour, {patient.Nom} {patient.Prenom}! " +
+                              $"Votre dossier patient a été enregistré avec succès au système Clinique2000. " +
+                              $"Merci, Clinique2000.";
+
+            var listOfSms = new List<SmsMessage>
+        {
+        new SmsMessage(to: phoneNumber, body: messageBody, source: "sdk", from: "+15142290514")
+        };
+
+            var smsCollection = new SmsMessageCollection(listOfSms);
+            smsApi.SmsSendPostAsync(smsCollection);
+        }
+
+
+        public void SendConsultationReminderSMS(Consultation consultation)
+        {
+            var patient = consultation.Patient;
+            var messageBody = $"Bonjour, {patient.Nom} {patient.Prenom}! " +
+                              $"Rappel consultation: {consultation.HeureDateDebutPrevue.ToShortDateString()} " +
+                              $"à {consultation.HeureDateFinPrevue.ToShortTimeString()}, " +
+                              $"Clinique: {consultation.PlageHoraire.ListeAttente.Clinique.NomClinique}. " +
+                              $"Merci, Clinique2000.";
+
+            var listOfSms = new List<SmsMessage>
+            {
+                new SmsMessage(to: patient.NumTelephone, body: messageBody, source: "sdk", from: "+15142290514")
+            };
+
+            var smsCollection = new SmsMessageCollection(listOfSms);
+            smsApi.SmsSendPostAsync(smsCollection);
+
+        }
+
+
+
+
 
     }
 }

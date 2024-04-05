@@ -12,5 +12,7 @@ namespace Clinique2000_Services.IServices
     {
         void SendSMS(string phoneNumber);
         void SendConfirmationSMS(Consultation consultation, string phoneNumber);
+        void SendConfirmationSMSApresImportationPatient(string phoneNumber);
+        void SendConsultationReminderSMS(Consultation consultation);
     }
 }
