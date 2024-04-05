@@ -41,7 +41,7 @@ namespace Clinique2000_Services.Services
             IEmailService emailService,
             IAdminService adminService,
             IPatientAchargeService patientAchargeService,
-            IBackupService backup
+            IBackupService backup,
             IAPIService apiService,
             IAPIKeyService apiKeyService,
             IApiKeyAuthenticationService apiKeyAuthenticationService,
