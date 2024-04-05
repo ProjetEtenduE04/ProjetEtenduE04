@@ -10,7 +10,7 @@
     var user = await _service.patient.GetUserAuthAsync();
     EmployesClinique? employe = await _service.employesClinique.VerifierSiUserAuthEstEmploye(user.Email);
     Patient? patient = await _service.patient.GetPatientParUserIdAsync(user.Id);
-
+    <li class="btn-group nav-item mx-2">
     <a class="nav-link custom-nav-link" style="color:white" data-bs-toggle="dropdown" aria-expanded="false">
        Patient
             <i class="fa-solid fa-caret-down"></i>
@@ -64,5 +64,5 @@
                 </li>
             }
     </ul>
-
+    </li>
 }

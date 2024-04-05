@@ -15,7 +15,7 @@
     var email = User.FindFirstValue(ClaimTypes.Email);
     var estPatient = await _service.patient.UserAuthEstPatientAsync();
     var employe = await _service.employesClinique.VerifierSiUserAuthEstEmploye(email);
-
+    <li class="btn-group nav-item mx-2">
         <a class="nav-link custom-nav-link" style="color:white" data-bs-toggle="dropdown" aria-expanded="false">
             Clinique
         <i class="fa-solid fa-caret-down"></i>
@@ -110,5 +110,5 @@
             }
            
         </ul>
-
+    </li>
 }
