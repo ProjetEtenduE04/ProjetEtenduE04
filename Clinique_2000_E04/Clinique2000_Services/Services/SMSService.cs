@@ -14,6 +14,7 @@ using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_Services.IServices;
 using Newtonsoft.Json.Linq;
+using Humanizer;
 
 
 namespace Clinique2000_Services.Services
@@ -49,7 +50,7 @@ namespace Clinique2000_Services.Services
 
             var listOfSms = new List<SmsMessage>
           {
-             new SmsMessage(to: phoneNumber, body: "test message", source: "sdk",from:"+15142290514",country:"Canada")
+             new SmsMessage(to: $"+1{phoneNumber}", body: "test message", source: "sdk",from:"+15142290514",country:"Canada")
           };
 
             var smsCollection = new SmsMessageCollection(listOfSms);
@@ -69,7 +70,7 @@ namespace Clinique2000_Services.Services
 
             var listOfSms = new List<SmsMessage>
          {
-        new SmsMessage(to: phoneNumber, body: messageBody, source: "sdk", from: "+15142290514")
+        new SmsMessage(to: $"+1{phoneNumber}", body: messageBody, source: "sdk", from: "+15142290514")
           };
 
             var smsCollection = new SmsMessageCollection(listOfSms);
@@ -90,7 +91,7 @@ namespace Clinique2000_Services.Services
 
             var listOfSms = new List<SmsMessage>
         {
-        new SmsMessage(to: phoneNumber, body: messageBody, source: "sdk", from: "+15142290514")
+        new SmsMessage(to: $"+1{phoneNumber}", body: messageBody, source: "sdk", from: "+15142290514")
         };
 
             var smsCollection = new SmsMessageCollection(listOfSms);
@@ -109,7 +110,7 @@ namespace Clinique2000_Services.Services
 
             var listOfSms = new List<SmsMessage>
             {
-                new SmsMessage(to: patient.NumTelephone, body: messageBody, source: "sdk", from: "+15142290514")
+                new SmsMessage(to: $"+1{patient.NumTelephone}", body: messageBody, source: "sdk", from: "+15142290514")
             };
 
             var smsCollection = new SmsMessageCollection(listOfSms);
