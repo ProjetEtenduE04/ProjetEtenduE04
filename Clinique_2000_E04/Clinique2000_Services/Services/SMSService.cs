@@ -37,8 +37,10 @@ namespace Clinique2000_Services.Services
 
             Configuration configuration = new Configuration()
             {
-                Username = "jordan.couturelafranchise@hotmail.com",
-                Password = "24B69660-2B02-4EE8-C1C1-B20BCAA889AA"
+                //Username = "jordan.couturelafranchise@hotmail.com",
+                //Password = "24B69660-2B02-4EE8-C1C1-B20BCAA889AA"
+                Username = "dfd",
+                Password = "sadsf"
             };
             smsApi = new SMSApi(configuration);
          

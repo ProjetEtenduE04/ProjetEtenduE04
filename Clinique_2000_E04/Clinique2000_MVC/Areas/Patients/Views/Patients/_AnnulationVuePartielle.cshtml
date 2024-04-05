@@ -8,8 +8,8 @@
     var consultation = @Model.Consultations.Where(x => x.PatientID == Model.PatientId && x.StatutConsultation == Clinique2000_Utility.Enum.StatutConsultation.EnAttente).FirstOrDefault();
     if (consultation != null)
     {
-        <div id="myModal" class="modal">
-            <div class="modal-content">
+        <div id="myModal" class="modal2">
+            <div class="modal2-content">
                 <span class="close">&times;</span>
                 <h1>Attention!</h1>
                 <p style="font-size: 20px; color: black">

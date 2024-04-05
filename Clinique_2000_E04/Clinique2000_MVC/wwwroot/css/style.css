@@ -1506,7 +1506,7 @@ body .dayDiv span {
 body .date-complet {
   margin-right: 22px;
 }
-body .modal {
+body .modal2 {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -1519,7 +1519,7 @@ body .modal {
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-body .modal-content {
+body .modal2-content {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -2729,14 +2729,14 @@ html {
   perspective: 600px;
 }
 
-.card {
+.card-register {
   transition: transform 1s;
   transform-style: preserve-3d;
   cursor: pointer;
   position: relative;
 }
 
-.card.is-flipped {
+.card-register.is-flipped {
   transform: rotateY(180deg);
 }
 
