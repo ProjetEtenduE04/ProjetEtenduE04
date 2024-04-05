@@ -23,6 +23,9 @@ namespace Clinique2000_Services.IServices
         public IAdminService admin { get; }
         public IPatientAchargeService patientAcharge { get; }
         public IBackupService backup { get; }
+        public IAPIService api { get; }
+        public IAPIKeyService apiKey { get; }
+        public ISMSService sms { get; }
     }
 
 }

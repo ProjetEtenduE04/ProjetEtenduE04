@@ -10,6 +10,8 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinique2000_Services.IServices;
+using Clinique2000_Utility.Constants;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -29,13 +31,16 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        public IClinique2000Services _services { get; set; }
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IClinique2000Services services            
+            )
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +48,7 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _services = services;
         }
 
         /// <summary>
@@ -141,6 +147,19 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                        TempData[AppConstants.Success] = $"Votre compte a été créé avec succès : {user.Email}";
+
+                        if (!await _services.patient.UserEstPatientAsync(user.Id))
+                        {
+                            var patient = await _services.patient.ObtenirPatientSelonCourrielAsync(user.Email);
+                            if (patient != null)
+                            {
+                                patient.UserId = user.Id;
+                                await _services.patient.EnregistrerOuModifierPatient(patient);
+                                TempData[AppConstants.Info] = $" {user.Email} - Votre dossier de patient a été importé avec succès";
+                            }
+                        }
+
                         return LocalRedirect(returnUrl);
                     }
                 }

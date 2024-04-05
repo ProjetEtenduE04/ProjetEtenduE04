@@ -1,0 +1,44 @@
+﻿@inject Clinique2000_Services.IServices.IClinique2000Services _service;
+@using System.Security.Claims;
+
+
+@if (this.User.Identity.IsAuthenticated)
+{
+    <li class="btn-group nav-item mx-2 dropdown">
+        <a class="nav-link custom-nav-link" style="color:white" data-bs-toggle="dropdown" aria-expanded="false">
+            Api
+            <i class="fa-solid fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+
+                <a class="dropdown-item" asp-area="admin" asp-controller="apimvc" asp-action="generateapikeyget">
+                    <div class="row">
+                        <div class="col text-start">
+                            Générer clé API
+                        </div>
+                        <div class="col text-end">
+                            <i class="fa-solid fa-notes-medical"></i>
+                        </div>
+                    </div>
+                </a>
+
+
+            </li>
+            <li>
+                <a class="dropdown-item" asp-area="" asp-controller="Swagger" asp-action="Index">
+                    <div class="row">
+                        <div class="col text-start">
+                            Swagger
+                        </div>
+                        <div class="col text-end">
+                            <i class="fa-solid fa-arrows-turn-to-dots"></i>
+                        </div>
+                    </div>
+                </a>
+
+            </li>
+        </ul>
+           
+    </li>
+}

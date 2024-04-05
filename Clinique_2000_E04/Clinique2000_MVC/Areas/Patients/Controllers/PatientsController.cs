@@ -1,6 +1,7 @@
 using Clinique2000_Core.Models;
 using Clinique2000_Core.ViewModels;
 using Clinique2000_Services.IServices;
+using Clinique2000_Services.Services;
 using Clinique2000_Utility.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,8 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         public IClinique2000Services _services { get; set; }
+       
+
 
         public PatientsController(
             IClinique2000Services service,
@@ -26,6 +29,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         {
             _services = service;
             _userManager = userManager;
+         
         }
 
 
@@ -71,7 +75,9 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 {
                     var patientModel = new Patient
                     {
-                        UserId = user.Id
+                        UserId = user.Id,
+                        Courriel = user.Email
+                        
                     };
                     TempData[AppConstants.Info] = $"Pour bénéficier de tous nos services, veuillez créer un dossier patient.";
                     return View(patientModel);
@@ -86,7 +92,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // POST: Patients/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,NAM,CodePostal,DateDeNaissance,Age,PatientId,Nom,Prenom,Genre")] Patient patient)
+        public async Task<IActionResult> Create([Bind("UserId,NAM,CodePostal,DateDeNaissance,Age,PatientId,Nom,Prenom,Genre,Courriel,preferenceNotification,NumTelephone")] Patient patient)
         {
             try
             {
@@ -104,14 +110,14 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 TempData[AppConstants.Error] = $"Les champs obligatoires n'ont pas été remplis correctement";
 
                 return View(patient);
-            }
+        }
             catch (Exception ex)
             {
                 ModelState.AddModelError("Erreur", ex.Message);
                 TempData[AppConstants.Error] = $"Erreur : {ex.Message}";
                 return View(patient);
-            }
-        }
+    }
+}
 
         // GET: PatientsController/Edit/5
         public async Task<ActionResult> Edit(int? id)
@@ -143,7 +149,7 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
         // POST: PatientsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PatientId,Nom,Prenom,Genre,NAM,CodePostal,DateDeNaissance,Age,UserId")] Patient patient)
+        public async Task<IActionResult> Edit(int id, [Bind("PatientId,Nom,Prenom,Genre,NAM,CodePostal,DateDeNaissance,Age,Courriel,UserId,preferenceNotification,NumTelephone")] Patient patient)
         {
             try
             {
@@ -240,5 +246,21 @@ namespace Clinique2000_MVC.Areas.Patients.Controllers
                 return View();
             }
         }
+
+
+
+        public IActionResult SMSView()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SendSMS(string phoneNumber)
+        {
+            _services.sms.SendSMS(phoneNumber);
+            ViewBag.Message = "SMS sent successfully!";
+            return View("Index");
+        }
+
     }
 }

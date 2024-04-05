@@ -2,6 +2,7 @@ using Clinique2000_Utility.CustomAttributesValidation;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Clinique2000_Core.Models
 {
@@ -46,6 +47,7 @@ namespace Clinique2000_Core.Models
         [ValidateNever]
         public virtual Patient Patient { get; set; }
 
+        [JsonIgnore]
         [ValidateNever]
         public virtual List<Consultation>? ConsultationsPAC { get; set; }
 

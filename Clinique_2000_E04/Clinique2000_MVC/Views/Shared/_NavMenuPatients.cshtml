@@ -9,7 +9,7 @@
     var btnTitre4 = "";
     var user = await _service.patient.GetUserAuthAsync();
     EmployesClinique? employe = await _service.employesClinique.VerifierSiUserAuthEstEmploye(user.Email);
-    var patient = await _service.patient.GetPatientParUserIdAsync(user.Id);
+    Patient? patient = await _service.patient.GetPatientParUserIdAsync(user.Id);
 
     <a class="nav-link custom-nav-link" style="color:white" data-bs-toggle="dropdown" aria-expanded="false">
        Patient

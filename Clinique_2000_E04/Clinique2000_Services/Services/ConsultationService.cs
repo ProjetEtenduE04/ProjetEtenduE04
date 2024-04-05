@@ -20,19 +20,24 @@ namespace Clinique2000_Services.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IListeAttenteService _listeAttenteService;
         private readonly IEmailService _emailService;
+        private readonly ISMSService _sMSService;
+
 
 
         public ConsultationService(CliniqueDbContext context,
             IPatientService servicePatient,
             IHttpContextAccessor httpContextAccessor,
             IListeAttenteService listeAttenteService,
-            IEmailService emailService) : base(context)
+            IEmailService emailService,
+            ISMSService sMSService) : base(context)
         {
             _context = context;
             _servicePatient = servicePatient;
             _httpContextAccessor = httpContextAccessor;
             _listeAttenteService = listeAttenteService;
             _emailService = emailService;
+            _sMSService = sMSService;
+
         }
 
         /// <summary>
@@ -70,7 +75,8 @@ namespace Clinique2000_Services.Services
 
 
             await FermerOuLaisserOuverteListeAttente(consultation.PlageHoraire.ListeAttenteID);
-
+            var patient= await _servicePatient.ObtenirParIdAsync(patientId);
+            //_sMSService.SendConfirmationSMS(consultation, patient.NumTelephone);
             await _context.SaveChangesAsync();
 
         }

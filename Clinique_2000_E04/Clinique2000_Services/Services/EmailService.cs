@@ -159,6 +159,38 @@ namespace Clinique2000_Services.Services
         }
 
         /// <summary>
+        /// Crée et retourne un objet EmailVM pour la notification d'importation du patient.
+        /// </summary>
+        /// <param name="patient">PATIENT</param>
+        /// <returns> EmailVM/// </returns>
+        public async Task<EmailVM> CreateNotification_PatientImport_Async(Patient patient)
+        {
+            var subject = "Importation de votre dossier patient";
+            var body = $"    <p>Bonjour, {patient.Nom} {patient.Prenom} !</p>" +
+                        $"    <p>Votre dossier de patient a été importé avec succès dans notre système - Clinique2000.</p>" +
+                        $"    <p>Vous pouvez maintenant accéder à votre dossier patient en ligne.</p>" +
+                        $"    <p>Cordialement,<br />L'équipe Clinique2000</p>";
+     
+            return new EmailVM
+            {
+                To = patient.Courriel,
+                Subject = subject,
+                Body = body
+            }; 
+        }
+
+
+        /// <summary>
+        /// Envoie une notification pour l'importation du patient spécifié.
+        /// </summary>
+        /// <param name="patient"> patient/// </param>
+        public async Task SendNotificationPatienImportAsync(Patient patient)
+        {
+            var notificationEmail = await CreateNotification_PatientImport_Async(patient);
+            await SendEmail(notificationEmail);
+        }
+
+        /// <summary>
         /// Vérifie si une notification a déjà été envoyée pour une adresse e-mail et un moment donné.
         /// </summary>
         /// <param name="email">L'adresse e-mail pour laquelle vérifier l'envoi de la notification.</param>

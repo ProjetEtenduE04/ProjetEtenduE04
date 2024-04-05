@@ -46,13 +46,15 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Patients\Data\" />
     <Folder Include="Areas\Patients\Models\" />
     <Folder Include="Areas\Patients\Views\Shared\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Areas\Cliniques\Data\" />
     <Folder Include="Areas\Cliniques\Models\" />
   </ItemGroup>

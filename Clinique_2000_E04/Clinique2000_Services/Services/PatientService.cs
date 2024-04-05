@@ -302,6 +302,27 @@ namespace Clinique2000_Services.Services
         }
 
         /// <summary>
+        /// verifier si un patient est enregistré en tant que patient dans la base de données.
+        /// </summary>
+        /// <param name="userId"> Courriel de l'utilisateur connecté</param>
+        /// <returns> Vrai si un patient avec le courriel existe, sinon Faux.
+        /// </returns>s
+        public async Task<bool> PatientExisteSelonLeCourrielAsync(string courriel)
+        {
+            return await _context.Patients.AnyAsync(p => p.Courriel == courriel);
+        }
+
+        /// <summary>
+        /// Obtenir un patient en fonction de courriel de l'utilisateur authentifié.
+        /// </summary>
+        /// <param name="courriel"> Courriel de l'utilisateur authentifié. /// </param>
+        /// <returns> Patient/// </returns>
+        public async Task<Patient> ObtenirPatientSelonCourrielAsync(string courriel)
+        {
+            return await _context.Patients.FirstOrDefaultAsync(p => p.Courriel == courriel);
+        }
+
+        /// <summary>
         /// Récupère un patient en fonction de l'identifiant de l'utilisateur.
         /// </summary>
         /// <param name="userId">L'identifiant de l'utilisateur associé au patient.</param>
@@ -494,6 +515,15 @@ namespace Clinique2000_Services.Services
             {
                 return true; // En supposant que le patient puisse ajouter un avis pour la première fois
             }
+        }
+
+        /// <summary>
+        /// Obtenir la liste des patients majeurs de la base de données.
+        /// </summary>
+        /// <returns> Liste des patients majeurs./// </returns>
+        public async Task<List<Patient>> ObtenirPatientsMajeurAsync()
+        {
+            return await _context.Patients.Where(p => p.Age > AppConstants.AgeMajorite).ToListAsync();
         }
 
     }

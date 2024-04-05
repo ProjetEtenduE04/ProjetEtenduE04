@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Clinique2000_Services.IServices;
+using Clinique2000_Utility.Constants;
 
 namespace Clinique2000_MVC.Areas.Identity.Pages.Account
 {
@@ -21,11 +23,13 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        public IClinique2000Services _services { get; set; }
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IClinique2000Services services)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _services = services;
         }
 
         /// <summary>
@@ -114,7 +118,7 @@ namespace Clinique2000_MVC.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation("User logged in.");              
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

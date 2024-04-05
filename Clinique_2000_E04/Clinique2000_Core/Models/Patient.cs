@@ -3,6 +3,7 @@ using Clinique2000_Utility.Enum;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Clinique2000_Core.Models
 {
@@ -47,25 +48,43 @@ namespace Clinique2000_Core.Models
         [Required(ErrorMessage = "Ce champ est obligatoire.")]
         public int Age { get; set; }
 
-        public NotificationPreference NotificationPreference { get; set; }
+
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [Display(Name = "Courriel")]
+        [EmailAddress(ErrorMessage = "Le format du courriel n'est pas valide.")]
+        public string? Courriel { get; set; }
+
+
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [Display(Name = "Numéro de téléphone")]
+        public string NumTelephone { get; set; }
+
+        [Required(ErrorMessage = "Ce champ est obligatoire.")]
+        [Display(Name = "Préférence pour notifications")]
+        public PreferenceNotification preferenceNotification { get; set; }    
 
         //public double Latitude { get; set; }
 
         //public double Longitude { get; set; }
 
         [ForeignKey("UserId")]
-        public string UserId { get; set; }
+        [JsonIgnore]
+        public string? UserId { get; set; }
+       
+        [ValidateNever]
+        [JsonIgnore]
+        public virtual ApplicationUser? User { get; set; }
 
         [ValidateNever]
-        public virtual ApplicationUser User { get; set; }
-
-        [ValidateNever]
+        [JsonIgnore]
         public virtual List<PatientACharge>? PatientsACharge { get; set; }
 
         [ValidateNever]
+        [JsonIgnore]
         public virtual List<Consultation>? Consultations { get; set; }
 
         [ValidateNever]
+        [JsonIgnore]
         public virtual List<Critique>? Critiques { get; set; }
 
 
