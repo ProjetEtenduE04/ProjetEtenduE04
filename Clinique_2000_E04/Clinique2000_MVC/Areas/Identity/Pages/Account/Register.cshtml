@@ -256,6 +256,7 @@ media screen and (max-width: 32rem){
 				</button>
 			<p style="margin-bottom: 20px; text-align: center">-OU-</p>
 			<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 				<div class="form-floating" style="margin-bottom: 20px">
 					<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
 					<label asp-for="Input.Email">Courriel</label>
