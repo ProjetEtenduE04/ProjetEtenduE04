@@ -85,6 +85,13 @@
                         <li class="btn-group nav-item mx-2">
                             @await Html.PartialAsync("_NavMenuAPI")
                         </li>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="btn-group nav-item mx-2">
+                                <a asp-area="Identity" asp-page="/Account/Register" style="margin-bottom: 0px; color: white; text-decoration:none; padding-top: 8px">S'enregistrer</a>
+                            </li>
+                        }
+
 @*                         <li class="nav-item mx-2">
                             <a style="color:white;" class="nav-link custom-nav-link" asp-area="Cliniques" asp-controller="Consultation" asp-action="InfoConsultation">
                                 Rapport

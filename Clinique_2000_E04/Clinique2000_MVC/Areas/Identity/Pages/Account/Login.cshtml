@@ -12,7 +12,8 @@
                 <img src="/images/hospital_illustration.png"
                      class="img-fluid" alt="Phone image">
             </div>
-            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+
+            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 card__face card__face--front">
 
 
                 <section>
@@ -69,6 +70,13 @@
                 </section>
                 <section class="text-center">
                     <button class="smBtn button-white-action" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Se connecter autrement </button>
+                    
+                    <hr style="color:white"/>
+                    
+                    <h3 style="margin-bottom: 0px">Vous n'avez pas de compte?</h3>
+                    <br />
+
+                    <button class="smBtn button-blue-action"><a asp-area="Identity" asp-page="/Account/Register" style="text-decoration:none; color:white">Créer un compte</a></button>
 
                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                         <div class="offcanvas-header">
@@ -140,10 +148,17 @@
                     </div>
                 </section>
 
-            </div>
+            </div>             
         </div>
     </div>
 </section>
+
+<script>
+    var card = document.querySelector('.card');
+    card.addEventListener('click', function () {
+        card.classList.toggle('is-flipped');
+    });
+</script>
 
 
 @section Scripts {

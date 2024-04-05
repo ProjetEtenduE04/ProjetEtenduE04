@@ -1,4 +1,4 @@
-﻿@charset "UTF-8";
+@charset "UTF-8";
 /*Importation de polices externes :googleFonts*/
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
@@ -2028,6 +2028,8 @@ body * {
 body *:before, body *:after {
   box-sizing: inherit;
 }
+body .scene {
+  perspective: 600px;
 
 /*Start PROGRESS: Buton Retour au début avec l'indicateur de progression
     ================================================== 
@@ -2046,6 +2048,11 @@ body *:before, body *:after {
   --black-blue-light-3: #4b4d64;
   --black-light: #a2a1a1;
 }
+body .card {
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
 
 .progress-wrap {
   position: fixed;
@@ -2064,12 +2071,18 @@ body *:before, body *:after {
   -webkit-transition: all 200ms linear;
   transition: all 200ms linear;
 }
+body .card.is-flipped {
+  transform: rotateY(180deg);
 
 .progress-wrap.active-progress {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
+body .card__face {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 
 .progress-wrap::after {
   position: absolute;
@@ -2090,6 +2103,9 @@ body *:before, body *:after {
   -webkit-transition: all 200ms linear;
   transition: all 200ms linear;
 }
+body .card__face--back {
+  background: blue;
+  transform: rotateY(180deg);
 
 .progress-wrap:hover::after {
   opacity: 0;

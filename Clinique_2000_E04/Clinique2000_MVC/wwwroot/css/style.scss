@@ -2337,6 +2337,32 @@ body {
         }
     }
     /* Revue end */
+
+    .scene {
+        perspective: 600px;
+    }
+
+    .card {
+        transition: transform 1s;
+        transform-style: preserve-3d;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .card.is-flipped {
+        transform: rotateY(180deg);
+    }
+
+    .card__face {
+        position: absolute;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .card__face--back {
+        background: blue;
+        transform: rotateY(180deg);
+    }
 }
 /*Start PROGRESS: Buton Retour au début avec l'indicateur de progression
     ================================================== 
@@ -3171,4 +3197,5 @@ $blue: #00B4FF;
 }
 
  
+
 
