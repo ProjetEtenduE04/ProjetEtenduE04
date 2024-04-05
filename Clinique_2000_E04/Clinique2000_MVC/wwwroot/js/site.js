@@ -469,4 +469,49 @@ function getDisplayName(enumValue) {
         return doc.body.textContent || "";
     }
 
-    //================================================== 
+//==================================================
+
+
+// Anim logo
+//==================================================
+//==================================================
+document.addEventListener("DOMContentLoaded", function () {
+    const logoAnimation = anime.timeline({
+        autoplay: true,
+        delay: 200
+    });
+
+    logoAnimation.add({
+        targets: '#logo',
+        translateY: [-100, 0],
+        opacity: [0, 1],
+        elasticity: 600,
+        duration: 800  
+    }).add({
+        targets: '#logo-hexagon',
+        rotate: [-90, 0],
+        duration: 600, 
+        elasticity: 600,
+        offset: 200
+    }).add({
+        targets: '#logo-circle',
+        scale: [0, 1],
+        duration: 600, 
+        elasticity: 600,
+        offset: 500
+    }).add({
+        targets: '#logo-mask',
+        scale: [0, 1],
+        duration: 500, 
+        elasticity: 600,
+        offset: 550
+    }).add({
+        targets: '#logo-text',
+        translateX: ['-100%', 0],
+        opacity: [0, 1],
+        duration: 500, 
+        easing: 'easeOutExpo',
+        offset: 1000
+    });
+
+});

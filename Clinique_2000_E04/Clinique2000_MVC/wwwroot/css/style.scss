@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Dosis:600,800');
 body {
     /*
  .col,
@@ -2440,4 +2441,730 @@ body {
 /*End PROGRESS: Buton Retour au début avec l'indicateur de progression
     ================================================== 
 */
+
+.dl {
+    --background: #FFFFFF;
+    --primary: #1F242D;
+    --primary2: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    --border-radius: 3px;
+    --square-size: 70px;
+    --progress-color: linear-gradient(to right top, #00A7FC, #0070ED);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .dl-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(#000000, 0.2);
+
+        .dl-button {
+            width: 55px;
+            height: 55px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            background: var(--primary2);
+            cursor: pointer;
+            transition: width .2s ease-in .4s, height .2s ease-in .4s, background .2s ease-in .4s;
+
+            .arrow {
+                position: absolute;
+                top: 20px;
+                width: 2px;
+                height: 15px;
+                background: var(--background);
+                border-radius: var(--border-radius);
+                transition: background .2s ease-in .4s;
+
+                &:before,
+                &:after {
+                    content: "";
+                    display: block;
+                    width: 2px;
+                    height: 8px;
+                    background: var(--background);
+                    position: absolute;
+                    bottom: 0px;
+                    transform-origin: 50% 100%;
+                    border-radius: var(--border-radius);
+                    transition: background .2s ease-in .4s;
+                }
+
+                &:before {
+                    transform: rotate(-45deg) translateX(25%);
+                }
+
+                &:after {
+                    transform: rotate(45deg) translateX(-25%);
+                }
+            }
+
+            .basket {
+                position: absolute;
+                width: 40px;
+                height: 20px;
+                bottom: 20px;
+                border-radius: var(--border-radius);
+
+                &:before,
+                &:after {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    height: 0;
+                    width: 0;
+                    display: block;
+                    opacity: var(--opacity, 0);
+                    transition: opacity .15s linear;
+                    border-bottom: solid 2px var(--primary);
+                    box-sizing: border-box;
+                }
+
+                &:before {
+                    left: calc(40px / 2);
+                    border-right: solid 2px var(--primary);
+                    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+                }
+
+                &:after {
+                    right: calc(40px / 2);
+                    border-left: solid 2px var(--primary);
+                    border-radius: var(--border-radius) 0 0 var(--border-radius);
+                }
+
+                .basket-top {
+                    &:before,
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        height: 0;
+                        width: 0;
+                        display: block;
+                        border-top: solid 2px var(--primary);
+                    }
+
+                    &:before {
+                        left: 2px;
+                        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+                    }
+
+                    &:after {
+                        right: 2px;
+                        border-radius: var(--border-radius) 0 0 var(--border-radius);
+                    }
+                }
+            }
+        }
+
+        .dl-progress {
+            width: 0px;
+            height: 100%;
+            position: relative;
+            transition: width .2s ease-in, height 0s linear .2s;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: var(--progress-color);
+                transition: top 0s ease .4s;
+            }
+
+            .check {
+                position: relative;
+                z-index: 1;
+                pointer-events: none;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                svg {
+                    height: 45px;
+                    width: 45px;
+                    fill: none;
+                    stroke: var(--background);
+                    stroke-width: 6;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                    stroke-dasharray: 100 100;
+                    stroke-dashoffset: 100;
+                }
+            }
+        }
+    }
+
+    .dl-status {
+        margin-left: 0;
+        flex-basis: 0;
+        width: 0;
+        transition: all .2s ease-out .2s;
+        clip-path: inset(0 var(--square-size) 0 0);
+
+        .text {
+            text-align: left;
+            text-transform: uppercase;
+            color: rgba(#000000, 0.3);
+            font-weight: 500;
+            letter-spacing: .5px;
+            line-height: 23px;
+
+            &.text-number {
+                font-weight: 600;
+                color: rgba(#000000, 0.6);
+
+                &::after {
+                    content: "0%";
+                }
+            }
+        }
+    }
+
+    &.run {
+        .dl-box {
+            height: 100%;
+
+            .dl-button {
+                width: var(--square-size);
+                height: var(--square-size);
+                background: var(--background);
+                transition: width .2s ease-out .3s, height .2s ease-out .3s, background .2s ease-out .3s;
+
+                .arrow {
+                    background: var(--primary);
+                    transition: background .3s ease-in;
+                    animation: arrow-main .75s ease-in forwards infinite;
+
+                    &:before,
+                    &:after {
+                        transition: background .3s ease-in;
+                        background: var(--primary);
+                    }
+
+                    &:before {
+                        animation: arrow-left .75s ease-in forwards infinite;
+                    }
+
+                    &:after {
+                        animation: arrow-right .75s ease-in forwards infinite;
+                    }
+                }
+
+                .basket {
+                    &:before,
+                    &:after {
+                        --opacity: 1;
+                        transition: opacity 0s linear .3s;
+                        animation: btn-border .3s forwards ease-in normal .5s;
+                    }
+
+                    .basket-top {
+                        &:before,
+                        &:after {
+                            animation: btn-border-top .3s forwards ease-in normal .8s;
+                        }
+                    }
+                }
+            }
+
+            .dl-progress {
+                width: var(--square-size);
+                height: var(--square-size);
+                transition: width .3s ease-in .7s, height .3s ease-in .7s;
+                background: var(--background);
+
+                &::after {
+                    top: 0px;
+                    transition: top 2.5s ease 1.5s;
+                }
+            }
+        }
+
+        .dl-status {
+            width: var(--square-size);
+            clip-path: inset(0 0 0 0);
+            transition: all .3s ease-in .7s;
+
+            .text {
+                &.text-number {
+                    &::after {
+                        animation: status-animation 2.5s ease 1.5s forwards;
+                    }
+                }
+            }
+        }
+    }
+
+    &.done {
+        .dl-box {
+            .dl-button {
+                .arrow {
+                    animation-play-state: paused;
+
+                    &:before {
+                        animation-play-state: paused;
+                    }
+
+                    &:after {
+                        animation-play-state: paused;
+                    }
+                }
+            }
+
+            .dl-progress {
+                .check {
+                    svg {
+                        animation: check .3s ease-in-out forwards;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes arrow-main {
+    0% {
+        transform: translateY(0);
+    }
+
+    30% {
+        transform: translateY(-5px);
+    }
+
+    80% {
+        transform: translateY(5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes arrow-left {
+    0% {
+        transform: rotate(-45deg) translateX(25%);
+    }
+
+    30% {
+        transform: rotate(-55deg) translateX(25%);
+    }
+
+    80% {
+        transform: rotate(-35deg) translateX(25%);
+    }
+
+    100% {
+        transform: rotate(-45deg) translateX(25%);
+    }
+}
+
+@keyframes arrow-right {
+    0% {
+        transform: rotate(45deg) translateX(-25%);
+    }
+
+    30% {
+        transform: rotate(55deg) translateX(-25%);
+    }
+
+    80% {
+        transform: rotate(35deg) translateX(-25%);
+    }
+
+    100% {
+        transform: rotate(45deg) translateX(-25%);
+    }
+}
+
+@keyframes btn-border {
+    0% {
+        width: 0;
+        height: 0;
+    }
+
+    50% {
+        width: calc(40px / 2);
+        height: 0;
+    }
+
+    100% {
+        width: calc(40px / 2);
+        height: 20px;
+    }
+}
+
+@keyframes btn-border-top {
+    0% {
+        width: 0px;
+    }
+
+    100% {
+        width: 10px;
+    }
+}
+
+@keyframes check {
+    0% {
+        stroke-dashoffset: 100;
+    }
+
+    100% {
+        stroke-dashoffset: 200;
+    }
+}
+
+/*butto  archiver*/
+.backup {
+    --button-width: 152px;
+    --background: #404660;
+    --background-transparent: #{rgba(#404660, 0)};
+    --background-hover: #3A4059;
+    --background-back: #1E2235;
+    --shadow: #{rgba(#00093D, .125)};
+    --text: #F6F8FF;
+    --paper: #F6F8FF;
+    --paper-lines: #D1D6EE;
+    --paper-shadow: #{rgba(#00093D, .15)};
+    --zipper: #BBC1E1;
+    --zipper-end: #D1D6EE;
+    --zipper-line: #8A91B4;
+    --zipper-lines: #646B8C;
+    --tick: #F6F8FF;
+    /*    display: flex;*/
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    border: 0;
+    padding: 0;
+    line-height: 24px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 3px;
+    color: var(--text);
+    background: var(--background-back);
+    transition: transform .3s;
+    transform: scale(var(--scale, 1)) translateZ(0);
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &:not(.compress) {
+        &:active {
+            --scale: .95;
+        }
+
+        &:hover {
+            --b: var(--background-hover);
+        }
+    }
+
+    .paper {
+        width: 26px;
+        height: 32px;
+        pointer-events: none;
+        position: absolute;
+        top: -2px;
+        left: var(--left, 50%);
+        margin: 0 0 0 -13px;
+        background: var(--paper);
+        border-radius: 3px;
+        box-shadow: 0 1px 1px var(--paper-shadow);
+        opacity: 0;
+        transform: translate(var(--x, 0), var(--y, -68px));
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 6px;
+            width: 18px;
+            height: 2px;
+            border-radius: 1px;
+            background: var(--paper-lines);
+            box-shadow: 0 6px 0 var(--paper-lines), 0 12px 0 var(--paper-lines), 0 18px 0 var(--paper-lines);
+        }
+
+        &.left {
+            --left: 25%;
+            --x: -12px;
+            --y: -52px;
+        }
+
+        &.right {
+            --left: 75%;
+            --x: 12px;
+            --y: -52px;
+        }
+    }
+
+    .inner {
+        position: relative;
+        z-index: 1;
+        padding: 10px 0;
+        width: var(--button-width);
+        border-radius: 3px;
+        color: var(--text);
+        transform-origin: 50% 100%;
+        background: var(--b, var(--background));
+        box-shadow: 0 1px 2px var(--shadow), 0 4px 7px var(--shadow);
+        transition: background .4s;
+
+        span {
+            display: block;
+            opacity: var(--span-o, 1);
+            transform: translateY(var(--span-y, 0)) translateZ(0);
+            transition: transform .3s ease var(--span-de, .5s), opacity .3s linear var(--span-de, .5s);
+        }
+
+        svg {
+            width: 20px;
+            height: 16px;
+            display: block;
+            position: absolute;
+            top: 14px;
+            left: calc(var(--button-width) / 2);
+            margin-left: -10px;
+            fill: none;
+            stroke-width: 2px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke: var(--tick);
+            opacity: var(--tick-o, 0);
+            transform: scale(var(--tick-s, .5));
+            transition: transform .4s ease var(--tick-de, 0s), opacity .3s linear var(--tick-de, 0s);
+        }
+
+        .zipper {
+            width: calc(var(--button-width) + 12px);
+            position: absolute;
+            top: 4px;
+            left: 0;
+            height: 12px;
+            overflow: hidden;
+            opacity: 0;
+
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                top: var(--top, 1px);
+                left: var(--left, 1px);
+                height: 3px;
+                width: 2px;
+                border-radius: 1px;
+                box-shadow: 5px 0 0 var(--zipper-lines), 10px 0 0 var(--zipper-lines), 15px 0 0 var(--zipper-lines), 20px 0 0 var(--zipper-lines), 25px 0 0 var(--zipper-lines), 30px 0 0 var(--zipper-lines), 35px 0 0 var(--zipper-lines), 40px 0 0 var(--zipper-lines), 45px 0 0 var(--zipper-lines), 50px 0 0 var(--zipper-lines), 55px 0 0 var(--zipper-lines), 60px 0 0 var(--zipper-lines), 65px 0 0 var(--zipper-lines), 70px 0 0 var(--zipper-lines), 75px 0 0 var(--zipper-lines), 80px 0 0 var(--zipper-lines), 85px 0 0 var(--zipper-lines), 90px 0 0 var(--zipper-lines), 95px 0 0 var(--zipper-lines), 100px 0 0 var(--zipper-lines), 105px 0 0 var(--zipper-lines), 110px 0 0 var(--zipper-lines), 115px 0 0 var(--zipper-lines), 120px 0 0 var(--zipper-lines), 125px 0 0 var(--zipper-lines), 130px 0 0 var(--zipper-lines), 135px 0 0 var(--zipper-lines), 140px 0 0 var(--zipper-lines), 145px 0 0 var(--zipper-lines);
+                background: var(--zipper-lines);
+            }
+
+            &:after {
+                --top: 8px;
+                --left: 3px;
+            }
+
+            .gradient {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 200%;
+                right: 12px;
+                z-index: 1;
+                background: linear-gradient(to right, var(--background-transparent) 0%, var(--background-transparent) 33.33%, var(--background) 66.66%, var(--background) 100%);
+                background-size: 300% 100%;
+                background-position-x: var(--gradient, 100%);
+                transition: background-position var(--gradient-d, 0s) ease var(--gradient-de, 0s);
+            }
+
+            .line {
+                width: calc(var(--button-width) + 12);
+                height: 2px;
+                margin: 5px 0;
+                position: relative;
+                left: -12px;
+                z-index: 2;
+                background: var(--zipper-line);
+                transform: translateX(calc(calc(var(--button-width) * -1) + 8px));
+
+                &:before,
+                &:after {
+                    content: '';
+                    position: absolute;
+                    right: var(--right, 0);
+                    width: var(--width, 6px);
+                    height: var(--height, 2px);
+                    border-radius: 1px;
+                }
+
+                &:before {
+                    background: var(--zipper-end);
+                }
+
+                &:after {
+                    --right: -7px;
+                    --width: 8px;
+                    --height: 8px;
+                    transform: translate(0, -3px) scaleY(.6) rotate(-45deg);
+                    clip-path: polygon(0 0, 100% 0, 0 100%);
+                    background: var(--zipper);
+                }
+            }
+        }
+    }
+
+    &.compress {
+        --span-o: 0;
+        --span-y: 8px;
+        --span-de: 0s;
+        --tick-o: 1;
+        --tick-s: 1;
+        --tick-de: 3.2s;
+        --gradient: 0%;
+        --gradient-d: 1.8s;
+        --gradient-de: 1.8s;
+
+        .paper {
+            animation: paper 1.8s linear forwards;
+        }
+
+        .inner {
+            animation: fold 1.8s linear forwards;
+
+            .zipper {
+                animation: zipper 3.5s linear;
+
+                .line {
+                    animation: line 1.2s linear forwards 1.8s;
+                }
+            }
+        }
+    }
+}
+
+@keyframes paper {
+    10%, 100% {
+        opacity: 1;
+    }
+
+    0%, 5% {
+        transform: translate(var(--x, 0), var(--y, -68px));
+    }
+
+    30% {
+        transform: translate(0, 1px);
+    }
+
+    50%, 70% {
+        transform: translate(0, -3px);
+    }
+
+    95%, 100% {
+        transform: translate(0, 4px);
+    }
+}
+
+@keyframes line {
+    60% {
+        transform: translateX(5px);
+    }
+
+    80% {
+        transform: translateX(-2px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fold {
+    10%, 80% {
+        transform: perspective(500px) rotateX(-20deg) translateZ(16px);
+    }
+}
+
+@keyframes zipper {
+    20%, 90% {
+        opacity: 1;
+    }
+}
+
+html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: inherit;
+
+    &:before,
+    &:after {
+        box-sizing: inherit;
+    }
+}
+
+// Anim logo
+//==================================================
+$ff: 'Montserrat', sans-serif;
+$slate: #3F3C3c;
+$blue: #00B4FF;
+
+@function rem($px, $base: 16) {
+    @return #{$px/$base}rem;
+}
+
+* {
+    box-sizing: border-box
+}
+
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    transform: translateZ(0);
+}
+
+[id="logo"] {
+    position: relative;
+    flex: 0 0 rem(60);
+    width: rem(60);
+    z-index: 2;
+
+    polygon {
+        transform-origin: 50%
+    }
+
+    circle {
+        transform-origin: 80% 80%
+    }
+}
+
+.site-title {
+    position: relative;
+    overflow: hidden;
+    margin-left: rem(-24);
+    z-index: 1;
+    transform: translateZ(0);
+}
+
+.site-title-text {
+    padding: rem(4) rem(6) rem(4) rem(28);
+    color: $slate;
+    font-size: rem(32);
+    font-weight: 800;
+
+    span {
+        margin-left: rem(0.25);
+        color: $blue;
+    }
+}
+
+ 
 

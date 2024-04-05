@@ -31,9 +31,31 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <!-- Logo -->
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="/images/logo.png" alt="logo" class="d-inline-block align-top h-logo">
+                <a class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">
+                    <div class="site-logo">
+                        <figure id="logo">
+                            <svg width="100%" height="100%" viewBox="0 0 148 128">
+                                <defs>
+                                    <mask id="circle-mask">
+                                        <rect fill="white" width="100%" height="100%"></rect>
+                                        <circle id="logo-mask" fill="black" cx="120" cy="96" r="28"></circle>
+                                    </mask>
+                                </defs>
+                                <polygon id="logo-hexagon" fill="#00B4FF" points="64 128 8.574 96 8.574 32 64 0 119.426 32 119.426 96" mask="url(#circle-mask)"></polygon>
+                                <circle id="logo-circle" fill="#3F3C3C" cx="120" cy="96" r="20"></circle>
+                            </svg>
+                        </figure>
+                        <div class="site-title">
+                            <div id="logo-text" class="site-title-text" style="font-family:Montserrat">
+                                Clinique<span>2000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                
+@*                     <img src="/images/logo.png" alt="logo" class="d-inline-block align-top h-logo"> *@
                 </a>
+
 
                 <!-- Navbar Toggler -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,9 +167,11 @@
     <script src="~/lib/DataTables/datatables.min.js"></script>
     <script src="~/lib/summernote/summernote-lite.min.js"></script>
     <script src="~/lib/Toastr/toastr.min.js"></script> @*Simple javascript toast notifications*@
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="~/lib/html2canvas.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script  src="~/js/main.js" asp-append-version="true"></script>
@@ -236,4 +260,5 @@
         // Ensure the latest entry is visible
         messages.scrollTop = messages.scrollHeight;
     }
+    
 </script>

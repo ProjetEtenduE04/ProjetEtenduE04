@@ -1,3 +1,115 @@
 ﻿@* TODO: Ajouter dashboard *@
 
-<a href="@Url.Action("BackupDatabase", "Admin")" class="btn btn-primary">Backup Database</a>
+@* <a href="@Url.Action("BackupDatabase", "Admin")" class="btn btn-primary">Backup Database</a> *@ 
+<div class="row justify-content-center text-center m-5"> 
+    <div class="col-8 m-5 text-center"> 
+        <h2>Sauvegarde de la base de données </h2> 
+        <div class="text-center m-5"> 
+            <a href="@Url.Action("BackupDatabase", "Admin")" class="button-blue-action">Backup Database</a> 
+        </div> 
+        <div class="text-center m-5 "> 
+            <button class="backup" asp-area="Admin" asp-controller="Admin" asp-action="BackupDatabase" method="post"> 
+                <div class="paper left"></div> 
+                <div class="paper middle"></div> 
+                <div class="paper right"></div> 
+                <div class="inner"> 
+                    <div class="zipper"> 
+                        <div class="line"></div> 
+                        <div class="gradient"></div> 
+                    </div> 
+                    <span>BackUP BD</span> 
+                    <svg viewBox="0 0 20 16"> 
+                        <polyline points="3 8.75 7.75 13.5 17 2.5"></polyline> 
+                    </svg> 
+                </div> 
+            </button> 
+        </div> 
+ 
+        <div class="dl justify-content-center m-5"> 
+            <div class="dl-box"> 
+                <div class="dl-button"> 
+                    <div class="arrow"></div> 
+                    <div class="basket"> 
+                        <div class="basket-top"> 
+                        </div> 
+ 
+                    </div> 
+ 
+                </div> 
+                <div class="dl-progress"> 
+                    <div class="check"> 
+                        <svg> 
+                            <use xlink:href="#check" /> 
+                        </svg> 
+                    </div> 
+                </div> 
+            </div> 
+            <div class="dl-status"> 
+                <div class="text text-file">Status</div> 
+                <div class="text text-number"></div> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
+ 
+ 
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"> 
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130" id="check"> 
+        <polyline points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
+    </symbol> 
+</svg> 
+ 
+ 
+ 
+<script> 
+ 
+    document.querySelectorAll('.backup').forEach(button => button.addEventListener('click', e => { 
+        var baseUrl = window.location.origin; 
+        var backupUrl = baseUrl + '/Admin/Admin/BackupDatabase'; 
+ 
+        fetch(backupUrl, { 
+            method: 'POST', // Ou "GET" en fonction de la configuration du serveur. 
+            // corps : ... // Si vous devez envoyer des données au serveur 
+        }) 
+        if (!button.classList.contains('compress')) { 
+ 
+            button.classList.add('compress'); 
+ 
+            setTimeout(() => button.classList.remove('compress'), 4000); 
+ 
+        } 
+        e.preventDefault(); 
+    })); 
+ 
+    var $ = (s, o = document) => o.querySelector(s); 
+ 
+    $(".dl").addEventListener("click", function () { 
+        this.classList.add("run"); 
+ 
+        // Construire l'URL complète de l'action "BackupDatabase" dans le contrôleur "Admin". 
+        var baseUrl = window.location.origin; 
+        var backupUrl = baseUrl + '/Admin/Admin/BackupDatabase'; 
+ 
+        fetch(backupUrl, { 
+            method: 'POST', // Ou "GET" en fonction de la configuration du serveur. 
+            // corps : ... // Si vous devez envoyer des données au serveur 
+        }) 
+            .then(response => { 
+                if (!response.ok) { 
+                    throw new Error('La réponse du réseau n\'est pas correcte'); 
+                } 
+                return response.json(); // Ou response.text() ou autre en fonction de ce qui est attendu du serveur 
+            }) 
+            .then(data => { 
+                // Actions supplémentaires après réception de la réponse du serveur, si nécessaire 
+                setTimeout(() => this.classList.add("done"), 4000); 
+                setTimeout(() => this.classList.remove("done"), 5500); 
+                setTimeout(() => this.classList.remove("run"), 5500); 
+            }) 
+            .catch(error => { 
+                console.error('Il y a eu un problème avec votre opération de récupération :', error); 
+                setTimeout(() => this.classList.remove("run"), 5500); 
+            }); 
+    }); 
+ 
+</script>

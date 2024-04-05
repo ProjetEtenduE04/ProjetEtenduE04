@@ -27,7 +27,17 @@ namespace Clinique2000_Services.Services
         /// <returns> retourne le nom du fichier de sauvegarde</returns>
         private string GetBackupFileName()
         {
-            return $"C:\\backup\\Clinique2000_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
+            var backupFolderPath = @"C:\backup";
+
+            // Créer le dossier s'il n'existe pas 
+            if (!Directory.Exists(backupFolderPath))
+            {
+                Directory.CreateDirectory(backupFolderPath);
+            }
+
+            return $@"{backupFolderPath}\Clinique2000_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
+
+            //return $"C:\\backup\\Clinique2000_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
         }
 
         /// <summary>
