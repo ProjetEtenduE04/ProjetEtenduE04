@@ -247,13 +247,14 @@ media screen and (max-width: 32rem){
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> 
 		</div>
 		<div class="col-8 hauteur" id="right-side-register">
 			<h1 style="margin-bottom: 20px">Créer votre compte</h1>
-				<button class="button-white-action" style="margin-bottom: 20px">
+			<partial name="_LoginPartialRegister" />
+				@* <button class="button-white-action" style="margin-bottom: 20px">
 					<a asp-area="Identity" asp-page="/Account/Login" style="text-decoration:none; color: black"><i class="fab fa-google me-2"></i> S'enregistrer avec Google</a>
-				</button>
+				</button> *@
 			<p style="margin-bottom: 20px; text-align: center">-OU-</p>
 			<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
 				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
