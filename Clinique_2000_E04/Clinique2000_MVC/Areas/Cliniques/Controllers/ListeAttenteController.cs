@@ -576,7 +576,9 @@ namespace Clinique2000_MVC.Areas.Cliniques.Controllers
                 {
                     // Redirect to the "ListeSalleAttente" view with the updated waiting room data.
                     TempData[AppConstants.Success] = $"Le prochain patient a été appelé.";
+
                     await _hubContext.Clients.All.SendAsync("MiseAJourListeSalleDAttentePatient");
+
                     return RedirectToAction("Details", "EmployesCliniques", new { id = employeCliniqueID });
                 }
                 else

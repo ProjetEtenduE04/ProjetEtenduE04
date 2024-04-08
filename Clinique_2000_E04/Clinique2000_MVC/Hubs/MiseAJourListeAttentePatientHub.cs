@@ -15,7 +15,5 @@ namespace Clinique2000_MVC.Hubs
         {
             await Clients.All.SendAsync("MiseAJourListeSalleDAttentePatient");
         }
-
-
     }
 }

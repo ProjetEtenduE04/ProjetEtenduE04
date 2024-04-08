@@ -24,7 +24,7 @@ namespace Clinique2000_Services.Services
             IEmailService emailService,
             IConsultationService consultationService,
             ISMSService smsService)
-            
+
         {
             _logger = logger;
             _emailService = emailService;
@@ -45,7 +45,8 @@ namespace Clinique2000_Services.Services
             foreach (var consultation in listConsultationsEnAttente)
             {
                 // Vérifier si la date du rendez-vous est différente de la date actuelle
-                if (consultation.HeureDateDebutPrevue.Date >= DateTime.Today.Date && consultation.HeureDateDebutPrevue.Date <= DateTime.Today.AddDays(1).Date)
+                if (consultation.HeureDateDebutPrevue.Date >= DateTime.Today.Date && 
+                    consultation.HeureDateDebutPrevue.Date <= DateTime.Today.AddDays(1).Date)
                 {
                     // Calculer le délai entre la date et l'heure actuelles et la date et l'heure de la consultation.
                     var timeDifference = consultation.HeureDateDebutPrevue - DateTime.Now;
@@ -56,53 +57,27 @@ namespace Clinique2000_Services.Services
                         // Préavis d'un jour entre 16 et 17 heures
                         if (DateTime.Now.Hour >= 16 && DateTime.Now.Hour < 17)
                         {
-                            if (consultation.Patient.preferenceNotification != PreferenceNotification.SMS)
-                            {
-                                await _emailService.SendConsultationNotificationAsync(consultation, NotificationTime.UnJourAvant);
-                            }
-                            else
-                            {
-                               _smsService.SendConsultationReminderSMS(consultation);
-                            }
-                               
+                            var notificationTime = NotificationTime.UnJourAvant;
+                            await SendNotificationBasedOnPreference (consultation, notificationTime);                            
                         }
                     }
                     else if (timeDifference > TimeSpan.FromHours(6) && timeDifference <= TimeSpan.FromHours(12))
                     {
-
                         // Préavis de 12 heures
-                        if (consultation.Patient.preferenceNotification != PreferenceNotification.SMS)
-                        {
-                            await _emailService.SendConsultationNotificationAsync(consultation, NotificationTime.DouzeHeuresAvant);
-                        }
-                        else
-                        {
-                            _smsService.SendConsultationReminderSMS(consultation);
-                        }
+                        var notificationTime = NotificationTime.DouzeHeuresAvant;
+                        await SendNotificationBasedOnPreference(consultation, notificationTime);
                     }
                     else if (timeDifference > TimeSpan.FromHours(1) && timeDifference <= TimeSpan.FromHours(6))
                     {
                         // Préavis de 6 heures
-                        if (consultation.Patient.preferenceNotification != PreferenceNotification.SMS)
-                        {
-                            await _emailService.SendConsultationNotificationAsync(consultation, NotificationTime.SixHeuresAvant);
-                        }
-                        else
-                        {
-                            _smsService.SendConsultationReminderSMS(consultation);
-                        }
+                        var notificationTime = NotificationTime.SixHeuresAvant;
+                        await SendNotificationBasedOnPreference(consultation, notificationTime);
                     }
                     else if (timeDifference > TimeSpan.FromHours(0) && timeDifference <= TimeSpan.FromHours(1))
                     {
                         // Préavis de 1 heure
-                        if (consultation.Patient.preferenceNotification != PreferenceNotification.SMS)
-                        {
-                            await _emailService.SendConsultationNotificationAsync(consultation, NotificationTime.UneHeureAvant);
-                        }
-                        else
-                        {
-                            _smsService.SendConsultationReminderSMS(consultation);
-                        }
+                        var notificationTime = NotificationTime.UneHeureAvant;
+                        await SendNotificationBasedOnPreference(consultation, notificationTime);
                     }
                 }
             }
@@ -110,5 +85,22 @@ namespace Clinique2000_Services.Services
             //return Task.CompletedTask; (if not async)
         }
 
+        /// <summary>
+        /// Envoie une notification en fonction de la préférence du patient.
+        /// </summary>
+        /// <param name="consultation"></param>
+        /// <param name="notificationTime"></param>
+        /// <returns></returns>
+        public async Task SendNotificationBasedOnPreference(Consultation consultation, NotificationTime notificationTime)
+        {
+            if (consultation.Patient.preferenceNotification != PreferenceNotification.SMS)
+            {
+                await _emailService.SendConsultationNotificationAsync(consultation, notificationTime);
+            }
+            else
+            {
+                _smsService.SendConsultationReminderSMS(consultation);
+            }
+        }
     }
 }
