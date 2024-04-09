@@ -2,7 +2,7 @@
 @using System.Security.Claims;
 
 
-@if (this.User.Identity.IsAuthenticated)
+@if (this.User.Identity.IsAuthenticated && await _service.api.UserPossedeUneCleAPI(this.User.Identity.Name) == true)
 {
     <li class="btn-group nav-item mx-2 dropdown">
         <a class="nav-link custom-nav-link" style="color:white" data-bs-toggle="dropdown" aria-expanded="false">
