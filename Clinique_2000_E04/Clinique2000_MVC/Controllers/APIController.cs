@@ -125,7 +125,7 @@ namespace Clinique2000_MVC.Controllers
 
             if (await _services.api.UserPossedeUneCleAPI(userName) == true)
             {
-
+                int transfert = 0;
                 List<Patient> patientsSaved = new List<Patient>();
                 List<string> errors = new List<string>();
 
@@ -142,6 +142,8 @@ namespace Clinique2000_MVC.Controllers
                         var savedPatient = await _services.patient.EnregistrerOuModifierPatient(patient);
                         patientsSaved.Add(savedPatient);
 
+                        transfert++;
+
                         if (patient.preferenceNotification != PreferenceNotification.SMS)
                             await _services.email.SendNotificationPatienImportAsync(patient);
                         else
@@ -152,7 +154,7 @@ namespace Clinique2000_MVC.Controllers
                         errors.Add($"Erreur dans l'enregistrement des patients auprès de la NAM {patient.NAM}: {ex.Message}");
                     }
                 }
-
+                errors.Add($"Nombre de patients enregistrés : {transfert}");
                 if (errors.Any())
                 {
                     return BadRequest(errors);
